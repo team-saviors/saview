@@ -1,8 +1,8 @@
 ---
-name: "\U0001F6E0 FIX"
-about: fix 사항을 작성해주세요.
+name: "\U0001F6A8BUG"
+about: Bug 사항 작성해주세요.
 title: ''
-labels: feature, fix
+labels: bug
 assignees: ''
 
 ---
@@ -18,4 +18,4 @@ assignees: ''
 
 
 ### ETC
-기타 사항을 작성해주세요
+기타 사항 작성해주세요
