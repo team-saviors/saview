@@ -17,5 +17,8 @@ assignees: ''
 - [ ] todo
 
 
+### Due Date
+- 00/00
+
 ### ETC
 기타 사항 작성해주세요
