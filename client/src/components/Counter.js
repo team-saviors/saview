@@ -1,11 +1,11 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { decrement, increment } from '../redux/reducers/couterSlice';
 
 export function Counter() {
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
-
+  useEffect(() => console.log(decrement));
   return (
     <div>
       <div>
