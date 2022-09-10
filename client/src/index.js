@@ -11,9 +11,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-      <GlobalStyle>
-        <App />
-      </GlobalStyle>
+      <GlobalStyle />
+      <App />
     </Provider>
   </BrowserRouter>
 );
