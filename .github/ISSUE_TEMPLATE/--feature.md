@@ -3,7 +3,7 @@ name: "✅ FEATURE"
 about: Feature 작업 사항을 작성해주세요.
 title: ''
 labels: feature
-assignees: ''
+assignees: Inhoob, klkim1913, pjhyeok, yeonkkk
 
 ---
 

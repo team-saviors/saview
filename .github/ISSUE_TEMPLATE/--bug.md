@@ -3,7 +3,7 @@ name: "\U0001F6A8BUG"
 about: Bug 사항 작성해주세요.
 title: ''
 labels: bug
-assignees: ''
+assignees: Inhoob, klkim1913, pjhyeok, yeonkkk
 
 ---
 
