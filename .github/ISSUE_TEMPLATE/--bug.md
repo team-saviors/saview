@@ -11,6 +11,9 @@ assignees: Inhoob, klkim1913, pjhyeok, yeonkkk
 설명을 작성해주세요.
 
 
+### Due Date
+마감 기한을 적어주세요.
+
 ### Todo
 - [ ] todo
 - [ ] todo
