@@ -5,7 +5,7 @@ import PostPage from './pages/PostPage';
 function App() {
   return (
     <div>
-      <Counter></Counter>
+      {/* <Counter></Counter> */}
       <PostPage></PostPage>
     </div>
   );
