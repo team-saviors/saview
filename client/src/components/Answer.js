@@ -2,7 +2,10 @@ import Paper from '@mui/material/Paper';
 import { useEffect } from 'react';
 import Container from '@mui/system/Container';
 import styled from 'styled-components';
-
+// import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import ThumbUpAlt from '@mui/icons-material/ThumbUpOffAlt';
+import { Button, CardContent, Typography } from '@mui/material';
+import { answerStore } from '../store/store';
 export default function Answer(props) {
   const {
     answerId,
@@ -15,9 +18,10 @@ export default function Answer(props) {
     votes,
     comments,
   } = props.answer;
+  const { increase } = answerStore();
+  // const increase = props.increase;
   useEffect(() => {
-    // console.log(props);
-    console.log(props);
+    console.log(comments);
   });
 
   return (
@@ -37,13 +41,40 @@ export default function Answer(props) {
           alt="grade"
         ></img>
         <span>{author}</span>
+        <span>{Date(createdAt)}</span>
       </div>
       <Paper
-        style={{ padding: '20px', width: '1200px', minHeight: '300px' }}
+        style={{
+          padding: '20px',
+          width: '1200px',
+          minHeight: '300px',
+          position: 'relative',
+        }}
         elevation={3}
       >
-        {body}
+        <div>{body}</div>
+        <div style={{ position: 'absolute', bottom: '15px' }}>
+          <Button variant="contained" onClick={() => increase()}>
+            <ThumbUpAlt></ThumbUpAlt>
+            {/* <ThumbUpOffAltIcon style={{}}></ThumbUpOffAltIcon> */}
+            <span>좋아요 {votes}</span>
+          </Button>
+        </div>
       </Paper>
+
+      {comments.map((comment) => (
+        <CardContent
+          key={comment.commentId}
+          style={{
+            width: '1200px',
+            borderBottom: '1px solid #DEDEDE',
+          }}
+        >
+          <Typography variant="body2" color="text.secondary">
+            {comment.body}
+          </Typography>
+        </CardContent>
+      ))}
     </Container>
   );
 }

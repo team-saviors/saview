@@ -3,12 +3,12 @@ import { useEffect } from 'react';
 import Answer from '../components/Answer';
 import { answerStore } from '../store/store';
 const PostPage = () => {
-  const { answers } = answerStore();
+  const { answers, increase } = answerStore();
+  const answer = answers[0];
+
   return (
     <>
-      {answers.map((answer) => (
-        <Answer key={answer.answerId} answer={answer} />
-      ))}
+      <Answer key={answers.answerId} answer={answer} />
     </>
   );
 };

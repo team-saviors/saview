@@ -75,4 +75,10 @@ export const answerStore = create((set) => ({
       ],
     },
   ],
+  increase() {
+    set((state) => {
+      // console.log(state);
+      return { votes: state.votes + 1 };
+    });
+  },
 }));
