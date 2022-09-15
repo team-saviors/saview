@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import ThumbUpAlt from '@mui/icons-material/ThumbUpOffAlt';
 import { Button, CardContent, Typography } from '@mui/material';
 import { answerStore } from '../store/store';
+import AvatarWrapper from './AvatarWrapper';
 export default function Answer(props) {
   const {
     answerId,
@@ -41,7 +42,7 @@ export default function Answer(props) {
           alt="grade"
         ></img>
         <span>{author}</span>
-        <span>{Date(createdAt)}</span>
+        <span>{createdAt}</span>
       </div>
       <Paper
         style={{
@@ -68,10 +69,17 @@ export default function Answer(props) {
           style={{
             width: '1200px',
             borderBottom: '1px solid #DEDEDE',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
           }}
         >
-          <Typography variant="body2" color="text.secondary">
+          <AvatarWrapper src={Object.values(imgURL)}></AvatarWrapper>
+          <Typography variant="body2" color="black">
             {comment.body}
+          </Typography>
+          <Typography variant="body2" color="gray">
+            &nbsp;&nbsp; {comment.author} &nbsp;&nbsp;{comment.createdAt}
           </Typography>
         </CardContent>
       ))}
