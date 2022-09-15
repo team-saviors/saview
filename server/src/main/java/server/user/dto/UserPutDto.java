@@ -1,6 +1,5 @@
 package server.user.dto;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
