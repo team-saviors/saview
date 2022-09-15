@@ -1,6 +1,6 @@
 package server.user.entity;
 
-import lombok.Data;
+
 import lombok.Getter;
 import lombok.Setter;
 import server.audit.Auditable;
@@ -8,6 +8,7 @@ import server.audit.Auditable;
 import javax.persistence.*;
 
 @Entity
+
 @Getter
 @Setter
 @Table(name = "USER_TABLE")
@@ -32,7 +33,9 @@ public class User extends Auditable {
 
     private String role;
 
+
     //    private List<Question> questions = new ArrayList<>();
     //    private List<Answer> answers = new ArrayList<>();
     //    private List<Comment> comments = new ArrayList<>();
+
 }
