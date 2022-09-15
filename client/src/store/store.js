@@ -1,4 +1,5 @@
 import create from 'zustand';
+import bronze from '../assets/images/bronze.png';
 export const countStore = create((set) => ({
   count: 0,
   increase() {
@@ -6,5 +7,78 @@ export const countStore = create((set) => ({
   },
   decrease() {
     set((state) => ({ count: state.count - 1 }));
+  },
+  //ajax요청
+  // async useFetch() {
+  //   const res = await fetch('url');
+  //   console.log(await res.json());
+  // },
+}));
+
+//이건 나중에 fetch로 refactoring할 것
+export const answerStore = create((set) => ({
+  answers: [
+    {
+      answerId: 1,
+      question: 'react의 state와 props의 차이를 설명하시오',
+      imgURL: { bronze },
+      author: 'colagom',
+      createdAt: '2022-09-15T01:02:17Z',
+      modifiedAt: '2022-09-15T01:02:17Z',
+      body: 'state는 상태가 변하는 놈, props는 인자를 전달해주는 놈입니다',
+      votes: 0,
+      comments: [
+        {
+          commentId: 1,
+          imgURL: { bronze },
+          author: 'krkim13',
+          createdAt: '2022-09-15T02:02:17Z',
+          modifiedAt: '2022-09-15T02:02:17Z',
+          body: '안녕하세요 당신을 구글 시니어 개발자로 채용하고 싶습니다',
+        },
+        {
+          commentId: 2,
+          imgURL: { bronze },
+          author: 'yeonkkk',
+          createdAt: '2022-09-15T03:02:17Z',
+          modifiedAt: '2022-09-15T03:02:17Z',
+          body: 'react에 대한 이해도가 굉장하십니다',
+        },
+      ],
+    },
+    {
+      answerId: 2,
+      question: 'CSR과 SSR의 차이를 설명하시오',
+      imgURL: { bronze },
+      author: 'pjhyeok',
+      createdAt: '2022-09-15T01:02:17Z',
+      modifiedAt: '2022-09-15T01:02:17Z',
+      body: 'CSR과 SSR은 렌더링을 client가 하느냐 server가 하느냐의 차이입니다',
+      votes: 0,
+      comments: [
+        {
+          commentId: 1,
+          imgURL: { bronze },
+          author: 'krkim13',
+          createdAt: '2022-09-15T02:02:17Z',
+          modifiedAt: '2022-09-15T02:02:17Z',
+          body: '대단한 답변에 감탄을 금치 못했습니다.',
+        },
+        {
+          commentId: 2,
+          imgURL: { bronze },
+          author: 'yeonkkk',
+          createdAt: '2022-09-15T03:02:17Z',
+          modifiedAt: '2022-09-15T03:02:17Z',
+          body: '너무 허접한 답변입니다. 500자 이상으로 서술하세요',
+        },
+      ],
+    },
+  ],
+  increase() {
+    set((state) => {
+      // console.log(state);
+      return { votes: state.votes + 1 };
+    });
   },
 }));
