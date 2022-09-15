@@ -25,6 +25,19 @@ public class UserService {
         return findVerifiedUser(userId);
     }
 
+    public void updateUser(User user) throws Exception {
+        User findUser = findVerifiedUser(user.getUserId());
+        findUser.setEmail(user.getEmail());
+        findUser.setLoginId(user.getLoginId());
+        findUser.setNickname(user.getNickname());
+        if (user.getProfile() != null) findUser.setProfile(user.getProfile());
+        userRepository.save(findUser);
+    }
+
+    public void deleteUser(long userId) throws Exception {
+        User findUser = findVerifiedUser(userId);
+        userRepository.delete(findUser);
+    }
 
     private User findVerifiedUser(long userId) throws Exception {
         Optional<User> user = userRepository.findById(userId);
@@ -46,7 +59,6 @@ public class UserService {
 
     private void verifyExistsLoginId(String loginId) throws Exception {
         Optional<User> user = Optional.ofNullable(userRepository.findByLoginId(loginId));
-        if (user.isPresent())
-            throw new Exception();
+        if (user.isPresent()) throw new Exception();
     }
 }
