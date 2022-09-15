@@ -18,7 +18,7 @@ public class ServerApplication {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("www.saview.link");
+                registry.addMapping("/**").allowedOrigins("*");
             }
         };
     }
