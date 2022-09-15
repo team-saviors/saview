@@ -4,13 +4,14 @@ import Container from '@mui/system/Container';
 import styled from 'styled-components';
 // import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAlt from '@mui/icons-material/ThumbUpOffAlt';
-import { Button, CardContent, Typography } from '@mui/material';
+import { TextField, Button, CardContent, Typography } from '@mui/material';
 import { answerStore } from '../store/store';
 import AvatarWrapper from './AvatarWrapper';
+import MessageIcon from '@mui/icons-material/Message';
 export default function Answer(props) {
   const {
     answerId,
-    question,
+
     imgURL,
     author,
     createdAt,
@@ -19,6 +20,7 @@ export default function Answer(props) {
     votes,
     comments,
   } = props.answer;
+
   const { increase } = answerStore();
   // const increase = props.increase;
   useEffect(() => {
@@ -50,6 +52,7 @@ export default function Answer(props) {
           width: '1200px',
           minHeight: '300px',
           position: 'relative',
+          lineHeight: '25px',
         }}
         elevation={3}
       >
@@ -62,13 +65,15 @@ export default function Answer(props) {
           </Button>
         </div>
       </Paper>
-
       {comments.map((comment) => (
         <CardContent
           key={comment.commentId}
           style={{
             width: '1200px',
-            borderBottom: '1px solid #DEDEDE',
+            // borderBottom: '1px solid #DEDEDE',
+
+            padding: '5px',
+            borderLeft: '1px solid #DEDEDE',
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
@@ -83,6 +88,24 @@ export default function Answer(props) {
           </Typography>
         </CardContent>
       ))}
+      <CardContent
+        style={{
+          width: '1200px',
+          display: 'flex',
+          padding: '8px',
+          borderLeft: '1px solid #DEDEDE',
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}
+      >
+        <MessageIcon />
+        <TextField
+          placeholder="댓글을 입력하세요"
+          variant="standard"
+          style={{ marginLeft: '10px', width: '1200px' }}
+          size="small"
+        ></TextField>
+      </CardContent>
     </Container>
   );
 }
