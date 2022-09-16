@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.user.dto.UserPostDto;
 import server.user.dto.UserPutDto;
-
 import server.user.entity.User;
 import server.user.mapper.UserMapper;
 import server.user.service.UserService;
@@ -49,5 +48,5 @@ public class UserController {
         long userId = 1L;
         userService.deleteUser(userId);
         return new ResponseEntity("회원 탈퇴에 성공하였습니다.", HttpStatus.OK);
-    } 
+    }
 }
