@@ -9,6 +9,7 @@ import server.comment.dto.CommentPostPutDto;
 import server.comment.entity.Comment;
 import server.comment.mapper.CommentMapper;
 import server.comment.service.CommentService;
+import server.user.service.UserService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -20,12 +21,17 @@ public class CommentController {
     private final CommentService commentService;
     private final CommentMapper commentMapper;
     private final AnswerService answerService;
+    private final UserService userService;
 
     @PostMapping("/answers/{answer-id}/comments")
     public ResponseEntity postComment(@Positive @PathVariable("answer-id") long answerId,
                                       @Valid @RequestBody CommentPostPutDto commentPostPutDto) throws Exception {
+        // TODO: 로그인 유저 정보 가져오기
+        long userId = 1L;
+
         Comment comment = commentMapper.commentPostPutDtoToComment(commentPostPutDto);
         comment.setAnswer(answerService.findVerifiedAnswer(answerId));
+        comment.setUser(userService.findUser(userId));
         commentService.createdComment(comment);
         return new ResponseEntity("댓글 작성을 완료하였습니다.", HttpStatus.CREATED);
     }

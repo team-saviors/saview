@@ -3,9 +3,13 @@ package server.answer.entity;
 import lombok.Getter;
 import lombok.Setter;
 import server.audit.Auditable;
+import server.comment.entity.Comment;
 import server.question.entity.Question;
+import server.user.entity.User;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,7 +32,11 @@ public class Answer extends Auditable {
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
-    //    private User user;
 
-//    private List<Comment> comments = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
+
+    @OneToMany(mappedBy = "answer")
+    private List<Comment> comments = new ArrayList<>();
 }
