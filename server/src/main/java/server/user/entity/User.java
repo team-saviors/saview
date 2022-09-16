@@ -16,7 +16,7 @@ public class User extends Auditable {
     @Column(nullable = false, unique = true, length = 20)
     private String loginId;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false)   // 암호화로인한 길이 변경으로 저장 제한 해제(사전에 유효성 검사 동작)
     private String password;
 
     @Column(nullable = false, unique = true, length = 50)

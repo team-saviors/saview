@@ -1,6 +1,7 @@
 package server.user.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import server.user.entity.User;
 import server.user.repository.UserRepository;
@@ -12,11 +13,13 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public User createUser(User user) throws Exception {
         verifyExistsEmail(user.getEmail());
         verifyExistsNickname(user.getNickname());
         verifyExistsLoginId(user.getLoginId());
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRole("ROLE_USER");
         return userRepository.save(user);
     }
@@ -28,8 +31,7 @@ public class UserService {
 
     private User findVerifiedUser(long userId) throws Exception {
         Optional<User> user = userRepository.findById(userId);
-        User findUser = user.orElseThrow(() -> new Exception());
-        return findUser;
+        return user.orElseThrow(Exception::new);
     }
 
     private void verifyExistsEmail(String email) throws Exception {

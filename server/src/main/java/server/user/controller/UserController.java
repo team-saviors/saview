@@ -31,6 +31,4 @@ public class UserController {
         User findUser = userService.findUser(userId);
         return new ResponseEntity<>(userMapper.userToUserResponseDto(findUser), HttpStatus.OK);
     }
-
-
 }
