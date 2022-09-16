@@ -10,11 +10,11 @@ const PostPage = () => {
   //   }
   // }
   // useEffect(() => PostPage());
-  axios
-    .get(
-      'http://ec2-13-124-100-165.ap-northeast-2.compute.amazonaws.com:8080/test'
-    )
-    .then((res) => console.log(res));
+  // axios
+  //   .get(
+  //     'http://ec2-13-124-100-165.ap-northeast-2.compute.amazonaws.com:8080/test'
+  //   )
+  //   .then((res) => console.log(res));
   return <>hi</>;
 };
 
