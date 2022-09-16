@@ -11,7 +11,6 @@ import MessageIcon from '@mui/icons-material/Message';
 export default function Answer(props) {
   const {
     answerId,
-
     imgURL,
     author,
     createdAt,
@@ -79,7 +78,7 @@ export default function Answer(props) {
             alignItems: 'center',
           }}
         >
-          <AvatarWrapper src={Object.values(imgURL)}></AvatarWrapper>
+          <AvatarWrapper src={Object.values(imgURL)[0]}></AvatarWrapper>
           <Typography variant="body2" color="black">
             {comment.body}
           </Typography>
@@ -99,12 +98,18 @@ export default function Answer(props) {
         }}
       >
         <MessageIcon />
-        <TextField
-          placeholder="댓글을 입력하세요"
-          variant="standard"
-          style={{ marginLeft: '10px', width: '1200px' }}
-          size="small"
-        ></TextField>
+        <form
+          onSubmit={() => {
+            console.log('submit');
+          }}
+        >
+          <TextField
+            placeholder="댓글을 입력하세요"
+            variant="standard"
+            style={{ marginLeft: '10px', width: '1200px' }}
+            size="small"
+          ></TextField>
+        </form>
       </CardContent>
     </Container>
   );
