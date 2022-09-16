@@ -7,6 +7,8 @@ const CardItem = styled(Card)`
   align-items: center;
   justify-content: center;
   margin: 0;
+  margin-bottom: 80px;
+
   /* background-color: red; */
 `;
 const QuestionCard = () => {
