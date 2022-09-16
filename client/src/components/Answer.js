@@ -42,7 +42,7 @@ export default function Answer(props) {
           alt="grade"
         ></img>
         <span>{author}</span>
-        <span>{Date(createdAt)}</span>
+        <span>{createdAt}</span>
       </div>
       <Paper
         style={{
@@ -75,8 +75,11 @@ export default function Answer(props) {
           }}
         >
           <AvatarWrapper src={Object.values(imgURL)}></AvatarWrapper>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="black">
             {comment.body}
+          </Typography>
+          <Typography variant="body2" color="gray">
+            &nbsp;&nbsp; {comment.author} &nbsp;&nbsp;{comment.createdAt}
           </Typography>
         </CardContent>
       ))}
