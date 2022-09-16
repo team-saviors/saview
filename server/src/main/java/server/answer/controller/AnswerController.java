@@ -2,6 +2,7 @@ package server.answer.controller;
 
 
 import lombok.Getter;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import server.comment.service.CommentService;
 import server.question.service.QuestionService;
 import server.user.mapper.UserMapper;
 import server.user.service.UserService;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -31,6 +33,7 @@ public class AnswerController {
     private final CommentService commentService;
     private final UserMapper userMapper;
 
+
     @PostMapping("/questions/{question-id}/answers")
     public ResponseEntity postAnswer(@Positive @PathVariable("question-id") long questionId,
                                      @Valid @RequestBody AnswerPostPutDto answerPostPutDto) throws Exception {
@@ -39,6 +42,7 @@ public class AnswerController {
         Answer answer = answerMapper.answerPostPutDtoToAnswer(answerPostPutDto);
         answer.setQuestion(questionService.findVerifiedQuestion(questionId));
         answer.setUser(userService.findUser(userId));
+
         answerService.createdAnswer(answer);
 
         return new ResponseEntity("답변 작성이 완료되었습니다.", HttpStatus.CREATED);

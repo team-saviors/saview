@@ -6,6 +6,7 @@ import server.comment.dto.CommentResponseDto;
 import server.comment.entity.Comment;
 import server.user.mapper.UserMapper;
 
+
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
     Comment commentPostPutDtoToComment(CommentPostPutDto commentPostPutDto);
@@ -22,4 +23,5 @@ public interface CommentMapper {
 
         return commentResponseDto;
     }
+
 }

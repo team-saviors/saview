@@ -3,6 +3,7 @@ package server.user.entity;
 import lombok.Getter;
 import lombok.Setter;
 import server.answer.entity.Answer;
+
 import server.audit.Auditable;
 import server.comment.entity.Comment;
 import server.question.entity.Question;

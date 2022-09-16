@@ -27,4 +27,5 @@ public class Comment extends Auditable {
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
+
 }

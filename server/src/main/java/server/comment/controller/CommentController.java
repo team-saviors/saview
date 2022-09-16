@@ -23,6 +23,7 @@ public class CommentController {
     private final AnswerService answerService;
     private final UserService userService;
 
+
     @PostMapping("/answers/{answer-id}/comments")
     public ResponseEntity postComment(@Positive @PathVariable("answer-id") long answerId,
                                       @Valid @RequestBody CommentPostPutDto commentPostPutDto) throws Exception {
@@ -32,6 +33,7 @@ public class CommentController {
         Comment comment = commentMapper.commentPostPutDtoToComment(commentPostPutDto);
         comment.setAnswer(answerService.findVerifiedAnswer(answerId));
         comment.setUser(userService.findUser(userId));
+
         commentService.createdComment(comment);
         return new ResponseEntity("댓글 작성을 완료하였습니다.", HttpStatus.CREATED);
     }

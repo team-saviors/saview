@@ -18,4 +18,5 @@ public class QuestionResponseDto {
     private int views;
     private UserProfileResponseDto user;
     private List<AnswerResponseDto> answers;
+
 }

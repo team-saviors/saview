@@ -10,7 +10,6 @@ import server.user.entity.User;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
     User userPostDtoToUser(UserPostDto userPostDto);
-
     User userPutDtoToUser(UserPutDto userPutDto);
     UserResponseDto userToUserResponseDto(User user);
 

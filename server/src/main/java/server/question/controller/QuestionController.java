@@ -17,6 +17,7 @@ import server.response.MultiResponseDto;
 import server.user.mapper.UserMapper;
 import server.user.service.UserService;
 
+
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
@@ -44,6 +45,7 @@ public class QuestionController {
         Question question = questionMapper.questionPostPutDtoToQuestion(questionPostPutDto);
         question.setUser(userService.findUser(userId));
         questionService.createdQuestion(question);
+
 
         return new ResponseEntity("질문이 성공적으로 등록되었습니다.", HttpStatus.CREATED);
     }

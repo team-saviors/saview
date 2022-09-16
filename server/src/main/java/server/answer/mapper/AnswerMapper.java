@@ -1,6 +1,5 @@
 package server.answer.mapper;
 
-import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapper;
 import server.answer.dto.AnswerPostPutDto;
 import server.answer.dto.AnswerResponseDto;

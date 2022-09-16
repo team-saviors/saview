@@ -14,6 +14,7 @@ import server.user.mapper.UserMapper;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -22,7 +23,6 @@ public class AnswerService {
 
     private final AnswerRepository answerRepository;
     private final AnswerMapper answerMapper;
-
 
     public void createdAnswer(Answer answer) throws Exception {
         answerRepository.save(answer);
