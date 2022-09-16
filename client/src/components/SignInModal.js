@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import SignIn from './SignIn';
+import SignUp from './SignUp';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -36,7 +37,8 @@ function SignInModal() {
       <Button onClick={handleOpen}>로그인</Button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={{ ...style }}>
-          <SignIn></SignIn>
+          {/* <SignIn></SignIn> */}
+          <SignUp></SignUp>
         </Box>
       </Modal>
     </div>
