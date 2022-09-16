@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.user.dto.UserPostDto;
+import server.user.dto.UserPutDto;
+
 import server.user.entity.User;
 import server.user.mapper.UserMapper;
 import server.user.service.UserService;
@@ -32,5 +34,20 @@ public class UserController {
         return new ResponseEntity<>(userMapper.userToUserResponseDto(findUser), HttpStatus.OK);
     }
 
+    @PutMapping("/modify")
+    public ResponseEntity putUser(@Valid @RequestBody UserPutDto userPutDto) throws Exception {
+        User user = userMapper.userPutDtoToUser(userPutDto);
+        // TODO: 토큰 userId 이용
+        user.setUserId(1L);
+        userService.updateUser(user);
+        return new ResponseEntity("회원 정보 수정에 성공하였습니다.", HttpStatus.OK);
+    }
 
+    @DeleteMapping("/delete")
+    public ResponseEntity deleteUser() throws Exception {
+        // TODO: 토큰 userId 이용
+        long userId = 1L;
+        userService.deleteUser(userId);
+        return new ResponseEntity("회원 탈퇴에 성공하였습니다.", HttpStatus.OK);
+    } 
 }
