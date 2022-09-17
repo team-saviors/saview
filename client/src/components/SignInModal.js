@@ -43,6 +43,7 @@ function SignInModal() {
   };
   const handleClose = () => {
     setOpen(false);
+    setOpenSignIn(true);
   };
   const [openSignIn, setOpenSignIn] = useState(true);
 

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,11 +12,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useCallback } from 'react';
 import FacebookIcon from '@mui/icons-material/Facebook';
 
 import { FcGoogle } from 'react-icons/fc';
 import { GitHub } from '@mui/icons-material';
+import client from '../utils/axiosInstance';
 
 const theme = createTheme();
 const style = {
@@ -36,7 +36,14 @@ export default function SignIn() {
     });
   };
   const autoFocus = useCallback((el) => (el ? el.focus() : null), []);
-
+  const loadData = async () => {
+    const result = await client.get('/test');
+    setData(result);
+  };
+  const [data, setData] = useState('');
+  useEffect(() => {
+    loadData();
+  });
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
