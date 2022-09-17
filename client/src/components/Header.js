@@ -4,6 +4,9 @@ import styled from 'styled-components';
 
 import { SignInModal } from './SignInModal';
 
+// import Main_Logo from '../assets/images/saview.png';
+import mainLogo from '../assets/images/mainlogo2.png';
+
 const NavBar = styled.header`
   /* width: 100%; */
   height: 85px;
@@ -18,30 +21,21 @@ const NavBar = styled.header`
 `;
 const LogoBox = styled(Box)`
   /* border: 1px solid; */
-  > h1 {
-    width: 105px;
-    height: 32px;
+  > img {
+    width: 120px;
+    height: 35px;
   }
 `;
 const Loginbox = styled(Box)``;
-const LoginButton = styled(Button)`
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: black;
-  &:hover {
-    background-color: transparent;
-    box-shadow: transparent;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-  }
-`;
+
 const Header = () => {
   return (
     <NavBar>
       <LogoBox>
-        <h1>SAVIEW</h1>
+        {/* <h1>SAVIEW</h1> */}
+        <img alt="react" src={mainLogo}></img>
       </LogoBox>
+
       <Loginbox>
         {/* // <LoginButton disableRipple variant="text"> */}
         <SignInModal></SignInModal>
