@@ -3,6 +3,8 @@ package server.question.entity;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import server.answer.entity.Answer;
+
 import server.audit.Auditable;
 import server.user.entity.User;
 
@@ -28,10 +30,13 @@ public class Question extends Auditable {
     @Column(nullable = false)
     private String content;
 
-//    @Column(nullable = false)
-//    private int votes;
+    @Column(nullable = false)
+    private int views;
 
-//    private User user;
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
-//    private List<Answer> answers = new ArrayList<>();
+    @OneToMany(mappedBy = "question")
+    private List<Answer> answers = new ArrayList<>();
 }
