@@ -1,6 +1,9 @@
 // import { Link } from '@mui/material';
 import { Box, Button } from '@mui/material';
 import styled from 'styled-components';
+
+import { SignInModal } from './SignInModal';
+
 const NavBar = styled.header`
   /* width: 100%; */
   height: 85px;
@@ -40,9 +43,8 @@ const Header = () => {
         <h1>SAVIEW</h1>
       </LogoBox>
       <Loginbox>
-        <LoginButton disableRipple variant="text">
-          로그인
-        </LoginButton>
+        {/* // <LoginButton disableRipple variant="text"> */}
+        <SignInModal></SignInModal>
       </Loginbox>
     </NavBar>
   );

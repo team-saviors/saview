@@ -17,10 +17,11 @@ export const countStore = create((set) => ({
 
 //이건 나중에 fetch로 refactoring할 것
 export const answerStore = create((set) => ({
+  question: 'react의 state와 props 차이를 설명하시오',
   answers: [
     {
       answerId: 1,
-      question: 'react의 state와 props의 차이를 설명하시오',
+
       imgURL: { bronze },
       author: 'colagom',
       createdAt: '2022-09-15T01:02:17Z',
@@ -48,12 +49,12 @@ export const answerStore = create((set) => ({
     },
     {
       answerId: 2,
-      question: 'CSR과 SSR의 차이를 설명하시오',
+
       imgURL: { bronze },
       author: 'pjhyeok',
       createdAt: '2022-09-15T01:02:17Z',
       modifiedAt: '2022-09-15T01:02:17Z',
-      body: 'CSR과 SSR은 렌더링을 client가 하느냐 server가 하느냐의 차이입니다',
+      body: 'props는 불변 데이터입니다. 부모 컴포넌트로부터 자식컴포넌트로 전달하고 매개변수처럼 취급합니다. state는 가변데이터이고 함수 내에서 선언된 변수처럼 컴포넌트 내에서 관리됩니다. state가 변경될 때 컴포넌트가 리렌더링 됩니다.',
       votes: 0,
       comments: [
         {
