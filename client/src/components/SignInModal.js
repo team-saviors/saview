@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
@@ -20,25 +20,30 @@ const style = {
   pt: 2,
   px: 4,
   pb: 3,
-  borderRadius: '8px',
+  borderRadius: '20px',
 };
 
 function SignInModal() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
+  const [openSignIn, setOpenSignIn] = useState(true);
 
   return (
     <div>
       <Button onClick={handleOpen}>로그인</Button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={{ ...style }}>
+          <Box>
+            <button onClick={() => setOpenSignIn(true)}>로그인</button>
+            <button onClick={() => setOpenSignIn(false)}>회원가입</button>
+          </Box>
           {/* <SignIn></SignIn> */}
-          <SignUp></SignUp>
+          {openSignIn > 0 ? <SignIn /> : <SignUp />}
         </Box>
       </Modal>
     </div>
