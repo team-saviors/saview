@@ -6,6 +6,7 @@ import { SignInModal } from './SignInModal';
 
 // import Main_Logo from '../assets/images/saview.png';
 import mainLogo from '../assets/images/mainlogo2.png';
+import { Link } from 'react-router-dom';
 
 const NavBar = styled.header`
   /* width: 100%; */
@@ -21,7 +22,7 @@ const NavBar = styled.header`
 `;
 const LogoBox = styled(Box)`
   /* border: 1px solid; */
-  > img {
+  .main_logo {
     width: 120px;
     height: 35px;
   }
@@ -33,7 +34,9 @@ const Header = () => {
     <NavBar>
       <LogoBox>
         {/* <h1>SAVIEW</h1> */}
-        <img alt="react" src={mainLogo}></img>
+        <Link to="/">
+          <img className="main_logo" alt="react" src={mainLogo}></img>
+        </Link>
       </LogoBox>
 
       <Loginbox>
