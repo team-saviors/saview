@@ -13,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import server.jwt.filter.JwtAuthenticationFilter;
 import server.jwt.filter.JwtAuthorizationFilter;
 import server.user.repository.UserRepository;
+import server.user.service.UserService;
 
 @Configuration
 @EnableWebSecurity
@@ -20,6 +21,8 @@ import server.user.repository.UserRepository;
 public class SecurityConfig {
 
     private final UserRepository userRepository;
+
+    private final UserService userService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -38,7 +41,10 @@ public class SecurityConfig {
                 .access("hasRole('ROLE_ADMIN')")
                 .antMatchers(HttpMethod.DELETE, "questions/*")
                 .access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/users/test")
+                .access("hasRole('ROLE_USER')")
                 .anyRequest().permitAll();
+
         return httpSecurity.build();
     }
 
@@ -48,7 +54,7 @@ public class SecurityConfig {
         public void configure(HttpSecurity builder) {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
             builder
-                    .addFilter(new JwtAuthenticationFilter(authenticationManager))
+                    .addFilter(new JwtAuthenticationFilter(authenticationManager,userService))
                     .addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository));
         }
     }

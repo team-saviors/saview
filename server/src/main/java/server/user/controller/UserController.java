@@ -31,4 +31,9 @@ public class UserController {
         User findUser = userService.findUser(userId);
         return new ResponseEntity<>(userMapper.userToUserResponseDto(findUser), HttpStatus.OK);
     }
+
+    @GetMapping("/test")
+    public String  test() {
+        return "test";
+    }
 }

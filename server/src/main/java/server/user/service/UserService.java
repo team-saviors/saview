@@ -3,7 +3,9 @@ package server.user.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import server.user.entity.RefreshToken;
 import server.user.entity.User;
+import server.user.repository.RefreshTokenRepository;
 import server.user.repository.UserRepository;
 
 import java.util.Optional;
@@ -13,6 +15,8 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+
+    private final RefreshTokenRepository refreshTokenRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public User createUser(User user) throws Exception {
@@ -28,6 +32,10 @@ public class UserService {
         return findVerifiedUser(userId);
     }
 
+    public void updateRefreshToken(String loginId, String refreshToken) {
+        RefreshToken refreshTokenEntity = RefreshToken.builder().loginId(loginId).refreshToken(refreshToken).build();
+        refreshTokenRepository.save(refreshTokenEntity);
+    }
 
     private User findVerifiedUser(long userId) throws Exception {
         Optional<User> user = userRepository.findById(userId);
@@ -51,4 +59,5 @@ public class UserService {
         if (user.isPresent())
             throw new Exception();
     }
+
 }
