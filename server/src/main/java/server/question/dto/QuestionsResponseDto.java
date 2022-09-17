@@ -1,9 +1,9 @@
 package server.question.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import server.user.dto.UserProfileResponseDto;
 
 import java.time.LocalDateTime;
 
@@ -15,12 +15,8 @@ public class QuestionsResponseDto {
     private String content;
     private String mainCategory;
     private String subCategory;
-//    private int votes;
-//    private int answersNum;
-
+    private int views;
+    private UserProfileResponseDto user;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-
-//    private Long userId;
-//    private String userName;
 }
