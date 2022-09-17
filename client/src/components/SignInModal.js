@@ -4,6 +4,7 @@ import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import styled from 'styled-components';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -22,6 +23,18 @@ const style = {
   pb: 3,
   borderRadius: '20px',
 };
+const LoginButton = styled(Button)`
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: black;
+  &:hover {
+    background-color: transparent;
+    box-shadow: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+`;
 
 function SignInModal() {
   const [open, setOpen] = useState(false);
@@ -36,7 +49,7 @@ function SignInModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>로그인</Button>
+      <LoginButton onClick={handleOpen}>로그인</LoginButton>
       <Modal open={open} onClose={handleClose}>
         <Box sx={{ ...style }}>
           <Box>
