@@ -49,7 +49,9 @@ function SignInModal() {
 
   return (
     <div>
-      <LoginButton onClick={handleOpen}>로그인</LoginButton>
+      <LoginButton disableRipple onClick={handleOpen}>
+        로그인
+      </LoginButton>
       <Modal open={open} onClose={handleClose}>
         <Box sx={{ ...style }}>
           <Box>
