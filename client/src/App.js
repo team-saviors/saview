@@ -1,21 +1,19 @@
 import { useEffect } from 'react';
-import Counter from './components/Counter';
 import PostPage from './pages/PostPage';
-import { SignInModal } from './components/SignInModal';
-
 import Mainpage from './pages/MainPage';
 import Header from './components/Header';
-// import PostPage from './pages/PostPage';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 function App() {
   return (
     <>
       <Header></Header>
-      {/* <Counter></Counter> */}
-      {/* <PostPage></PostPage> */}
-
-      <Mainpage></Mainpage>
-      {/* <PostPage></PostPage> */}
+      <Routes>
+        <Route path="/" element={<Mainpage />}></Route>
+        <Route path="/postpage" element={<PostPage />}></Route>
+        {/* <Mainpage></Mainpage>
+        <PostPage></PostPage> */}
+      </Routes>
     </>
   );
 }
