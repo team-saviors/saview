@@ -37,7 +37,6 @@ export default function SignUp() {
     console.log(data);
   };
   const onError = (error) => {
-    // if (error.nickname) alert(error.nickname.message);
     console.log(error);
     if (error.nickname) alert(error.nickname.message);
     else if (error.email) alert(error.email.message);
@@ -45,7 +44,6 @@ export default function SignUp() {
     else {
       alert('비밀번호가 맞는지 확인해주세요');
     }
-    // else alert('비밀번호가 같은지 확인해주세요');
   };
 
   return (
