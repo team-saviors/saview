@@ -51,9 +51,11 @@ public class QuestionController {
     }
 
     @GetMapping("/{question-id}")
-    public ResponseEntity getQuestion(@Positive @PathVariable("question-id") long questionId) throws Exception {
+    public ResponseEntity getQuestion(@Positive @RequestParam int page,
+            @Positive @RequestParam int size,
+            @Positive @PathVariable("question-id") long questionId) throws Exception {
         Question question = questionService.findQuestion(questionId);
-        return new ResponseEntity(questionMapper.questionToQuestionResponseDto(question, userMapper, answerService, commentService),
+        return new ResponseEntity(questionMapper.questionToQuestionResponseDto(question, userMapper, answerService, commentService, page, size),
                 HttpStatus.OK);
     }
 
