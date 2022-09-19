@@ -38,7 +38,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             ObjectMapper om = new ObjectMapper();
             User user = om.readValue(request.getInputStream(), User.class);
 
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getLoginId(), user.getPassword());
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
             return authenticationManager.authenticate(authenticationToken);
 
         } catch (IOException e) {
@@ -53,18 +53,20 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
 
         String accessToken = JWT.create()
-                .withSubject("cos jwt token")
-                .withExpiresAt(new Date(System.currentTimeMillis() + (60 * 1000 * 30)))
+                .withSubject(principalDetails.getUsername())
+                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 30)))
+//                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 10)))
                 .withClaim("id", principalDetails.getUser().getUserId())
-                .withClaim("loginId", principalDetails.getUser().getLoginId())
+                .withClaim("email", principalDetails.getUser().getEmail())
                 .sign(Algorithm.HMAC512("cos_jwt_token"));
 
         String refreshToken = JWT.create()
-                .withSubject("cos jwt token")
+                .withSubject(principalDetails.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 14)))
+//                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 20)))
                 .sign(Algorithm.HMAC512("cos_jwt_token"));
 
-        userService.updateRefreshToken(principalDetails.getUser().getLoginId(), refreshToken);
+        userService.updateRefreshToken(principalDetails.getUser().getEmail(), refreshToken);
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("utf-8");

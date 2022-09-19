@@ -22,7 +22,7 @@ public class UserService {
     public User createUser(User user) throws Exception {
         verifyExistsEmail(user.getEmail());
         verifyExistsNickname(user.getNickname());
-        verifyExistsLoginId(user.getLoginId());
+//        verifyExistsLoginId(user.getLoginId());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRole("ROLE_USER");
         return userRepository.save(user);
@@ -32,8 +32,8 @@ public class UserService {
         return findVerifiedUser(userId);
     }
 
-    public void updateRefreshToken(String loginId, String refreshToken) {
-        RefreshToken refreshTokenEntity = RefreshToken.builder().loginId(loginId).refreshToken(refreshToken).build();
+    public void updateRefreshToken(String email, String refreshToken) {
+        RefreshToken refreshTokenEntity = RefreshToken.builder().email(email).refreshToken(refreshToken).build();
         refreshTokenRepository.save(refreshTokenEntity);
     }
 
@@ -54,10 +54,10 @@ public class UserService {
             throw new Exception();
     }
 
-    private void verifyExistsLoginId(String loginId) throws Exception {
-        Optional<User> user = Optional.ofNullable(userRepository.findByLoginId(loginId));
-        if (user.isPresent())
-            throw new Exception();
-    }
+//    private void verifyExistsLoginId(String loginId) throws Exception {
+//        Optional<User> user = Optional.ofNullable(userRepository.findByLoginId(loginId));
+//        if (user.isPresent())
+//            throw new Exception();
+//    }
 
 }
