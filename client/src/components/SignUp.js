@@ -1,10 +1,6 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -17,6 +13,8 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
 import { GitHub } from '@mui/icons-material';
+import { postSignUp } from '../utils/axiosRequest';
+import { useNavigate } from 'react-router-dom';
 const style = {
   border: '1px solid #D9E4EC',
   borderRadius: '5px',
@@ -26,7 +24,7 @@ const style = {
 };
 const theme = createTheme();
 
-export default function SignUp() {
+export default function SignUp({ handleClose }) {
   const {
     register,
     handleSubmit,
@@ -34,7 +32,9 @@ export default function SignUp() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    postSignUp(data);
+
+    handleClose();
   };
   const onError = (error) => {
     console.log(error);
