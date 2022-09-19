@@ -59,7 +59,12 @@ function SignInModal() {
             <button onClick={() => setOpenSignIn(false)}>회원가입</button>
           </Box>
 
-          {openSignIn > 0 ? <SignIn /> : <SignUp />}
+          {openSignIn > 0 ? (
+            <SignIn handleClose={handleClose} />
+          ) : (
+            <SignUp handleClose={handleClose} />
+          )}
+
         </Box>
       </Modal>
     </div>
