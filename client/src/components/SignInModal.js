@@ -58,7 +58,7 @@ function SignInModal() {
             <button onClick={() => setOpenSignIn(true)}>로그인</button>
             <button onClick={() => setOpenSignIn(false)}>회원가입</button>
           </Box>
-          {/* <SignIn></SignIn> */}
+
           {openSignIn > 0 ? <SignIn /> : <SignUp />}
         </Box>
       </Modal>
