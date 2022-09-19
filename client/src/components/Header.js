@@ -21,7 +21,25 @@ const LogoBox = styled(Box)`
     height: 35px;
   }
 `;
-const Loginbox = styled(Box)``;
+const Loginbox = styled(Box)`
+  > * {
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+  display: flex;
+  text-align: center;
+  grid-gap: 35px;
+`;
+const QuestionPostBtn = styled(Button)`
+  color: black;
+  &:hover {
+    background-color: transparent;
+    box-shadow: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+`;
 
 const Header = () => {
   return (
@@ -34,6 +52,7 @@ const Header = () => {
       </LogoBox>
 
       <Loginbox>
+        <QuestionPostBtn disableRipple>새 질문 쓰기</QuestionPostBtn>
         <SignInModal></SignInModal>
       </Loginbox>
     </NavBar>
