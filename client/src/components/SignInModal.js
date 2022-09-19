@@ -64,7 +64,6 @@ function SignInModal() {
           ) : (
             <SignUp handleClose={handleClose} />
           )}
-
         </Box>
       </Modal>
     </div>
