@@ -1,10 +1,7 @@
 // import { Link } from '@mui/material';
 import { Box, Button } from '@mui/material';
 import styled from 'styled-components';
-
 import { SignInModal } from './SignInModal';
-
-// import Main_Logo from '../assets/images/saview.png';
 import mainLogo from '../assets/images/mainlogo2.png';
 import { Link } from 'react-router-dom';
 
@@ -17,11 +14,8 @@ const NavBar = styled.header`
   align-items: center;
   padding: 0 10px;
   margin: auto;
-
-  /* background-color: blue; */
 `;
 const LogoBox = styled(Box)`
-  /* border: 1px solid; */
   .main_logo {
     width: 120px;
     height: 35px;
@@ -40,7 +34,6 @@ const Header = () => {
       </LogoBox>
 
       <Loginbox>
-        {/* // <LoginButton disableRipple variant="text"> */}
         <SignInModal></SignInModal>
       </Loginbox>
     </NavBar>
