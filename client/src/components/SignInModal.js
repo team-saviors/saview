@@ -43,19 +43,21 @@ function SignInModal() {
   };
   const handleClose = () => {
     setOpen(false);
+    setOpenSignIn(true);
   };
   const [openSignIn, setOpenSignIn] = useState(true);
 
   return (
     <div>
-      <LoginButton onClick={handleOpen}>로그인</LoginButton>
+      <LoginButton disableRipple onClick={handleOpen}>
+        로그인
+      </LoginButton>
       <Modal open={open} onClose={handleClose}>
         <Box sx={{ ...style }}>
           <Box>
             <button onClick={() => setOpenSignIn(true)}>로그인</button>
             <button onClick={() => setOpenSignIn(false)}>회원가입</button>
           </Box>
-          {/* <SignIn></SignIn> */}
           {openSignIn > 0 ? <SignIn /> : <SignUp />}
         </Box>
       </Modal>

@@ -21,10 +21,14 @@ public class User extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
+<<<<<<< HEAD
     @Column(nullable = false, unique = true, length = 20)
     private String loginId;
 
     @Column(nullable = false, length = 20)
+=======
+    @Column(nullable = false)
+>>>>>>> fa00bc812c85f523e7cae055eab3c99b2270fa9f
     private String password;
 
     @Column(nullable = false, unique = true, length = 50)

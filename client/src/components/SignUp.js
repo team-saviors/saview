@@ -12,9 +12,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { useState } from 'react';
 import FacebookIcon from '@mui/icons-material/Facebook';
-
+import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
 import { GitHub } from '@mui/icons-material';
 const style = {
@@ -27,13 +27,23 @@ const style = {
 const theme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+  const onError = (error) => {
+    console.log(error);
+    if (error.nickname) alert(error.nickname.message);
+    else if (error.email) alert(error.email.message);
+    else if (error.password) alert(error.password.message);
+    else {
+      alert('비밀번호가 맞는지 확인해주세요');
+    }
   };
 
   return (
@@ -42,21 +52,26 @@ export default function SignUp() {
         <CssBaseline />
         <Box
           sx={{
-            // marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 1 }}
-          >
+          <Box component="form" noValidate sx={{ mt: 1 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <TextField required fullWidth label="닉네임" />
+                <TextField
+                  required
+                  fullWidth
+                  label="닉네임"
+                  {...register('nickname', {
+                    required: '닉네임을 입력하세요',
+                    pattern: {
+                      value: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/,
+                      message: '닉네임은 영한숫으로만 만들어집니다',
+                    },
+                  })}
+                />
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -64,6 +79,13 @@ export default function SignUp() {
                   fullWidth
                   label="이메일"
                   placeholder="이메일을 입력해주세요"
+                  {...register('email', {
+                    required: '이메일을 입력하세요',
+                    pattern: {
+                      value: /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+                      message: '이메일 형식이 아닙니다',
+                    },
+                  })}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -74,6 +96,14 @@ export default function SignUp() {
                   label="비밀번호"
                   name="비번"
                   placeholder="영문자,숫자,특수문자 포함 8글자이상"
+                  {...register('password', {
+                    pattern: {
+                      value:
+                        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                      message:
+                        '비밀번호는 영문자,숫자,특수문자 포함 8글자이상으로 해주세요',
+                    },
+                  })}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -83,6 +113,14 @@ export default function SignUp() {
                   label="비밀번호 확인"
                   type="password"
                   placeholder="비밀번호를 확인해주세요"
+                  {...register('passwordcheck', {
+                    validate: {
+                      matchesPreviousPassword: (value) => {
+                        const { password } = getValues();
+                        return password === value || 'Passwords should match!';
+                      },
+                    },
+                  })}
                 />
               </Grid>
             </Grid>
