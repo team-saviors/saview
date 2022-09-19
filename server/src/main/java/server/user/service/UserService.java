@@ -16,6 +16,7 @@ public class UserService {
     public User createUser(User user) throws Exception {
         verifyExistsEmail(user.getEmail());
         verifyExistsNickname(user.getNickname());
+
         user.setRole("ROLE_USER");
         return userRepository.save(user);
     }
@@ -27,6 +28,7 @@ public class UserService {
     public void updateUser(User user) throws Exception {
         User findUser = findVerifiedUser(user.getUserId());
         findUser.setEmail(user.getEmail());
+
         findUser.setNickname(user.getNickname());
         if (user.getProfile() != null) findUser.setProfile(user.getProfile());
         userRepository.save(findUser);
@@ -54,4 +56,5 @@ public class UserService {
         if (user.isPresent())
             throw new Exception();
     }
+
 }
