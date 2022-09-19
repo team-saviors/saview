@@ -1,4 +1,5 @@
 import client from './axiosInstance';
+
 async function postSignUp(data) {
   try {
     const res = await client.post('/users', data);
@@ -16,6 +17,7 @@ async function postSignIn(data) {
   } catch (err) {
     console.log('err : ', err.response);
   }
+
 }
 async function getUser(userId) {
   const response = await client.get(`/users/${userId}`);
@@ -23,3 +25,4 @@ async function getUser(userId) {
 }
 
 export { postSignUp, postSignIn };
+

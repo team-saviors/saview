@@ -13,7 +13,8 @@ import java.util.List;
 @Setter
 public class UserResponseDto {
 
-    private String loginId;
+
+
     private String email;
     private String nickname;
     private String profile;

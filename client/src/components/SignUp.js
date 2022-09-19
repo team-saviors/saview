@@ -1,3 +1,4 @@
+
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -24,7 +25,9 @@ const style = {
 };
 const theme = createTheme();
 
+
 export default function SignUp({ handleClose }) {
+
   const {
     register,
     handleSubmit,
@@ -32,9 +35,11 @@ export default function SignUp({ handleClose }) {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
+
     postSignUp(data);
 
     handleClose();
+
   };
   const onError = (error) => {
     console.log(error);
