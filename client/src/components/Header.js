@@ -29,7 +29,6 @@ const Loginbox = styled(Box)`
 const QuestionPostBtn = styled(Button)`
   font-size: 1.125rem;
   font-weight: 600;
-
   color: black;
   &:hover {
     background-color: transparent;
@@ -49,7 +48,6 @@ const Header = () => {
           <img className="main_logo" alt="react" src={mainLogo}></img>
         </Link>
       </LogoBox>
-
       <Loginbox>
         <Link to="/questionpostpage">
           <QuestionPostBtn disableRipple>새 질문 쓰기</QuestionPostBtn>

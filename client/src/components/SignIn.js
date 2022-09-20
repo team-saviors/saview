@@ -1,5 +1,3 @@
-import { useEffect, useCallback, useState } from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -8,15 +6,13 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
+import { useForm } from 'react-hook-form';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import FacebookIcon from '@mui/icons-material/Facebook';
-
 import { FcGoogle } from 'react-icons/fc';
 import { GitHub } from '@mui/icons-material';
-import client from '../utils/axiosInstance';
+import { postSignIn } from '../utils/axiosRequest';
 
 const theme = createTheme();
 const style = {
@@ -26,31 +22,26 @@ const style = {
   flexDirection: 'column',
   margin: '40px',
 };
-export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+export default function SignIn({ handleClose }) {
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    postSignIn(data);
   };
-  const autoFocus = useCallback((el) => (el ? el.focus() : null), []);
-  const loadData = async () => {
-    const result = await client.get('/test');
-    setData(result);
+  const onError = (error) => {
+    console.log(error);
   };
-  const [data, setData] = useState('');
-  useEffect(() => {
-    loadData();
-  });
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
-            // marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -58,7 +49,7 @@ export default function SignIn() {
         >
           <Box
             component="form"
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit, onError)}
             noValidate
             sx={{ mt: 1 }}
           >
@@ -70,6 +61,9 @@ export default function SignIn() {
               label="Email Address"
               name="email"
               autoComplete="email"
+              {...register('email', {
+                required: '이메일을 입력하세요',
+              })}
             />
             <TextField
               margin="normal"
@@ -79,7 +73,9 @@ export default function SignIn() {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
+              {...register('password', {
+                required: '비밀번호를 입력하세요',
+              })}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -98,11 +94,6 @@ export default function SignIn() {
               <Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
