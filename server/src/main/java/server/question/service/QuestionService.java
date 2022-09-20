@@ -17,7 +17,6 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
 
     public void createdQuestion(Question question) {
-        // TODO: JWT에서 user 정보 조회 후 question에 저장
         questionRepository.save(question);
     }
 

@@ -29,7 +29,17 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User findUser(long userId) throws Exception {
+    public void updatePassword(String email, String newPassword) throws Exception {
+        User user = findVerifiedUserByEmail(email);
+        user.setPassword(bCryptPasswordEncoder.encode(newPassword));
+        userRepository.save(user);
+    }
+
+    public User findUser(String email) throws Exception {
+        return findVerifiedUserByEmail(email);
+    }
+
+    public User findUserById(long userId) throws Exception {
         return findVerifiedUser(userId);
     }
 
@@ -38,8 +48,8 @@ public class UserService {
         refreshTokenRepository.save(refreshTokenEntity);
     }
 
-    public void updateUser(User user) throws Exception {
-        User findUser = findVerifiedUser(user.getUserId());
+    public void updateUser(String email, User user) throws Exception {
+        User findUser = findVerifiedUserByEmail(email);
         findUser.setEmail(user.getEmail());
 
         findUser.setNickname(user.getNickname());
@@ -47,13 +57,18 @@ public class UserService {
         userRepository.save(findUser);
     }
 
-    public void deleteUser(long userId) throws Exception {
-        User findUser = findVerifiedUser(userId);
+    public void deleteUser(String email) throws Exception {
+        User findUser = findVerifiedUserByEmail(email);
         userRepository.delete(findUser);
     }
 
     private User findVerifiedUser(long userId) throws Exception {
         Optional<User> user = userRepository.findById(userId);
+        return user.orElseThrow(Exception::new);
+    }
+
+    private User findVerifiedUserByEmail(String email) throws Exception {
+        Optional<User> user = Optional.ofNullable(userRepository.findByEmail(email));
         return user.orElseThrow(Exception::new);
     }
 

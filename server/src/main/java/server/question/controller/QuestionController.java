@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import server.answer.dto.VotesDto;
 import server.answer.entity.Answer;
@@ -31,21 +33,21 @@ public class QuestionController {
 
     private final QuestionService questionService;
     private final QuestionMapper questionMapper;
-
     private final UserService userService;
-
     private final AnswerService answerService;
-
     private final UserMapper userMapper;
-
     private final CommentService commentService;
 
     @PostMapping
-    public ResponseEntity postQuestion(@Valid @RequestBody QuestionPostPutDto questionPostPutDto) throws Exception {
-        // TODO: 로그인 유저 정보 가져오기
-        long userId = 1L;
+    public ResponseEntity postQuestion(@Valid @RequestBody QuestionPostPutDto questionPostPutDto,
+                                       Authentication authentication) throws Exception {
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String email = userDetails.getUsername();
+
         Question question = questionMapper.questionPostPutDtoToQuestion(questionPostPutDto);
-        question.setUser(userService.findUser(userId));
+        question.setUser(userService.findUser(email));
+
         questionService.createdQuestion(question);
 
 
@@ -75,6 +77,7 @@ public class QuestionController {
         Question question = questionMapper.questionPostPutDtoToQuestion(questionPostPutDto);
         question.setQuestionId(questionId);
         questionService.updateQuestion(question);
+
         return new ResponseEntity("질문 수정이 완료되었습니다.", HttpStatus.OK);
     }
 
