@@ -18,5 +18,9 @@ async function postSignIn(data) {
 async function getUser(userId) {
   const response = await client.get(`/users/${userId}`);
 }
+async function getQuestions() {
+  const res = await client.get('/questions?page=1&size=9');
+  return res.data;
+}
 
 export { postSignUp, postSignIn };
