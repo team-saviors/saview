@@ -22,15 +22,14 @@ const LogoBox = styled(Box)`
   }
 `;
 const Loginbox = styled(Box)`
-  > * {
-    font-size: 1.125rem;
-    font-weight: 600;
-  }
   display: flex;
   text-align: center;
   grid-gap: 35px;
 `;
 const QuestionPostBtn = styled(Button)`
+  font-size: 1.125rem;
+  font-weight: 600;
+
   color: black;
   &:hover {
     background-color: transparent;
@@ -52,7 +51,9 @@ const Header = () => {
       </LogoBox>
 
       <Loginbox>
-        <QuestionPostBtn disableRipple>새 질문 쓰기</QuestionPostBtn>
+        <Link to="/questionpostpage">
+          <QuestionPostBtn disableRipple>새 질문 쓰기</QuestionPostBtn>
+        </Link>
         <SignInModal></SignInModal>
       </Loginbox>
     </NavBar>
