@@ -5,11 +5,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import server.answer.dto.VotesDto;
 import server.answer.entity.Answer;
 import server.answer.service.AnswerService;
 import server.comment.entity.Comment;
 import server.comment.service.CommentService;
 import server.question.dto.QuestionPostPutDto;
+import server.question.dto.ViewsDto;
 import server.question.entity.Question;
 import server.question.mapper.QuestionMapper;
 import server.question.service.QuestionService;
@@ -80,5 +82,12 @@ public class QuestionController {
     public ResponseEntity deleteQuestion(@Positive @PathVariable("question-id") long questionId) throws Exception {
         questionService.deleteQuestion(questionId);
         return new ResponseEntity("질문 삭제가 완료되었습니다.", HttpStatus.OK);
+    }
+
+    @PutMapping("/{question-id}/views")
+    public ResponseEntity putVotes(@Positive @PathVariable("question-id") long questionId,
+                                   @Valid @RequestBody ViewsDto viewsDto) throws Exception {
+        questionService.updateViews(questionId, viewsDto.getViews());
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
