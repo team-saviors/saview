@@ -3,6 +3,8 @@ package server.comment.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import server.answer.service.AnswerService;
 import server.comment.dto.CommentPostPutDto;
@@ -26,13 +28,15 @@ public class CommentController {
 
     @PostMapping("/answers/{answer-id}/comments")
     public ResponseEntity postComment(@Positive @PathVariable("answer-id") long answerId,
-                                      @Valid @RequestBody CommentPostPutDto commentPostPutDto) throws Exception {
-        // TODO: 로그인 유저 정보 가져오기
-        long userId = 1L;
+                                      @Valid @RequestBody CommentPostPutDto commentPostPutDto,
+                                      Authentication authentication) throws Exception {
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String email = userDetails.getUsername();
 
         Comment comment = commentMapper.commentPostPutDtoToComment(commentPostPutDto);
         comment.setAnswer(answerService.findVerifiedAnswer(answerId));
-        comment.setUser(userService.findUser(userId));
+        comment.setUser(userService.findUser(email));
 
         commentService.createdComment(comment);
         return new ResponseEntity("댓글 작성을 완료하였습니다.", HttpStatus.CREATED);

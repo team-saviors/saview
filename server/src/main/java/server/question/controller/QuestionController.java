@@ -4,12 +4,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import server.answer.dto.VotesDto;
 import server.answer.entity.Answer;
 import server.answer.service.AnswerService;
 import server.comment.entity.Comment;
 import server.comment.service.CommentService;
 import server.question.dto.QuestionPostPutDto;
+import server.question.dto.ViewsDto;
 import server.question.entity.Question;
 import server.question.mapper.QuestionMapper;
 import server.question.service.QuestionService;
@@ -29,21 +33,21 @@ public class QuestionController {
 
     private final QuestionService questionService;
     private final QuestionMapper questionMapper;
-
     private final UserService userService;
-
     private final AnswerService answerService;
-
     private final UserMapper userMapper;
-
     private final CommentService commentService;
 
     @PostMapping
-    public ResponseEntity postQuestion(@Valid @RequestBody QuestionPostPutDto questionPostPutDto) throws Exception {
-        // TODO: 로그인 유저 정보 가져오기
-        long userId = 1L;
+    public ResponseEntity postQuestion(@Valid @RequestBody QuestionPostPutDto questionPostPutDto,
+                                       Authentication authentication) throws Exception {
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String email = userDetails.getUsername();
+
         Question question = questionMapper.questionPostPutDtoToQuestion(questionPostPutDto);
-        question.setUser(userService.findUser(userId));
+        question.setUser(userService.findUser(email));
+
         questionService.createdQuestion(question);
 
 
@@ -51,9 +55,11 @@ public class QuestionController {
     }
 
     @GetMapping("/{question-id}")
-    public ResponseEntity getQuestion(@Positive @PathVariable("question-id") long questionId) throws Exception {
+    public ResponseEntity getQuestion(@Positive @RequestParam int page,
+            @Positive @RequestParam int size,
+            @Positive @PathVariable("question-id") long questionId) throws Exception {
         Question question = questionService.findQuestion(questionId);
-        return new ResponseEntity(questionMapper.questionToQuestionResponseDto(question, userMapper, answerService, commentService),
+        return new ResponseEntity(questionMapper.questionToQuestionResponseDto(question, userMapper, answerService, commentService, page, size),
                 HttpStatus.OK);
     }
 
@@ -71,6 +77,7 @@ public class QuestionController {
         Question question = questionMapper.questionPostPutDtoToQuestion(questionPostPutDto);
         question.setQuestionId(questionId);
         questionService.updateQuestion(question);
+
         return new ResponseEntity("질문 수정이 완료되었습니다.", HttpStatus.OK);
     }
 
@@ -78,5 +85,12 @@ public class QuestionController {
     public ResponseEntity deleteQuestion(@Positive @PathVariable("question-id") long questionId) throws Exception {
         questionService.deleteQuestion(questionId);
         return new ResponseEntity("질문 삭제가 완료되었습니다.", HttpStatus.OK);
+    }
+
+    @PutMapping("/{question-id}/views")
+    public ResponseEntity putVotes(@Positive @PathVariable("question-id") long questionId,
+                                   @Valid @RequestBody ViewsDto viewsDto) throws Exception {
+        questionService.updateViews(questionId, viewsDto.getViews());
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

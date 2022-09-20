@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import server.answer.entity.Answer;
 import server.question.entity.Question;
 import server.question.repository.QuestionRepository;
 
@@ -16,7 +17,6 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
 
     public void createdQuestion(Question question) {
-        // TODO: JWT에서 user 정보 조회 후 question에 저장
         questionRepository.save(question);
     }
 
@@ -44,5 +44,11 @@ public class QuestionService {
     public Question findVerifiedQuestion(long questionId) throws Exception {
         Optional<Question> question = questionRepository.findById(questionId);
         return question.orElseThrow(Exception::new);
+    }
+
+    public void updateViews(long questionId, int views) throws Exception {
+        Question findQuestion = findVerifiedQuestion(questionId);
+        findQuestion.setViews(views);
+        questionRepository.save(findQuestion);
     }
 }

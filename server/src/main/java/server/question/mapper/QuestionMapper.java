@@ -21,7 +21,8 @@ public interface QuestionMapper {
     default QuestionResponseDto questionToQuestionResponseDto(Question question,
                                                               UserMapper userMapper,
                                                               AnswerService answerService,
-                                                              CommentService commentService) {
+                                                              CommentService commentService,
+                                                              int page, int size) {
         QuestionResponseDto questionResponseDto = new QuestionResponseDto();
 
         questionResponseDto.setQuestionId(question.getQuestionId());
@@ -30,7 +31,7 @@ public interface QuestionMapper {
         questionResponseDto.setMainCategory(question.getMainCategory());
         questionResponseDto.setSubCategory(question.getSubCategory());
         questionResponseDto.setUser(userMapper.userToUserProfileResponseDto(question.getUser()));
-        questionResponseDto.setAnswers(answerService.findAnswers(question, userMapper, commentService));
+        questionResponseDto.setAnswers(answerService.findAnswers(question, userMapper, commentService, page, size));
 
         return questionResponseDto;
     }

@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import server.answer.dto.AnswerPostPutDto;
 import server.answer.dto.VotesDto;
@@ -36,12 +38,15 @@ public class AnswerController {
 
     @PostMapping("/questions/{question-id}/answers")
     public ResponseEntity postAnswer(@Positive @PathVariable("question-id") long questionId,
-                                     @Valid @RequestBody AnswerPostPutDto answerPostPutDto) throws Exception {
-        // TODO: 로그인 유저 정보 가져오기
-        long userId = 1L;
+                                     @Valid @RequestBody AnswerPostPutDto answerPostPutDto,
+                                     Authentication authentication) throws Exception {
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String email = userDetails.getUsername();
+
         Answer answer = answerMapper.answerPostPutDtoToAnswer(answerPostPutDto);
         answer.setQuestion(questionService.findVerifiedQuestion(questionId));
-        answer.setUser(userService.findUser(userId));
+        answer.setUser(userService.findUser(email));
 
         answerService.createdAnswer(answer);
 
