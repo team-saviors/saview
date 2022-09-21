@@ -10,7 +10,7 @@ function App() {
       <Header></Header>
       <Routes>
         <Route path="/" element={<Mainpage />}></Route>
-        <Route path="/postpage" element={<PostPage />}></Route>
+        <Route path="/questions/:id" element={<PostPage />}></Route>
         {/* <Mainpage></Mainpage>
         <PostPage></PostPage> */}
       </Routes>
