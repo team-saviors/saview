@@ -13,13 +13,13 @@ const CardItem = styled(Card)`
 
   /* background-color: red; */
 `;
-const QuestionCard = () => {
+const QuestionCard = ({ content }) => {
   return (
     <Link to="/postpage">
       <CardItem variant="outlined">
         <CardActionArea>
           {/* outline 굵기 찾아봐야함 */}
-          <h1>React의 state와 props에 대해서 설명해 주세요.</h1>
+          <h1>{content}</h1>
         </CardActionArea>
       </CardItem>
     </Link>
