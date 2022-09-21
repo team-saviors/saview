@@ -1,5 +1,8 @@
+import axios from 'axios';
 import create from 'zustand';
 import bronze from '../assets/images/bronze.png';
+import client from '../utils/axiosInstance';
+import { getQuestions } from '../utils/axiosRequest';
 export const countStore = create((set) => ({
   count: 0,
   increase() {
@@ -8,11 +11,13 @@ export const countStore = create((set) => ({
   decrease() {
     set((state) => ({ count: state.count - 1 }));
   },
-  //ajax요청
-  // async useFetch() {
-  //   const res = await fetch('url');
-  //   console.log(await res.json());
-  // },
+}));
+export const questionStore = create((set) => ({
+  questions: {},
+  getQuestions: async () => {
+    const res = await client.get('/questions?page=1&size=9');
+    set({ questions: res.data });
+  },
 }));
 
 //이건 나중에 fetch로 refactoring할 것
