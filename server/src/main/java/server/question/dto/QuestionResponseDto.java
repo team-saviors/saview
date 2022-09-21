@@ -17,6 +17,6 @@ public class QuestionResponseDto {
     private String subCategory;
     private int views;
     private UserProfileResponseDto user;
-    private List<AnswerResponseDto> answers;
+    private MultiResponseDto<AnswerResponseDto> answers;
 
 }

@@ -3,7 +3,11 @@ package server.user.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import server.user.dto.PasswordDto;
 import server.user.dto.UserPostDto;
 import server.user.dto.UserPutDto;
 import server.user.entity.User;
@@ -29,24 +33,38 @@ public class UserController {
 
     @GetMapping("/{user-id}")
     public ResponseEntity getUser(@Positive @PathVariable("user-id") long userId) throws Exception {
-        User findUser = userService.findUser(userId);
+        User findUser = userService.findUserById(userId);
         return new ResponseEntity<>(userMapper.userToUserResponseDto(findUser), HttpStatus.OK);
     }
 
     @PutMapping("/modify")
-    public ResponseEntity putUser(@Valid @RequestBody UserPutDto userPutDto) throws Exception {
+    public ResponseEntity putUser(@Valid @RequestBody UserPutDto userPutDto,
+                                  Authentication authentication) throws Exception {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String email = userDetails.getUsername();
+
         User user = userMapper.userPutDtoToUser(userPutDto);
-        // TODO: 토큰 userId 이용
-        user.setUserId(1L);
-        userService.updateUser(user);
+        userService.updateUser(email, user);
         return new ResponseEntity("회원 정보 수정에 성공하였습니다.", HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity deleteUser() throws Exception {
-        // TODO: 토큰 userId 이용
-        long userId = 1L;
-        userService.deleteUser(userId);
+    public ResponseEntity deleteUser(Authentication authentication) throws Exception {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String email = userDetails.getUsername();
+
+        userService.deleteUser(email);
+
         return new ResponseEntity("회원 탈퇴에 성공하였습니다.", HttpStatus.OK);
+    }
+
+    @PutMapping("/password")
+    public ResponseEntity putPassword(@Valid @RequestBody PasswordDto passwordDto, Authentication authentication) throws Exception {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String email = userDetails.getUsername();
+
+        userService.updatePassword(email, passwordDto.getNewPassword());
+
+        return new ResponseEntity("비밀번호 변경이 완료되었습니다.", HttpStatus.OK);
     }
 }

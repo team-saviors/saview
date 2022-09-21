@@ -1,10 +1,7 @@
 // import { Link } from '@mui/material';
 import { Box, Button } from '@mui/material';
 import styled from 'styled-components';
-
 import { SignInModal } from './SignInModal';
-
-// import Main_Logo from '../assets/images/saview.png';
 import mainLogo from '../assets/images/mainlogo2.png';
 import { Link } from 'react-router-dom';
 
@@ -17,17 +14,32 @@ const NavBar = styled.header`
   align-items: center;
   padding: 0 10px;
   margin: auto;
-
-  /* background-color: blue; */
 `;
 const LogoBox = styled(Box)`
-  /* border: 1px solid; */
   .main_logo {
     width: 120px;
     height: 35px;
   }
 `;
-const Loginbox = styled(Box)``;
+const Loginbox = styled(Box)`
+  > * {
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+  display: flex;
+  text-align: center;
+  grid-gap: 35px;
+`;
+const QuestionPostBtn = styled(Button)`
+  color: black;
+  &:hover {
+    background-color: transparent;
+    box-shadow: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+`;
 
 const Header = () => {
   return (
@@ -40,7 +52,7 @@ const Header = () => {
       </LogoBox>
 
       <Loginbox>
-        {/* // <LoginButton disableRipple variant="text"> */}
+        <QuestionPostBtn disableRipple>새 질문 쓰기</QuestionPostBtn>
         <SignInModal></SignInModal>
       </Loginbox>
     </NavBar>

@@ -1,6 +1,7 @@
 package server.answer.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import server.answer.dto.AnswerResponseDto;
@@ -50,16 +51,13 @@ public class AnswerService {
         return answer.orElseThrow(Exception::new);
     }
 
-//    public List<Answer> findAnswers(Question question) {
-//        return answerRepository.findAllByQuestion(question);
-//    }
+    public MultiResponseDto<AnswerResponseDto> findAnswers(Question question,
+                                                           UserMapper userMapper,
+                                                           CommentService commentService,
+                                                           int page, int size) {
+        Page<Answer> pageAnswers = answerRepository.findAllByQuestion(question, PageRequest.of(page-1, size));
+        List<Answer> answers = pageAnswers.getContent();
+        return new MultiResponseDto<>(answerMapper.AnswersToAnswersResponseDtos(answers, userMapper, commentService), pageAnswers);
 
-    public List<AnswerResponseDto> findAnswers(Question question, UserMapper userMapper, CommentService commentService) {
-        List<Answer> findAllAnswers = answerRepository.findAllByQuestion(question);
-        List<AnswerResponseDto> answerResponseDtos = new ArrayList<>();
-        for (Answer answer : findAllAnswers) {
-            answerResponseDtos.add(answerMapper.answerToAnswerResponseDto(answer, userMapper, commentService));
-        }
-        return answerResponseDtos;
     }
 }
