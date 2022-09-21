@@ -24,14 +24,7 @@ public class UserService {
     public User createUser(User user) throws Exception {
         verifyExistsEmail(user.getEmail());
         verifyExistsNickname(user.getNickname());
-<<<<<<< HEAD
-<<<<<<< HEAD
-        verifyExistsLoginId(user.getLoginId());
-=======
->>>>>>> fa00bc812c85f523e7cae055eab3c99b2270fa9f
-=======
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
->>>>>>> d2c55ae6cc67c23b854400ced21b2bf095ef0113
         user.setRole("ROLE_USER");
         return userRepository.save(user);
     }
@@ -58,14 +51,7 @@ public class UserService {
     public void updateUser(String email, User user) throws Exception {
         User findUser = findVerifiedUserByEmail(email);
         findUser.setEmail(user.getEmail());
-<<<<<<< HEAD
-<<<<<<< HEAD
-        findUser.setLoginId(user.getLoginId());
-=======
->>>>>>> fa00bc812c85f523e7cae055eab3c99b2270fa9f
-=======
 
->>>>>>> d2c55ae6cc67c23b854400ced21b2bf095ef0113
         findUser.setNickname(user.getNickname());
         if (user.getProfile() != null) findUser.setProfile(user.getProfile());
         userRepository.save(findUser);
@@ -97,16 +83,5 @@ public class UserService {
         if (user.isPresent())
             throw new Exception();
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-    private void verifyExistsLoginId(String loginId) throws Exception {
-        Optional<User> user = Optional.ofNullable(userRepository.findByLoginId(loginId));
-        if (user.isPresent()) throw new Exception();
-    }
-=======
->>>>>>> fa00bc812c85f523e7cae055eab3c99b2270fa9f
-=======
-
->>>>>>> d2c55ae6cc67c23b854400ced21b2bf095ef0113
 }

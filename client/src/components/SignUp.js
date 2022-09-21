@@ -53,7 +53,12 @@ export default function SignUp({ handleClose }) {
             alignItems: 'center',
           }}
         >
-          <Box component="form" noValidate sx={{ mt: 1 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit(onSubmit, onError)}
+            sx={{ mt: 1 }}
+          >
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
