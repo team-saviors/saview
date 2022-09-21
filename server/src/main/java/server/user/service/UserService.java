@@ -3,15 +3,18 @@ package server.user.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import server.question.entity.Question;
 import server.user.entity.RefreshToken;
 import server.user.entity.User;
 import server.user.repository.RefreshTokenRepository;
 import server.user.repository.UserRepository;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
@@ -57,6 +60,9 @@ public class UserService {
 
     public void deleteUser(String email) throws Exception {
         User findUser = findVerifiedUserByEmail(email);
+        for (Question q : findUser.getQuestions()) {
+            q.setUser(null);
+        }
         userRepository.delete(findUser);
     }
 
