@@ -61,7 +61,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             response.setCharacterEncoding("utf-8");
             new ObjectMapper().writeValue(response.getOutputStream(), ExceptionCode.JWT_TOKEN_EXPIRED);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             log.info("JWT 토큰이 잘못되었습니다. message : {}",e.getMessage());
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);

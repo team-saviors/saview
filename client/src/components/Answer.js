@@ -2,29 +2,15 @@ import Paper from '@mui/material/Paper';
 import { useEffect } from 'react';
 import Container from '@mui/system/Container';
 import styled from 'styled-components';
-// import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAlt from '@mui/icons-material/ThumbUpOffAlt';
 import { TextField, Button, CardContent, Typography } from '@mui/material';
-import { answerStore } from '../store/store';
 import AvatarWrapper from './AvatarWrapper';
 import MessageIcon from '@mui/icons-material/Message';
+import daia from '../assets/images/daia.png';
 export default function Answer(props) {
-  const {
-    answerId,
-    imgURL,
-    author,
-    createdAt,
-    modifiedAt,
-    body,
-    votes,
-    comments,
-  } = props.answer;
-
-  const { increase } = answerStore();
-  // const increase = props.increase;
-  useEffect(() => {
-    console.log(comments);
-  });
+  const { comments, content, createdAt, modifiedAt, user, votes } =
+    props.answer;
+  console.log(comments);
 
   return (
     <Container
@@ -39,10 +25,10 @@ export default function Answer(props) {
       >
         <img
           style={{ width: '30px', height: '30px', borderRadius: '10px' }}
-          src={Object.values(imgURL)}
+          src={daia}
           alt="grade"
         ></img>
-        <span>{author}</span>
+        <span>{user.nickname}</span>
         <span>{createdAt}</span>
       </div>
       <Paper
@@ -55,9 +41,9 @@ export default function Answer(props) {
         }}
         elevation={3}
       >
-        <div>{body}</div>
+        <div>{content}</div>
         <div style={{ position: 'absolute', bottom: '15px' }}>
-          <Button variant="contained" onClick={() => increase()}>
+          <Button variant="contained">
             <ThumbUpAlt></ThumbUpAlt>
             {/* <ThumbUpOffAltIcon style={{}}></ThumbUpOffAltIcon> */}
             <span>좋아요 {votes}</span>
@@ -78,12 +64,12 @@ export default function Answer(props) {
             alignItems: 'center',
           }}
         >
-          <AvatarWrapper src={Object.values(imgURL)[0]}></AvatarWrapper>
+          <AvatarWrapper src={daia}></AvatarWrapper>
           <Typography variant="body2" color="black">
-            {comment.body}
+            {comment.content}
           </Typography>
           <Typography variant="body2" color="gray">
-            &nbsp;&nbsp; {comment.author} &nbsp;&nbsp;{comment.createdAt}
+            &nbsp;&nbsp; {comment.user.nickname} &nbsp;&nbsp;{comment.createdAt}
           </Typography>
         </CardContent>
       ))}
