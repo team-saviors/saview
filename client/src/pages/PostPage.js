@@ -1,11 +1,17 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 import Answer from '../components/Answer';
-import { answerStore } from '../store/store';
+import { answerStore, questionStore } from '../store/store';
+import { useParams } from 'react-router-dom';
 
 const PostPage = () => {
-  const { answers, increase, question } = answerStore();
+  const params = useParams();
 
+  const { question, getQuestion } = answerStore();
+  useEffect(() => {
+    getQuestion(params.id);
+  }, []);
+  console.log(question.answers);
   return (
     <div
       style={{
@@ -16,12 +22,14 @@ const PostPage = () => {
       }}
     >
       <div style={{ marginTop: '20px' }}>
-        <h2>질문:{question}</h2>
+        <h2>질문:{question.content}</h2>
       </div>
 
-      {answers.map((answer) => (
-        <Answer key={answer.answerId} answer={answer}></Answer>
-      ))}
+      {question.answers
+        ? question.answers.map((answer) => (
+            <Answer key={answer.answerId} answer={answer}></Answer>
+          ))
+        : null}
     </div>
   );
 };
