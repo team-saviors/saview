@@ -63,6 +63,7 @@ public class UserService {
         for (Question q : findUser.getQuestions()) {
             q.setUser(null);
         }
+        refreshTokenRepository.deleteByEmail(email);
         userRepository.delete(findUser);
     }
 
