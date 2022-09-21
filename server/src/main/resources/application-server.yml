@@ -10,8 +10,8 @@ spring:
     password: ${mydb.password}
   jpa:
     hibernate:
-      ddl-auto: create  # (1) 스키마 자동 생성
-#      ddl-auto: update
+#      ddl-auto: create  # (1) 스키마 자동 생성
+      ddl-auto: update
     show-sql: true      # (2) SQL 쿼리 출력
     open-in-view: false
 logging.level:
