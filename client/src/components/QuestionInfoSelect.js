@@ -1,16 +1,22 @@
 import { useState } from 'react';
 
-const QuestionInfoSelect = () => {
-  const [main, setMain] = useState('');
-
+const QuestionInfoSelect = ({
+  handleQuestionChange,
+  questions,
+  setQuestion,
+}) => {
   const handleMainChange = (event) => {
-    setMain(event.target.value);
+    setQuestion({
+      ...questions,
+      mainCategory: event.target.value,
+      subCategory: '',
+    });
+
     console.log(event.target.value);
   };
-  const [sub, setSub] = useState('');
 
   const handleSubChange = (event) => {
-    setSub(event.target.value);
+    setQuestion({ ...questions, subCategory: event.target.value });
     console.log(event.target.value);
   };
 
@@ -22,25 +28,43 @@ const QuestionInfoSelect = () => {
     {
       label: '소분류',
       item: [
-        'JavaScript',
-        'React',
-        'TypeScript',
-        'Vue',
-        'NodeJS',
-        'Java',
-        'Spring',
-        'MySQL',
-        'Express',
-        'MongoDB',
-        '운영체제',
-        '자료구조',
-        '알고리즘',
-        '네트워크',
-        '디자인패턴',
-        '데이터베이스',
+        ['JavaScript', 'React', 'TypeScript', 'Vue', 'NodeJS', '기타'],
+        ['Java', 'Spring', 'MySQL', 'Express', 'MongoDB', '기타'],
+        [
+          '운영체제',
+          '자료구조',
+          '알고리즘',
+          '네트워크',
+          '디자인패턴',
+          '데이터베이스',
+          '기타',
+        ],
       ],
     },
   ];
+
+  const subChange = () => {
+    switch (questions.mainCategory) {
+      case '프론트엔드':
+        return categoryData[1].item[0].map((data, idx) => (
+          <MenuItem value={data} key={idx}>
+            {data}
+          </MenuItem>
+        ));
+      case '백엔드':
+        return categoryData[1].item[1].map((data, idx) => (
+          <MenuItem value={data} key={idx}>
+            {data}
+          </MenuItem>
+        ));
+      case 'CS':
+        return categoryData[1].item[2].map((data, idx) => (
+          <MenuItem value={data} key={idx}>
+            {data}
+          </MenuItem>
+        ));
+    }
+  };
   return (
     <InputWrapper>
       <FormControl fullWidth>
@@ -48,13 +72,10 @@ const QuestionInfoSelect = () => {
         <Select
           labelId="main-select-label"
           id="main-select"
-          value={main}
+          value={questions.mainCategory}
           label={categoryData[0].label}
           onChange={handleMainChange}
         >
-          {/* <MenuItem value={'프론트엔드'}>프론트엔드</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem> */}
           {categoryData[0].item.map((data, idx) => (
             <MenuItem value={data} key={idx}>
               {data}
@@ -62,23 +83,17 @@ const QuestionInfoSelect = () => {
           ))}
         </Select>
       </FormControl>
+
       <FormControl fullWidth>
         <InputLabel id="sub-select-label">{categoryData[1].label}</InputLabel>
         <Select
           labelId="sub-select-label"
           id="sub-select"
-          value={sub}
-          label={categoryData[0].label}
+          value={questions.subCategory}
+          label={categoryData[1].label}
           onChange={handleSubChange}
         >
-          {/* <MenuItem value={'프론트엔드'}>프론트엔드</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem> */}
-          {categoryData[1].item.map((data, idx) => (
-            <MenuItem value={data} key={idx}>
-              {data}
-            </MenuItem>
-          ))}
+          {subChange()}
         </Select>
       </FormControl>
     </InputWrapper>

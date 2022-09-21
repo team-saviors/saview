@@ -1,21 +1,31 @@
 import { useState } from 'react';
+import { useStore } from 'zustand';
 import QuestionInfoSelect from '../components/QuestionInfoSelect';
 
 const QuestionPostPage = () => {
-  //   const [questions, setQuestion] = useState({
-  //     mainCategory: '',
-  //     subCategory: '',
-  //     content: '',
-  //   });
-
+  const [questions, setQuestion] = useState({
+    mainCategory: '',
+    subCategory: '',
+    content: '',
+  });
+  // const { handleContent, questions } = useStore();
+  const handleQuestionChange = (event) => {
+    setQuestion({
+      ...questions,
+      content: event.target.value,
+    });
+    console.log(event.target.value);
+  };
   return (
     <section>
       <PostBox>
         <TextBox>
           <h2>면접 질문 정보를 입력해주세요.</h2>
         </TextBox>
-        <QuestionInfoSelect />
+        <QuestionInfoSelect setQuestion={setQuestion} questions={questions} />
         <ContentInput
+          onChange={handleQuestionChange}
+          value={questions.content}
           fullWidth
           label="질문 내용을 입력해주세요."
           id="questionContent"

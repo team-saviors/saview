@@ -83,3 +83,16 @@ export const answerStore = create((set) => ({
     });
   },
 }));
+
+export const questionStore = create((set) => ({
+  questions: {
+    mainCategory: '',
+    subCategory: '',
+    content: '',
+  },
+  handleContent: () => set((state) => ({ ...state, content: state.content })),
+  handleMain: (event) =>
+    set((state) => ({ ...state, mainCategory: event.target.value })),
+  handleSub: (event) =>
+    set((state) => ({ ...state, subCategory: event.target.value })),
+}));
