@@ -11,11 +11,6 @@ import javax.validation.constraints.Pattern;
 @Setter
 public class UserPutDto {
 
-
-    @NotBlank(message = "이메일은 반드시 입력해야합니다.")
-    @Email(message = "이메일 형식에 맞지 않습니다.")
-    private String email;
-
     @NotBlank(message = "닉네임은 반드시 입력해야합니다.")
 
     @Pattern(regexp = "(^[a-zA-Z0-9가-힣]+(\\s[a-zA-Z0-9가-힣]+)*$)",
