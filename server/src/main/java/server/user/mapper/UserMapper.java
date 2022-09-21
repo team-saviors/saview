@@ -15,6 +15,7 @@ public interface UserMapper {
 
     default UserProfileResponseDto userToUserProfileResponseDto(User user) {
         UserProfileResponseDto userProfileResponseDto = new UserProfileResponseDto();
+        userProfileResponseDto.setUserId(user.getUserId());
         userProfileResponseDto.setProfile(user.getProfile());
         userProfileResponseDto.setNickname(user.getNickname());
         return userProfileResponseDto;

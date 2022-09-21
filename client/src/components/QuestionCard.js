@@ -4,10 +4,16 @@ import { CardActionArea, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { RemoveRedEye } from '@mui/icons-material';
 import CommentIcon from '@mui/icons-material/Comment';
-
+import { answerStore } from '../store/store';
+import { useEffect } from 'react';
 const QuestionCard = (props) => {
-  console.log(props.question);
   const { questionId, content, views } = props.question;
+  const { question, getQuestion } = answerStore();
+  useEffect(() => {
+    getQuestion(questionId);
+    console.log(question);
+  }, []);
+
   return (
     <Link to={`questions/${questionId}`} state={{ questionId: questionId }}>
       <CardItem style={{ position: 'relative' }} variant="outlined">
@@ -18,7 +24,8 @@ const QuestionCard = (props) => {
         <Box style={{ poistion: 'relative', bottom: '5px' }}>
           <RemoveRedEye style={{ top: '200px', color: 'gray' }} />
           {views}
-          <CommentIcon style={{ color: 'gray' }}></CommentIcon>0
+          <CommentIcon style={{ color: 'gray' }}></CommentIcon>
+          {question.answers && question.answers.length}
         </Box>
       </CardItem>
     </Link>
