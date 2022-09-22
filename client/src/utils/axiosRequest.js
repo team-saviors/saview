@@ -18,3 +18,11 @@ export async function postSignIn(data) {
 export async function getUser(userId) {
   const response = await client.get(`/users/${userId}`);
 }
+
+export async function postQuestion(data) {
+  try {
+    const res = await client.post('/questions', data);
+  } catch (err) {
+    console.log(err);
+  }
+}

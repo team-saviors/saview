@@ -42,24 +42,25 @@ export const answerStore = create((set, get) => ({
   },
 }));
 
-// {
-//   "questionId": 4,
-//   "content": "메인 페이지 테스트용 글입니다",
-//   "mainCategory": "backend",
-//   "subCategory": "java",
-//   "views": 1,
-//   "user": {
-//       "userId": 8,
-//       "nickname": "lagom",
-//       "profile": null
-//   },
-//   "answers": {
-//       "data": [],
-//       "pageInfo": {
-//           "page": 1,
-//           "size": 10,
-//           "totalElements": 0,
-//           "totalPages": 0
-//       }
-//   }
-// }
+export const questionRegisterStore = create((set) => ({
+  questions: { mainCategory: '', subCategory: '', content: '' },
+  handleContentChange(e) {
+    set((state) => ({
+      questions: { ...state.questions, content: e.target.value },
+    }));
+  },
+  handleMainChange(e) {
+    set((state) => ({
+      questions: {
+        ...state.questions,
+        mainCategory: e.target.value,
+        subCategory: '',
+      },
+    }));
+  },
+  handleSubChange(e) {
+    set((state) => ({
+      questions: { ...state.questions, subCategory: e.target.value },
+    }));
+  },
+}));

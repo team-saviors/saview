@@ -49,7 +49,7 @@ const Header = () => {
         </Link>
       </LogoBox>
       <Loginbox>
-        <Link to="/questionpostpage">
+        <Link to="/questionpost">
           <QuestionPostBtn disableRipple>새 질문 쓰기</QuestionPostBtn>
         </Link>
         <SignInModal></SignInModal>

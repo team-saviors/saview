@@ -1,20 +1,12 @@
 import { useState } from 'react';
 import { useStore } from 'zustand';
 import QuestionInfoSelect from '../components/QuestionInfoSelect';
-
+import { questionRegisterStore } from '../store/store';
+import { postQuestion } from '../utils/axiosRequest';
 const QuestionPostPage = () => {
-  const [questions, setQuestion] = useState({
-    mainCategory: '',
-    subCategory: '',
-    content: '',
-  });
-  // const { handleContent, questions } = useStore();
-  const handleQuestionChange = (event) => {
-    setQuestion({
-      ...questions,
-      content: event.target.value,
-    });
-    console.log(event.target.value);
+  const { questions, handleContentChange } = questionRegisterStore();
+  const questionPostHandler = (questions) => {
+    postQuestion(questions);
   };
   return (
     <section>
@@ -22,9 +14,9 @@ const QuestionPostPage = () => {
         <TextBox>
           <h2>면접 질문 정보를 입력해주세요.</h2>
         </TextBox>
-        <QuestionInfoSelect setQuestion={setQuestion} questions={questions} />
+        <QuestionInfoSelect />
         <ContentInput
-          onChange={handleQuestionChange}
+          onChange={handleContentChange}
           value={questions.content}
           fullWidth
           label="질문 내용을 입력해주세요."
@@ -34,7 +26,9 @@ const QuestionPostPage = () => {
           <Link to="/">
             <CancelBtn>취소</CancelBtn>
           </Link>
-          <PostBtn>질문 등록</PostBtn>
+          <PostBtn type="submit" onClick={questionPostHandler}>
+            질문 등록
+          </PostBtn>
         </Postbtnbox>
       </PostBox>
     </section>
