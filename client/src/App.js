@@ -14,7 +14,7 @@ function App() {
         <Route path="/questions/:id" element={<PostPage />}></Route>
         {/* <Mainpage></Mainpage>
         <PostPage></PostPage> */}
-        <Route path="/questionpostpage" element={<QuestionPostPage />}></Route>
+        <Route path="/questionpost" element={<QuestionPostPage />}></Route>
       </Routes>
     </>
   );

@@ -26,3 +26,11 @@ export async function getQuestions() {
 export async function updateVotes() {
   const res = await client;
 }
+
+export async function postQuestion(data) {
+  try {
+    const res = await client.post('/questions', data);
+  } catch (err) {
+    console.log(err);
+  }
+}

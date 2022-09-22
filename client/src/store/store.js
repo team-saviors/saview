@@ -30,6 +30,29 @@ export const answerStore = create((set) => ({
   },
 }));
 
+export const questionRegisterStore = create((set) => ({
+  questions: { mainCategory: '', subCategory: '', content: '' },
+  handleContentChange(e) {
+    set((state) => ({
+      questions: { ...state.questions, content: e.target.value },
+    }));
+  },
+  handleMainChange(e) {
+    set((state) => ({
+      questions: {
+        ...state.questions,
+        mainCategory: e.target.value,
+        subCategory: '',
+      },
+    }));
+  },
+  handleSubChange(e) {
+    set((state) => ({
+      questions: { ...state.questions, subCategory: e.target.value },
+    }));
+  },
+}));
+
 //이건 나중에 fetch로 refactoring할 것
 // export const answerStore = create((set) => ({
 //   question: 'react의 state와 props 차이를 설명하시오',
