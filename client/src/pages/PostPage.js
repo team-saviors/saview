@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 import Answer from '../components/Answer';
-import { answerStore, questionStore } from '../store/store';
+import { answerStore } from '../store/store';
 import { useParams } from 'react-router-dom';
 
 const PostPage = () => {
   const params = useParams();
 
-  const { question, getQuestion } = answerStore();
+  const { question, getQuestion, updateViews } = answerStore();
   useEffect(() => {
     getQuestion(params.id);
   }, []);
