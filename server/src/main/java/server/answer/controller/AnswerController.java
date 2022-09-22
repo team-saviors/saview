@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import server.answer.dto.AnswerPostPutDto;
 import server.answer.dto.VotesDto;
@@ -23,6 +24,7 @@ import server.user.service.UserService;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
+@Validated
 @RequiredArgsConstructor
 @RestController
 public class AnswerController {
