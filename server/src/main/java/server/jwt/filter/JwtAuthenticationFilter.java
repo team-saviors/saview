@@ -51,15 +51,24 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
         System.out.println("successfulAuthentication");
         PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
+        String accessToken;
 
-        String accessToken = JWT.create()
-                .withSubject(principalDetails.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 30)))
+        if (principalDetails.getUser().getRole().equals("ROLE_ADMIN")) {
+            accessToken = JWT.create()
+                    .withSubject(principalDetails.getUsername())
+                    .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 14)))
+                    .withClaim("id", principalDetails.getUser().getUserId())
+                    .withClaim("email", principalDetails.getUser().getEmail())
+                    .sign(Algorithm.HMAC512("cos_jwt_token"));
+        } else {
+            accessToken = JWT.create()
+                    .withSubject(principalDetails.getUsername())
+                    .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 30)))
 //                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 10)))
-                .withClaim("id", principalDetails.getUser().getUserId())
-                .withClaim("email", principalDetails.getUser().getEmail())
-                .sign(Algorithm.HMAC512("cos_jwt_token"));
-
+                    .withClaim("id", principalDetails.getUser().getUserId())
+                    .withClaim("email", principalDetails.getUser().getEmail())
+                    .sign(Algorithm.HMAC512("cos_jwt_token"));
+        }
         String refreshToken = JWT.create()
                 .withSubject(principalDetails.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 14)))
@@ -74,7 +83,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         TokenResponseDto tokenResponseDto = TokenResponseDto.builder().accessToken("Bearer " + accessToken).refreshToken("Bearer " + refreshToken).build();
 
         String tokens = objectMapper.writeValueAsString(tokenResponseDto);
-
         response.getWriter().write(tokens);
 
 
