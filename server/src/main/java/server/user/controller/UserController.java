@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import server.user.dto.PasswordDto;
 import server.user.dto.UserPostDto;
@@ -16,7 +17,7 @@ import server.user.service.UserService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-
+@Validated
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/users")
@@ -62,8 +63,7 @@ public class UserController {
     public ResponseEntity putPassword(@Valid @RequestBody PasswordDto passwordDto, Authentication authentication) throws Exception {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String email = userDetails.getUsername();
-
-        userService.updatePassword(email, passwordDto.getNewPassword());
+        userService.updatePassword(email, passwordDto.getCurPassword(), passwordDto.getNewPassword());
 
         return new ResponseEntity("비밀번호 변경이 완료되었습니다.", HttpStatus.OK);
     }
