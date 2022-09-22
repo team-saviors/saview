@@ -1,8 +1,10 @@
 package server.user.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import server.question.entity.Question;
 import server.user.entity.RefreshToken;
 import server.user.entity.User;
@@ -18,7 +20,6 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-
     private final RefreshTokenRepository refreshTokenRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -32,8 +33,13 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void updatePassword(String email, String newPassword) throws Exception {
+    public void updatePassword(String email,
+                               String curPassword,
+                               String newPassword) throws Exception {
         User user = findVerifiedUserByEmail(email);
+        if (!bCryptPasswordEncoder.matches(curPassword, user.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "기존 비밀번호와 일치하지 않습니다.");
+        }
         user.setPassword(bCryptPasswordEncoder.encode(newPassword));
         userRepository.save(user);
     }
