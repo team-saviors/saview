@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { questionRegisterStore } from '../store/store';
 const QuestionInfoSelect = () => {
   const { questions, handleMainChange, handleSubChange } =
