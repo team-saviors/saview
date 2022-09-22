@@ -14,10 +14,8 @@ export const countStore = create((set) => ({
 }));
 export const questionStore = create((set) => ({
   questions: {},
-
   getQuestions: async (page) => {
     const res = await client.get(`/questions?page=${page}&size=9`);
-
     set({ questions: res.data });
   },
 }));
@@ -27,18 +25,15 @@ export const answerStore = create((set, get) => ({
   getQuestion: async (questionId) => {
     try {
       const res = await client.get(`/questions/${questionId}?page=1&size=10`);
-      set({ question: res.data });
+      set((state) => ({
+        question: { ...res.data, views: res.data.views + 1 },
+      }));
+      const updateViews = await client.put(`/questions/${questionId}/views`, {
+        views: get().question.views,
+      });
     } catch (err) {
       console.log(err);
     }
-  },
-  updateViews: async (questionId) => {
-    set((state) => ({
-      question: { ...state.question, views: state.question.views + 1 },
-    }));
-    const res = await client.put(`/questions/${questionId}/views`, {
-      views: get().question.views,
-    });
   },
 }));
 
