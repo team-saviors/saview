@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import server.answer.dto.VotesDto;
 import server.answer.entity.Answer;
@@ -26,6 +27,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
+@Validated
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/questions")
@@ -88,7 +90,7 @@ public class QuestionController {
     }
 
     @PutMapping("/{question-id}/views")
-    public ResponseEntity putVotes(@Positive @PathVariable("question-id") long questionId,
+    public ResponseEntity putViews(@Positive @PathVariable("question-id") long questionId,
                                    @Valid @RequestBody ViewsDto viewsDto) throws Exception {
         questionService.updateViews(questionId, viewsDto.getViews());
         return new ResponseEntity(HttpStatus.OK);
