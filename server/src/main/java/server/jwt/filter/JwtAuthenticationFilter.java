@@ -13,6 +13,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import server.jwt.oauth.PrincipalDetails;
 import server.user.dto.TokenResponseDto;
 import server.user.entity.User;
+import server.user.repository.RefreshTokenRepository;
 import server.user.service.UserService;
 
 import javax.servlet.FilterChain;
@@ -29,6 +30,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     private final UserService userService;
+
+    private final RefreshTokenRepository refreshTokenRepository;
 
 
     @Override
@@ -75,7 +78,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 //                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 20)))
                 .sign(Algorithm.HMAC512("cos_jwt_token"));
 
-        userService.updateRefreshToken(principalDetails.getUser().getEmail(), refreshToken);
+        String email = principalDetails.getUser().getEmail();
+        if (refreshTokenRepository.findByEmail(email).isPresent()) {
+            refreshTokenRepository.deleteByEmail(email);
+        }
+        userService.updateRefreshToken(email, refreshToken);
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("utf-8");
