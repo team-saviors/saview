@@ -1,25 +1,8 @@
 import { useState } from 'react';
-
-const QuestionInfoSelect = ({
-  handleQuestionChange,
-  questions,
-  setQuestion,
-}) => {
-  const handleMainChange = (event) => {
-    setQuestion({
-      ...questions,
-      mainCategory: event.target.value,
-      subCategory: '',
-    });
-
-    console.log(event.target.value);
-  };
-
-  const handleSubChange = (event) => {
-    setQuestion({ ...questions, subCategory: event.target.value });
-    console.log(event.target.value);
-  };
-
+import { questionRegisterStore } from '../store/store';
+const QuestionInfoSelect = () => {
+  const { questions, handleMainChange, handleSubChange } =
+    questionRegisterStore();
   const categoryData = [
     {
       label: '대분류',
