@@ -1,23 +1,15 @@
 import styled from 'styled-components';
 import Card from '@mui/material/Card';
-import { CardActionArea, Box } from '@mui/material';
+import { Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { RemoveRedEye } from '@mui/icons-material';
 import CommentIcon from '@mui/icons-material/Comment';
-import { answerStore } from '../store/store';
-import { useEffect } from 'react';
+
 const QuestionCard = (props) => {
   const { questionId, content, views } = props.question;
-  const { question, getQuestion, updateViews } = answerStore();
-  useEffect(() => {
-    getQuestion(questionId);
-  }, []);
 
   return (
-    <Link
-      to={`questions/${questionId}`}
-      onClick={() => updateViews(questionId)}
-    >
+    <Link to={`questions/${questionId}`}>
       <CardItem style={{ position: 'relative' }} variant="outlined">
         <Box style={{ margin: '10px' }}>
           {/* outline 굵기 찾아봐야함 */}
@@ -27,7 +19,6 @@ const QuestionCard = (props) => {
           <RemoveRedEye style={{ top: '200px', color: 'gray' }} />
           {views}
           <CommentIcon style={{ color: 'gray' }}></CommentIcon>
-          {question.answers ? question.answers.data.length : 0}
         </Box>
       </CardItem>
     </Link>
