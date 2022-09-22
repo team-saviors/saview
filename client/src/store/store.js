@@ -1,8 +1,8 @@
 import axios from 'axios';
 import create from 'zustand';
 import bronze from '../assets/images/bronze.png';
-import client from '../utils/axiosInstance';
-import { getQuestions } from '../utils/axiosRequest';
+import { client } from '../utils/axiosInstance';
+
 export const countStore = create((set) => ({
   count: 0,
   increase() {
@@ -22,10 +22,44 @@ export const questionStore = create((set) => ({
   },
 }));
 
-export const answerStore = create((set) => ({
+export const answerStore = create((set, get) => ({
   question: {},
   getQuestion: async (questionId) => {
-    const res = await client.get(`/questions/${questionId}`);
-    set({ question: res.data });
+    try {
+      const res = await client.get(`/questions/${questionId}?page=1&size=10`);
+      set({ question: res.data });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  updateViews: async (questionId) => {
+    set((state) => ({
+      question: { ...state.question, views: state.question.views + 1 },
+    }));
+    const res = await client.put(`/questions/${questionId}/views`, {
+      views: get().question.views,
+    });
   },
 }));
+
+// {
+//   "questionId": 4,
+//   "content": "메인 페이지 테스트용 글입니다",
+//   "mainCategory": "backend",
+//   "subCategory": "java",
+//   "views": 1,
+//   "user": {
+//       "userId": 8,
+//       "nickname": "lagom",
+//       "profile": null
+//   },
+//   "answers": {
+//       "data": [],
+//       "pageInfo": {
+//           "page": 1,
+//           "size": 10,
+//           "totalElements": 0,
+//           "totalPages": 0
+//       }
+//   }
+// }

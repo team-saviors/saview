@@ -8,14 +8,16 @@ import { answerStore } from '../store/store';
 import { useEffect } from 'react';
 const QuestionCard = (props) => {
   const { questionId, content, views } = props.question;
-  const { question, getQuestion } = answerStore();
+  const { question, getQuestion, updateViews } = answerStore();
   useEffect(() => {
     getQuestion(questionId);
-    console.log(question);
   }, []);
 
   return (
-    <Link to={`questions/${questionId}`} state={{ questionId: questionId }}>
+    <Link
+      to={`questions/${questionId}`}
+      onClick={() => updateViews(questionId)}
+    >
       <CardItem style={{ position: 'relative' }} variant="outlined">
         <Box style={{ margin: '10px' }}>
           {/* outline 굵기 찾아봐야함 */}
@@ -25,7 +27,7 @@ const QuestionCard = (props) => {
           <RemoveRedEye style={{ top: '200px', color: 'gray' }} />
           {views}
           <CommentIcon style={{ color: 'gray' }}></CommentIcon>
-          {question.answers && question.answers.length}
+          {question.answers ? question.answers.data.length : 0}
         </Box>
       </CardItem>
     </Link>

@@ -1,4 +1,4 @@
-import client from './axiosInstance';
+import { client } from './axiosInstance';
 
 export async function postSignUp(data) {
   try {
@@ -17,11 +17,4 @@ export async function postSignIn(data) {
 }
 export async function getUser(userId) {
   const response = await client.get(`/users/${userId}`);
-}
-export async function getQuestions() {
-  const res = await client.get('/questions?page=1&size=9');
-}
-
-export async function updateVotes() {
-  const res = await client;
 }

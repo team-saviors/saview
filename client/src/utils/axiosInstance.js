@@ -1,5 +1,5 @@
 import axios from 'axios';
-const client = axios.create({
+export const client = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   timeout: 3000,
   headers: {
@@ -7,4 +7,7 @@ const client = axios.create({
   },
 });
 
-export default client;
+export const authClient = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+  withCredentials: true,
+});

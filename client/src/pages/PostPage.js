@@ -29,7 +29,7 @@ const PostPage = () => {
       ) : question.answers.length === 0 ? (
         <div>{'답변이 없습니다. 답변을 달아주세요'}</div>
       ) : (
-        question.answers.map((answer) => (
+        question.answers.data.map((answer) => (
           <Answer key={answer.answerId} answer={answer}></Answer>
         ))
       )}
