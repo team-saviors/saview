@@ -11,13 +11,12 @@ const PostPage = () => {
   useEffect(() => {
     getQuestion(params.id);
   }, []);
-  console.log(question.answers);
+
   return (
     <div
       style={{
         display: 'flex',
         flexDirection: 'column',
-        // justifyContent: 'center',
         alignItems: 'center',
       }}
     >
@@ -25,11 +24,15 @@ const PostPage = () => {
         <h2>질문:{question.content}</h2>
       </div>
 
-      {question.answers
-        ? question.answers.map((answer) => (
-            <Answer key={answer.answerId} answer={answer}></Answer>
-          ))
-        : null}
+      {question.answers === undefined ? (
+        <div>{'답변이 없습니다. 답변을 달아주세요'}</div>
+      ) : question.answers.length === 0 ? (
+        <div>{'답변이 없습니다. 답변을 달아주세요'}</div>
+      ) : (
+        question.answers.data.map((answer) => (
+          <Answer key={answer.answerId} answer={answer}></Answer>
+        ))
+      )}
     </div>
   );
 };
