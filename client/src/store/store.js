@@ -30,13 +30,13 @@ export const answerStore = create((set) => ({
   },
 }));
 
+
 //이건 나중에 fetch로 refactoring할 것
 // export const answerStore = create((set) => ({
 //   question: 'react의 state와 props 차이를 설명하시오',
 //   answers: [
 //     {
 //       answerId: 1,
-
 //       imgURL: { bronze },
 //       author: 'colagom',
 //       createdAt: '2022-09-15T01:02:17Z',
@@ -64,7 +64,6 @@ export const answerStore = create((set) => ({
 //     },
 //     {
 //       answerId: 2,
-
 //       imgURL: { bronze },
 //       author: 'pjhyeok',
 //       createdAt: '2022-09-15T01:02:17Z',
@@ -98,3 +97,4 @@ export const answerStore = create((set) => ({
 //     });
 //   },
 // }));
+
