@@ -2,6 +2,7 @@ package server.user.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
 import server.answer.entity.Answer;
 
 import server.audit.Auditable;
