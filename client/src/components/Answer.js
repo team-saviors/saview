@@ -10,7 +10,6 @@ import daia from '../assets/images/daia.png';
 export default function Answer(props) {
   const { comments, content, createdAt, modifiedAt, user, votes } =
     props.answer;
-  console.log(comments);
 
   return (
     <Container
@@ -50,29 +49,34 @@ export default function Answer(props) {
           </Button>
         </div>
       </Paper>
-      {comments.map((comment) => (
-        <CardContent
-          key={comment.commentId}
-          style={{
-            width: '1200px',
-            // borderBottom: '1px solid #DEDEDE',
+      {comments ? (
+        comments.map((comment) => (
+          <CardContent
+            key={comment.commentId}
+            style={{
+              width: '1200px',
+              // borderBottom: '1px solid #DEDEDE',
 
-            padding: '5px',
-            borderLeft: '1px solid #DEDEDE',
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
-          <AvatarWrapper src={daia}></AvatarWrapper>
-          <Typography variant="body2" color="black">
-            {comment.content}
-          </Typography>
-          <Typography variant="body2" color="gray">
-            &nbsp;&nbsp; {comment.user.nickname} &nbsp;&nbsp;{comment.createdAt}
-          </Typography>
-        </CardContent>
-      ))}
+              padding: '5px',
+              borderLeft: '1px solid #DEDEDE',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}
+          >
+            <AvatarWrapper src={daia}></AvatarWrapper>
+            <Typography variant="body2" color="black">
+              {comment.content}
+            </Typography>
+            <Typography variant="body2" color="gray">
+              &nbsp;&nbsp; {comment.user.nickname} &nbsp;&nbsp;
+              {comment.createdAt}
+            </Typography>
+          </CardContent>
+        ))
+      ) : (
+        <div>{'댓글이 없습니다'}</div>
+      )}
       <CardContent
         style={{
           width: '1200px',
