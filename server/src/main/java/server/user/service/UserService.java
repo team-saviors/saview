@@ -54,7 +54,7 @@ public class UserService {
     public void updateUser(String email, User user) throws Exception {
         User findUser = findVerifiedUserByEmail(email);
         findUser.setNickname(user.getNickname());
-        if (user.getProfile() != null) findUser.setProfile(user.getProfile());
+        findUser.setProfile(user.getProfile());
         userRepository.save(findUser);
     }
 
