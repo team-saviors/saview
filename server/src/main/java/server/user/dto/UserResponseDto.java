@@ -16,6 +16,7 @@ public class UserResponseDto {
     private String email;
     private String nickname;
     private String profile;
+    private String status;
 //    private List<QuestionResponseDto> questions;
 //    private List<AnswerResponseDto> answers;
 //    private List<CommentResponseDto> comments;
