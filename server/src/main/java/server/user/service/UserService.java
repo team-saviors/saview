@@ -30,6 +30,7 @@ public class UserService {
         verifyExistsNickname(user.getNickname());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRole("ROLE_USER");
+        user.setProfile("s3://saview-dev/Saview/logo_circle.png");
         return userRepository.save(user);
     }
 
