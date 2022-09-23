@@ -82,8 +82,6 @@ public class RefreshTokenController {
         } catch (TokenExpiredException e) {
             log.info("Refresh Token 만료");
             throw new BusinessLogicException(ExceptionCode.REFRESH_TOKEN_EXPIRED);
-//            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-//            new ObjectMapper().writeValue(response.getOutputStream(), ExceptionCode.JWT_TOKEN_EXPIRED);
         }
     }
 
