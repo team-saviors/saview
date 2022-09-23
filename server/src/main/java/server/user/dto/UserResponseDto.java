@@ -2,10 +2,6 @@ package server.user.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import server.answer.dto.AnswerResponseDto;
-import server.comment.dto.CommentResponseDto;
-import server.question.dto.QuestionResponseDto;
-import server.response.MultiResponseDto;
 
 import java.util.List;
 
