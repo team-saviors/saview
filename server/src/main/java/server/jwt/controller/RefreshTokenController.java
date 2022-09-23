@@ -41,6 +41,7 @@ public class RefreshTokenController {
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("utf-8");
+        response.setHeader("Access-Control-Allow-Origin", "*");
 
         if (jwtHeader == null || !jwtHeader.startsWith("Bearer")) {
             log.info("Refresh 토큰이 없습니다.");
@@ -64,6 +65,7 @@ public class RefreshTokenController {
             if (user == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 new ObjectMapper().writeValue(response.getOutputStream(), ExceptionCode.USER_NOT_FOUND);
+                return;
             } else if (!refreshTokenEntity.getEmail().equals(email)) {
                 new ObjectMapper().writeValue(response.getOutputStream(), ExceptionCode.INVALID_JWT_TOKEN);
                 return;
