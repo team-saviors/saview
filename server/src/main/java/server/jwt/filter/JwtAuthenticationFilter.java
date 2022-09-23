@@ -66,16 +66,16 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         } else {
             accessToken = JWT.create()
                     .withSubject(principalDetails.getUsername())
-                    .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 30)))
-//                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 10)))
+//                    .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 30)))
+                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 10)))
                     .withClaim("id", principalDetails.getUser().getUserId())
                     .withClaim("email", principalDetails.getUser().getEmail())
                     .sign(Algorithm.HMAC512("cos_jwt_token"));
         }
         String refreshToken = JWT.create()
                 .withSubject(principalDetails.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 14)))
-//                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 20)))
+//                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 14)))
+                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 20)))
                 .sign(Algorithm.HMAC512("cos_jwt_token"));
 
         String email = principalDetails.getUser().getEmail();
