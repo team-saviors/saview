@@ -4,14 +4,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import server.answer.entity.Answer;
 import server.question.entity.Question;
 import server.question.repository.QuestionRepository;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class QuestionService {
 
     private final QuestionRepository questionRepository;
@@ -46,9 +47,10 @@ public class QuestionService {
         return question.orElseThrow(Exception::new);
     }
 
-    public void updateViews(long questionId, int views) throws Exception {
-        Question findQuestion = findVerifiedQuestion(questionId);
-        findQuestion.setViews(views);
-        questionRepository.save(findQuestion);
+    public void updateViews(long questionId, int views) {
+        questionRepository.updateViews(views, questionId);
+//        Question findQuestion = findVerifiedQuestion(questionId);
+//        findQuestion.setViews(views);
+//        questionRepository.save(findQuestion);
     }
 }
