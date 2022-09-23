@@ -70,7 +70,7 @@ public class QuestionController {
                                                          @Positive @RequestParam int size) {
         Page<Question> pageQuestions = questionService.findQuestions(page - 1, size);
         List<Question> questions = pageQuestions.getContent();
-        return new ResponseEntity(new MultiResponseDto<>(questionMapper.questionsToQuestionsResponseDtos(questions), pageQuestions), HttpStatus.OK);
+        return new ResponseEntity(new MultiResponseDto<>(questionMapper.questionsToQuestionsResponseDtos(questions, userMapper), pageQuestions), HttpStatus.OK);
     }
 
     @PutMapping("/{question-id}")
