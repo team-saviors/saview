@@ -50,6 +50,7 @@ public class GlobalExceptionAdvice {
     public ErrorResponse handleException(Exception e) {
         log.error("# handle Exception", e);
         // 로그 기록
+        // 잘못된 토큰이 들어왔을 경우: 클라이언트에서 보내주기에 처리는 안함.
 
         return ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR);
     }
