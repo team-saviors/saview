@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import { useStore } from 'zustand';
 import QuestionInfoSelect from '../components/QuestionInfoSelect';
 import { questionRegisterStore } from '../store/store';
 import { postQuestion } from '../utils/axiosRequest';
 const QuestionPostPage = () => {
   const { questions, handleContentChange } = questionRegisterStore();
-  const questionPostHandler = (questions) => {
+  const questionPostHandler = () => {
     postQuestion(questions);
   };
   return (
@@ -76,8 +75,5 @@ const CancelBtn = styled(BasicButton)`
 const PostBtn = styled(BasicButton)`
   font-size: 1rem;
 `;
-// const InputBox = styled(Box)`
-//   display: flex;
-// `;
 
 export default QuestionPostPage;
