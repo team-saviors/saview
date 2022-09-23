@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 const PostPage = () => {
   const params = useParams();
 
-  const { question, getQuestion, updateViews } = answerStore();
+  const { question, getQuestion } = answerStore();
   useEffect(() => {
     getQuestion(params.id);
   }, []);

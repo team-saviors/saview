@@ -13,10 +13,24 @@ export const countStore = create((set) => ({
   },
 }));
 export const questionStore = create((set) => ({
-  questions: {},
+  questions: {
+    data: [],
+  },
   getQuestions: async (page) => {
     const res = await client.get(`/questions?page=${page}&size=9`);
-    set({ questions: res.data });
+    if (page === 1) {
+      set({
+        questions: {
+          data: [...res.data.data],
+        },
+      });
+      return;
+    }
+    set((state) => ({
+      questions: {
+        data: [...state.questions.data, ...res.data.data],
+      },
+    }));
   },
 }));
 
