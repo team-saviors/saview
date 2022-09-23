@@ -28,7 +28,6 @@ const QuestionCards = () => {
   useEffect(() => {
     getQuestions(page);
   }, [page]);
-  console.log(questions);
   return (
     <>
       <CardWrapper>
