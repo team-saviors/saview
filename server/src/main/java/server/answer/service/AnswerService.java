@@ -13,7 +13,6 @@ import server.question.entity.Question;
 import server.response.MultiResponseDto;
 import server.user.mapper.UserMapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import java.util.Optional;
@@ -25,7 +24,7 @@ public class AnswerService {
     private final AnswerRepository answerRepository;
     private final AnswerMapper answerMapper;
 
-    public void createdAnswer(Answer answer) throws Exception {
+    public void createdAnswer(Answer answer){
         answerRepository.save(answer);
     }
 
@@ -35,10 +34,11 @@ public class AnswerService {
         answerRepository.save(findAnswer);
     }
 
-    public void updateVotes(long answerId, int votes) throws Exception {
-        Answer findAnswer = findVerifiedAnswer(answerId);
-        findAnswer.setVotes(votes);
-        answerRepository.save(findAnswer);
+    public void updateVotes(long answerId, int votes){
+        answerRepository.updateVotes(votes, answerId);
+//        Answer findAnswer = findVerifiedAnswer(answerId);
+//        findAnswer.setVotes(votes);
+//        answerRepository.save(findAnswer);
     }
 
     public void deleteAnswer(long answerId) throws Exception {
