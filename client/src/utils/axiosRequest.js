@@ -1,5 +1,5 @@
-import { client } from './axiosInstance';
-
+import { client, authClient } from './axiosInstance';
+import { setAccessToken, setRefreshToken } from './Cookie';
 export async function postSignUp(data) {
   try {
     const res = await client.post('/users', data);
@@ -11,6 +11,10 @@ export async function postSignUp(data) {
 export async function postSignIn(data) {
   try {
     const res = await client.post('/login', data);
+    // const token = res.data.accessToken;/
+    setAccessToken(res.data.accessToken);
+    setRefreshToken(res.data.refreshToken);
+    // authClient.defaults.headers.common['Authorization'] = `${token}`;
   } catch (err) {
     alert(err);
   }
@@ -21,7 +25,7 @@ export async function getUser(userId) {
 
 export async function postQuestion(data) {
   try {
-    const res = await client.post('/questions', data);
+    const res = await authClient.post('/questions', data);
   } catch (err) {
     console.log(err);
   }
