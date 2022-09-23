@@ -1,5 +1,5 @@
 import { client, authClient } from './axiosInstance';
-import { setAccessToken, setRefreshToken } from './Cookie';
+import { setAccessToken, setRefreshToken } from './cookies';
 export async function postSignUp(data) {
   try {
     const res = await client.post('/users', data);
@@ -11,10 +11,8 @@ export async function postSignUp(data) {
 export async function postSignIn(data) {
   try {
     const res = await client.post('/login', data);
-    // const token = res.data.accessToken;/
     setAccessToken(res.data.accessToken);
     setRefreshToken(res.data.refreshToken);
-    // authClient.defaults.headers.common['Authorization'] = `${token}`;
   } catch (err) {
     alert(err);
   }
@@ -26,6 +24,7 @@ export async function getUser(userId) {
 export async function postQuestion(data) {
   try {
     const res = await authClient.post('/questions', data);
+    alert('질문이 등록되었습니다.');
   } catch (err) {
     console.log(err);
   }

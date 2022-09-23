@@ -6,11 +6,9 @@ export const setAccessToken = (accessToken) => {
   cookies.set('access_token', accessToken, {
     sameSite: 'strict',
   });
-  //   authClient.defaults.headers.common['Authorization'] = accessToken;
 };
 export const getAccessToken = () => {
   return cookies.get('access_token');
-  //  authClient.defaults.headers.common['Authorization'] =;
 };
 export const removeAccessToken = () => {
   return cookies.remove('access_token', { sameSite: 'strict' });
