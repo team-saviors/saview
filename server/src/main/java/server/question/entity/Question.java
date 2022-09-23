@@ -1,6 +1,5 @@
 package server.question.entity;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import server.answer.entity.Answer;
@@ -37,6 +36,6 @@ public class Question extends Auditable {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Answer> answers = new ArrayList<>();
 }

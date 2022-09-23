@@ -35,6 +35,6 @@ public class Answer extends Auditable {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    @OneToMany(mappedBy = "answer")
+    @OneToMany(mappedBy = "answer",cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 }
