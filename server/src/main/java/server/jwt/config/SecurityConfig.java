@@ -12,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import server.jwt.filter.JwtAuthenticationFilter;
 import server.jwt.filter.JwtAuthorizationFilter;
+import server.user.repository.RefreshTokenRepository;
 import server.user.repository.UserRepository;
 import server.user.service.UserService;
 
@@ -23,6 +24,8 @@ public class SecurityConfig {
     private final UserRepository userRepository;
 
     private final UserService userService;
+
+    private final RefreshTokenRepository refreshTokenRepository;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -37,7 +40,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
 //                .antMatchers("/refresh").permitAll()
-                .antMatchers( "/**/answers", "/**/comments")
+                .antMatchers("/**/answers", "/**/comments")
                 .access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .antMatchers(HttpMethod.POST, "/questions")
                 .access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
@@ -58,7 +61,7 @@ public class SecurityConfig {
         public void configure(HttpSecurity builder) {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
             builder
-                    .addFilter(new JwtAuthenticationFilter(authenticationManager,userService))
+                    .addFilter(new JwtAuthenticationFilter(authenticationManager, userService, refreshTokenRepository))
                     .addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository));
         }
     }
