@@ -18,6 +18,7 @@ public interface UserMapper {
         userProfileResponseDto.setUserId(user.getUserId());
         userProfileResponseDto.setProfile(user.getProfile());
         userProfileResponseDto.setNickname(user.getNickname());
+        userProfileResponseDto.setStatus(user.getUserStatus().getStatus());
         return userProfileResponseDto;
     }
 
