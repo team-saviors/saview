@@ -47,7 +47,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             String jwtToken = jwtHeader.replace("Bearer ", "");
 
             String email = JWT.require(Algorithm.HMAC512("cos_jwt_token")).build().verify(jwtToken).getClaim("email").asString();
-            System.out.println("email: " + email);
             if (email != null) {
                 User userEntity = userRepository.findByEmail(email);
 

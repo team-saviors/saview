@@ -66,13 +66,8 @@ public class RefreshTokenController {
 
             if (user == null) {
                 throw new BusinessLogicException(ExceptionCode.USER_NOT_FOUND);
-//                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-//                new ObjectMapper().writeValue(response.getOutputStream(), ExceptionCode.USER_NOT_FOUND);
-//                return;
             } else if (!refreshTokenEntity.getEmail().equals(email)) {
                 throw new BusinessLogicException(ExceptionCode.INVALID_REFRESH_TOKEN);
-//                new ObjectMapper().writeValue(response.getOutputStream(), ExceptionCode.INVALID_JWT_TOKEN);
-//                return;
             }
 
             String accessToken = JWT.create()
