@@ -1,5 +1,4 @@
 import QuestionCard from './QuestionCard';
-import Grid from '@mui/material/Unstable_Grid2/';
 import styled from 'styled-components';
 import { questionStore } from '../store/store';
 import { useEffect, useState, useRef, Suspense } from 'react';
