@@ -1,6 +1,7 @@
 package server.exception;
 
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 
 import javax.validation.ConstraintViolation;
@@ -11,9 +12,15 @@ import java.util.stream.Collectors;
 @Getter
 public class ErrorResponse {
 
+    private int status;
+    private String message;
     private List<FieldError> fieldErrors;
     private List<ConstraintViolationError> constraintViolationErrors;
 
+    private ErrorResponse(int status, String message) {
+        this.status = status;
+        this.message = message;
+    }
     private ErrorResponse(List<FieldError> fieldErrors,
                          List<ConstraintViolationError> constraintViolationErrors) {
         this.fieldErrors = fieldErrors;
@@ -28,12 +35,19 @@ public class ErrorResponse {
         return new ErrorResponse(null, ConstraintViolationError.of(violations));
     }
 
+    public static ErrorResponse of(ExceptionCode exceptionCode) {
+        return new ErrorResponse(exceptionCode.getStatus(), exceptionCode.getMessage());
+    }
+
+    public static ErrorResponse of(HttpStatus httpStatus) {
+        return new ErrorResponse(httpStatus.value(), httpStatus.getReasonPhrase());
+    }
 
     @Getter
     public static class FieldError {
-        private String field;
-        private Object rejectedValue;
-        private String reason;
+        private final String field;
+        private final Object rejectedValue;
+        private final String reason;
 
         private FieldError(String field, Object rejectedValue, String reason) {
             this.field = field;
@@ -55,9 +69,9 @@ public class ErrorResponse {
 
     @Getter
     public static class ConstraintViolationError {
-        private String propertyPath;
-        private Object rejectedValue;
-        private String reason;
+        private final String propertyPath;
+        private final Object rejectedValue;
+        private final String reason;
 
         private ConstraintViolationError(String propertyPath, Object rejectedValue, String reason) {
             this.propertyPath = propertyPath;
