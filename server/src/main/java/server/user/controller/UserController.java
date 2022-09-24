@@ -4,10 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import server.answer.service.AnswerService;
+import server.comment.service.CommentService;
 import server.user.dto.PasswordDto;
 import server.user.dto.UserPostDto;
 import server.user.dto.UserPutDto;
@@ -17,6 +18,7 @@ import server.user.service.UserService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+
 @Validated
 @RequiredArgsConstructor
 @RestController
@@ -25,6 +27,10 @@ public class UserController {
 
     private final UserService userService;
     private final UserMapper userMapper;
+
+    private final AnswerService answerService;
+
+    private final CommentService commentService;
 
     @PostMapping
     public ResponseEntity join(@Valid @RequestBody UserPostDto userPostDto) throws Exception {
@@ -66,5 +72,26 @@ public class UserController {
         userService.updatePassword(email, passwordDto.getCurPassword(), passwordDto.getNewPassword());
 
         return new ResponseEntity("비밀번호 변경이 완료되었습니다.", HttpStatus.OK);
+    }
+
+    // UserInfo Page Answers
+    @GetMapping("/{user-id}/answers")
+    public ResponseEntity UserInfoAnswers(@Positive @PathVariable("user-id") long userId,
+                                          @Positive @RequestParam int page,
+                                          @Positive @RequestParam int size
+                                          ) throws Exception {
+        User findUser = userService.findUserById(userId);
+        return new ResponseEntity(userMapper.userToUserAnswersResponseDto(findUser, page, size, answerService), HttpStatus.OK);
+    }
+
+
+
+    // UserInfo Page Comments
+    @GetMapping("/{user-id}/comments")
+    public ResponseEntity UserInfoComments(@Positive @PathVariable("user-id") long userId,
+                                           @Positive @RequestParam int page,
+                                           @Positive @RequestParam int size) throws Exception {
+        User findUser = userService.findUserById(userId);
+        return new ResponseEntity(userMapper.userToUserCommentsResponseDto(findUser, page, size, commentService), HttpStatus.OK);
     }
 }

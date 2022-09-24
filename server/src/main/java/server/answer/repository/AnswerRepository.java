@@ -8,10 +8,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import server.answer.entity.Answer;
 import server.question.entity.Question;
+import server.user.entity.User;
 
 
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
     Page<Answer> findAllByQuestion(Question question, Pageable pageable);
+    Page<Answer> findAllByUser(User user, Pageable pageable);
 
     @Modifying
     @Query("update Answer a set a.votes = :votes where a.answerId = :answerId")

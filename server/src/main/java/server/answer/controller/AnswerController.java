@@ -82,4 +82,6 @@ public class AnswerController {
         Answer answer = answerService.findVerifiedAnswer(answerId);
         return new ResponseEntity(answerMapper.answerToAnswerResponseDto(answer, userMapper, commentService), HttpStatus.OK);
     }
+
+
 }
