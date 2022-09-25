@@ -2,12 +2,16 @@ package server.comment.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import server.answer.entity.Answer;
 import server.comment.dto.CommentResponseDto;
+import server.comment.dto.CommentUserResponseDto;
 import server.comment.entity.Comment;
 import server.comment.mapper.CommentMapper;
 import server.comment.repository.CommentRepository;
+import server.response.MultiResponseDto;
+import server.user.entity.User;
 import server.user.mapper.UserMapper;
 
 import java.util.ArrayList;
@@ -50,5 +54,12 @@ public class CommentService {
             commentResponseDtos.add(commentMapper.commentToCommentResponseDto(comment, userMapper));
         }
         return commentResponseDtos;
+    }
+
+    public MultiResponseDto<CommentUserResponseDto> userInfoComments(User user,
+                                                                     int page, int size) {
+        Page<Comment> pageComments = commentRepository.findAllByUser(user, PageRequest.of(page-1, size));
+        List<Comment> comments = pageComments.getContent();
+        return new MultiResponseDto<>(commentMapper.commentsToCommentUserResponseDtos(comments), pageComments);
     }
 }
