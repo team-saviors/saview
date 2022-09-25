@@ -1,4 +1,8 @@
 import axios from 'axios';
+import { getAccessToken } from './cookies';
+const access_token = getAccessToken();
+console.log(access_token);
+
 export const client = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   timeout: 3000,
@@ -9,5 +13,7 @@ export const client = axios.create({
 
 export const authClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
-  withCredentials: true,
+  headers: {
+    Authorization: `${access_token}`,
+  },
 });
