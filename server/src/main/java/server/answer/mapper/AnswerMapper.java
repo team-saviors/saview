@@ -3,10 +3,9 @@ package server.answer.mapper;
 import org.mapstruct.Mapper;
 import server.answer.dto.AnswerPostPutDto;
 import server.answer.dto.AnswerResponseDto;
+import server.answer.dto.AnswerUserResponseDto;
 import server.answer.entity.Answer;
 import server.comment.service.CommentService;
-import server.question.dto.QuestionsResponseDto;
-import server.question.entity.Question;
 import server.user.mapper.UserMapper;
 
 import java.util.ArrayList;
@@ -49,5 +48,29 @@ public interface AnswerMapper {
         answerResponseDto.setComments(commentService.findComments(answer, userMapper));
 
         return answerResponseDto;
+    }
+
+    default AnswerUserResponseDto answerToAnswerUserResponseDto(Answer answer) {
+        AnswerUserResponseDto answeruserResponseDto = new AnswerUserResponseDto();
+
+        answeruserResponseDto.setQuestionId(answer.getQuestion().getQuestionId());
+        answeruserResponseDto.setQuestionContent(answer.getQuestion().getContent());
+        answeruserResponseDto.setSubCategory(answer.getQuestion().getSubCategory());
+        answeruserResponseDto.setAnswerCreatedAt(answer.getCreatedAt());
+
+        return answeruserResponseDto;
+    }
+
+    default List<AnswerUserResponseDto> answersToAnswerUserResponseDtos(List<Answer> answers) {
+        if ( answers == null ) {
+            return null;
+        }
+
+        List<AnswerUserResponseDto> list = new ArrayList<>(answers.size());
+        for ( Answer answer : answers ) {
+            list.add( answerToAnswerUserResponseDto( answer) );
+        }
+
+        return list;
     }
 }

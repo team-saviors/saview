@@ -79,6 +79,7 @@ public class UserService {
 //        userRepository.delete(findUser);
     }
 
+
     private User findVerifiedUser(long userId) throws Exception {
         Optional<User> user = userRepository.findById(userId);
         return user.orElseThrow(Exception::new);
@@ -100,5 +101,4 @@ public class UserService {
         if (user.isPresent())
             throw new BusinessLogicException(ExceptionCode.DUPLICATE_NICKNAME);
     }
-
 }
