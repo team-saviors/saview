@@ -25,12 +25,13 @@ public class UserService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-    public void createUser(User user) {
+    public Long createUser(User user) {
         verifyExistsEmail(user.getEmail());
         verifyExistsNickname(user.getNickname());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRole("ROLE_USER");
         user.setProfile("https://saview-dev.s3.ap-northeast-2.amazonaws.com/Saview/logo_circle.png");
+        return userRepository.save(user).getUserId();
     }
 
     public void updatePassword(String email,
