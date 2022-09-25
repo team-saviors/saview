@@ -9,4 +9,5 @@ public class UserProfileResponseDto {
     private long userId;
     private String nickname;
     private String profile;
+    private String status;
 }

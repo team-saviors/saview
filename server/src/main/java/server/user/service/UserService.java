@@ -5,7 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import server.question.entity.Question;
+import server.exception.BusinessLogicException;
+import server.exception.ExceptionCode;
 import server.user.entity.RefreshToken;
 import server.user.entity.User;
 import server.user.repository.RefreshTokenRepository;
@@ -24,12 +25,12 @@ public class UserService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-
-    public User createUser(User user) throws Exception {
+    public User createUser(User user) {
         verifyExistsEmail(user.getEmail());
         verifyExistsNickname(user.getNickname());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRole("ROLE_USER");
+        user.setProfile("s3://saview-dev/Saview/logo_circle.png");
         return userRepository.save(user);
     }
 
@@ -49,7 +50,11 @@ public class UserService {
     }
 
     public User findUserById(long userId) throws Exception {
-        return findVerifiedUser(userId);
+        User user = findVerifiedUser(userId);
+        if (user.getUserStatus().equals(User.UserStatus.USER_QUIT)) {
+            throw new BusinessLogicException(ExceptionCode.QUIT_USER);
+        }
+        return user;
     }
 
     public void updateRefreshToken(String email, String refreshToken) {
@@ -66,11 +71,12 @@ public class UserService {
 
     public void deleteUser(String email) throws Exception {
         User findUser = findVerifiedUserByEmail(email);
-        for (Question q : findUser.getQuestions()) {
-            q.setUser(null);
-        }
+//        for (Question q : findUser.getQuestions()) {
+//            q.setUser(null);
+//        }
+        findUser.setUserStatus(User.UserStatus.USER_QUIT);
         refreshTokenRepository.deleteByEmail(email);
-        userRepository.delete(findUser);
+//        userRepository.delete(findUser);
     }
 
     private User findVerifiedUser(long userId) throws Exception {
@@ -83,16 +89,16 @@ public class UserService {
         return user.orElseThrow(Exception::new);
     }
 
-    private void verifyExistsEmail(String email) throws Exception {
+    private void verifyExistsEmail(String email) {
         Optional<User> user = Optional.ofNullable(userRepository.findByEmail(email));
         if (user.isPresent())
-            throw new Exception();
+            throw new BusinessLogicException(ExceptionCode.DUPLICATE_EMAIL);
     }
 
-    private void verifyExistsNickname(String nickname) throws Exception {
+    private void verifyExistsNickname(String nickname) {
         Optional<User> user = Optional.ofNullable(userRepository.findByNickname(nickname));
         if (user.isPresent())
-            throw new Exception();
+            throw new BusinessLogicException(ExceptionCode.DUPLICATE_NICKNAME);
     }
 
 }

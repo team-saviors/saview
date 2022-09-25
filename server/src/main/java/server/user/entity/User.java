@@ -21,7 +21,6 @@ public class User extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-
     @Column(nullable = false)
 
     private String password;
@@ -36,6 +35,10 @@ public class User extends Auditable {
 
     private String role;
 
+    @Enumerated(value = EnumType.STRING)
+    @Column(length = 20, nullable = false)
+    private UserStatus userStatus = UserStatus.USER_ACTIVE;
+
     @OneToMany(mappedBy = "user")
     private List<Question> questions = new ArrayList<>();
 
@@ -45,4 +48,15 @@ public class User extends Auditable {
     @OneToMany(mappedBy = "user")
     private List<Comment> comments = new ArrayList<>();
 
+    public enum UserStatus {
+        USER_ACTIVE("활동중"),
+        USER_QUIT("탈퇴 상태");
+
+        @Getter
+        private final String status;
+
+        UserStatus(String status) {
+            this.status = status;
+        }
+    }
 }
