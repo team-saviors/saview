@@ -24,7 +24,6 @@ public class UserService {
     private final RefreshTokenRepository refreshTokenRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
     public Long createUser(User user) {
         verifyExistsEmail(user.getEmail());
         verifyExistsNickname(user.getNickname());
