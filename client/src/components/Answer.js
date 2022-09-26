@@ -22,13 +22,9 @@ export default function Answer(props) {
       <div
         style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
       >
-        <img
-          style={{ width: '30px', height: '30px', borderRadius: '10px' }}
-          src={daia}
-          alt="grade"
-        ></img>
+        <AvatarWrapper src={user.profile}></AvatarWrapper>
         <span>{user.nickname}</span>
-        <span>{createdAt}</span>
+        <span style={{ marginLeft: '20px' }}>{createdAt}</span>
       </div>
       <Paper
         style={{
@@ -64,7 +60,7 @@ export default function Answer(props) {
               alignItems: 'center',
             }}
           >
-            <AvatarWrapper src={daia}></AvatarWrapper>
+            <AvatarWrapper src={user.profile}></AvatarWrapper>
             <Typography variant="body2" color="black">
               {comment.content}
             </Typography>

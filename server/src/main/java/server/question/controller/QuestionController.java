@@ -2,18 +2,17 @@ package server.question.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import server.answer.dto.VotesDto;
-import server.answer.entity.Answer;
 import server.answer.service.AnswerService;
-import server.comment.entity.Comment;
 import server.comment.service.CommentService;
 import server.question.dto.QuestionPostPutDto;
+import server.question.dto.QuestionResponseDto;
+import server.question.dto.QuestionsResponseDto;
 import server.question.dto.ViewsDto;
 import server.question.entity.Question;
 import server.question.mapper.QuestionMapper;
@@ -25,6 +24,7 @@ import server.user.service.UserService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.net.URI;
 import java.util.List;
 
 @Validated
@@ -41,8 +41,8 @@ public class QuestionController {
     private final CommentService commentService;
 
     @PostMapping
-    public ResponseEntity postQuestion(@Valid @RequestBody QuestionPostPutDto questionPostPutDto,
-                                       Authentication authentication) throws Exception {
+    public ResponseEntity<Void> postQuestion(@Valid @RequestBody QuestionPostPutDto questionPostPutDto,
+                                             Authentication authentication) {
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String email = userDetails.getUsername();
@@ -50,49 +50,51 @@ public class QuestionController {
         Question question = questionMapper.questionPostPutDtoToQuestion(questionPostPutDto);
         question.setUser(userService.findUser(email));
 
-        questionService.createdQuestion(question);
+        final Long questionId = questionService.createdQuestion(question);
 
-
-        return new ResponseEntity("질문이 성공적으로 등록되었습니다.", HttpStatus.CREATED);
+        return ResponseEntity.created(URI.create("/questions/" + questionId)).build();
     }
 
     @GetMapping("/{question-id}")
-    public ResponseEntity getQuestion(@Positive @RequestParam int page,
-            @Positive @RequestParam int size,
-            @Positive @PathVariable("question-id") long questionId) throws Exception {
+    public ResponseEntity<QuestionResponseDto> getQuestion(@Positive @RequestParam int page,
+                                                           @Positive @RequestParam int size,
+                                                           @Positive @PathVariable("question-id") long questionId) {
         Question question = questionService.findQuestion(questionId);
-        return new ResponseEntity(questionMapper.questionToQuestionResponseDto(question, userMapper, answerService, commentService, page, size),
-                HttpStatus.OK);
+        return ResponseEntity.ok(questionMapper.questionToQuestionResponseDto(question, userMapper, answerService, commentService, page, size));
     }
 
     @GetMapping
-    public ResponseEntity<MultiResponseDto> getQuestions(@Positive @RequestParam int page,
-                                                         @Positive @RequestParam int size) {
+    @Transactional(readOnly = true)
+    public ResponseEntity<MultiResponseDto<QuestionsResponseDto>> getQuestions(@Positive @RequestParam int page,
+                                                                               @Positive @RequestParam int size) {
         Page<Question> pageQuestions = questionService.findQuestions(page - 1, size);
         List<Question> questions = pageQuestions.getContent();
-        return new ResponseEntity(new MultiResponseDto<>(questionMapper.questionsToQuestionsResponseDtos(questions), pageQuestions), HttpStatus.OK);
+
+        return ResponseEntity.ok(new MultiResponseDto<>(questionMapper.questionsToQuestionsResponseDtos(questions, userMapper), pageQuestions));
     }
 
     @PutMapping("/{question-id}")
-    public ResponseEntity putQuestion(@Positive @PathVariable("question-id") long questionId,
-                                          @Valid @RequestBody QuestionPostPutDto questionPostPutDto) throws Exception {
+    public ResponseEntity<Void> putQuestion(@Positive @PathVariable("question-id") long questionId,
+                                      @Valid @RequestBody QuestionPostPutDto questionPostPutDto)  {
         Question question = questionMapper.questionPostPutDtoToQuestion(questionPostPutDto);
         question.setQuestionId(questionId);
         questionService.updateQuestion(question);
 
-        return new ResponseEntity("질문 수정이 완료되었습니다.", HttpStatus.OK);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{question-id}")
-    public ResponseEntity deleteQuestion(@Positive @PathVariable("question-id") long questionId) throws Exception {
+    public ResponseEntity<Void> deleteQuestion(@Positive @PathVariable("question-id") long questionId) {
         questionService.deleteQuestion(questionId);
-        return new ResponseEntity("질문 삭제가 완료되었습니다.", HttpStatus.OK);
+
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{question-id}/views")
-    public ResponseEntity putViews(@Positive @PathVariable("question-id") long questionId,
-                                   @Valid @RequestBody ViewsDto viewsDto) throws Exception {
+    public ResponseEntity<Void> putViews(@Positive @PathVariable("question-id") long questionId,
+                                   @Valid @RequestBody ViewsDto viewsDto) {
         questionService.updateViews(questionId, viewsDto.getViews());
-        return new ResponseEntity(HttpStatus.OK);
+
+        return ResponseEntity.ok().build();
     }
 }

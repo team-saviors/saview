@@ -10,14 +10,53 @@ import server.question.entity.Question;
 import server.user.mapper.UserMapper;
 
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
     Question questionPostPutDtoToQuestion(QuestionPostPutDto questionPostPutDto);
 
-    List<QuestionsResponseDto> questionsToQuestionsResponseDtos(List<Question> questions);
 
+    default QuestionsResponseDto questionToQuestionsResponseDto(Question question,
+                                                                  UserMapper userMapper) {
+        if ( question == null ) {
+            return null;
+        }
+        QuestionsResponseDto questionsResponseDto = new QuestionsResponseDto();
+
+        questionsResponseDto.setQuestionId(question.getQuestionId());
+        questionsResponseDto.setContent(question.getContent());
+        questionsResponseDto.setMainCategory(question.getMainCategory());
+        questionsResponseDto.setSubCategory(question.getSubCategory());
+        questionsResponseDto.setViews(question.getViews());
+        questionsResponseDto.setAnswerNum(question.getAnswers().size());
+        questionsResponseDto.setUser(userMapper.userToUserProfileResponseDto(question.getUser()));
+        questionsResponseDto.setCreatedAt(question.getCreatedAt());
+        questionsResponseDto.setModifiedAt(question.getModifiedAt());
+
+        return questionsResponseDto;
+    }
+
+    default List<QuestionsResponseDto> questionsToQuestionsResponseDtos(List<Question> questions,
+                                                                        UserMapper userMapper) {
+        if (questions == null) {
+            return null;
+        } else {
+            List<QuestionsResponseDto> list = new ArrayList(questions.size());
+            Iterator var3 = questions.iterator();
+
+            while(var3.hasNext()) {
+                Question question = (Question)var3.next();
+                list.add(this.questionToQuestionsResponseDto(question, userMapper));
+            }
+
+            return list;
+        }
+    }
+
+    // 1개의 Question 반환을 위한 mapper
     default QuestionResponseDto questionToQuestionResponseDto(Question question,
                                                               UserMapper userMapper,
                                                               AnswerService answerService,

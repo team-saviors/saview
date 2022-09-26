@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import server.exception.ErrorResponse;
 import server.exception.ExceptionCode;
 import server.jwt.oauth.PrincipalDetails;
 import server.user.entity.User;
@@ -26,6 +27,7 @@ import java.io.IOException;
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     private final UserRepository userRepository;
+
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserRepository userRepository) {
         super(authenticationManager);
         this.userRepository = userRepository;
@@ -45,7 +47,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             String jwtToken = jwtHeader.replace("Bearer ", "");
 
             String email = JWT.require(Algorithm.HMAC512("cos_jwt_token")).build().verify(jwtToken).getClaim("email").asString();
-
             if (email != null) {
                 User userEntity = userRepository.findByEmail(email);
 
@@ -56,18 +57,18 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                 chain.doFilter(request, response);
             }
         } catch (TokenExpiredException e) {
-            log.info("JWT Token 만료");
+            log.info("ACCESS Token 만료");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             response.setCharacterEncoding("utf-8");
-            new ObjectMapper().writeValue(response.getOutputStream(), ExceptionCode.JWT_TOKEN_EXPIRED);
-        }
-        catch (Exception e) {
-            log.info("JWT 토큰이 잘못되었습니다. message : {}",e.getMessage());
+            ErrorResponse errorResponse = ErrorResponse.of(ExceptionCode.ACCESS_TOKEN_EXPIRED);
+            new ObjectMapper().writeValue(response.getOutputStream(), errorResponse);
+        } catch (Exception e) {
+            log.info("에러 발생. message : {}", e.getMessage());
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             response.setCharacterEncoding("utf-8");
-            new ObjectMapper().writeValue(response.getOutputStream(), ExceptionCode.INVALID_JWT_TOKEN);
+            new ObjectMapper().writeValue(response.getOutputStream(), e.getMessage());
         }
 //        super.doFilterInternal(request, response, chain);
     }

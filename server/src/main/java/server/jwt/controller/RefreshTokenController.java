@@ -5,7 +5,6 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
+import server.exception.BusinessLogicException;
 import server.exception.ExceptionCode;
 import server.user.entity.RefreshToken;
 import server.user.entity.User;
@@ -21,7 +21,6 @@ import server.user.repository.UserRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Date;
 
 @RestController
@@ -34,19 +33,19 @@ public class RefreshTokenController {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @GetMapping("/refresh")
-    public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void refreshToken(
+            HttpServletRequest request, HttpServletResponse response) {
         log.info("Refresh Token 유효성 검사");
 
-        String jwtHeader = request.getHeader("Authorization");
+        String jwtHeader = request.getHeader("Refresh");
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("utf-8");
+        response.setHeader("Access-Control-Allow-Origin", "*");
 
         if (jwtHeader == null || !jwtHeader.startsWith("Bearer")) {
             log.info("Refresh 토큰이 없습니다.");
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            new ObjectMapper().writeValue(response.getOutputStream(), ExceptionCode.REFRESH_TOKEN_MISSING);
-            return;
+            throw new BusinessLogicException(ExceptionCode.REFRESH_TOKEN_MISSING);
         }
         try {
             String refreshToken = jwtHeader.replace("Bearer ", "");
@@ -59,14 +58,12 @@ public class RefreshTokenController {
 
             String email = decodedJWT.getSubject();
             User user = userRepository.findByEmail(email);
-            RefreshToken refreshTokenEntity = refreshTokenRepository.findByRefreshToken(refreshToken).orElseThrow(() -> new RuntimeException("만료된 토큰입니다."));
+            RefreshToken refreshTokenEntity = refreshTokenRepository.findByRefreshToken(refreshToken).orElseThrow(() -> new BusinessLogicException(ExceptionCode.INVALID_REFRESH_TOKEN));
 
             if (user == null) {
-                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                new ObjectMapper().writeValue(response.getOutputStream(), ExceptionCode.USER_NOT_FOUND);
+                throw new BusinessLogicException(ExceptionCode.USER_NOT_FOUND);
             } else if (!refreshTokenEntity.getEmail().equals(email)) {
-                new ObjectMapper().writeValue(response.getOutputStream(), ExceptionCode.INVALID_JWT_TOKEN);
-                return;
+                throw new BusinessLogicException(ExceptionCode.INVALID_REFRESH_TOKEN);
             }
 
             String accessToken = JWT.create()
@@ -80,8 +77,7 @@ public class RefreshTokenController {
 
         } catch (TokenExpiredException e) {
             log.info("Refresh Token 만료");
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            new ObjectMapper().writeValue(response.getOutputStream(), ExceptionCode.JWT_TOKEN_EXPIRED);
+            throw new BusinessLogicException(ExceptionCode.REFRESH_TOKEN_EXPIRED);
         }
     }
 
