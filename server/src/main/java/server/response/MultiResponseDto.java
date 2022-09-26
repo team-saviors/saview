@@ -9,7 +9,6 @@ import java.util.List;
 public class MultiResponseDto<T> {
     private final List<T> data;
     private final PageInfo pageInfo;
-
     public MultiResponseDto(List<T> data, Page page) {
         this.data = data;
         this.pageInfo = new PageInfo(
