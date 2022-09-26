@@ -26,6 +26,7 @@ const Loginbox = styled(Box)`
   text-align: center;
   grid-gap: 35px;
 `;
+
 const QuestionPostBtn = styled(Button)`
   font-size: 1.125rem;
   font-weight: 600;
@@ -45,7 +46,13 @@ const Header = () => {
       <LogoBox>
         {/* <h1>SAVIEW</h1> */}
         <Link to="/">
-          <img className="main_logo" alt="react" src={mainLogo}></img>
+          <img
+            className="main_logo"
+            alt="react"
+            src={
+              'https://saview-dev.s3.ap-northeast-2.amazonaws.com/Saview/logo_tranverse.png'
+            }
+          ></img>
         </Link>
       </LogoBox>
       <Loginbox>
@@ -53,6 +60,9 @@ const Header = () => {
           <QuestionPostBtn disableRipple>새 질문 쓰기</QuestionPostBtn>
         </Link>
         <SignInModal></SignInModal>
+        <Link to="/users/7">
+          <QuestionPostBtn disableRipple>마이페이지</QuestionPostBtn>
+        </Link>
       </Loginbox>
     </NavBar>
   );

@@ -4,7 +4,7 @@ import Mainpage from './pages/MainPage';
 import Header from './components/Header';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import QuestionPostPage from './pages/QuestionPostPage';
-
+import UserPage from './pages/UserPage';
 function App() {
   return (
     <>
@@ -15,6 +15,7 @@ function App() {
         {/* <Mainpage></Mainpage>
         <PostPage></PostPage> */}
         <Route path="/questionpost" element={<QuestionPostPage />}></Route>
+        <Route path="/users/:id" element={<UserPage />}></Route>
       </Routes>
     </>
   );
