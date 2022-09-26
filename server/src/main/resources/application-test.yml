@@ -10,7 +10,7 @@ spring:
     password: ${mydb.password}
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
     open-in-view: false
 logging.level:
