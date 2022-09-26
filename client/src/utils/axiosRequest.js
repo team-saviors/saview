@@ -9,6 +9,8 @@ import {
 // import useAxiosPrivate from './useAxiosPrivate';
 import authenticClient from './useAxiosPrivate';
 // const authenticClient = useAxiosPrivate();
+import { Cookies } from 'react-cookie';
+const cookies = new Cookies();
 
 export async function postSignUp(data) {
   try {
@@ -47,8 +49,9 @@ export async function getAccessWithRefresh() {
     const res = await authenticClient.get('/refresh', {
       headers: { Refresh: `${refresh_token}` },
     });
+    console.log(res.headers);
     setAccessToken(...res.data.accessToken);
-    return res.data.accessToken;
+    // return res.data.accessToken;
   } catch (err) {
     console.log(err);
   }
