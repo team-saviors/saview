@@ -52,7 +52,7 @@ public class AnswerController {
 
         final Long answerId = answerService.createdAnswer(answer);
 
-        return ResponseEntity.created(URI.create("/answers" + answerId)).build();
+        return ResponseEntity.created(URI.create("/answers/" + answerId)).build();
     }
 
     @PutMapping("/answers/{answer-id}")
