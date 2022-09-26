@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import server.exception.BusinessLogicException;
+import server.exception.ExceptionCode;
 import server.question.entity.Question;
 import server.question.repository.QuestionRepository;
 
@@ -17,11 +19,11 @@ public class QuestionService {
 
     private final QuestionRepository questionRepository;
 
-    public void createdQuestion(Question question) {
-        questionRepository.save(question);
+    public Long createdQuestion(Question question) {
+        return questionRepository.save(question).getQuestionId();
     }
 
-    public Question findQuestion(long questionId) throws Exception {
+    public Question findQuestion(long questionId) {
         return findVerifiedQuestion(questionId);
     }
 
@@ -29,7 +31,7 @@ public class QuestionService {
         return questionRepository.findAll(PageRequest.of(page, size));
     }
 
-    public void updateQuestion(Question question) throws Exception {
+    public void updateQuestion(Question question){
         Question updateQuestion = findVerifiedQuestion(question.getQuestionId());
         updateQuestion.setContent(question.getContent());
         updateQuestion.setMainCategory(question.getMainCategory());
@@ -37,20 +39,17 @@ public class QuestionService {
         questionRepository.save(updateQuestion);
     }
 
-    public void deleteQuestion(long questionId) throws Exception {
+    public void deleteQuestion(long questionId) {
         Question question = findVerifiedQuestion(questionId);
         questionRepository.delete(question);
     }
 
-    public Question findVerifiedQuestion(long questionId) throws Exception {
+    public Question findVerifiedQuestion(long questionId) {
         Optional<Question> question = questionRepository.findById(questionId);
-        return question.orElseThrow(Exception::new);
+        return question.orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
     }
 
     public void updateViews(long questionId, int views) {
         questionRepository.updateViews(views, questionId);
-//        Question findQuestion = findVerifiedQuestion(questionId);
-//        findQuestion.setViews(views);
-//        questionRepository.save(findQuestion);
     }
 }
