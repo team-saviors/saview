@@ -1,7 +1,7 @@
 spring:
   config:
     activate:
-      on-profile: server
+      on-profile: test
     import: 'aws-parameterstore:'
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -10,9 +10,8 @@ spring:
     password: ${mydb.password}
   jpa:
     hibernate:
-#      ddl-auto: create  # (1) 스키마 자동 생성
       ddl-auto: update
-    show-sql: true      # (2) SQL 쿼리 출력
+    show-sql: true
     open-in-view: false
 logging.level:
   org.hibernate.SQL: debug
@@ -20,6 +19,6 @@ logging.level:
 aws:
   paramstore:
     enabled: true
-    prefix: /spring-boot-aws
+    prefix: /config
     profile-separator: _
     name: saview
