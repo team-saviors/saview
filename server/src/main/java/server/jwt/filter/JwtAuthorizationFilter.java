@@ -70,6 +70,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             response.setCharacterEncoding("utf-8");
             new ObjectMapper().writeValue(response.getOutputStream(), e.getMessage());
         }
-        super.doFilterInternal(request, response, chain);
+//        super.doFilterInternal(request, response, chain);
     }
 }

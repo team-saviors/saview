@@ -1,16 +1,15 @@
 package server.answer.controller;
 
 
-import lombok.Getter;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import server.answer.dto.AnswerPostPutDto;
+import server.answer.dto.AnswerResponseDto;
 import server.answer.dto.VotesDto;
 import server.answer.entity.Answer;
 import server.answer.mapper.AnswerMapper;
@@ -23,6 +22,7 @@ import server.user.service.UserService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.net.URI;
 
 @Validated
 @RequiredArgsConstructor
@@ -39,9 +39,9 @@ public class AnswerController {
 
 
     @PostMapping("/questions/{question-id}/answers")
-    public ResponseEntity postAnswer(@Positive @PathVariable("question-id") long questionId,
-                                     @Valid @RequestBody AnswerPostPutDto answerPostPutDto,
-                                     Authentication authentication) throws Exception {
+    public ResponseEntity<Void> postAnswer(@Positive @PathVariable("question-id") long questionId,
+                                           @Valid @RequestBody AnswerPostPutDto answerPostPutDto,
+                                           Authentication authentication)  {
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String email = userDetails.getUsername();
@@ -50,37 +50,41 @@ public class AnswerController {
         answer.setQuestion(questionService.findVerifiedQuestion(questionId));
         answer.setUser(userService.findUser(email));
 
-        answerService.createdAnswer(answer);
+        final Long answerId = answerService.createdAnswer(answer);
 
-        return new ResponseEntity("답변 작성이 완료되었습니다.", HttpStatus.CREATED);
+        return ResponseEntity.created(URI.create("/answers" + answerId)).build();
     }
 
     @PutMapping("/answers/{answer-id}")
-    public ResponseEntity putAnswer(@Positive @PathVariable("answer-id") long answerId,
-                                    @Valid @RequestBody AnswerPostPutDto answerPostPutDto) throws Exception {
+    public ResponseEntity<Void> putAnswer(@Positive @PathVariable("answer-id") long answerId,
+                                    @Valid @RequestBody AnswerPostPutDto answerPostPutDto)  {
         Answer answer = answerMapper.answerPostPutDtoToAnswer(answerPostPutDto);
         answer.setAnswerId(answerId);
         answerService.updateAnswer(answer);
-        return new ResponseEntity("답변 수정이 완료되었습니다.", HttpStatus.OK);
+
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/answers/{answer-id}/votes")
-    public ResponseEntity putVotes(@Positive @PathVariable("answer-id") long answerId,
-                                   @Valid @RequestBody VotesDto votesDto) throws Exception {
+    public ResponseEntity<Void> putVotes(@Positive @PathVariable("answer-id") long answerId,
+                                   @Valid @RequestBody VotesDto votesDto)  {
         answerService.updateVotes(answerId, votesDto.getVotes());
-        return new ResponseEntity(HttpStatus.OK);
+
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/answers/{answer-id}")
-    public ResponseEntity deleteAnswer(@Positive @PathVariable("answer-id") long answerId) throws Exception {
+    public ResponseEntity<Void> deleteAnswer(@Positive @PathVariable("answer-id") long answerId)  {
         answerService.deleteAnswer(answerId);
-        return new ResponseEntity("답변이 삭제되었습니다.", HttpStatus.OK);
+
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/test/{answer-id}")
-    public ResponseEntity test(@PathVariable("answer-id") long answerId) throws Exception {
+    public ResponseEntity<AnswerResponseDto> test(@PathVariable("answer-id") long answerId)  {
         Answer answer = answerService.findVerifiedAnswer(answerId);
-        return new ResponseEntity(answerMapper.answerToAnswerResponseDto(answer, userMapper, commentService), HttpStatus.OK);
+
+        return ResponseEntity.ok(answerMapper.answerToAnswerResponseDto(answer, userMapper, commentService));
     }
 
 
