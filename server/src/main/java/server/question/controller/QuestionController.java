@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import server.answer.service.AnswerService;
@@ -51,7 +52,7 @@ public class QuestionController {
 
         final Long questionId = questionService.createdQuestion(question);
 
-        return ResponseEntity.created(URI.create("/questions" + questionId)).build();
+        return ResponseEntity.created(URI.create("/questions/" + questionId)).build();
     }
 
     @GetMapping("/{question-id}")
@@ -63,6 +64,7 @@ public class QuestionController {
     }
 
     @GetMapping
+    @Transactional(readOnly = true)
     public ResponseEntity<MultiResponseDto<QuestionsResponseDto>> getQuestions(@Positive @RequestParam int page,
                                                                                @Positive @RequestParam int size) {
         Page<Question> pageQuestions = questionService.findQuestions(page - 1, size);
