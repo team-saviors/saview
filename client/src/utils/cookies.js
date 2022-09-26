@@ -1,5 +1,5 @@
 import { Cookies } from 'react-cookie';
-import { authClient } from './axiosInstance';
+
 const cookies = new Cookies();
 
 export const setAccessToken = (accessToken) => {
@@ -19,7 +19,7 @@ export const setRefreshToken = (refreshToken) => {
     sameSite: 'strict',
   });
 };
-export const getCookieToken = () => {
+export const getRefreshToken = () => {
   return cookies.get('refresh_token');
 };
 export const removeRefreshToken = () => {
