@@ -1,8 +1,11 @@
 import { Box } from '@mui/material';
-import AvatarWrapper from '../components/AvatarWrapper';
+import AvatarWrapper from '../../components/AvatarWrapper';
 import styled from 'styled-components';
-import BasicTabs from '../components/Tab/BasicTabs';
+import BasicTabs from '../../components/Tab/BasicTabs';
+import { useState } from 'react';
+import AnswerComment from './AnswerComment';
 const UserPage = () => {
+  const [tab, setTab] = useState(0);
   return (
     <>
       <section>
@@ -16,8 +19,15 @@ const UserPage = () => {
           <UserNickname>{'colagom'}</UserNickname>
         </ProfileBox>
         <TabWrapper>
-          <BasicTabs></BasicTabs>
+          <BasicTabs setTab={setTab}></BasicTabs>
         </TabWrapper>
+        <AnswerCommentWrapper>
+          <AnswerComment></AnswerComment>
+          <AnswerComment></AnswerComment>
+          <AnswerComment></AnswerComment>
+          <AnswerComment></AnswerComment>
+          <AnswerComment></AnswerComment>
+        </AnswerCommentWrapper>
       </section>
     </>
   );
@@ -38,10 +48,6 @@ const ProfileBox = styled(Box)`
 `;
 const UserNickname = styled(Box)`
   font-size: 60px;
-  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
-    'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR',
-    'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-    sans-serif;
   margin-left: 20px;
 `;
 const TabWrapper = styled(ProfileBox)`
@@ -51,5 +57,11 @@ const TabWrapper = styled(ProfileBox)`
   border-bottom: 1px solid #e5e7eb;
   border-radius: 0 0 10px 10px;
   background: rgb(249 250 251);
+`;
+const AnswerCommentWrapper = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  width: 1024px;
+  margin: 50px auto;
 `;
 export default UserPage;

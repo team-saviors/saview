@@ -1,25 +1,39 @@
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+export default function BasicTabs({ tab, setTab }) {
+  const [active, setActive] = useState(0);
 
-export default function BasicTabs() {
-  const [value, setValue] = useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const handleClick = (e) => {
+    const index = parseInt(e.target.id, 0);
+    if (index !== active) {
+      setActive(index);
+    }
+    setTab(index);
   };
 
   return (
     <Box sx={{ width: '100%' }}>
       <Box>
-        <Tabs value={value} onChange={handleChange}>
-          <Tab label="내 답변" />
-          <Tab label="내 댓글" />
+        <Tabs>
+          <Tab onClick={handleClick} active={active === 0} id={0}>
+            내 답변
+          </Tab>
+
+          <Tab onClick={handleClick} active={active === 1} id={1}>
+            내댓글
+          </Tab>
         </Tabs>
       </Box>
     </Box>
   );
 }
+const Tabs = styled.div``;
+const Tab = styled.span`
+  margin-right: 20px;
+  cursor: pointer;
+  color: ${(props) => (props.active ? 'skyblue' : 'gray')};
+  &:hover {
+    color: black;
+  }
+`;

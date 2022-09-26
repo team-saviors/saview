@@ -4,7 +4,7 @@ import Mainpage from './pages/MainPage';
 import Header from './components/Header';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import QuestionPostPage from './pages/QuestionPostPage';
-import UserPage from './pages/UserPage';
+import UserPage from './pages/UserPage/UserPage';
 function App() {
   return (
     <>
