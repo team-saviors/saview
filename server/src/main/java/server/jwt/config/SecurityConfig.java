@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.filter.CorsFilter;
 import server.jwt.filter.JwtAuthenticationFilter;
 import server.jwt.filter.JwtAuthorizationFilter;
 import server.user.repository.RefreshTokenRepository;
@@ -20,6 +21,8 @@ import server.user.service.UserService;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final CorsFilter corsFilter;
 
     private final UserRepository userRepository;
 
@@ -61,6 +64,7 @@ public class SecurityConfig {
         public void configure(HttpSecurity builder) {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
             builder
+                    .addFilter(corsFilter)
                     .addFilter(new JwtAuthenticationFilter(authenticationManager, userService, refreshTokenRepository))
                     .addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository));
         }
