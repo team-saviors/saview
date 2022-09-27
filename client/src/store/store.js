@@ -1,7 +1,6 @@
-import axios from 'axios';
 import create from 'zustand';
-import bronze from '../assets/images/bronze.png';
 import { client } from '../utils/axiosInstance';
+import { getRefreshToken } from '../utils/cookies';
 
 export const countStore = create((set) => ({
   count: 0,
@@ -12,6 +11,7 @@ export const countStore = create((set) => ({
     set((state) => ({ count: state.count - 1 }));
   },
 }));
+
 export const questionStore = create((set) => ({
   questions: {
     data: [],
@@ -71,5 +71,19 @@ export const questionRegisterStore = create((set) => ({
     set((state) => ({
       questions: { ...state.questions, subCategory: e.target.value },
     }));
+  },
+}));
+
+const refresh_token = getRefreshToken();
+export const loginStore = create((set) => ({
+  isLogin: false,
+  loginHandler(value) {
+    // console.log(e);
+    if (refresh_token) {
+      set((state) => ({ isLogin: true }));
+    } else {
+      set((state) => ({ isLogin: false }));
+    }
+    // set((state) => ({ isLogin: value }));
   },
 }));

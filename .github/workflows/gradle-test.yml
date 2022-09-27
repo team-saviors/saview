@@ -1,0 +1,58 @@
+name: Saview Test Server CI with Gradle
+
+on:
+  push:
+    branches: [ "test-server" ]
+
+permissions:
+  contents: read
+  
+env:
+  S3_BUCKET_NAME: saview-test-server
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./server
+        
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        
+    - name: Run chmod to make gradlew executable
+      run: chmod +x ./gradlew
+      
+    - name: Gradle Build Action
+      uses: gradle/gradle-build-action@v2.3.1
+      with:
+        arguments: build
+        build-root-directory: ./server
+        
+    - name: Make zip file
+      run: zip -r ./test-server.zip .
+      shell: bash
+      
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-2
+        
+    - name: Upload to S3
+      run: aws s3 cp --region ap-northeast-2 ./test-server.zip s3://$S3_BUCKET_NAME/test-server.zip
+      
+    - name: Code Deploy
+      run: >
+        aws deploy create-deployment --application-name saview-test-server
+        --deployment-config-name CodeDeployDefault.AllAtOnce
+        --deployment-group-name saview-test-server-group
+        --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=test-server.zip

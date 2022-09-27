@@ -1,5 +1,13 @@
-import { client, authClient } from './axiosInstance';
-import { setAccessToken, setRefreshToken } from './cookies';
+import { client } from './axiosInstance';
+import {
+  setAccessToken,
+  setRefreshToken,
+  getRefreshToken,
+  removeAccessToken,
+  removeRefreshToken,
+} from './cookies';
+import authenticClient from './useAxiosPrivate';
+
 export async function postSignUp(data) {
   try {
     const res = await client.post('/users', data);
@@ -23,17 +31,43 @@ export async function getUser(userId) {
 
 export async function postQuestion(data) {
   try {
-    const res = await authClient.post('/questions', data);
-    alert('질문이 등록되었습니다.');
+    const res = await authenticClient.post('/questions', data);
   } catch (err) {
     console.log(err);
   }
 }
 
-export async function getUsersActivity(activity, id, paramObj) {
-  const params = new URLSearchParams({
-    ...paramObj,
-  }).toString();
-  const result = await client.get(`/${activity}/${id}/${params}`);
+const refresh_token = getRefreshToken();
+export async function getAccessWithRefresh() {
+  try {
+    const res = await authenticClient.get('/refresh', {
+      headers: { Refresh: `${refresh_token}` },
+    });
+    setAccessToken(res.headers.authorization);
+    return res.headers.authorization;
+  } catch (err) {
+    console.log(err.response.status);
+    if (err.response.status === 400) {
+      postLogout();
+    }
+  }
+}
+
+export async function postLogout() {
+  try {
+    const res = await authenticClient.post('/auths/logout', {
+      headers: { Authorization: `${refresh_token}` },
+    });
+    removeAccessToken();
+    removeRefreshToken();
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function getUsersActivity(activity, id, page, size) {
+  const result = await authenticClient.get(
+    `/users/${id}/${activity}?page=${page}&size=${size}`
+  );
   return result;
 }

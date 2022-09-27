@@ -2,6 +2,7 @@ import { useStore } from 'zustand';
 import QuestionInfoSelect from '../components/QuestionInfoSelect';
 import { questionRegisterStore } from '../store/store';
 import { postQuestion } from '../utils/axiosRequest';
+
 const QuestionPostPage = () => {
   const { questions, handleContentChange } = questionRegisterStore();
   const questionPostHandler = () => {
