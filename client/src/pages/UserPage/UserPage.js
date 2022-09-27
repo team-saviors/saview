@@ -2,6 +2,7 @@ import { Box } from '@mui/material';
 import AvatarWrapper from '../../components/AvatarWrapper';
 import styled from 'styled-components';
 import BasicTabs from '../../components/Tab/BasicTabs';
+
 import { useState, useEffect } from 'react';
 import AnswerComment from './AnswerComment';
 import {
@@ -28,6 +29,7 @@ const UserPage = () => {
   //   fetch();
   // }, []);
 
+
   return (
     <>
       <section>
@@ -44,11 +46,13 @@ const UserPage = () => {
           <BasicTabs setTab={setTab}></BasicTabs>
         </TabWrapper>
         <AnswerCommentWrapper>
+
           {data.data
             ? data.data.answers.data.map((answer) => (
                 <AnswerComment answer={answer} key={answer.answerCreatedAt} />
               ))
             : null}
+
           <AnswerComment></AnswerComment>
         </AnswerCommentWrapper>
       </section>

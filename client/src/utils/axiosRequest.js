@@ -40,6 +40,7 @@ export async function postQuestion(data) {
   }
 }
 
+
 export async function getAccessWithRefresh() {
   try {
     const res = await authenticClient.get('/refresh', {
@@ -70,7 +71,9 @@ export async function postLogout() {
 
 export async function getUsersActivity(activity, id, page, size) {
   const result = await authenticClient.get(
+
     `/users/${id}/user-${activity}?page=${page}&size=${size}`
+
   );
   return result;
 }
