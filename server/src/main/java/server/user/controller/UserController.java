@@ -71,7 +71,7 @@ public class UserController {
     }
 
     // UserInfo Page Answers
-    @GetMapping("/{user-id}/answers")
+    @GetMapping("/{user-id}/user-answers")
     public ResponseEntity<UserAnswersResponseDto> UserInfoAnswers(@Positive @PathVariable("user-id") long userId, @Positive @RequestParam int page, @Positive @RequestParam int size) {
         User findUser = userService.findUserById(userId);
         return ResponseEntity.ok(userMapper.userToUserAnswersResponseDto(findUser, page, size, answerService));
@@ -79,7 +79,7 @@ public class UserController {
 
 
     // UserInfo Page Comments
-    @GetMapping("/{user-id}/comments")
+    @GetMapping("/{user-id}/user-comments")
     public ResponseEntity<UserCommentsResponseDto> UserInfoComments(@Positive @PathVariable("user-id") long userId, @Positive @RequestParam int page, @Positive @RequestParam int size) {
         User findUser = userService.findUserById(userId);
         return ResponseEntity.ok(userMapper.userToUserCommentsResponseDto(findUser, page, size, commentService));
