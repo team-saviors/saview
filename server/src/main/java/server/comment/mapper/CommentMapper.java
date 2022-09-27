@@ -1,12 +1,10 @@
 package server.comment.mapper;
 
 import org.mapstruct.Mapper;
-import server.answer.dto.AnswerUserResponseDto;
-import server.answer.entity.Answer;
 import server.comment.dto.CommentPostPutDto;
 import server.comment.dto.CommentResponseDto;
-import server.comment.dto.CommentUserResponseDto;
 import server.comment.entity.Comment;
+import server.response.AnswerCommentUserResponseDto;
 import server.user.mapper.UserMapper;
 
 import java.util.ArrayList;
@@ -30,25 +28,26 @@ public interface CommentMapper {
         return commentResponseDto;
     }
 
-    default CommentUserResponseDto commentToCommentUserResponseDto(Comment comment) {
-        CommentUserResponseDto commentUserResponseDto = new CommentUserResponseDto();
+    default AnswerCommentUserResponseDto commentToAnswerCommentUserResponseDto(Comment comment) {
+        AnswerCommentUserResponseDto answerCommentUserResponseDto = new AnswerCommentUserResponseDto();
 
-        commentUserResponseDto.setQuestionId(comment.getAnswer().getQuestion().getQuestionId());
-        commentUserResponseDto.setQuestionContent(comment.getAnswer().getQuestion().getContent());
-        commentUserResponseDto.setSubCategory(comment.getAnswer().getQuestion().getSubCategory());
-        commentUserResponseDto.setCommentCreatedAt(comment.getCreatedAt());
+        answerCommentUserResponseDto.setQuestionId(comment.getAnswer().getQuestion().getQuestionId());
+        answerCommentUserResponseDto.setQuestionContent(comment.getAnswer().getQuestion().getContent());
+        answerCommentUserResponseDto.setSubCategory(comment.getAnswer().getQuestion().getSubCategory());
+        answerCommentUserResponseDto.setCreatedAt(comment.getCreatedAt());
+        answerCommentUserResponseDto.setContent(comment.getContent());
 
-        return commentUserResponseDto;
+        return answerCommentUserResponseDto;
     }
 
-    default List<CommentUserResponseDto> commentsToCommentUserResponseDtos(List<Comment> comments) {
+    default List<AnswerCommentUserResponseDto> commentsToAnswerCommentUserResponseDtos(List<Comment> comments) {
         if ( comments == null ) {
             return null;
         }
 
-        List<CommentUserResponseDto> list = new ArrayList<>(comments.size());
+        List<AnswerCommentUserResponseDto> list = new ArrayList<>(comments.size());
         for ( Comment comment : comments ) {
-            list.add( commentToCommentUserResponseDto( comment) );
+            list.add( commentToAnswerCommentUserResponseDto( comment) );
         }
 
         return list;

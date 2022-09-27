@@ -36,7 +36,7 @@ public interface UserMapper {
                                                                 int size,
                                                                 AnswerService answerService) {
         UserAnswersResponseDto userAnswersResponseDto = new UserAnswersResponseDto();
-        userAnswersResponseDto.setAnswers(answerService.userInfoAnswers(user, page, size));
+        userAnswersResponseDto.setMyPosts(answerService.userInfoAnswers(user, page, size));
         return userAnswersResponseDto;
     }
 
@@ -45,7 +45,7 @@ public interface UserMapper {
                                                                 int size,
                                                                 CommentService commentService) {
         UserCommentsResponseDto userCommentsResponseDto = new UserCommentsResponseDto();
-        userCommentsResponseDto.setComments(commentService.userInfoComments(user, page, size));
+        userCommentsResponseDto.setMyPosts(commentService.userInfoComments(user, page, size));
         return userCommentsResponseDto;
     }
 
