@@ -30,8 +30,8 @@ export default function SignIn({ handleClose }) {
     getValues,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    postSignIn(data);
+  const onSubmit = async (data) => {
+    await postSignIn(data);
     loginHandler();
     handleClose();
   };

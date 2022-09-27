@@ -1,3 +1,4 @@
+import { loginStore } from '../store/store';
 import { client } from './axiosInstance';
 import {
   setAccessToken,
@@ -22,6 +23,7 @@ export async function postSignIn(data) {
     setAccessToken(res.data.accessToken);
     setRefreshToken(res.data.refreshToken);
     alert('로그인이 성공했습니다');
+    console.log(res);
   } catch (err) {
     alert(err);
   }
@@ -60,6 +62,7 @@ export async function postLogout() {
     });
     removeAccessToken();
     removeRefreshToken();
+    alert('로그아웃 되었습니다');
   } catch (err) {
     console.log(err);
   }
