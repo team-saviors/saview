@@ -6,11 +6,7 @@ import {
   removeAccessToken,
   removeRefreshToken,
 } from './cookies';
-// import useAxiosPrivate from './useAxiosPrivate';
 import authenticClient from './useAxiosPrivate';
-// const authenticClient = useAxiosPrivate();
-import { Cookies } from 'react-cookie';
-const cookies = new Cookies();
 
 export async function postSignUp(data) {
   try {
@@ -34,26 +30,26 @@ export async function getUser(userId) {
 }
 
 export async function postQuestion(data) {
-  // const authenticClient = useAxiosPrivate();
   try {
     const res = await authenticClient.post('/questions', data);
-    // if (res.data.status === '200') alert('질문이 등록되었습니다.');
   } catch (err) {
     console.log(err);
   }
 }
+
 const refresh_token = getRefreshToken();
 export async function getAccessWithRefresh() {
-  // const authenticClient = useAxiosPrivate();
   try {
     const res = await authenticClient.get('/refresh', {
       headers: { Refresh: `${refresh_token}` },
     });
-    console.log(res.headers);
-    setAccessToken(...res.data.accessToken);
-    // return res.data.accessToken;
+    setAccessToken(res.headers.authorization);
+    return res.headers.authorization;
   } catch (err) {
-    console.log(err);
+    console.log(err.response.status);
+    if (err.response.status === 400) {
+      postLogout();
+    }
   }
 }
 

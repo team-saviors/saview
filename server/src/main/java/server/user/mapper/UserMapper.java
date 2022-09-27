@@ -10,7 +10,17 @@ import server.user.entity.User;
 public interface UserMapper {
     User userPostDtoToUser(UserPostDto userPostDto);
     User userPutDtoToUser(UserPutDto userPutDto);
-    UserResponseDto userToUserResponseDto(User user);
+    default UserResponseDto userToUserResponseDto(User user) {
+
+        UserResponseDto userResponseDto = new UserResponseDto();
+
+        userResponseDto.setEmail(user.getEmail());
+        userResponseDto.setNickname(user.getNickname());
+        userResponseDto.setProfile(user.getProfile());
+        userResponseDto.setStatus(user.getUserStatus().getStatus());
+
+        return userResponseDto;
+    }
 
     default UserProfileResponseDto userToUserProfileResponseDto(User user) {
         UserProfileResponseDto userProfileResponseDto = new UserProfileResponseDto();
