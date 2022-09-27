@@ -1,18 +1,22 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
-
+import { Link } from 'react-router-dom';
 export const AnswerComment = (props) => {
+  // const { questionId, questionContent, subCategory, createdAt,content } =
+  //   props.mypost;
   return (
     <>
       <Container>
         <InfoWrapper>
           <div>
-            <span>Category</span>
-            <span style={{ marginLeft: '30px' }}>좋아요 개수</span>
+            <span>{'subCategory'}</span>
+            <Link to="/question/${questionID}">
+              <span style={{ marginLeft: '30px' }}>{'questionContent'}</span>
+            </Link>
           </div>
-          <div>몇시간전?</div>
+          <div>{'createdAt'}</div>
         </InfoWrapper>
-        <ContentsWrapper>질문 내용 블라블라블라</ContentsWrapper>
+        <ContentsWrapper>{'content'}</ContentsWrapper>
       </Container>
     </>
   );

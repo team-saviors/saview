@@ -20,13 +20,13 @@ const UserPage = () => {
   const [activity, setActivity] = useState('answers');
   // const numOfPages = data.totalHits ? Math.ceil(data.totalHits / size) : 0;
 
-  // useEffect(() => {
-  //   const fetch = async () => {
-  //     const data = await getUsersActivity(activity, params.id, page, size);
-  //     setData(data);
-  //   };
-  //   fetch();
-  // }, []);
+  useEffect(() => {
+    const fetch = async () => {
+      const data = await getUsersActivity(activity, params.id, page, size);
+      setData(data);
+    };
+    fetch();
+  }, []);
 
   return (
     <>
@@ -45,8 +45,8 @@ const UserPage = () => {
         </TabWrapper>
         <AnswerCommentWrapper>
           {data.data
-            ? data.data.answers.data.map((answer) => (
-                <AnswerComment answer={answer} key={answer.answerCreatedAt} />
+            ? data.data.myposts.data.map((mypost) => (
+                <AnswerComment mypost={mypost} key={mypost.createdAt} />
               ))
             : null}
           <AnswerComment></AnswerComment>
