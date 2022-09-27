@@ -8,9 +8,7 @@ import { loginStore } from '../store/store';
 const Header = () => {
   // const refresh_token = getRefreshToken();
   const { loginHandler, isLogin } = loginStore();
-  useEffect(() => {
-    loginHandler();
-  }, []);
+
   return (
     <NavBar>
       <LogoBox>

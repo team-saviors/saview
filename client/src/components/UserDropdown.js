@@ -3,14 +3,19 @@ import { IconButton, Menu, MenuItem } from '@mui/material';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { postLogout } from '../utils/axiosRequest';
-
+import { loginStore } from '../store/store';
 const UserDropdown = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const { loginHandler, isLogin } = loginStore();
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleClick = async () => {
+    await postLogout();
+    loginHandler();
   };
   return (
     <>
@@ -44,7 +49,7 @@ const UserDropdown = () => {
         >
           <Link to="/users/7">마이페이지</Link>
         </MenuItem>
-        <MenuItem onClick={() => postLogout()}>로그아웃</MenuItem>
+        <MenuItem onClick={() => handleClick()}>로그아웃</MenuItem>
       </Menu>
     </>
   );
