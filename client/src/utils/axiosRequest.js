@@ -29,3 +29,11 @@ export async function postQuestion(data) {
     console.log(err);
   }
 }
+
+export async function getUsersActivity(activity, id, paramObj) {
+  const params = new URLSearchParams({
+    ...paramObj,
+  }).toString();
+  const result = await client.get(`/${activity}/${id}/${params}`);
+  return result;
+}

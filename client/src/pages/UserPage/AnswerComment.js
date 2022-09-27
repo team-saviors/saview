@@ -1,8 +1,34 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import AvatarWrapper from '../../components/AvatarWrapper';
-
+import { getUsersActivity } from '../../utils/axiosRequest';
+import { useParams } from 'react-router-dom';
 export const AnswerComment = () => {
+  const params = useParams();
+  const [data, setData] = useState({ total: 0, totalHits: 0, hits: [] });
+  const [size, setSize] = useState(10);
+  const [page, setPage] = useState(1);
+  const [activity, setActivity] = useState('answers');
+  const numOfPages = data.totalHits ? Math.ceil(data.totalHits / size) : 0;
+
+  useEffect(() => {
+    const fetch = async () => {
+      const data = await getUsersActivity(activity, params.id, {
+        page: page,
+        size: size,
+      });
+      if (page === 1) {
+        setData(data);
+      } else {
+        setData((prevData) => ({
+          ...prevData,
+          hits: [...prevData.hits, ...data.hits],
+        }));
+      }
+    };
+    fetch();
+  });
+  console.log(data);
   return (
     <>
       <Container>
