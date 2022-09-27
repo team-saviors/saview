@@ -1,6 +1,7 @@
 import { AccountCircle } from '@mui/icons-material';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { postLogout } from '../utils/axiosRequest';
 
 const UserDropdown = () => {
@@ -41,14 +42,9 @@ const UserDropdown = () => {
         <MenuItem
         //   onClick={ }
         >
-          내 작성글
+          <Link to="/users/7">마이페이지</Link>
         </MenuItem>
-        <MenuItem
-        //   onClick={ }
-        >
-          마이페이지
-        </MenuItem>
-        <MenuItem onClick={postLogout}>로그아웃</MenuItem>
+        <MenuItem onClick={() => postLogout()}>로그아웃</MenuItem>
       </Menu>
     </>
   );

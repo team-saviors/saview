@@ -64,3 +64,10 @@ export async function postLogout() {
     console.log(err);
   }
 }
+
+export async function getUsersActivity(activity, id, page, size) {
+  const result = await authenticClient.get(
+    `/users/${id}/${activity}?page=${page}&size=${size}`
+  );
+  return result;
+}
