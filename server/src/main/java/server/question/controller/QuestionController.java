@@ -32,7 +32,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/questions")
 public class QuestionController {
-
     private final QuestionService questionService;
     private final QuestionMapper questionMapper;
     private final UserService userService;

@@ -30,13 +30,15 @@ export async function getUser(userId) {
 }
 
 export async function postQuestion(data) {
+  // const authenticClient = useAxiosPrivate();
   try {
     const res = await authenticClient.post('/questions', data);
-    if (res.data.status === '200') alert('질문이 등록되었습니다.');
+    // if (res.data.status === '200') alert('질문이 등록되었습니다.');
   } catch (err) {
     console.log(err);
   }
 }
+
 const refresh_token = getRefreshToken();
 export async function getAccessWithRefresh() {
   try {
