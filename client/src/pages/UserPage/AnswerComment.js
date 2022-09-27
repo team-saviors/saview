@@ -1,40 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
-import AvatarWrapper from '../../components/AvatarWrapper';
-import {
-  getAccessWithRefresh,
-  getUsersActivity,
-} from '../../utils/axiosRequest';
-import { useParams } from 'react-router-dom';
-import { getAccessToken } from '../../utils/cookies';
-export const AnswerComment = () => {
-  const params = useParams();
-  const [data, setData] = useState({});
-  const [size, setSize] = useState(10);
-  const [page, setPage] = useState(1);
-  const [activity, setActivity] = useState('answers');
-  // const numOfPages = data.totalHits ? Math.ceil(data.totalHits / size) : 0;
 
-  useEffect(() => {
-    const fetch = async () => {
-      if (!getAccessToken) {
-        getAccessWithRefresh();
-      }
-
-      const data = await getUsersActivity(activity, params.id, page, size);
-      setData(data);
-      // if (page === 1) {
-      //   setData(data);
-      // } else {
-      //   setData((prevData) => ({
-      //     ...prevData,
-      //     hits: [...prevData.hits, ...data.hits],
-      //   }));
-      // }
-    };
-    fetch();
-  }, []);
-
+export const AnswerComment = (props) => {
   return (
     <>
       <Container>

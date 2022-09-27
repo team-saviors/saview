@@ -31,6 +31,7 @@ export default function SignIn({ handleClose }) {
   } = useForm();
   const onSubmit = (data) => {
     postSignIn(data);
+    handleClose();
   };
   const onError = (error) => {
     console.log(error);

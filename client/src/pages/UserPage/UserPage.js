@@ -2,10 +2,32 @@ import { Box } from '@mui/material';
 import AvatarWrapper from '../../components/AvatarWrapper';
 import styled from 'styled-components';
 import BasicTabs from '../../components/Tab/BasicTabs';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AnswerComment from './AnswerComment';
+import {
+  getAccessWithRefresh,
+  getUsersActivity,
+} from '../../utils/axiosRequest';
+import { useParams } from 'react-router-dom';
+import { getAccessToken } from '../../utils/cookies';
+
 const UserPage = () => {
   const [tab, setTab] = useState(0);
+  const params = useParams();
+  const [data, setData] = useState({});
+  const [size, setSize] = useState(10);
+  const [page, setPage] = useState(1);
+  const [activity, setActivity] = useState('answers');
+  // const numOfPages = data.totalHits ? Math.ceil(data.totalHits / size) : 0;
+
+  // useEffect(() => {
+  //   const fetch = async () => {
+  //     const data = await getUsersActivity(activity, params.id, page, size);
+  //     setData(data);
+  //   };
+  //   fetch();
+  // }, []);
+
   return (
     <>
       <section>
@@ -22,10 +44,11 @@ const UserPage = () => {
           <BasicTabs setTab={setTab}></BasicTabs>
         </TabWrapper>
         <AnswerCommentWrapper>
-          <AnswerComment></AnswerComment>
-          <AnswerComment></AnswerComment>
-          <AnswerComment></AnswerComment>
-          <AnswerComment></AnswerComment>
+          {data.data
+            ? data.data.answers.data.map((answer) => (
+                <AnswerComment answer={answer} key={answer.answerCreatedAt} />
+              ))
+            : null}
           <AnswerComment></AnswerComment>
         </AnswerCommentWrapper>
       </section>
