@@ -2,7 +2,6 @@ import { Box } from '@mui/material';
 import AvatarWrapper from '../../components/AvatarWrapper';
 import styled from 'styled-components';
 import BasicTabs from '../../components/Tab/BasicTabs';
-
 import { useState, useEffect } from 'react';
 import AnswerComment from './AnswerComment';
 import {
@@ -21,13 +20,13 @@ const UserPage = () => {
   const [activity, setActivity] = useState('answers');
   // const numOfPages = data.totalHits ? Math.ceil(data.totalHits / size) : 0;
 
-  // useEffect(() => {
-  //   const fetch = async () => {
-  //     const data = await getUsersActivity(activity, params.id, page, size);
-  //     setData(data);
-  //   };
-  //   fetch();
-  // }, []);
+  useEffect(() => {
+    const fetch = async () => {
+      const data = await getUsersActivity(activity, params.id, page, size);
+      setData(data);
+    };
+    fetch();
+  }, []);
 
 
   return (
@@ -46,13 +45,11 @@ const UserPage = () => {
           <BasicTabs setTab={setTab}></BasicTabs>
         </TabWrapper>
         <AnswerCommentWrapper>
-
           {data.data
-            ? data.data.answers.data.map((answer) => (
-                <AnswerComment answer={answer} key={answer.answerCreatedAt} />
+            ? data.data.myposts.data.map((mypost) => (
+                <AnswerComment mypost={mypost} key={mypost.createdAt} />
               ))
             : null}
-
           <AnswerComment></AnswerComment>
         </AnswerCommentWrapper>
       </section>
