@@ -1,3 +1,4 @@
+import { CookieTwoTone } from '@mui/icons-material';
 import { Cookies } from 'react-cookie';
 const cookies = new Cookies();
 
@@ -30,4 +31,7 @@ export const setUserId = (userId) => {
 };
 export const getUserId = () => {
   return cookies.get('user_id');
+};
+export const removeUserId = () => {
+  return cookies.remove('user_id');
 };

@@ -7,6 +7,7 @@ import {
   removeAccessToken,
   removeRefreshToken,
   setUserId,
+  removeUserId,
 } from './cookies';
 import authenticClient from './useAxiosPrivate';
 
@@ -61,6 +62,7 @@ export async function postLogout() {
     });
     removeAccessToken();
     removeRefreshToken();
+    removeUserId();
     alert('로그아웃 되었습니다');
   } catch (err) {
     console.log(err);

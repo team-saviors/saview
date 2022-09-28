@@ -12,22 +12,20 @@ import { userStore } from '../../store/store';
 import { getAccessToken, getUserId } from '../../utils/cookies';
 
 const UserPage = () => {
-  const [tab, setTab] = useState(0);
+  const [tab, setTab] = useState('answers');
   const [data, setData] = useState(null);
-  const [size, setSize] = useState(10);
   const [page, setPage] = useState(1);
-  const [activity, setActivity] = useState('answers');
-
   // const numOfPages = data.totalHits ? Math.ceil(data.totalHits / size) : 0;
   const { getUser, profile, nickname } = userStore();
   useEffect(() => {
     const fetch = async () => {
-      const data = await getUsersActivity(activity, getUserId(), page, size);
+      const data = await getUsersActivity(tab, getUserId(), page, 10);
       setData(data);
     };
     fetch();
-  }, [activity]);
+  }, [tab]);
   useEffect(() => {
+    setTab('answers');
     getUser(getUserId());
   }, []);
 
