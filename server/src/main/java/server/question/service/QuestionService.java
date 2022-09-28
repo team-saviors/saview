@@ -3,6 +3,7 @@ package server.question.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import server.exception.BusinessLogicException;
 import server.exception.ExceptionCode;
@@ -28,7 +29,7 @@ public class QuestionService {
     }
 
     public Page<Question> findQuestions(int page, int size) {
-        return questionRepository.findAll(PageRequest.of(page, size));
+        return questionRepository.findAll(PageRequest.of(page, size, Sort.by("questionId").descending()));
     }
 
     public void updateQuestion(Question question){

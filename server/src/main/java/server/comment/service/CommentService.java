@@ -3,6 +3,7 @@ package server.comment.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import server.answer.entity.Answer;
 import server.comment.dto.CommentResponseDto;
@@ -60,7 +61,7 @@ public class CommentService {
 
     public MultiResponseDto<AnswerCommentUserResponseDto> userInfoComments(User user,
                                                                            int page, int size) {
-        Page<Comment> pageComments = commentRepository.findAllByUser(user, PageRequest.of(page-1, size));
+        Page<Comment> pageComments = commentRepository.findAllByUser(user, PageRequest.of(page-1, size, Sort.by("commentId").descending()));
         List<Comment> comments = pageComments.getContent();
         return new MultiResponseDto<>(commentMapper.commentsToAnswerCommentUserResponseDtos(comments), pageComments);
     }
