@@ -74,7 +74,7 @@ public class QuestionController {
 
     @PutMapping("/{question-id}")
     public ResponseEntity<Void> putQuestion(@Positive @PathVariable("question-id") long questionId,
-                                      @Valid @RequestBody QuestionPostPutDto questionPostPutDto)  {
+                                            @Valid @RequestBody QuestionPostPutDto questionPostPutDto) {
         Question question = questionMapper.questionPostPutDtoToQuestion(questionPostPutDto);
         question.setQuestionId(questionId);
         questionService.updateQuestion(question);
@@ -91,9 +91,21 @@ public class QuestionController {
 
     @PutMapping("/{question-id}/views")
     public ResponseEntity<Void> putViews(@Positive @PathVariable("question-id") long questionId,
-                                   @Valid @RequestBody ViewsDto viewsDto) {
+                                         @Valid @RequestBody ViewsDto viewsDto) {
         questionService.updateViews(questionId, viewsDto.getViews());
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/tags")
+    @Transactional(readOnly = true)
+    public ResponseEntity<MultiResponseDto<QuestionsResponseDto>> getQuestionsByCategory(@RequestParam String mainCategory,
+                                                                                         @RequestParam(required = false) String subCategory,
+                                                                                         @Positive @RequestParam int page,
+                                                                                         @Positive @RequestParam int size) {
+        Page<Question> pageQuestions = questionService.findQuestionsByCategory(mainCategory,subCategory,page - 1, size);
+        List<Question> questions = pageQuestions.getContent();
+
+        return ResponseEntity.ok(new MultiResponseDto<>(questionMapper.questionsToQuestionsResponseDtos(questions, userMapper), pageQuestions));
     }
 }

@@ -3,6 +3,7 @@ package server.question.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import server.exception.BusinessLogicException;
 import server.exception.ExceptionCode;
@@ -31,7 +32,7 @@ public class QuestionService {
         return questionRepository.findAll(PageRequest.of(page, size));
     }
 
-    public void updateQuestion(Question question){
+    public void updateQuestion(Question question) {
         Question updateQuestion = findVerifiedQuestion(question.getQuestionId());
         updateQuestion.setContent(question.getContent());
         updateQuestion.setMainCategory(question.getMainCategory());
@@ -51,5 +52,19 @@ public class QuestionService {
 
     public void updateViews(long questionId, int views) {
         questionRepository.updateViews(views, questionId);
+    }
+
+    public Page<Question> findQuestionsByCategory(String mainCategory, String subCategory, int page, int size) {
+
+        Sort sort = Sort.by("questionId").descending();
+        PageRequest pageRequest = PageRequest.of(page, size, sort);
+
+        if (mainCategory.equals("all")) {
+            return questionRepository.findAll(pageRequest);
+        } else if (subCategory == null) {
+            return questionRepository.findAllByMainCategory(mainCategory, pageRequest);
+        } else {
+            return questionRepository.findAllByMainCategoryAndSubCategory(mainCategory, subCategory, pageRequest);
+        }
     }
 }
