@@ -18,7 +18,6 @@ const UserDropdown = () => {
     await postLogout();
     loginHandler();
   };
-
   return (
     <>
       <IconButton

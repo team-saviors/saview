@@ -11,6 +11,7 @@ const Mainpage = () => {
   const { isLogin, loginHandler } = loginStore();
   useEffect(() => loginHandler(), []);
   useEffect(() => console.log(isLogin));
+
   return (
     <>
       <Carousel></Carousel>

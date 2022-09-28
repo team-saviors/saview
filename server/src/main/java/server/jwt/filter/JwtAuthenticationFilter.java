@@ -66,16 +66,16 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         } else {
             accessToken = JWT.create()
                     .withSubject(principalDetails.getUsername())
-                    .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 30)))
-//                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 10)))
+//                    .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 30)))
+                    .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60)))
                     .withClaim("id", principalDetails.getUser().getUserId())
                     .withClaim("email", principalDetails.getUser().getEmail())
                     .sign(Algorithm.HMAC512("cos_jwt_token"));
         }
         String refreshToken = JWT.create()
                 .withSubject(principalDetails.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 14)))
-//                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 20)))
+//                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 14)))
+                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 10)))
                 .sign(Algorithm.HMAC512("cos_jwt_token"));
 
         String email = principalDetails.getUser().getEmail();
@@ -88,7 +88,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setCharacterEncoding("utf-8");
         response.setHeader("Access-Control-Allow-Origin", "*");
 
-        TokenResponseDto tokenResponseDto = TokenResponseDto.builder().accessToken("Bearer " + accessToken).refreshToken("Bearer " + refreshToken).build();
+        TokenResponseDto tokenResponseDto = TokenResponseDto.builder().userId(principalDetails.getUser().getUserId()).accessToken("Bearer " + accessToken).refreshToken("Bearer " + refreshToken).build();
 
         String tokens = objectMapper.writeValueAsString(tokenResponseDto);
         response.getWriter().write(tokens);

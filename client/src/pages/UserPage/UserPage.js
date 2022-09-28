@@ -8,6 +8,7 @@ import {
   getAccessWithRefresh,
   getUsersActivity,
 } from '../../utils/axiosRequest';
+
 import { userStore } from '../../store/store';
 import { getAccessToken, getUserId } from '../../utils/cookies';
 
@@ -28,7 +29,6 @@ const UserPage = () => {
     setTab('answers');
     getUser(getUserId());
   }, []);
-
   return (
     <>
       <section>
