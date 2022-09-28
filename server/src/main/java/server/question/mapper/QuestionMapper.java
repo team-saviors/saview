@@ -61,7 +61,7 @@ public interface QuestionMapper {
                                                               UserMapper userMapper,
                                                               AnswerService answerService,
                                                               CommentService commentService,
-                                                              int page, int size) {
+                                                              int page, int size, String sort) {
         QuestionResponseDto questionResponseDto = new QuestionResponseDto();
 
         questionResponseDto.setQuestionId(question.getQuestionId());
@@ -70,7 +70,7 @@ public interface QuestionMapper {
         questionResponseDto.setMainCategory(question.getMainCategory());
         questionResponseDto.setSubCategory(question.getSubCategory());
         questionResponseDto.setUser(userMapper.userToUserProfileResponseDto(question.getUser()));
-        questionResponseDto.setAnswers(answerService.findAnswers(question, userMapper, commentService, page, size));
+        questionResponseDto.setAnswers(answerService.findAnswers(question, userMapper, commentService, page, size, sort));
 
         return questionResponseDto;
     }

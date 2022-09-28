@@ -16,7 +16,7 @@ import java.util.List;
 public interface AnswerMapper {
 
     Answer answerPostPutDtoToAnswer(AnswerPostPutDto answerPostPutDto);
-    default List<AnswerResponseDto> AnswersToAnswersResponseDtos(List<Answer> answers,
+    default List<AnswerResponseDto> answersToAnswersResponseDtos(List<Answer> answers,
                                                                  UserMapper userMapper,
                                                                  CommentService commentService) {
         if ( answers == null ) {
