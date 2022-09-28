@@ -6,8 +6,7 @@ import { getRefreshToken } from '../utils/cookies';
 import { loginStore } from '../store/store';
 
 const Header = () => {
-  // const refresh_token = getRefreshToken();
-  const { loginHandler, isLogin } = loginStore();
+  const { isLogin } = loginStore();
 
   return (
     <NavBar>
