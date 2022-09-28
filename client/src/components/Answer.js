@@ -6,7 +6,7 @@ import ThumbUpAlt from '@mui/icons-material/ThumbUpOffAlt';
 import { TextField, Button, CardContent, Typography } from '@mui/material';
 import AvatarWrapper from './AvatarWrapper';
 import MessageIcon from '@mui/icons-material/Message';
-import daia from '../assets/images/daia.png';
+import { ISOHandler } from '../utils/timeHandler';
 export default function Answer(props) {
   const { comments, content, createdAt, modifiedAt, user, votes } =
     props.answer;
@@ -24,7 +24,7 @@ export default function Answer(props) {
       >
         <AvatarWrapper src={user.profile}></AvatarWrapper>
         <span>{user.nickname}</span>
-        <span style={{ marginLeft: '20px' }}>{createdAt}</span>
+        <span style={{ marginLeft: '20px' }}>{ISOHandler(createdAt)}</span>
       </div>
       <Paper
         style={{
@@ -66,7 +66,7 @@ export default function Answer(props) {
               </Typography>
               <Typography variant="body2" color="gray">
                 &nbsp;&nbsp; {comment.user.nickname} &nbsp;&nbsp;
-                {comment.createdAt}
+                {ISOHandler(comment.createdAt)}
               </Typography>
             </CardContent>
           ))
