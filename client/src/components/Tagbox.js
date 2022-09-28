@@ -3,12 +3,20 @@ import styled from 'styled-components';
 import AvatarWrapper from '../components/AvatarWrapper';
 import CategoryTabs from '../components/Tab/CategoryTabs';
 import { useState } from 'react';
-const Tagbox = () => {
+const Tagbox = ({ tab, setTab, setActive }) => {
   const imgUrl = (stack) => {
     return `https://saview-dev.s3.ap-northeast-2.amazonaws.com/techStack/${stack}.png`;
   };
-  const [tab, setTab] = useState(0);
-  console.log(tab);
+
+  const handleClick = (e) => {
+    const id = e.target.id
+      ? e.target.id
+      : e.target.parentElement.id
+      ? e.target.parentElement.id
+      : e.target.parentElement.parentElement.id
+      ? e.target.parentElement.parentElement.id
+      : e.target.parentElement.parentElement.parentElement.id;
+  };
   return (
     <TagboxWrapper>
       <CategoryTabs setTab={setTab}></CategoryTabs>
@@ -20,12 +28,16 @@ const Tagbox = () => {
               startIcon={
                 <AvatarWrapper src={imgUrl('javascript')}></AvatarWrapper>
               }
+              onClick={handleClick}
+              id="javascript"
             >
               JavaScript
             </TagButton>
             <TagButton
               variant="outlined"
               startIcon={<AvatarWrapper src={imgUrl('react')}></AvatarWrapper>}
+              onClick={handleClick}
+              id="react"
             >
               React
             </TagButton>
@@ -34,18 +46,24 @@ const Tagbox = () => {
               startIcon={
                 <AvatarWrapper src={imgUrl('typescript')}></AvatarWrapper>
               }
+              onClick={handleClick}
+              id="typescript"
             >
               TypeScript
             </TagButton>
             <TagButton
               variant="outlined"
               startIcon={<AvatarWrapper src={imgUrl('vue')}></AvatarWrapper>}
+              onClick={handleClick}
+              id="vue"
             >
               Vue
             </TagButton>
             <TagButton
               variant="outlined"
               startIcon={<AvatarWrapper src={imgUrl('nodejs')}></AvatarWrapper>}
+              onClick={handleClick}
+              id="nodejs"
             >
               NodeJS
             </TagButton>
@@ -56,12 +74,16 @@ const Tagbox = () => {
             <TagButton
               variant="outlined"
               startIcon={<AvatarWrapper src={imgUrl('java')}></AvatarWrapper>}
+              onClick={handleClick}
+              id="java"
             >
               Java
             </TagButton>
             <TagButton
               variant="outlined"
               startIcon={<AvatarWrapper src={imgUrl('spring')}></AvatarWrapper>}
+              onClick={handleClick}
+              id="spring"
             >
               Spring
             </TagButton>
@@ -70,12 +92,16 @@ const Tagbox = () => {
               startIcon={
                 <AvatarWrapper src={imgUrl('express')}></AvatarWrapper>
               }
+              onClick={handleClick}
+              id="express"
             >
               Express
             </TagButton>
             <TagButton
               variant="outlined"
               startIcon={<AvatarWrapper src={imgUrl('mysql')}></AvatarWrapper>}
+              onClick={handleClick}
+              id="mysql"
             >
               MySQL
             </TagButton>
@@ -84,6 +110,8 @@ const Tagbox = () => {
               startIcon={
                 <AvatarWrapper src={imgUrl('mongodb')}></AvatarWrapper>
               }
+              onClick={handleClick}
+              id="mongodb"
             >
               MongoDB
             </TagButton>
@@ -91,12 +119,24 @@ const Tagbox = () => {
         ) : null}
         {tab === 0 || tab === 3 ? (
           <>
-            <TagButton>운영체제</TagButton>
-            <TagButton>자료구조</TagButton>
-            <TagButton>알고리즘</TagButton>
-            <TagButton>네트워크</TagButton>
-            <TagButton>디자인패턴</TagButton>
-            <TagButton>데이터베이스</TagButton>
+            <TagButton onClick={handleClick} id="운영체제">
+              운영체제
+            </TagButton>
+            <TagButton onClick={handleClick} id="자료구조">
+              자료구조
+            </TagButton>
+            <TagButton onClick={handleClick} id="알고리즘">
+              알고리즘
+            </TagButton>
+            <TagButton onClick={handleClick} id="네트워크">
+              네트워크
+            </TagButton>
+            <TagButton onClick={handleClick} id="디자인패턴">
+              디자인패턴
+            </TagButton>
+            <TagButton onClick={handleClick} id="데이터베이스">
+              데이터베이스
+            </TagButton>
           </>
         ) : null}
       </TagButtons>
