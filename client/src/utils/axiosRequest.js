@@ -6,6 +6,7 @@ import {
   getRefreshToken,
   removeAccessToken,
   removeRefreshToken,
+  setUserId,
 } from './cookies';
 import authenticClient from './useAxiosPrivate';
 
@@ -22,14 +23,12 @@ export async function postSignIn(data) {
     const res = await client.post('/login', data);
     setAccessToken(res.data.accessToken);
     setRefreshToken(res.data.refreshToken);
+    setUserId(res.data.userId);
     alert('로그인이 성공했습니다');
     console.log(res);
   } catch (err) {
     alert(err);
   }
-}
-export async function getUser(userId) {
-  const response = await client.get(`/users/${userId}`);
 }
 
 export async function postQuestion(data) {

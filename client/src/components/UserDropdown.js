@@ -4,9 +4,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { postLogout } from '../utils/axiosRequest';
 import { loginStore } from '../store/store';
+import { getUserId } from '../utils/cookies';
 const UserDropdown = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { loginHandler, isLogin } = loginStore();
+  const { loginHandler } = loginStore();
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -17,6 +18,7 @@ const UserDropdown = () => {
     await postLogout();
     loginHandler();
   };
+
   return (
     <>
       <IconButton
@@ -47,7 +49,7 @@ const UserDropdown = () => {
         <MenuItem
         //   onClick={ }
         >
-          <Link to="/users/7">마이페이지</Link>
+          <Link to={`/users/${getUserId()}`}>마이페이지</Link>
         </MenuItem>
         <MenuItem onClick={() => handleClick()}>로그아웃</MenuItem>
       </Menu>

@@ -24,3 +24,10 @@ export const getRefreshToken = () => {
 export const removeRefreshToken = () => {
   return cookies.remove('refresh_token', { sameSite: 'strict' });
 };
+
+export const setUserId = (userId) => {
+  cookies.set('user_id', userId);
+};
+export const getUserId = () => {
+  return cookies.get('user_id');
+};
