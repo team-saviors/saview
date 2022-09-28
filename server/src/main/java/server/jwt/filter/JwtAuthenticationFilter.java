@@ -88,7 +88,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setCharacterEncoding("utf-8");
         response.setHeader("Access-Control-Allow-Origin", "*");
 
-        TokenResponseDto tokenResponseDto = TokenResponseDto.builder().accessToken("Bearer " + accessToken).refreshToken("Bearer " + refreshToken).build();
+        TokenResponseDto tokenResponseDto = TokenResponseDto.builder().userId(principalDetails.getUser().getUserId()).accessToken("Bearer " + accessToken).refreshToken("Bearer " + refreshToken).build();
 
         String tokens = objectMapper.writeValueAsString(tokenResponseDto);
         response.getWriter().write(tokens);
