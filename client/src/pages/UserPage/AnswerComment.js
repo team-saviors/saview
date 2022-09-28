@@ -1,23 +1,32 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-export const AnswerComment = (props) => {
-  // const { questionId, questionContent, subCategory, createdAt,content } =
-  //   props.mypost;
+
+import { loginStore } from '../../store/store';
+import { ISOHandler } from '../../utils/timeHandler';
+export const AnswerComment = ({ mypost }) => {
+  const { loginHandler } = loginStore();
+  useEffect(() => loginHandler(), []);
   return (
     <>
-      <Container>
-        <InfoWrapper>
-          <div>
-            <span>{'subCategory'}</span>
-            <Link to="/question/${questionID}">
-              <span style={{ marginLeft: '30px' }}>{'questionContent'}</span>
-            </Link>
-          </div>
-          <div>{'createdAt'}</div>
-        </InfoWrapper>
-        <ContentsWrapper>{'content'}</ContentsWrapper>
-      </Container>
+      {mypost ? (
+        <>
+          <Container>
+            <InfoWrapper>
+              <div>
+                <span>{mypost.subCategory}</span>
+                <span style={{ marginLeft: '30px' }}>
+                  문제:{mypost.questionContent}
+                </span>
+              </div>
+              <div>{ISOHandler(mypost.createdAt)}</div>
+            </InfoWrapper>
+            <ContentsWrapper>
+              {mypost.content.substr(0, 60) + '...'}
+            </ContentsWrapper>
+          </Container>
+        </>
+      ) : null}
     </>
   );
 };
@@ -41,10 +50,10 @@ const InfoWrapper = styled.div`
 `;
 const ContentsWrapper = styled.div`
   width: 100%;
-  height: 60px;
-  line-height: 60px;
+  height: 50px;
+  line-height: 50px;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 500;
 `;
 
 export default AnswerComment;

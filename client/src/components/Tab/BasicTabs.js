@@ -1,26 +1,28 @@
 import Box from '@mui/material/Box';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-export default function BasicTabs({ tab, setTab }) {
-  const [active, setActive] = useState(0);
 
+export default function BasicTabs({ setTab }) {
+  const [active, setActive] = useState('answers');
   const handleClick = (e) => {
-    const index = parseInt(e.target.id, 0);
-    if (index !== active) {
-      setActive(index);
+    if (e.target.id !== active) {
+      setActive(e.target.id);
     }
-    setTab(index);
+    setTab(e.target.id);
   };
 
   return (
     <Box sx={{ width: '100%' }}>
       <Box>
         <Tabs>
-          <Tab onClick={handleClick} active={active === 0} id={0}>
+          <Tab onClick={handleClick} active={active === 'answers'} id="answers">
             내 답변
           </Tab>
-
-          <Tab onClick={handleClick} active={active === 1} id={1}>
+          <Tab
+            onClick={handleClick}
+            active={active === 'comments'}
+            id="comments"
+          >
             내댓글
           </Tab>
         </Tabs>

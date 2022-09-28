@@ -1,7 +1,6 @@
 import create from 'zustand';
 import { client } from '../utils/axiosInstance';
-import { getRefreshToken } from '../utils/cookies';
-
+import { getRefreshToken, getUserId } from '../utils/cookies';
 export const countStore = create((set) => ({
   count: 0,
   increase() {
@@ -76,6 +75,7 @@ export const questionRegisterStore = create((set) => ({
 
 export const loginStore = create((set) => ({
   isLogin: false,
+  userId: 0,
   loginHandler() {
     const refresh_token = getRefreshToken();
     if (refresh_token) {
@@ -83,5 +83,24 @@ export const loginStore = create((set) => ({
     } else {
       set((state) => ({ isLogin: false }));
     }
+  },
+  setUserId(id) {
+    set((state) => ({
+      ...state,
+      userId: getUserId(),
+    }));
+  },
+}));
+export const userStore = create((set) => ({
+  email: '',
+  profile: '',
+  nickname: '',
+  getUser: async (userId) => {
+    const res = await client.get(`/users/${userId}`);
+    set((state) => ({
+      email: res.data.email,
+      profile: res.data.profile,
+      nickname: res.data.nickname,
+    }));
   },
 }));

@@ -6,7 +6,7 @@ import ThumbUpAlt from '@mui/icons-material/ThumbUpOffAlt';
 import { TextField, Button, CardContent, Typography } from '@mui/material';
 import AvatarWrapper from './AvatarWrapper';
 import MessageIcon from '@mui/icons-material/Message';
-import daia from '../assets/images/daia.png';
+import { ISOHandler } from '../utils/timeHandler';
 export default function Answer(props) {
   const { comments, content, createdAt, modifiedAt, user, votes } =
     props.answer;
@@ -24,7 +24,7 @@ export default function Answer(props) {
       >
         <AvatarWrapper src={user.profile}></AvatarWrapper>
         <span>{user.nickname}</span>
-        <span style={{ marginLeft: '20px' }}>{createdAt}</span>
+        <span style={{ marginLeft: '20px' }}>{ISOHandler(createdAt)}</span>
       </div>
       <Paper
         style={{
@@ -45,34 +45,32 @@ export default function Answer(props) {
           </Button>
         </div>
       </Paper>
-      {comments ? (
-        comments.map((comment) => (
-          <CardContent
-            key={comment.commentId}
-            style={{
-              width: '1200px',
-              // borderBottom: '1px solid #DEDEDE',
+      {comments?.length > 0
+        ? comments.map((comment) => (
+            <CardContent
+              key={comment.commentId}
+              style={{
+                width: '1200px',
+                // borderBottom: '1px solid #DEDEDE',
 
-              padding: '5px',
-              borderLeft: '1px solid #DEDEDE',
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}
-          >
-            <AvatarWrapper src={user.profile}></AvatarWrapper>
-            <Typography variant="body2" color="black">
-              {comment.content}
-            </Typography>
-            <Typography variant="body2" color="gray">
-              &nbsp;&nbsp; {comment.user.nickname} &nbsp;&nbsp;
-              {comment.createdAt}
-            </Typography>
-          </CardContent>
-        ))
-      ) : (
-        <div>{'댓글이 없습니다'}</div>
-      )}
+                padding: '5px',
+                borderLeft: '1px solid #DEDEDE',
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+            >
+              <AvatarWrapper src={user.profile}></AvatarWrapper>
+              <Typography variant="body2" color="black">
+                {comment.content}
+              </Typography>
+              <Typography variant="body2" color="gray">
+                &nbsp;&nbsp; {comment.user.nickname} &nbsp;&nbsp;
+                {ISOHandler(comment.createdAt)}
+              </Typography>
+            </CardContent>
+          ))
+        : null}
       <CardContent
         style={{
           width: '1200px',

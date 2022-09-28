@@ -8,47 +8,45 @@ import {
   getAccessWithRefresh,
   getUsersActivity,
 } from '../../utils/axiosRequest';
-import { useParams } from 'react-router-dom';
-import { getAccessToken } from '../../utils/cookies';
+
+import { userStore } from '../../store/store';
+import { getAccessToken, getUserId } from '../../utils/cookies';
 
 const UserPage = () => {
-  const [tab, setTab] = useState(0);
-  const params = useParams();
-  const [data, setData] = useState({});
-  const [size, setSize] = useState(10);
+  const [tab, setTab] = useState('answers');
+  const [data, setData] = useState(null);
   const [page, setPage] = useState(1);
-  const [activity, setActivity] = useState('answers');
   // const numOfPages = data.totalHits ? Math.ceil(data.totalHits / size) : 0;
-
+  const { getUser, profile, nickname } = userStore();
   useEffect(() => {
     const fetch = async () => {
-      const data = await getUsersActivity(activity, params.id, page, size);
+      const data = await getUsersActivity(tab, getUserId(), page, 10);
       setData(data);
     };
     fetch();
+  }, [tab]);
+  useEffect(() => {
+    setTab('answers');
+    getUser(getUserId());
   }, []);
-
   return (
     <>
       <section>
         <ProfileBox>
-          <AvatarWrapper
-            src={
-              'https://saview-dev.s3.ap-northeast-2.amazonaws.com/Saview/logo_circle.png'
-            }
-            size={100}
-          />
-          <UserNickname>{'colagom'}</UserNickname>
+          <AvatarWrapper src={profile} size={100} />
+          <UserNickname>{nickname}</UserNickname>
         </ProfileBox>
         <TabWrapper>
           <BasicTabs setTab={setTab}></BasicTabs>
         </TabWrapper>
         <AnswerCommentWrapper>
-          {data.data
-            ? data.data.myposts.data.map((mypost) => (
-                <AnswerComment mypost={mypost} key={mypost.createdAt} />
-              ))
-            : null}
+          {data?.data?.myPosts?.data?.length > 0 ? (
+            data.data.myPosts.data.map((mypost) => (
+              <AnswerComment mypost={mypost} key={mypost.createdAt} />
+            ))
+          ) : (
+            <div>작성글이 없습니다</div>
+          )}
           <AnswerComment></AnswerComment>
         </AnswerCommentWrapper>
       </section>
