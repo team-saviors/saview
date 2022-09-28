@@ -13,7 +13,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import { FcGoogle } from 'react-icons/fc';
 import { GitHub } from '@mui/icons-material';
 import { postSignIn } from '../utils/axiosRequest';
-
+import { loginStore } from '../store/store';
 const theme = createTheme();
 const style = {
   border: '1px solid #D9E4EC',
@@ -23,14 +23,17 @@ const style = {
   margin: '40px',
 };
 export default function SignIn({ handleClose }) {
+  const { loginHandler } = loginStore();
   const {
     register,
     handleSubmit,
     getValues,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    postSignIn(data);
+  const onSubmit = async (data) => {
+    await postSignIn(data);
+    loginHandler();
+    handleClose();
   };
   const onError = (error) => {
     console.log(error);

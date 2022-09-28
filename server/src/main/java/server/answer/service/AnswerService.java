@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import server.answer.dto.AnswerResponseDto;
-import server.answer.dto.AnswerUserResponseDto;
 import server.answer.entity.Answer;
 import server.answer.mapper.AnswerMapper;
 import server.answer.repository.AnswerRepository;
@@ -13,6 +12,7 @@ import server.comment.service.CommentService;
 import server.exception.BusinessLogicException;
 import server.exception.ExceptionCode;
 import server.question.entity.Question;
+import server.response.AnswerCommentUserResponseDto;
 import server.response.MultiResponseDto;
 import server.user.entity.User;
 import server.user.mapper.UserMapper;
@@ -62,11 +62,11 @@ public class AnswerService {
 
     }
 
-    public MultiResponseDto<AnswerUserResponseDto> userInfoAnswers(User user,
-                                                                   int page, int size) {
+    public MultiResponseDto<AnswerCommentUserResponseDto> userInfoAnswers(User user,
+                                                                          int page, int size) {
         Page<Answer> pageAnswers = answerRepository.findAllByUser(user, PageRequest.of(page - 1, size));
         List<Answer> answers = pageAnswers.getContent();
-        return new MultiResponseDto<>(answerMapper.answersToAnswerUserResponseDtos(answers), pageAnswers);
+        return new MultiResponseDto<>(answerMapper.answersToAnswerCommentUserResponseDtos(answers), pageAnswers);
     }
 
 

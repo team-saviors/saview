@@ -1,3 +1,4 @@
+import { loginStore } from '../store/store';
 import { client } from './axiosInstance';
 import {
   setAccessToken,
@@ -21,6 +22,8 @@ export async function postSignIn(data) {
     const res = await client.post('/login', data);
     setAccessToken(res.data.accessToken);
     setRefreshToken(res.data.refreshToken);
+    alert('로그인이 성공했습니다');
+    console.log(res);
   } catch (err) {
     alert(err);
   }
@@ -37,11 +40,10 @@ export async function postQuestion(data) {
   }
 }
 
-const refresh_token = getRefreshToken();
 export async function getAccessWithRefresh() {
   try {
     const res = await authenticClient.get('/refresh', {
-      headers: { Refresh: `${refresh_token}` },
+      headers: { Refresh: `${getRefreshToken()}` },
     });
     setAccessToken(res.headers.authorization);
     return res.headers.authorization;
@@ -56,11 +58,19 @@ export async function getAccessWithRefresh() {
 export async function postLogout() {
   try {
     const res = await authenticClient.post('/auths/logout', {
-      headers: { Authorization: `${refresh_token}` },
+      headers: { Authorization: `${getRefreshToken()}` },
     });
     removeAccessToken();
     removeRefreshToken();
+    alert('로그아웃 되었습니다');
   } catch (err) {
     console.log(err);
   }
+}
+
+export async function getUsersActivity(activity, id, page, size) {
+  const result = await authenticClient.get(
+    `/users/${id}/user-${activity}?page=${page}&size=${size}`
+  );
+  return result;
 }

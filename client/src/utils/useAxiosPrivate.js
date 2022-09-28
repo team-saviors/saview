@@ -14,8 +14,6 @@ authenticClient.interceptors.request.use(
     if (!config.headers['Authorization']) {
       config.headers['Authorization'] = `${access_token}`;
     }
-
-    console.log(config);
     return config;
   },
   (error) => Promise.reject(error)
@@ -24,9 +22,7 @@ authenticClient.interceptors.request.use(
 authenticClient.interceptors.response.use(
   (response) => response,
   async (error) => {
-    console.log(error);
     const prevReq = error?.config;
-    console.log(prevReq);
     if (error?.response?.status === 403 && !prevReq?.sent) {
       prevReq.sent = true;
       const newAccessToken = await getAccessWithRefresh();

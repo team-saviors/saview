@@ -6,7 +6,7 @@ import { RemoveRedEye } from '@mui/icons-material';
 import CommentIcon from '@mui/icons-material/Comment';
 
 const QuestionCard = (props) => {
-  const { questionId, content, views } = props.question;
+  const { questionId, content, views, answerNum } = props.question;
 
   return (
     <Link to={`questions/${questionId}`}>
@@ -19,6 +19,7 @@ const QuestionCard = (props) => {
           <RemoveRedEye style={{ top: '200px', color: 'gray' }} />
           {views}
           <CommentIcon style={{ color: 'gray' }}></CommentIcon>
+          {answerNum}
         </Box>
       </CardItem>
     </Link>
