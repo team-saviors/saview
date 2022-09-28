@@ -3,9 +3,9 @@ package server.answer.mapper;
 import org.mapstruct.Mapper;
 import server.answer.dto.AnswerPostPutDto;
 import server.answer.dto.AnswerResponseDto;
-import server.answer.dto.AnswerUserResponseDto;
 import server.answer.entity.Answer;
 import server.comment.service.CommentService;
+import server.response.AnswerCommentUserResponseDto;
 import server.user.mapper.UserMapper;
 
 import java.util.ArrayList;
@@ -50,25 +50,27 @@ public interface AnswerMapper {
         return answerResponseDto;
     }
 
-    default AnswerUserResponseDto answerToAnswerUserResponseDto(Answer answer) {
-        AnswerUserResponseDto answeruserResponseDto = new AnswerUserResponseDto();
+    default AnswerCommentUserResponseDto answerToAnswerCommentUserResponseDto(Answer answer) {
+        AnswerCommentUserResponseDto answerCommentUserResponseDto = new AnswerCommentUserResponseDto();
 
-        answeruserResponseDto.setQuestionId(answer.getQuestion().getQuestionId());
-        answeruserResponseDto.setQuestionContent(answer.getQuestion().getContent());
-        answeruserResponseDto.setSubCategory(answer.getQuestion().getSubCategory());
-        answeruserResponseDto.setAnswerCreatedAt(answer.getCreatedAt());
+        answerCommentUserResponseDto.setQuestionId(answer.getQuestion().getQuestionId());
+        answerCommentUserResponseDto.setQuestionContent(answer.getQuestion().getContent());
+        answerCommentUserResponseDto.setSubCategory(answer.getQuestion().getSubCategory());
 
-        return answeruserResponseDto;
+        answerCommentUserResponseDto.setCreatedAt(answer.getCreatedAt());
+        answerCommentUserResponseDto.setContent(answer.getContent());
+
+        return answerCommentUserResponseDto;
     }
 
-    default List<AnswerUserResponseDto> answersToAnswerUserResponseDtos(List<Answer> answers) {
+    default List<AnswerCommentUserResponseDto> answersToAnswerCommentUserResponseDtos(List<Answer> answers) {
         if ( answers == null ) {
             return null;
         }
 
-        List<AnswerUserResponseDto> list = new ArrayList<>(answers.size());
+        List<AnswerCommentUserResponseDto> list = new ArrayList<>(answers.size());
         for ( Answer answer : answers ) {
-            list.add( answerToAnswerUserResponseDto( answer) );
+            list.add( answerToAnswerCommentUserResponseDto( answer) );
         }
 
         return list;

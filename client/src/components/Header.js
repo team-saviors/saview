@@ -8,14 +8,6 @@ import { loginStore } from '../store/store';
 const Header = () => {
   // const refresh_token = getRefreshToken();
   const { loginHandler, isLogin } = loginStore();
-  useEffect(() => {
-    loginHandler();
-    // if (refresh_token) {
-    //   loginHandler(true);
-    // } else {
-    //   loginHandler(false);
-    // }
-  }, []);
 
   return (
     <NavBar>
@@ -69,6 +61,7 @@ const Loginbox = styled(Box)`
   text-align: center;
   grid-gap: 35px;
 `;
+
 const QuestionPostBtn = styled(Button)`
   font-size: 1.125rem;
   font-weight: 600;

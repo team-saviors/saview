@@ -74,16 +74,14 @@ export const questionRegisterStore = create((set) => ({
   },
 }));
 
-const refresh_token = getRefreshToken();
 export const loginStore = create((set) => ({
   isLogin: false,
-  loginHandler(value) {
-    // console.log(e);
+  loginHandler() {
+    const refresh_token = getRefreshToken();
     if (refresh_token) {
       set((state) => ({ isLogin: true }));
     } else {
       set((state) => ({ isLogin: false }));
     }
-    // set((state) => ({ isLogin: value }));
   },
 }));

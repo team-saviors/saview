@@ -6,12 +6,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import server.answer.entity.Answer;
 import server.comment.dto.CommentResponseDto;
-import server.comment.dto.CommentUserResponseDto;
 import server.comment.entity.Comment;
 import server.comment.mapper.CommentMapper;
 import server.comment.repository.CommentRepository;
 import server.exception.BusinessLogicException;
 import server.exception.ExceptionCode;
+import server.response.AnswerCommentUserResponseDto;
 import server.response.MultiResponseDto;
 import server.user.entity.User;
 import server.user.mapper.UserMapper;
@@ -58,10 +58,10 @@ public class CommentService {
         return commentResponseDtos;
     }
 
-    public MultiResponseDto<CommentUserResponseDto> userInfoComments(User user,
-                                                                     int page, int size) {
+    public MultiResponseDto<AnswerCommentUserResponseDto> userInfoComments(User user,
+                                                                           int page, int size) {
         Page<Comment> pageComments = commentRepository.findAllByUser(user, PageRequest.of(page-1, size));
         List<Comment> comments = pageComments.getContent();
-        return new MultiResponseDto<>(commentMapper.commentsToCommentUserResponseDtos(comments), pageComments);
+        return new MultiResponseDto<>(commentMapper.commentsToAnswerCommentUserResponseDtos(comments), pageComments);
     }
 }

@@ -1,9 +1,8 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Carousel from '../components/Carousel';
 import QuestionCards from '../components/QuestionCards';
 import Tagbox from '../components/Tagbox';
-
 const Main = styled.main`
   max-width: 1200px;
   width: 100%;
@@ -16,10 +15,12 @@ const Main = styled.main`
 `;
 
 const Mainpage = () => {
+  const [tab, setTab] = useState(0);
+  const [active, setActive] = useState(0);
   return (
     <>
       <Carousel></Carousel>
-      <Tagbox></Tagbox>
+      <Tagbox tab={tab} setTab={setTab} setActive={setActive}></Tagbox>
       <Main>
         <QuestionCards />
       </Main>
