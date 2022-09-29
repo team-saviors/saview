@@ -6,15 +6,20 @@ import { getRefreshToken } from '../utils/cookies';
 import { loginStore } from '../store/store';
 
 const Header = () => {
-  // const refresh_token = getRefreshToken();
-  const { loginHandler, isLogin } = loginStore();
+  const { isLogin } = loginStore();
 
   return (
     <NavBar>
       <LogoBox>
         {/* <h1>SAVIEW</h1> */}
         <Link to="/">
-          <img className="main_logo" alt="react" src={mainLogo}></img>
+          <img
+            className="main_logo"
+            alt="react"
+            src={
+              'https://saview-dev.s3.ap-northeast-2.amazonaws.com/Saview/logo_tranverse.png'
+            }
+          ></img>
         </Link>
       </LogoBox>
       <Loginbox>
