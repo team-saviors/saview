@@ -81,7 +81,9 @@ const AnswerContent = styled(Box)`
     font-weight: 400;
     padding: 8px 12px;
     height: auto;
-    /* width: 100%; */
+    width: 100%;
+    resize: vertical;
+    overflow: auto;
   }
 `;
 const ModalFooter = styled(Box)``;
