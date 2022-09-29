@@ -13,7 +13,13 @@ const Header = () => {
       <LogoBox>
         {/* <h1>SAVIEW</h1> */}
         <Link to="/">
-          <img className="main_logo" alt="react" src={mainLogo}></img>
+          <img
+            className="main_logo"
+            alt="react"
+            src={
+              'https://saview-dev.s3.ap-northeast-2.amazonaws.com/Saview/logo_tranverse.png'
+            }
+          ></img>
         </Link>
       </LogoBox>
       <Loginbox>
