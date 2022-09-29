@@ -9,8 +9,6 @@ const Mainpage = () => {
   const [tab, setTab] = useState(0);
   const [active, setActive] = useState(0);
   const { isLogin, loginHandler } = loginStore();
-  useEffect(() => loginHandler(), []);
-  useEffect(() => console.log(isLogin));
 
   return (
     <>

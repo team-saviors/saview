@@ -1,6 +1,6 @@
 import create from 'zustand';
-import { client } from '../utils/axiosInstance';
 import { getRefreshToken, getUserId } from '../utils/cookies';
+import axiosInstance from '../utils/useAxiosPrivate';
 export const countStore = create((set) => ({
   count: 0,
   increase() {
@@ -16,7 +16,7 @@ export const questionStore = create((set) => ({
     data: [],
   },
   getQuestions: async (page) => {
-    const res = await client.get(`/questions?page=${page}&size=9`);
+    const res = await axiosInstance.get(`/questions?page=${page}&size=9`);
     if (page === 1) {
       set({
         questions: {
@@ -37,13 +37,18 @@ export const answerStore = create((set, get) => ({
   question: {},
   getQuestion: async (questionId) => {
     try {
-      const res = await client.get(`/questions/${questionId}?page=1&size=10`);
+      const res = await axiosInstance.get(
+        `/questions/${questionId}?page=1&size=10`
+      );
       set((state) => ({
         question: { ...res.data, views: res.data.views + 1 },
       }));
-      const updateViews = await client.put(`/questions/${questionId}/views`, {
-        views: get().question.views,
-      });
+      const updateViews = await axiosInstance.put(
+        `/questions/${questionId}/views`,
+        {
+          views: get().question.views,
+        }
+      );
     } catch (err) {
       console.log(err);
     }
@@ -96,7 +101,7 @@ export const userStore = create((set) => ({
   profile: '',
   nickname: '',
   getUser: async (userId) => {
-    const res = await client.get(`/users/${userId}`);
+    const res = await axiosInstance.get(`/users/${userId}`);
     set((state) => ({
       email: res.data.email,
       profile: res.data.profile,
