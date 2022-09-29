@@ -25,8 +25,7 @@ logging.level:
     type: trace
 
 server:
-  port: 8443
-
+  port: 443
   ssl:
     key-store: classpath:keystore.p12
     key-store-type: PKCS12
