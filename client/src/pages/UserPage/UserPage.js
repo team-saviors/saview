@@ -29,7 +29,6 @@ const UserPage = () => {
     setTab('answers');
     getUser(getUserId());
   }, []);
-
   return (
     <>
       <section>

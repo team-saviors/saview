@@ -1,13 +1,14 @@
 import { AccountCircle } from '@mui/icons-material';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { postLogout } from '../utils/axiosRequest';
 import { loginStore } from '../store/store';
 import { getUserId } from '../utils/cookies';
 const UserDropdown = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const { loginHandler } = loginStore();
+  const navigate = useNavigate();
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -17,6 +18,7 @@ const UserDropdown = () => {
   const handleClick = async () => {
     await postLogout();
     loginHandler();
+    navigate('/');
   };
   return (
     <>

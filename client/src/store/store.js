@@ -16,7 +16,9 @@ export const questionStore = create((set) => ({
     data: [],
   },
   getQuestions: async (page) => {
-    const res = await axiosInstance.get(`/questions?page=${page}&size=9`);
+    const res = await axiosInstance.get(
+      `/questions?page=${page}&size=9&mainCategory=all`
+    );
     if (page === 1) {
       set({
         questions: {
@@ -38,7 +40,7 @@ export const answerStore = create((set, get) => ({
   getQuestion: async (questionId) => {
     try {
       const res = await axiosInstance.get(
-        `/questions/${questionId}?page=1&size=10`
+        `/questions/${questionId}?page=1&size=10&sort=createdAt`
       );
       set((state) => ({
         question: { ...res.data, views: res.data.views + 1 },
