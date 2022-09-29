@@ -13,14 +13,18 @@ export const AnswerComment = ({ mypost }) => {
             <InfoWrapper>
               <div>
                 <span>{mypost.subCategory}</span>
-                <span style={{ marginLeft: '30px' }}>
-                  문제:{mypost.questionContent}
-                </span>
+                <Link to={`/questions/${mypost.questionId}`}>
+                  <span style={{ marginLeft: '30px' }}>
+                    문제:{mypost.questionContent}
+                  </span>
+                </Link>
               </div>
               <div>{ISOHandler(mypost.createdAt)}</div>
             </InfoWrapper>
             <ContentsWrapper>
-              {mypost.content.substr(0, 60) + '...'}
+              <Link to={`/questions/${mypost.questionId}`}>
+                {mypost.content.substr(0, 60) + '...'}
+              </Link>
             </ContentsWrapper>
           </Container>
         </>

@@ -45,7 +45,6 @@ export const answerStore = create((set, get) => ({
       set((state) => ({
         question: { ...res.data, views: res.data.views + 1 },
       }));
-      // console.log('views', get().question.views);
       const updateViews = await axiosInstance.put(
         `/questions/${questionId}/views`,
         {
