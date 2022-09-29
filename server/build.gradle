@@ -27,6 +27,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.mapstruct:mapstruct:1.5.2.Final'
 	implementation 'com.auth0:java-jwt:4.0.0'
+//	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
 	implementation group: 'io.awspring.cloud', name: 'spring-cloud-starter-aws-parameter-store-config'
 
 	compileOnly 'org.projectlombok:lombok'

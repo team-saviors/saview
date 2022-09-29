@@ -11,7 +11,6 @@ const PostPage = () => {
   useEffect(() => {
     getQuestion(params.id);
   }, []);
-
   return (
     <div
       style={{
@@ -24,14 +23,12 @@ const PostPage = () => {
         <h2>질문:{question.content}</h2>
       </div>
 
-      {question.answers === undefined ? (
-        <div>{'답변이 없습니다. 답변을 달아주세요'}</div>
-      ) : question.answers.length === 0 ? (
-        <div>{'답변이 없습니다. 답변을 달아주세요'}</div>
-      ) : (
+      {question?.answers?.data?.length > 0 ? (
         question.answers.data.map((answer) => (
           <Answer key={answer.answerId} answer={answer}></Answer>
         ))
+      ) : (
+        <div>답변이 없습니다. 답변을 달아주세요</div>
       )}
     </div>
   );

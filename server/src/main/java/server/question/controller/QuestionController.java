@@ -57,9 +57,10 @@ public class QuestionController {
     @GetMapping("/{question-id}")
     public ResponseEntity<QuestionResponseDto> getQuestion(@Positive @RequestParam int page,
                                                            @Positive @RequestParam int size,
+                                                           @RequestParam String sort,
                                                            @Positive @PathVariable("question-id") long questionId) {
         Question question = questionService.findQuestion(questionId);
-        return ResponseEntity.ok(questionMapper.questionToQuestionResponseDto(question, userMapper, answerService, commentService, page, size));
+        return ResponseEntity.ok(questionMapper.questionToQuestionResponseDto(question, userMapper, answerService, commentService, page, size, sort));
     }
 
     @GetMapping
@@ -74,7 +75,7 @@ public class QuestionController {
 
     @PutMapping("/{question-id}")
     public ResponseEntity<Void> putQuestion(@Positive @PathVariable("question-id") long questionId,
-                                      @Valid @RequestBody QuestionPostPutDto questionPostPutDto)  {
+                                            @Valid @RequestBody QuestionPostPutDto questionPostPutDto) {
         Question question = questionMapper.questionPostPutDtoToQuestion(questionPostPutDto);
         question.setQuestionId(questionId);
         questionService.updateQuestion(question);
@@ -91,9 +92,30 @@ public class QuestionController {
 
     @PutMapping("/{question-id}/views")
     public ResponseEntity<Void> putViews(@Positive @PathVariable("question-id") long questionId,
-                                   @Valid @RequestBody ViewsDto viewsDto) {
+                                         @Valid @RequestBody ViewsDto viewsDto) {
         questionService.updateViews(questionId, viewsDto.getViews());
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/tags")
+    @Transactional(readOnly = true)
+    public ResponseEntity<MultiResponseDto<QuestionsResponseDto>> getQuestionsByCategory(@RequestParam String mainCategory,
+                                                                                         @RequestParam(required = false) String subCategory,
+                                                                                         @Positive @RequestParam int page,
+                                                                                         @Positive @RequestParam int size) {
+        Page<Question> pageQuestions = questionService.findQuestionsByCategory(mainCategory, subCategory, page - 1, size);
+        List<Question> questions = pageQuestions.getContent();
+
+        return ResponseEntity.ok(new MultiResponseDto<>(questionMapper.questionsToQuestionsResponseDtos(questions, userMapper), pageQuestions));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<MultiResponseDto<QuestionsResponseDto>> searchQuestion(@RequestParam(value = "keyword") String keyword,
+                                                                                 @Positive @RequestParam int page,
+                                                                                 @Positive @RequestParam int size) {
+        Page<Question> pageQuestions = questionService.search(keyword, page - 1, size);
+        List<Question> questions = pageQuestions.getContent();
+        return ResponseEntity.ok(new MultiResponseDto<>(questionMapper.questionsToQuestionsResponseDtos(questions, userMapper), pageQuestions));
     }
 }
