@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import Answer from '../components/Answer';
 import { answerStore } from '../store/store';
 import { useParams } from 'react-router-dom';
-
+import AnswerModal from '../components/AnswerModal';
 const PostPage = () => {
   const params = useParams();
 
@@ -20,6 +20,7 @@ const PostPage = () => {
       }}
     >
       <div style={{ marginTop: '20px' }}>
+        <AnswerModal question={question}></AnswerModal>
         <h2>질문:{question.content}</h2>
       </div>
 
