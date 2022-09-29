@@ -24,17 +24,17 @@ logging.level:
     SQL: debug
     type: trace
 
+server:
+  port: 8443
+
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-type: PKCS12
+    key-store-password: ${keystore.password}
+
 aws:
   paramstore:
     enabled: true
     prefix: /config
     profile-separator: _
     name: saview
-
-server:
-  port: 443
-
-  ssl:
-    key-store: classpath:keystore.p12
-    key-store-type: PKCS12
-    key-store-password: team49
