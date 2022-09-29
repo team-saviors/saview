@@ -10,7 +10,7 @@ const PostPage = () => {
   const { question, getQuestion } = answerStore();
   useEffect(() => {
     getQuestion(params.id);
-  }, [question.answers]);
+  }, []);
   return (
     <div
       style={{
