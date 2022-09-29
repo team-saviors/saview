@@ -11,7 +11,6 @@ const access_token = getAccessToken();
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    console.log('request', config);
     if (!access_token || !refresh_token) {
       config.headers['Authorization'] = null;
     } else {
@@ -36,7 +35,6 @@ axiosInstance.interceptors.response.use(
       error?.response?.data?.message === 'ACCESS TOKEN EXPIRED'
     ) {
       const newAccessToken = await getAccessWithRefresh();
-      console.log(newAccessToken);
       if (newAccessToken) {
         error.config.headers['Authorization'] = `${newAccessToken}`;
         return axiosInstance.request(error.config);

@@ -26,7 +26,6 @@ export async function postSignIn(data) {
     setRefreshToken(res.data.refreshToken);
     setUserId(res.data.userId);
     alert('로그인이 성공했습니다');
-    console.log(res);
   } catch (err) {
     alert(err);
   }
@@ -77,4 +76,12 @@ export async function getUsersActivity(activity, id, page, size) {
     `/users/${id}/user-${activity}?page=${page}&size=${size}`
   );
   return result;
+}
+
+export async function deleteAnswer(answerId) {
+  try {
+    const res = await axiosInstance.delete(`/answers/${answerId}`);
+  } catch (err) {
+    console.log(err);
+  }
 }

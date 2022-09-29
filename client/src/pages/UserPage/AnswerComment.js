@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { loginStore } from '../../store/store';
 import { ISOHandler } from '../../utils/timeHandler';
 export const AnswerComment = ({ mypost }) => {
-  console.log(mypost);
   return (
     <>
       {mypost ? (
