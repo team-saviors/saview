@@ -2,13 +2,32 @@ import Button from '../components/BasicButton';
 import styled from 'styled-components';
 import { useState } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
+
 const AnswerModal = ({ question }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
+  const handleClose = () => {
+    setOpen(false);
+    navigate(`/questions/${question.questionId}`);
+  };
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = useForm();
+  const navigate = useNavigate();
+  const onSubmit = async (data) => {
+    // console.log(data);
+    // console.log(question);
+    // console.log(question.id);
+    await postAnswer(question.questionId, data);
+    navigate(`/questions/${question.questionId}`);
+    handleClose();
+  };
+  const onError = () => {};
   return (
-    <div>
+    <AnswerContainer>
       <AnswerModalBtn onClick={handleOpen}>답변 작성</AnswerModalBtn>
       <Modal
         open={open}
@@ -19,25 +38,35 @@ const AnswerModal = ({ question }) => {
         <Box sx={style}>
           <ModalHeader>
             <h2>답변하기</h2>
-            <IconButton>
+            <IconButton onClick={handleClose}>
               <ClearIcon />
             </IconButton>
           </ModalHeader>
           <ModalBody>
             <h3>질문 : {question.content}</h3>
             <AnswerContent>
-              <label htmlFor="anwer">답변 내용</label>
-              <textarea
-                name="content"
-                rows="10"
-                placeholder="질문과 관련된 답변을 구체적으로 작성해 주세요. 타인에 비방이나 욕설, 광고 등 주제와 관련없는 내용은 삭제될 수 있습니다."
-              ></textarea>
+              <form onSubmit={handleSubmit(onSubmit, onError)}>
+                <label className="answer-label" htmlFor="anwer">
+                  답변 내용
+                </label>
+                <textarea
+                  id="content"
+                  required
+                  name="content"
+                  rows="10"
+                  placeholder="질문과 관련된 답변을 구체적으로 작성해 주세요. 타인에 비방이나 욕설, 광고 등 주제와 관련없는 내용은 삭제될 수 있습니다."
+                  {...register('content')}
+                />
+                <MadalBtns>
+                  <CancelBtn onClick={handleClose}>취소</CancelBtn>
+                  <RegistBtn type="submit">등록</RegistBtn>
+                </MadalBtns>
+              </form>
             </AnswerContent>
           </ModalBody>
-          <ModalFooter></ModalFooter>
         </Box>
       </Modal>
-    </div>
+    </AnswerContainer>
   );
 };
 
@@ -45,7 +74,10 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { IconButton } from '@mui/material';
-
+import { useForm } from 'react-hook-form';
+import { postAnswer } from '../api/post';
+import { useNavigate } from 'react-router-dom';
+const AnswerContainer = styled(Box)``;
 const AnswerModalBtn = styled(Button)``;
 const ModalHeader = styled(Box)`
   width: 100%;
@@ -66,34 +98,54 @@ const ModalBody = styled(Box)`
   display: flex;
   flex-direction: column;
   /* align-items: flex-start; */
-  padding: 2.5rem;
+  padding: 4rem 2.5rem 2.5rem 2.5rem;
   border-bottom: none;
 `;
 const AnswerContent = styled(Box)`
   margin: 1.2rem 0 0 0;
   display: flex;
   flex-direction: column;
-  > label {
-    margin-bottom: 0.5rem;
-  }
-  > textarea {
-    font-size: 1rem;
-    font-weight: 400;
-    padding: 8px 12px;
-    height: auto;
-    width: 100%;
-    resize: vertical;
-    overflow: auto;
+  > form {
+    display: flex;
+    flex-direction: column;
+    > label {
+      margin-bottom: 0.5rem;
+    }
+    > textarea {
+      font-size: 1rem;
+      font-weight: 400;
+      padding: 8px 12px;
+      width: 100%;
+      resize: vertical;
+      overflow: auto;
+      background-color: #fbfbfd;
+    }
   }
 `;
-const ModalFooter = styled(Box)``;
+const MadalBtns = styled(Box)`
+  width: 100%;
+  display: flex;
+  padding: 2.5rem;
+  border-top: none;
+  /* text-align: right; */
+  align-items: center;
+  justify-content: center;
+  > Button {
+    margin: 0.25rem;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.4375rem 0.8125rem;
+  }
+`;
+const CancelBtn = styled(Button)``;
+const RegistBtn = styled(Button)``;
 const style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: '950px',
-  height: '700px',
+  height: '620px',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',

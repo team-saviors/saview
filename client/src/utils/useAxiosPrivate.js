@@ -4,20 +4,17 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
-
-const refresh_token = getRefreshToken();
-const access_token = getAccessToken();
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    if (!access_token || !refresh_token) {
-      config.headers['Authorization'] = null;
-    } else {
-      if (!config.headers['Authorization']) {
-        config.headers['Authorization'] = `${access_token}`;
-      }
+    if (!config.headers['Authorization']) {
+      config.headers['Authorization'] = `${getAccessToken()}`;
     }
+
     return config;
   },
   (error) => Promise.reject(error)
