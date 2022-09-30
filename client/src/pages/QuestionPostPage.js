@@ -4,9 +4,12 @@ import { questionRegisterStore } from '../store/store';
 import { postQuestion } from '../utils/axiosRequest';
 
 const QuestionPostPage = () => {
-  const { questions, handleContentChange } = questionRegisterStore();
-  const questionPostHandler = () => {
-    postQuestion(questions);
+  const navigate = useNavigate();
+  const { questions, handleContentChange, handleReset } =
+    questionRegisterStore();
+  const questionPostHandler = async () => {
+    await postQuestion(questions, handleReset);
+    navigate('/');
   };
   return (
     <section>
@@ -38,7 +41,7 @@ const QuestionPostPage = () => {
 import styled from 'styled-components';
 import { Box, TextField } from '@mui/material';
 import BasicButton from '../components/BasicButton';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 const PostBox = styled(Box)`
   max-width: 1040px;
   display: flex;

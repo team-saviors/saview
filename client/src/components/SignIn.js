@@ -16,6 +16,7 @@ import { postSignIn } from '../utils/axiosRequest';
 import { loginStore } from '../store/store';
 import { createNextState } from '@reduxjs/toolkit';
 import { getUserId } from '../utils/cookies';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme();
 const style = {
@@ -26,6 +27,7 @@ const style = {
   margin: '40px',
 };
 export default function SignIn({ handleClose }) {
+  const navigate = useNavigate();
   const { isLogin, loginHandler, setUserId } = loginStore();
   const {
     register,
@@ -38,6 +40,7 @@ export default function SignIn({ handleClose }) {
     setUserId(getUserId());
     loginHandler();
     handleClose();
+    navigate('/');
   };
   const onError = (error) => {
     console.log(error);

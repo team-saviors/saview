@@ -11,13 +11,10 @@ const access_token = getAccessToken();
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    if (!access_token || !refresh_token) {
-      config.headers['Authorization'] = null;
-    } else {
-      if (!config.headers['Authorization']) {
-        config.headers['Authorization'] = `${access_token}`;
-      }
+    if (!config.headers['Authorization']) {
+      config.headers['Authorization'] = `${access_token}`;
     }
+
     return config;
   },
   (error) => Promise.reject(error)

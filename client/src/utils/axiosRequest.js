@@ -34,6 +34,7 @@ export async function postSignIn(data) {
 export async function postQuestion(data) {
   try {
     const res = await axiosInstance.post('/questions', data);
+    alert('질문이 등록되었습니다.');
   } catch (err) {
     console.log(err);
   }
@@ -55,13 +56,13 @@ export async function getAccessWithRefresh() {
 
 export async function postLogout() {
   try {
-    // const res = await axiosInstance.post(
-    //   '/auths/logout',
-    //   {},
-    //   {
-    //     headers: { Authorization: `${getRefreshToken()}` },
-    //   }
-    // );
+    const res = await axiosInstance.post(
+      '/auths/logout',
+      {},
+      {
+        headers: { Authorization: `${getRefreshToken()}` },
+      }
+    );
     removeAccessToken();
     removeRefreshToken();
     removeUserId();
