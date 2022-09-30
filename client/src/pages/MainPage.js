@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Carousel from '../components/Carousel';
+import Pagination from '../components/Pagination';
 import QuestionCards from '../components/QuestionCards';
 import Tagbox from '../components/Tab/Tagbox';
 import { loginStore } from '../store/store';
@@ -36,6 +37,7 @@ const Mainpage = () => {
           setSubCategory={setSubCategory}
         />
       </Main>
+      <Pagination page={page} setPage={setPage} numOfPages={100}></Pagination>
     </>
   );
 };
