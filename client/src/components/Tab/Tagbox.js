@@ -11,6 +11,7 @@ const Tagbox = ({
   setMainCategory,
   setSubCategory,
   page,
+  setPage,
 }) => {
   const { getQuestions } = questionStore();
   const imgUrl = (stack) => {
@@ -33,6 +34,7 @@ const Tagbox = ({
         setTab={setTab}
         getQuestions={getQuestions}
         page={page}
+        setPage={setPage}
       ></CategoryTabs>
       <TagButtons>
         {tab === 0 || tab === 1 ? (

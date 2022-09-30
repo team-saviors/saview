@@ -14,6 +14,7 @@ const QuestionCards = ({
   mainCategory,
   subCategory,
   setMainCategory,
+  setSubCategory,
 }) => {
   const { questions, getQuestions } = questionStore();
 
@@ -34,7 +35,6 @@ const QuestionCards = ({
 
   useEffect(() => {
     getQuestions(page, mainCategory, subCategory);
-    console.log(subCategory);
   }, [page, mainCategory, subCategory]);
 
   return (
@@ -45,6 +45,7 @@ const QuestionCards = ({
               <QuestionCard
                 key={question.questionId}
                 question={question}
+                setSubCategory={setSubCategory}
               ></QuestionCard>
             ))
           : null}

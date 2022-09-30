@@ -15,6 +15,7 @@ const Mainpage = () => {
     <>
       <Carousel></Carousel>
       <Tagbox
+        setPage={setPage}
         tab={tab}
         setTab={setTab}
         setActive={setActive}
@@ -32,6 +33,7 @@ const Mainpage = () => {
           mainCategory={mainCategory}
           subCategory={subCategory}
           setMainCategory={setMainCategory}
+          setSubCategory={setSubCategory}
         />
       </Main>
     </>
