@@ -1,14 +1,23 @@
 import { Button, Box, Avatar } from '@mui/material';
 import styled from 'styled-components';
-import AvatarWrapper from '../components/AvatarWrapper';
-import CategoryTabs from '../components/Tab/CategoryTabs';
-import { useState } from 'react';
-const Tagbox = ({ tab, setTab, setActive }) => {
+import AvatarWrapper from '../AvatarWrapper';
+import CategoryTabs from './CategoryTabs';
+import { useState, useEffect } from 'react';
+import { questionStore } from '../../store/store';
+const Tagbox = ({
+  tab,
+  setTab,
+  setActive,
+  setMainCategory,
+  setSubCategory,
+  page,
+}) => {
+  const { getQuestions } = questionStore();
   const imgUrl = (stack) => {
     return `https://saview-dev.s3.ap-northeast-2.amazonaws.com/techStack/${stack}.png`;
   };
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     const id = e.target.id
       ? e.target.id
       : e.target.parentElement.id
@@ -16,10 +25,15 @@ const Tagbox = ({ tab, setTab, setActive }) => {
       : e.target.parentElement.parentElement.id
       ? e.target.parentElement.parentElement.id
       : e.target.parentElement.parentElement.parentElement.id;
+    setSubCategory(id);
   };
   return (
     <TagboxWrapper>
-      <CategoryTabs setTab={setTab}></CategoryTabs>
+      <CategoryTabs
+        setTab={setTab}
+        getQuestions={getQuestions}
+        page={page}
+      ></CategoryTabs>
       <TagButtons>
         {tab === 0 || tab === 1 ? (
           <>
@@ -29,7 +43,7 @@ const Tagbox = ({ tab, setTab, setActive }) => {
                 <AvatarWrapper src={imgUrl('javascript')}></AvatarWrapper>
               }
               onClick={handleClick}
-              id="javascript"
+              id="JavaScript"
             >
               JavaScript
             </TagButton>
@@ -37,7 +51,7 @@ const Tagbox = ({ tab, setTab, setActive }) => {
               variant="outlined"
               startIcon={<AvatarWrapper src={imgUrl('react')}></AvatarWrapper>}
               onClick={handleClick}
-              id="react"
+              id="React"
             >
               React
             </TagButton>
@@ -47,7 +61,7 @@ const Tagbox = ({ tab, setTab, setActive }) => {
                 <AvatarWrapper src={imgUrl('typescript')}></AvatarWrapper>
               }
               onClick={handleClick}
-              id="typescript"
+              id="TypeScript"
             >
               TypeScript
             </TagButton>
@@ -55,7 +69,7 @@ const Tagbox = ({ tab, setTab, setActive }) => {
               variant="outlined"
               startIcon={<AvatarWrapper src={imgUrl('vue')}></AvatarWrapper>}
               onClick={handleClick}
-              id="vue"
+              id="Vue"
             >
               Vue
             </TagButton>
@@ -63,7 +77,7 @@ const Tagbox = ({ tab, setTab, setActive }) => {
               variant="outlined"
               startIcon={<AvatarWrapper src={imgUrl('nodejs')}></AvatarWrapper>}
               onClick={handleClick}
-              id="nodejs"
+              id="NodeJS"
             >
               NodeJS
             </TagButton>
@@ -75,7 +89,7 @@ const Tagbox = ({ tab, setTab, setActive }) => {
               variant="outlined"
               startIcon={<AvatarWrapper src={imgUrl('java')}></AvatarWrapper>}
               onClick={handleClick}
-              id="java"
+              id="Java"
             >
               Java
             </TagButton>
@@ -83,7 +97,7 @@ const Tagbox = ({ tab, setTab, setActive }) => {
               variant="outlined"
               startIcon={<AvatarWrapper src={imgUrl('spring')}></AvatarWrapper>}
               onClick={handleClick}
-              id="spring"
+              id="Spring"
             >
               Spring
             </TagButton>
@@ -93,7 +107,7 @@ const Tagbox = ({ tab, setTab, setActive }) => {
                 <AvatarWrapper src={imgUrl('express')}></AvatarWrapper>
               }
               onClick={handleClick}
-              id="express"
+              id="Express"
             >
               Express
             </TagButton>
@@ -101,7 +115,7 @@ const Tagbox = ({ tab, setTab, setActive }) => {
               variant="outlined"
               startIcon={<AvatarWrapper src={imgUrl('mysql')}></AvatarWrapper>}
               onClick={handleClick}
-              id="mysql"
+              id="MySQL"
             >
               MySQL
             </TagButton>
@@ -111,7 +125,7 @@ const Tagbox = ({ tab, setTab, setActive }) => {
                 <AvatarWrapper src={imgUrl('mongodb')}></AvatarWrapper>
               }
               onClick={handleClick}
-              id="mongodb"
+              id="MongoDB"
             >
               MongoDB
             </TagButton>
