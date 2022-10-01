@@ -4,7 +4,6 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { questionStore } from '../store/store';
 const Pagination = ({ page, setPage }) => {
   const { questions } = questionStore();
-
   return (
     <Nav>
       {page !== 1 && (
@@ -63,5 +62,6 @@ const PageSelect = styled.select`
     outline: none;
   }
 `;
+
 
 export default Pagination;

@@ -13,6 +13,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     @Query("update Question q set q.views = :views where q.questionId = :questionId")
     int updateViews(@Param("views") int views, @Param("questionId") long questionId);
     Page<Question> findAllByMainCategory(String mainCategory, Pageable pageable);
+    Page<Question> findAllBySubCategory(String subCategory, Pageable pageable);
     Page<Question> findAllByMainCategoryAndSubCategory(String mainCategory, String subCategory, Pageable pageable);
 
     Page<Question> findByContentContaining(String keyword, Pageable pageable);
