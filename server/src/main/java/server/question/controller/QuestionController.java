@@ -101,10 +101,11 @@ public class QuestionController {
     @GetMapping("/tags")
     @Transactional(readOnly = true)
     public ResponseEntity<MultiResponseDto<QuestionsResponseDto>> getQuestionsByCategory(@RequestParam String mainCategory,
-                                                                                         @RequestParam(required = false) String subCategory,
+                                                                                         @RequestParam String subCategory,
                                                                                          @Positive @RequestParam int page,
-                                                                                         @Positive @RequestParam int size) {
-        Page<Question> pageQuestions = questionService.findQuestionsByCategory(mainCategory, subCategory, page - 1, size);
+                                                                                         @Positive @RequestParam int size,
+                                                                                         @RequestParam String sort) {
+        Page<Question> pageQuestions = questionService.findQuestionsByCategory(mainCategory, subCategory, page - 1, size, sort);
         List<Question> questions = pageQuestions.getContent();
 
         return ResponseEntity.ok(new MultiResponseDto<>(questionMapper.questionsToQuestionsResponseDtos(questions, userMapper), pageQuestions));
