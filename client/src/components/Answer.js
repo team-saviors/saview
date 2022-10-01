@@ -9,6 +9,7 @@ import { ISOHandler } from '../utils/timeHandler';
 import { getUserId } from '../utils/cookies';
 import { deleteAnswer } from '../utils/axiosRequest';
 import AlertDialog from './AlertDialog';
+import AnswerEditModal from './AnswerEditModal';
 export default function Answer(props) {
   const { comments, content, createdAt, modifiedAt, user, votes, answerId } =
     props.answer;
@@ -49,6 +50,10 @@ export default function Answer(props) {
             >
               삭제
             </button>
+            <AnswerEditModal
+              question={props.question}
+              answer={props.answer}
+            ></AnswerEditModal>
           </>
         ) : null}
       </div>

@@ -1,9 +1,9 @@
 import Button from '../components/BasicButton';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
 
-const AnswerModal = ({ question }) => {
+const AnswerEditModal = ({ question, answer }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -17,18 +17,25 @@ const AnswerModal = ({ question }) => {
     getValues,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: useMemo(() => {
+      return answer;
+    }, [answer]),
+  });
+
   const navigate = useNavigate();
   const onSubmit = async (data) => {
-    await postAnswer(question.questionId, data);
+    console.log('data', data);
+    await putAnswer(data);
     navigate(`/questions/${question.questionId}`);
     handleClose();
-    reset();
   };
   const onError = () => {};
   return (
     <AnswerContainer>
-      <AnswerModalBtn onClick={handleOpen}>답변 작성</AnswerModalBtn>
+      <button style={{ color: 'gray', fontSize: '12px' }} onClick={handleOpen}>
+        수정
+      </button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -37,7 +44,7 @@ const AnswerModal = ({ question }) => {
       >
         <Box sx={style}>
           <ModalHeader>
-            <h2>답변하기</h2>
+            <h2>답변 수정</h2>
             <IconButton onClick={handleClose}>
               <ClearIcon />
             </IconButton>
@@ -59,7 +66,7 @@ const AnswerModal = ({ question }) => {
                 />
                 <MadalBtns>
                   <CancelBtn onClick={handleClose}>취소</CancelBtn>
-                  <RegistBtn type="submit">등록</RegistBtn>
+                  <RegistBtn type="submit">수정</RegistBtn>
                 </MadalBtns>
               </form>
             </AnswerContent>
@@ -77,6 +84,7 @@ import { IconButton } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { postAnswer } from '../api/post';
 import { useNavigate } from 'react-router-dom';
+import { putAnswer } from '../api/put';
 const AnswerContainer = styled(Box)``;
 const AnswerModalBtn = styled(Button)``;
 const ModalHeader = styled(Box)`
@@ -159,4 +167,4 @@ const style = {
   padding: '0',
 };
 
-export default AnswerModal;
+export default AnswerEditModal;
