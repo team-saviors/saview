@@ -60,11 +60,18 @@ public class QuestionService {
         PageRequest pageRequest = PageRequest.of(page, size, sort);
 
         if (mainCategory.equals("all")) {
-            return questionRepository.findAll(pageRequest);
-        } else if (subCategory == null) {
-            return questionRepository.findAllByMainCategory(mainCategory, pageRequest);
+            if (subCategory.equals("all")) {
+                return questionRepository.findAll(pageRequest);
+            } else {
+                return questionRepository.findAllBySubCategory(subCategory, pageRequest);
+            }
         } else {
-            return questionRepository.findAllByMainCategoryAndSubCategory(mainCategory, subCategory, pageRequest);
+            if (subCategory.equals("all")) {
+                return questionRepository.findAllByMainCategory(mainCategory, pageRequest);
+            }
+            else {
+                return questionRepository.findAllByMainCategoryAndSubCategory(mainCategory, subCategory, pageRequest);
+            }
         }
     }
 
