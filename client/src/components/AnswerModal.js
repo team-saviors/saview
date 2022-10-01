@@ -1,16 +1,16 @@
-import Button from '../components/BasicButton';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import { useForm } from 'react-hook-form';
+import { postAnswer } from '../api/post';
+import { useNavigate } from 'react-router-dom';
+import BasicButton from '../components/BasicButton';
+import { Button, IconButton } from '@mui/material';
 import styled from 'styled-components';
 import { useState } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
 
 const AnswerModal = ({ question }) => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-    setOpen(false);
-    reset();
-    navigate(`/questions/${question.questionId}`);
-  };
   const {
     register,
     handleSubmit,
@@ -18,6 +18,14 @@ const AnswerModal = ({ question }) => {
     reset,
     formState: { errors },
   } = useForm();
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+    reset();
+    navigate(`/questions/${question.questionId}`);
+  };
   const navigate = useNavigate();
   const onSubmit = async (data) => {
     await postAnswer(question.questionId, data);
@@ -70,15 +78,19 @@ const AnswerModal = ({ question }) => {
   );
 };
 
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import { IconButton } from '@mui/material';
-import { useForm } from 'react-hook-form';
-import { postAnswer } from '../api/post';
-import { useNavigate } from 'react-router-dom';
 const AnswerContainer = styled(Box)``;
-const AnswerModalBtn = styled(Button)``;
+const AnswerModalBtn = styled.button`
+  font-size: 17px;
+  font-weight: 500;
+  padding: 0.4375rem 0.8125rem;
+  background-color: #3d5a92;
+  color: white;
+  border-radius: 3px;
+  border: 1px solid #00000000;
+  &:hover {
+    background-color: #536d9e;
+  }
+`;
 const ModalHeader = styled(Box)`
   width: 100%;
   display: flex;
@@ -137,8 +149,8 @@ const MadalBtns = styled(Box)`
     padding: 0.4375rem 0.8125rem;
   }
 `;
-const CancelBtn = styled(Button)``;
-const RegistBtn = styled(Button)``;
+const CancelBtn = styled(BasicButton)``;
+const RegistBtn = styled(BasicButton)``;
 const style = {
   position: 'absolute',
   top: '50%',

@@ -1,16 +1,17 @@
 import Button from '../components/BasicButton';
 import styled from 'styled-components';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import { IconButton } from '@mui/material';
+import { useForm } from 'react-hook-form';
+import { postAnswer } from '../api/post';
+import { useNavigate } from 'react-router-dom';
+import { putAnswer } from '../api/put';
 import { useEffect, useState, useMemo } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
 
 const AnswerEditModal = ({ question, answer }) => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-    setOpen(false);
-    reset();
-    navigate(`/questions/${question.questionId}`);
-  };
   const {
     register,
     handleSubmit,
@@ -22,10 +23,16 @@ const AnswerEditModal = ({ question, answer }) => {
       return answer;
     }, [answer]),
   });
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+    reset();
+    navigate(`/questions/${question.questionId}`);
+  };
 
   const navigate = useNavigate();
   const onSubmit = async (data) => {
-    console.log('data', data);
     await putAnswer(data);
     navigate(`/questions/${question.questionId}`);
     handleClose();
@@ -77,14 +84,6 @@ const AnswerEditModal = ({ question, answer }) => {
   );
 };
 
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import { IconButton } from '@mui/material';
-import { useForm } from 'react-hook-form';
-import { postAnswer } from '../api/post';
-import { useNavigate } from 'react-router-dom';
-import { putAnswer } from '../api/put';
 const AnswerContainer = styled(Box)``;
 const AnswerModalBtn = styled(Button)``;
 const ModalHeader = styled(Box)`
