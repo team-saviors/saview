@@ -16,7 +16,6 @@ const UserPage = () => {
   const [tab, setTab] = useState('answers');
   const [data, setData] = useState(null);
   const [page, setPage] = useState(1);
-  // const numOfPages = data.totalHits ? Math.ceil(data.totalHits / size) : 0;
   const { getUser, profile, nickname } = userStore();
   useEffect(() => {
     const fetch = async () => {

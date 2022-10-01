@@ -15,6 +15,7 @@ const QuestionCards = ({
   subCategory,
   setMainCategory,
   setSubCategory,
+  sort,
 }) => {
   const { questions, getQuestions } = questionStore();
 
@@ -34,8 +35,8 @@ const QuestionCards = ({
   }, [tab]);
 
   useEffect(() => {
-    getQuestions(page, mainCategory, subCategory);
-  }, [page, mainCategory, subCategory]);
+    getQuestions(page, mainCategory, subCategory, sort);
+  }, [page, mainCategory, subCategory, sort]);
 
   return (
     <>
