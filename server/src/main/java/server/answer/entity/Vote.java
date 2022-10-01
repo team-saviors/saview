@@ -1,13 +1,12 @@
 package server.answer.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Vote {
 
     @Id
@@ -19,4 +18,10 @@ public class Vote {
 
     @Column(nullable = false)
     private long userId;
+
+    @Builder
+    public Vote(long answerId, long userId) {
+        this.answerId = answerId;
+        this.userId = userId;
+    }
 }

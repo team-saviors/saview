@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import server.answer.dto.AnswerResponseDto;
 import server.answer.entity.Answer;
+import server.answer.entity.Vote;
 import server.answer.mapper.AnswerMapper;
 import server.answer.repository.AnswerRepository;
 import server.answer.repository.VoteRepository;
@@ -80,6 +81,8 @@ public class AnswerService {
     public void verifiedVotes(long answerId, Long userId, int votes) {
         if (!voteRepository.existsByAnswerIdAndUserId(answerId, userId)) {
             answerRepository.updateVotes(votes, answerId);
+            Vote vote = Vote.builder().answerId(answerId).userId(userId).build();
+            voteRepository.save(vote);
         } else {
             throw new BusinessLogicException(ExceptionCode.DUPLICATE_VOTE);
         }
