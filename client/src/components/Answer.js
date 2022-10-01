@@ -7,7 +7,7 @@ import AvatarWrapper from './AvatarWrapper';
 import MessageIcon from '@mui/icons-material/Message';
 import { ISOHandler } from '../utils/timeHandler';
 import { getUserId } from '../utils/cookies';
-import { deleteAnswer } from '../utils/axiosRequest';
+import { deleteAnswer, updateVotes } from '../utils/axiosRequest';
 import AlertDialog from './AlertDialog';
 import AnswerEditModal from './AnswerEditModal';
 export default function Answer(props) {
@@ -15,7 +15,7 @@ export default function Answer(props) {
     props.answer;
 
   const [open, setOpen] = useState(false);
-
+  const [buttonVariant, setButtonVariant] = useState('outlined');
   const handleClose = (e) => {
     if (e.target.value === '삭제') {
       deleteAnswer(answerId);
@@ -25,6 +25,10 @@ export default function Answer(props) {
   };
   const handleClick = () => {
     setOpen(true);
+  };
+  //좋아요 클릭시 발동하는 함수
+  const handleClickVotes = async (answerId, votes) => {
+    await updateVotes(answerId, votes);
   };
 
   return (
@@ -69,7 +73,10 @@ export default function Answer(props) {
       >
         <div>{content}</div>
         <div style={{ position: 'absolute', bottom: '15px' }}>
-          <Button variant="contained">
+          <Button
+            variant={buttonVariant}
+            onClick={() => handleClickVotes(answerId, votes)}
+          >
             <ThumbUpAlt></ThumbUpAlt>
             {/* <ThumbUpOffAltIcon style={{}}></ThumbUpOffAltIcon> */}
             <span>좋아요 {votes}</span>

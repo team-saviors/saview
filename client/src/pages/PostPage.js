@@ -11,6 +11,7 @@ const PostPage = () => {
   useEffect(() => {
     getQuestion(params.id);
   }, []);
+
   return (
     <div
       style={{
