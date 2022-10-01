@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-export default function CategoryTabs({ tab, setTab }) {
+export default function CategoryTabs({ setTab, getQuestions, page, setPage }) {
   const [active, setActive] = useState(0);
 
   const handleClick = (e) => {
@@ -9,7 +9,9 @@ export default function CategoryTabs({ tab, setTab }) {
     if (index !== active) {
       setActive(index);
     }
+    const category = encodeURIComponent(e.target.textContent);
     setTab(index);
+    setPage(1);
   };
 
   return (

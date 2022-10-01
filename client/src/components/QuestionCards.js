@@ -7,26 +7,36 @@ const CardWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
 `;
-const QuestionCards = () => {
+const QuestionCards = ({
+  tab,
+  page,
+  setPage,
+  mainCategory,
+  subCategory,
+  setMainCategory,
+  setSubCategory,
+}) => {
   const { questions, getQuestions } = questionStore();
-  const [page, setPage] = useState(1);
-  const loading = useRef(null);
-  const callback = ([entries]) => {
-    if (entries.isIntersecting) {
-      setPage((prev) => prev + 1);
-      // console.log('intersecting');
-    }
-  };
-  const observer = new IntersectionObserver(callback, {
-    threshold: 1,
-  });
 
   useEffect(() => {
-    observer.observe(loading.current);
-  }, []);
+    // if (tab === 0) setMainCategory('all');
+    if (tab === 0) {
+      setMainCategory('all');
+    } else if (tab === 1) {
+      setMainCategory('프론트엔드');
+    } else if (tab === 2) {
+      setMainCategory('백엔드');
+    } else if (tab === 3) {
+      setMainCategory('CS');
+    } else {
+      setMainCategory('기타');
+    }
+  }, [tab]);
+
   useEffect(() => {
-    getQuestions(page);
-  }, [page]);
+    getQuestions(page, mainCategory, subCategory);
+  }, [page, mainCategory, subCategory]);
+
   return (
     <>
       <CardWrapper>
@@ -35,13 +45,11 @@ const QuestionCards = () => {
               <QuestionCard
                 key={question.questionId}
                 question={question}
+                setSubCategory={setSubCategory}
               ></QuestionCard>
             ))
           : null}
       </CardWrapper>
-      <div ref={loading}>
-        <h1>로딩중~</h1>
-      </div>
     </>
   );
 };

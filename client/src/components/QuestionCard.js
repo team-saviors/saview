@@ -1,16 +1,29 @@
 import styled from 'styled-components';
 import Card from '@mui/material/Card';
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { RemoveRedEye } from '@mui/icons-material';
 import CommentIcon from '@mui/icons-material/Comment';
 
 const QuestionCard = (props) => {
-  const { questionId, content, views, answerNum } = props.question;
-
+  const { questionId, content, views, answerNum, subCategory } = props.question;
   return (
     <Link to={`questions/${questionId}`}>
-      <CardItem style={{ position: 'relative' }} variant="outlined">
+      <CardItem
+        style={{ position: 'relative', borderRadius: '20px' }}
+        variant="outlined"
+      >
+        <Button
+          variant="contained"
+          style={{
+            position: 'absolute',
+            left: '10px',
+            top: '10px',
+            borderRadius: '20px',
+          }}
+        >
+          {subCategory}
+        </Button>
         <Box style={{ margin: '10px' }}>
           {/* outline 굵기 찾아봐야함 */}
           <h1>{content}</h1>
