@@ -1,22 +1,43 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Carousel from '../components/Carousel';
+import Pagination from '../components/Pagination';
 import QuestionCards from '../components/QuestionCards';
-import Tagbox from '../components/Tagbox';
+import Tagbox from '../components/Tab/Tagbox';
 import { loginStore } from '../store/store';
 
 const Mainpage = () => {
   const [tab, setTab] = useState(0);
   const [active, setActive] = useState(0);
-  const { isLogin, loginHandler } = loginStore();
-
+  const [mainCategory, setMainCategory] = useState('all');
+  const [subCategory, setSubCategory] = useState('all');
+  const [page, setPage] = useState(1);
   return (
     <>
       <Carousel></Carousel>
-      <Tagbox tab={tab} setTab={setTab} setActive={setActive}></Tagbox>
+      <Tagbox
+        setPage={setPage}
+        tab={tab}
+        setTab={setTab}
+        setActive={setActive}
+        setMainCategory={setMainCategory}
+        setSubCategory={setSubCategory}
+        page={page}
+        mainCategory={mainCategory}
+        subCategory={subCategory}
+      ></Tagbox>
       <Main>
-        <QuestionCards />
+        <QuestionCards
+          tab={tab}
+          page={page}
+          setPage={setPage}
+          mainCategory={mainCategory}
+          subCategory={subCategory}
+          setMainCategory={setMainCategory}
+          setSubCategory={setSubCategory}
+        />
       </Main>
+      <Pagination page={page} setPage={setPage} numOfPages={100}></Pagination>
     </>
   );
 };
