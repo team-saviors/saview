@@ -15,21 +15,13 @@ export const questionStore = create((set) => ({
   questions: {
     data: [],
   },
-  getQuestions: async (page) => {
+  getQuestions: async (page, mainCategory, subCategory) => {
     const res = await axiosInstance.get(
-      `/questions?page=${page}&size=9&mainCategory=all`
+      `/questions/tags?page=${page}&size=9&mainCategory=${mainCategory}&subCategory=${subCategory}`
     );
-    if (page === 1) {
-      set({
-        questions: {
-          data: [...res.data.data],
-        },
-      });
-      return;
-    }
     set((state) => ({
       questions: {
-        data: [...state.questions.data, ...res.data.data],
+        data: [...res.data.data],
       },
     }));
   },
