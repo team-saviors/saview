@@ -13,6 +13,7 @@ const Mainpage = () => {
   const [subCategory, setSubCategory] = useState('all');
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState('views');
+
   return (
     <>
       <Carousel></Carousel>
@@ -39,7 +40,7 @@ const Mainpage = () => {
           sort={sort}
         />
       </Main>
-      <Pagination page={page} setPage={setPage} numOfPages={100}></Pagination>
+      <Pagination page={page} setPage={setPage}></Pagination>
     </>
   );
 };

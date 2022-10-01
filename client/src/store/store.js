@@ -14,14 +14,17 @@ export const countStore = create((set) => ({
 export const questionStore = create((set) => ({
   questions: {
     data: [],
+    totalPages: '',
   },
   getQuestions: async (page, mainCategory, subCategory, sort) => {
     const res = await axiosInstance.get(
       `/questions/tags?page=${page}&size=9&mainCategory=${mainCategory}&subCategory=${subCategory}&sort=${sort}`
     );
+
     set((state) => ({
       questions: {
         data: [...res.data.data],
+        totalPages: res.data.pageInfo.totalPages,
       },
     }));
   },
