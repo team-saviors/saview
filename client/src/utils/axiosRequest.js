@@ -91,3 +91,15 @@ export async function deleteAnswer(answerId) {
     console.log(err);
   }
 }
+
+export async function updateVotes(answerId, votes) {
+  try {
+    const res = await axiosInstance.put(`/answers/${answerId}/votes`, {
+      votes: votes + 1,
+    });
+    location.reload();
+  } catch (err) {
+    alert('이미 추천을눌렀습니다');
+    console.log(err);
+  }
+}
