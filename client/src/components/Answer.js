@@ -9,10 +9,11 @@ import { ISOHandler } from '../utils/timeHandler';
 import { getUserId } from '../utils/cookies';
 import { deleteAnswer } from '../utils/axiosRequest';
 import AlertDialog from './AlertDialog';
+import { answerStore } from '../store/store';
 export default function Answer(props) {
   const { comments, content, createdAt, modifiedAt, user, votes, answerId } =
     props.answer;
-
+  // const { updateVotes } = answerStore();
   const [open, setOpen] = useState(false);
 
   const handleClose = (e) => {

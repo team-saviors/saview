@@ -15,9 +15,9 @@ export const questionStore = create((set) => ({
   questions: {
     data: [],
   },
-  getQuestions: async (page, mainCategory, subCategory) => {
+  getQuestions: async (page, mainCategory, subCategory, sort) => {
     const res = await axiosInstance.get(
-      `/questions/tags?page=${page}&size=9&mainCategory=${mainCategory}&subCategory=${subCategory}`
+      `/questions/tags?page=${page}&size=9&mainCategory=${mainCategory}&subCategory=${subCategory}&sort=${sort}`
     );
     set((state) => ({
       questions: {
@@ -47,6 +47,22 @@ export const answerStore = create((set, get) => ({
       console.log(err);
     }
   },
+  //updateVotes적용 시 문제 발생함
+  // updateVotes: async (answerId) => {
+  //   set((state) => ({
+  //     question: {
+  //       ...state.question,
+  //       answers: {
+  //         ...state.question.answers,
+  //         data: [
+  //           ...state.question.answers.data.map((answer) => {
+  //             console.log(answer);
+  //           }),
+  //         ],
+  //       },
+  //     },
+  //   }));
+  // },
 }));
 
 export const questionRegisterStore = create((set) => ({
