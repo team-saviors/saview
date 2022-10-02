@@ -35,21 +35,11 @@ const UserDropdown = () => {
       <Menu
         id="menu-appbar"
         anchorEl={anchorEl}
-        // anchorOrigin={{
-        //   vertical: 'top',
-        //   horizontal: 'right',
-        // }}
         keepMounted
-        // transformOrigin={{
-        //   vertical: 'top',
-        //   horizontal: 'right',
-        // }}
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem
-        //   onClick={ }
-        >
+        <MenuItem>
           <Link to={`/users/${getUserId()}`}>마이페이지</Link>
         </MenuItem>
         <MenuItem onClick={() => handleClick()}>로그아웃</MenuItem>
