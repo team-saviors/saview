@@ -105,7 +105,11 @@ export default function Answer(props) {
               }}
             >
               <AvatarWrapper src={user.profile}></AvatarWrapper>
-              <Typography variant="body2" color="black">
+              <Typography
+                variant="body2"
+                color="black"
+                style={{ maxWidth: '950px' }}
+              >
                 {comment.content}
               </Typography>
               <Typography variant="body2" color="gray">
