@@ -1,15 +1,14 @@
-import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Answer from '../components/Answer';
 import { answerStore } from '../store/store';
 import { useParams } from 'react-router-dom';
 import AnswerModal from '../components/AnswerModal';
 const PostPage = () => {
   const params = useParams();
-
+  const [sort, setSort] = useState('votes');
   const { question, getQuestion } = answerStore();
   useEffect(() => {
-    getQuestion(params.id);
+    getQuestion(params.id, sort);
   }, []);
 
   return (
@@ -27,7 +26,7 @@ const PostPage = () => {
 
       {question?.answers?.data?.length > 0 ? (
         question.answers.data.map((answer) => (
-          <Answer key={answer.answerId} answer={answer}></Answer>
+          <Answer key={answer.answerId} answer={answer} sort={sort}></Answer>
         ))
       ) : (
         <div>답변이 없습니다. 답변을 달아주세요</div>

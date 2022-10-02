@@ -32,10 +32,10 @@ export const questionStore = create((set) => ({
 
 export const answerStore = create((set, get) => ({
   question: {},
-  getQuestion: async (questionId) => {
+  getQuestion: async (questionId, sort) => {
     try {
       const res = await axiosInstance.get(
-        `/questions/${questionId}?page=1&size=10&sort=createdAt`
+        `/questions/${questionId}?page=1&size=10&sort=${sort}`
       );
       set((state) => ({
         question: { ...res.data, views: res.data.views + 1 },

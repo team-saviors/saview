@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import QuestionPostPage from './pages/QuestionPostPage';
 import UserPage from './pages/UserPage/UserPage';
 import { loginStore } from './store/store';
+import Caraousel from './components/Carousel';
 function App() {
   const { loginHandler } = loginStore();
   useEffect(() => {
@@ -14,6 +15,7 @@ function App() {
   return (
     <>
       <Header></Header>
+      <Caraousel></Caraousel>
       <Routes>
         <Route path="/" element={<Mainpage />}></Route>
         <Route path="/questions/:id" element={<PostPage />}></Route>
