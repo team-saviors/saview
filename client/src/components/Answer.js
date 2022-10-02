@@ -10,6 +10,7 @@ import { getUserId } from '../utils/cookies';
 import { deleteAnswer, updateVotes } from '../utils/axiosRequest';
 import AlertDialog from './AlertDialog';
 import AnswerEditModal from './AnswerEditModal';
+import styled from 'styled-components';
 export default function Answer(props) {
   const { comments, content, createdAt, modifiedAt, user, votes, answerId } =
     props.answer;
@@ -34,7 +35,7 @@ export default function Answer(props) {
   return (
     <Container
       style={{
-        margin: '15px',
+        padding: '0',
         marginBottom: '50px',
         display: 'flex',
         flexDirection: 'column',
@@ -42,19 +43,21 @@ export default function Answer(props) {
     >
       <AlertDialog open={open} onClose={handleClose}></AlertDialog>
       <div
-        style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginBottom: '10px',
+        }}
       >
         <AvatarWrapper src={user.profile}></AvatarWrapper>
-        <span>{user.nickname}</span>
-        <span style={{ margin: '0 20px 0 20px' }}>{ISOHandler(createdAt)}</span>
+        <span style={{ fontSize: '20px' }}>{user.nickname}</span>
+        <span style={{ margin: '0 20px 0 20px', fontSize: '20px' }}>
+          {ISOHandler(createdAt)}
+        </span>
         {props.answer.user.userId === Number(getUserId()) ? (
           <>
-            <button
-              style={{ color: 'gray', fontSize: '12px' }}
-              onClick={handleClick}
-            >
-              삭제
-            </button>
+            <DeletelBtn onClick={handleClick}>삭제 하기</DeletelBtn>
             <AnswerEditModal
               question={props.question}
               answer={props.answer}
@@ -65,7 +68,6 @@ export default function Answer(props) {
       <Paper
         style={{
           padding: '20px',
-          width: '1200px',
           minHeight: '300px',
           position: 'relative',
           lineHeight: '25px',
@@ -90,8 +92,6 @@ export default function Answer(props) {
               key={comment.commentId}
               style={{
                 width: '1200px',
-                // borderBottom: '1px solid #DEDEDE',
-
                 padding: '5px',
                 borderLeft: '1px solid #DEDEDE',
                 display: 'flex',
@@ -142,3 +142,16 @@ export default function Answer(props) {
     </Container>
   );
 }
+const DeletelBtn = styled.button`
+  margin-right: 10px;
+  font-size: 17px;
+  font-weight: 500;
+  padding: 0.4375rem 0.8125rem;
+  color: #263747;
+  border-radius: 3px;
+  border: 1px solid #00000000;
+  background-color: #e9ecf3;
+  &:hover {
+    background-color: #d7e2eb;
+  }
+`;
