@@ -83,12 +83,12 @@ const AnswerModalBtn = styled.button`
   font-size: 17px;
   font-weight: 500;
   padding: 0.4375rem 0.8125rem;
-  background-color: #3d5a92;
   color: white;
   border-radius: 3px;
   border: 1px solid #00000000;
+  background-color: #506b9b;
   &:hover {
-    background-color: #536d9e;
+    background-color: #3d5a92;
   }
 `;
 const ModalHeader = styled(Box)`
