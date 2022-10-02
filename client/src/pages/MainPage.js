@@ -35,7 +35,7 @@ const Mainpage = () => {
           subCategory={subCategory}
         ></Tagbox>
         <Select
-          style={{ position: 'relative', left: '1070px', width: '100px' }}
+          style={{ position: 'relative', left: '10px', width: '100px' }}
           onChange={handleChange}
           defaultValue="views"
         >
