@@ -20,7 +20,6 @@ const QuestionCards = ({
   const { questions, getQuestions } = questionStore();
 
   useEffect(() => {
-    // if (tab === 0) setMainCategory('all');
     if (tab === 0) {
       setMainCategory('all');
     } else if (tab === 1) {

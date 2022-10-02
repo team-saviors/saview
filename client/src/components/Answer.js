@@ -19,7 +19,6 @@ export default function Answer(props) {
 
   const { comments, content, createdAt, modifiedAt, user, votes, answerId } =
     props.answer;
-  //주석처리 해놓은 부분 = getQuestion에 votes에 따라 rerendering 하고 싶은데 어떻게 해야할지?
   const { question, getQuestion } = answerStore();
   const [open, setOpen] = useState(false);
   const [buttonVariant, setButtonVariant] = useState('outlined');
@@ -32,7 +31,6 @@ export default function Answer(props) {
   const handleClick = () => {
     setOpen(true);
   };
-  //좋아요 클릭시 발동하는 함수
 
   const handleClickVotes = async (answerId, votes) => {
     await updateAnswerVotes(answerId, votes);
@@ -98,8 +96,6 @@ export default function Answer(props) {
               key={comment.commentId}
               style={{
                 width: '1200px',
-                // borderBottom: '1px solid #DEDEDE',
-
                 padding: '5px',
                 borderLeft: '1px solid #DEDEDE',
                 display: 'flex',
