@@ -40,9 +40,7 @@ const AnswerEditModal = ({ question, answer }) => {
   const onError = () => {};
   return (
     <AnswerContainer>
-      <button style={{ color: 'gray', fontSize: '12px' }} onClick={handleOpen}>
-        수정
-      </button>
+      <EditModalBtn onClick={handleOpen}>수정 하기</EditModalBtn>
       <Modal
         open={open}
         onClose={handleClose}
@@ -85,7 +83,18 @@ const AnswerEditModal = ({ question, answer }) => {
 };
 
 const AnswerContainer = styled(Box)``;
-const AnswerModalBtn = styled(Button)``;
+const EditModalBtn = styled.button`
+  font-size: 17px;
+  font-weight: 500;
+  padding: 0.4375rem 0.8125rem;
+  color: #263747;
+  border-radius: 3px;
+  border: 1px solid #00000000;
+  background-color: #e9ecf3;
+  &:hover {
+    background-color: #d7e2eb;
+  }
+`;
 const ModalHeader = styled(Box)`
   width: 100%;
   display: flex;

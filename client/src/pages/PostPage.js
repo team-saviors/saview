@@ -52,17 +52,19 @@ const PostPage = () => {
 };
 
 const AnswerHeader = styled(Box)`
-  padding-left: 24px;
-  padding-right: 24px;
+  padding: 0;
   width: 100%;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 50px;
+  margin-bottom: 50px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   text-align: center;
+  border-bottom: 3px solid #f2f2f2;
+  padding-bottom: 20px;
   > h2 {
-    padding-left: 10px;
+    font-size: 28px;
+    margin-left: 25px;
   }
 `;
 export default PostPage;
