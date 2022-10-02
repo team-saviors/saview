@@ -1,24 +1,28 @@
+import Button from '../components/BasicButton';
+import styled from 'styled-components';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { IconButton } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { postAnswer } from '../api/post';
 import { useNavigate } from 'react-router-dom';
-import BasicButton from '../components/BasicButton';
-import { Button, IconButton } from '@mui/material';
-import styled from 'styled-components';
-import { useState } from 'react';
+import { putAnswer } from '../api/put';
+import { useEffect, useState, useMemo } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
 
-const AnswerModal = ({ question }) => {
+const AnswerEditModal = ({ question, answer }) => {
   const {
     register,
     handleSubmit,
     getValues,
     reset,
     formState: { errors },
-  } = useForm();
-
+  } = useForm({
+    defaultValues: useMemo(() => {
+      return answer;
+    }, [answer]),
+  });
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -26,17 +30,19 @@ const AnswerModal = ({ question }) => {
     reset();
     navigate(`/questions/${question.questionId}`);
   };
+
   const navigate = useNavigate();
   const onSubmit = async (data) => {
-    await postAnswer(question.questionId, data);
+    await putAnswer(data);
     navigate(`/questions/${question.questionId}`);
     handleClose();
-    reset();
   };
   const onError = () => {};
   return (
     <AnswerContainer>
-      <AnswerModalBtn onClick={handleOpen}>답변 작성</AnswerModalBtn>
+      <button style={{ color: 'gray', fontSize: '12px' }} onClick={handleOpen}>
+        수정
+      </button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -45,7 +51,7 @@ const AnswerModal = ({ question }) => {
       >
         <Box sx={style}>
           <ModalHeader>
-            <h2>답변하기</h2>
+            <h2>답변 수정</h2>
             <IconButton onClick={handleClose}>
               <ClearIcon />
             </IconButton>
@@ -67,7 +73,7 @@ const AnswerModal = ({ question }) => {
                 />
                 <MadalBtns>
                   <CancelBtn onClick={handleClose}>취소</CancelBtn>
-                  <RegistBtn type="submit">등록</RegistBtn>
+                  <RegistBtn type="submit">수정</RegistBtn>
                 </MadalBtns>
               </form>
             </AnswerContent>
@@ -79,18 +85,7 @@ const AnswerModal = ({ question }) => {
 };
 
 const AnswerContainer = styled(Box)``;
-const AnswerModalBtn = styled.button`
-  font-size: 17px;
-  font-weight: 500;
-  padding: 0.4375rem 0.8125rem;
-  background-color: #3d5a92;
-  color: white;
-  border-radius: 3px;
-  border: 1px solid #00000000;
-  &:hover {
-    background-color: #536d9e;
-  }
-`;
+const AnswerModalBtn = styled(Button)``;
 const ModalHeader = styled(Box)`
   width: 100%;
   display: flex;
@@ -149,8 +144,8 @@ const MadalBtns = styled(Box)`
     padding: 0.4375rem 0.8125rem;
   }
 `;
-const CancelBtn = styled(BasicButton)``;
-const RegistBtn = styled(BasicButton)``;
+const CancelBtn = styled(Button)``;
+const RegistBtn = styled(Button)``;
 const style = {
   position: 'absolute',
   top: '50%',
@@ -171,4 +166,4 @@ const style = {
   padding: '0',
 };
 
-export default AnswerModal;
+export default AnswerEditModal;
