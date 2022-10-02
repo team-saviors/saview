@@ -6,7 +6,7 @@ import QuestionCards from '../components/QuestionCards';
 import { Select, MenuItem } from '@mui/material';
 import Tagbox from '../components/Tab/Tagbox';
 import { loginStore } from '../store/store';
-
+import Caraousel from '../components/Carousel';
 const Mainpage = () => {
   const [tab, setTab] = useState(0);
   const [active, setActive] = useState(0);
@@ -19,41 +19,44 @@ const Mainpage = () => {
     setSort(e.target.value);
   };
   return (
-    <MainWrapper>
-      <Tagbox
-        setPage={setPage}
-        tab={tab}
-        setTab={setTab}
-        setActive={setActive}
-        setMainCategory={setMainCategory}
-        setSubCategory={setSubCategory}
-        page={page}
-        mainCategory={mainCategory}
-        subCategory={subCategory}
-      ></Tagbox>
-      <Select
-        style={{ position: 'relative', left: '1070px', width: '100px' }}
-        onChange={handleChange}
-        defaultValue="views"
-      >
-        <MenuItem value="views">조회순</MenuItem>
-        <MenuItem value="createdAt">최신순</MenuItem>
-        <MenuItem value="answers">댓글순</MenuItem>
-      </Select>
-      <Main>
-        <QuestionCards
-          tab={tab}
-          page={page}
+    <>
+      <Caraousel></Caraousel>
+      <MainWrapper>
+        <Tagbox
           setPage={setPage}
-          mainCategory={mainCategory}
-          subCategory={subCategory}
+          tab={tab}
+          setTab={setTab}
+          setActive={setActive}
           setMainCategory={setMainCategory}
           setSubCategory={setSubCategory}
-          sort={sort}
-        />
-      </Main>
-      <Pagination page={page} setPage={setPage}></Pagination>
-    </MainWrapper>
+          page={page}
+          mainCategory={mainCategory}
+          subCategory={subCategory}
+        ></Tagbox>
+        <Select
+          style={{ position: 'relative', left: '1070px', width: '100px' }}
+          onChange={handleChange}
+          defaultValue="views"
+        >
+          <MenuItem value="views">조회순</MenuItem>
+          <MenuItem value="createdAt">최신순</MenuItem>
+          <MenuItem value="answers">댓글순</MenuItem>
+        </Select>
+        <Main>
+          <QuestionCards
+            tab={tab}
+            page={page}
+            setPage={setPage}
+            mainCategory={mainCategory}
+            subCategory={subCategory}
+            setMainCategory={setMainCategory}
+            setSubCategory={setSubCategory}
+            sort={sort}
+          />
+        </Main>
+        <Pagination page={page} setPage={setPage}></Pagination>
+      </MainWrapper>
+    </>
   );
 };
 export default Mainpage;
