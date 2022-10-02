@@ -31,7 +31,7 @@ const AnswerEditModal = ({ answer }) => {
     reset();
     navigate(`/questions/${question.questionId}`);
   };
-  console.log(question);
+
   const navigate = useNavigate();
   const onSubmit = async (data) => {
     await putAnswer(data);

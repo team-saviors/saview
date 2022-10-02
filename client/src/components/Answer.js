@@ -35,7 +35,7 @@ export default function Answer(props) {
     await updateAnswerVotes(answerId, votes);
     await getQuestion(params.id, props.sort);
   };
-  console.log(question);
+
   return (
     <Container
       style={{
