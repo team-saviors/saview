@@ -1,8 +1,5 @@
-// import { Link } from '@mui/material';
 import { SignInModal } from './SignInModal';
-import mainLogo from '../assets/images/mainlogo2.png';
 import { Link } from 'react-router-dom';
-import { getRefreshToken } from '../utils/cookies';
 import { loginStore } from '../store/store';
 
 const Header = () => {
@@ -11,7 +8,6 @@ const Header = () => {
   return (
     <NavBar>
       <LogoBox>
-        {/* <h1>SAVIEW</h1> */}
         <Link to="/">
           <img
             className="main_logo"
