@@ -47,13 +47,9 @@ const PostPage = () => {
 
 const AnswerHeader = styled(Box)`
   padding: 0;
-  /* padding-left: 24px; */
-  /* padding-right: 24px; */
   width: 100%;
   margin-top: 50px;
   margin-bottom: 50px;
-  /* margin-left: 15px; */
-  /* margin-right: 15px; */
   display: flex;
   align-items: center;
   justify-content: flex-start;
