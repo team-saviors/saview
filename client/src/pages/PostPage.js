@@ -4,6 +4,8 @@ import Answer from '../components/Answer';
 import { answerStore } from '../store/store';
 import { useParams } from 'react-router-dom';
 import AnswerModal from '../components/AnswerModal';
+import styled from 'styled-components';
+import { Box } from '@mui/material';
 const PostPage = () => {
   const params = useParams();
 
@@ -13,27 +15,48 @@ const PostPage = () => {
   }, []);
 
   return (
-    <div
+    <main
       style={{
+        margin: 'auto',
+        maxWidth: '1200px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
-      <div style={{ marginTop: '20px' }}>
+      <AnswerHeader>
         <AnswerModal question={question}></AnswerModal>
-        <h2>질문:{question.content}</h2>
-      </div>
+        <h2>질문 : {question.content}</h2>
+      </AnswerHeader>
 
       {question?.answers?.data?.length > 0 ? (
         question.answers.data.map((answer) => (
-          <Answer key={answer.answerId} answer={answer}></Answer>
+          <Answer
+            key={answer.answerId}
+            answer={answer}
+            question={question}
+          ></Answer>
         ))
       ) : (
         <div>답변이 없습니다. 답변을 달아주세요</div>
       )}
-    </div>
+    </main>
   );
 };
 
+const AnswerHeader = styled(Box)`
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  > h2 {
+    padding-left: 10px;
+  }
+`;
 export default PostPage;

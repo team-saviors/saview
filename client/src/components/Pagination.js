@@ -63,5 +63,4 @@ const PageSelect = styled.select`
   }
 `;
 
-
 export default Pagination;

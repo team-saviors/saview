@@ -9,6 +9,7 @@ import { ISOHandler } from '../utils/timeHandler';
 import { getUserId } from '../utils/cookies';
 import { deleteAnswer, updateVotes } from '../utils/axiosRequest';
 import AlertDialog from './AlertDialog';
+import AnswerEditModal from './AnswerEditModal';
 export default function Answer(props) {
   const { comments, content, createdAt, modifiedAt, user, votes, answerId } =
     props.answer;
@@ -34,6 +35,7 @@ export default function Answer(props) {
     <Container
       style={{
         margin: '15px',
+        marginBottom: '50px',
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -53,6 +55,10 @@ export default function Answer(props) {
             >
               삭제
             </button>
+            <AnswerEditModal
+              question={props.question}
+              answer={props.answer}
+            ></AnswerEditModal>
           </>
         ) : null}
       </div>
@@ -106,7 +112,7 @@ export default function Answer(props) {
         : null}
       <CardContent
         style={{
-          width: '1200px',
+          maxWidth: '1200px',
           display: 'flex',
           padding: '8px',
           borderLeft: '1px solid #DEDEDE',
@@ -116,14 +122,19 @@ export default function Answer(props) {
       >
         <MessageIcon />
         <form
-          onSubmit={() => {
-            console.log('submit');
+          style={{
+            marginLeft: '10px',
+            width: '100%',
           }}
+          onSubmit={() => {}}
         >
           <TextField
             placeholder="댓글을 입력하세요"
             variant="standard"
-            style={{ marginLeft: '10px', width: '1200px' }}
+            style={{
+              marginLeft: '10px',
+              width: '100%',
+            }}
             size="small"
           ></TextField>
         </form>
