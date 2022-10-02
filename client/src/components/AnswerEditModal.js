@@ -10,8 +10,8 @@ import { useNavigate } from 'react-router-dom';
 import { putAnswer } from '../api/put';
 import { useEffect, useState, useMemo } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
-
-const AnswerEditModal = ({ question, answer }) => {
+import { answerStore } from '../store/store';
+const AnswerEditModal = ({ answer }) => {
   const {
     register,
     handleSubmit,
@@ -23,6 +23,7 @@ const AnswerEditModal = ({ question, answer }) => {
       return answer;
     }, [answer]),
   });
+  const { question } = answerStore();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -30,7 +31,7 @@ const AnswerEditModal = ({ question, answer }) => {
     reset();
     navigate(`/questions/${question.questionId}`);
   };
-
+  console.log(question);
   const navigate = useNavigate();
   const onSubmit = async (data) => {
     await putAnswer(data);

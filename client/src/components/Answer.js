@@ -21,7 +21,6 @@ export default function Answer(props) {
     props.answer;
   const { question, getQuestion } = answerStore();
   const [open, setOpen] = useState(false);
-  const [buttonVariant, setButtonVariant] = useState('outlined');
   const handleClose = (e) => {
     if (e.target.value === '삭제') {
       deleteAnswer(answerId);
@@ -36,7 +35,7 @@ export default function Answer(props) {
     await updateAnswerVotes(answerId, votes);
     await getQuestion(params.id, props.sort);
   };
-
+  console.log(question);
   return (
     <Container
       style={{
@@ -63,10 +62,7 @@ export default function Answer(props) {
         {props.answer.user.userId === Number(getUserId()) ? (
           <>
             <DeletelBtn onClick={handleClick}>삭제 하기</DeletelBtn>
-            <AnswerEditModal
-              question={props.question}
-              answer={props.answer}
-            ></AnswerEditModal>
+            <AnswerEditModal answer={props.answer}></AnswerEditModal>
           </>
         ) : null}
       </div>
@@ -82,11 +78,10 @@ export default function Answer(props) {
         <div>{content}</div>
         <div style={{ position: 'absolute', bottom: '15px' }}>
           <Button
-            variant={buttonVariant}
+            variant="outlined"
             onClick={() => handleClickVotes(answerId, votes)}
           >
             <ThumbUpAlt></ThumbUpAlt>
-            {/* <ThumbUpOffAltIcon style={{}}></ThumbUpOffAltIcon> */}
             <span>좋아요 {votes}</span>
           </Button>
         </div>
