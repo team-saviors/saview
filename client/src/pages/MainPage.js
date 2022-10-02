@@ -4,9 +4,10 @@ import styled from 'styled-components';
 import Pagination from '../components/Pagination';
 import QuestionCards from '../components/QuestionCards';
 import { Select, MenuItem } from '@mui/material';
+import Carousel from '../components/Carousel';
 import Tagbox from '../components/Tab/Tagbox';
 import { loginStore } from '../store/store';
-import Caraousel from '../components/Carousel';
+
 const Mainpage = () => {
   const [tab, setTab] = useState(0);
   const [active, setActive] = useState(0);
@@ -20,7 +21,7 @@ const Mainpage = () => {
   };
   return (
     <>
-      <Caraousel></Caraousel>
+      <Carousel></Carousel>
       <MainWrapper>
         <Tagbox
           setPage={setPage}

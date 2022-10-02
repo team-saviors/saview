@@ -54,17 +54,24 @@ public class QuestionService {
         questionRepository.updateViews(views, questionId);
     }
 
-    public Page<Question> findQuestionsByCategory(String mainCategory, String subCategory, int page, int size) {
+    public Page<Question> findQuestionsByCategory(String mainCategory, String subCategory, int page, int size, String sort) {
 
-        Sort sort = Sort.by("questionId").descending();
-        PageRequest pageRequest = PageRequest.of(page, size, sort);
+        Sort sortParm = Sort.by(sort).descending();
+        PageRequest pageRequest = PageRequest.of(page, size, sortParm);
 
         if (mainCategory.equals("all")) {
-            return questionRepository.findAll(pageRequest);
-        } else if (subCategory == null) {
-            return questionRepository.findAllByMainCategory(mainCategory, pageRequest);
+            if (subCategory.equals("all")) {
+                return questionRepository.findAll(pageRequest);
+            } else {
+                return questionRepository.findAllBySubCategory(subCategory, pageRequest);
+            }
         } else {
-            return questionRepository.findAllByMainCategoryAndSubCategory(mainCategory, subCategory, pageRequest);
+            if (subCategory.equals("all")) {
+                return questionRepository.findAllByMainCategory(mainCategory, pageRequest);
+            }
+            else {
+                return questionRepository.findAllByMainCategoryAndSubCategory(mainCategory, subCategory, pageRequest);
+            }
         }
     }
 
