@@ -1,5 +1,5 @@
 import { loginStore } from '../store/store';
-
+import { useState } from 'react';
 import {
   setAccessToken,
   setRefreshToken,
@@ -87,7 +87,20 @@ export async function getUsersActivity(activity, id, page, size) {
 export async function deleteAnswer(answerId) {
   try {
     const res = await axiosInstance.delete(`/answers/${answerId}`);
+    alert('삭제되었습니다');
+    location.reload();
   } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function updateAnswerVotes(answerId, votes) {
+  try {
+    const res = await axiosInstance.put(`/answers/${answerId}/votes`, {
+      votes: votes + 1,
+    });
+  } catch (err) {
+    alert('이미 추천을눌렀습니다');
     console.log(err);
   }
 }

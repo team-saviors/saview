@@ -7,28 +7,34 @@ import AvatarWrapper from './AvatarWrapper';
 import MessageIcon from '@mui/icons-material/Message';
 import { ISOHandler } from '../utils/timeHandler';
 import { getUserId } from '../utils/cookies';
-import { deleteAnswer, updateVotes } from '../utils/axiosRequest';
+import { deleteAnswer, updateAnswerVotes } from '../utils/axiosRequest';
+import { answerStore } from '../store/store';
 import AlertDialog from './AlertDialog';
+import { useParams } from 'react-router-dom';
+
 import AnswerEditModal from './AnswerEditModal';
+
 export default function Answer(props) {
+  const params = useParams();
+
   const { comments, content, createdAt, modifiedAt, user, votes, answerId } =
     props.answer;
-
+  const { question, getQuestion } = answerStore();
   const [open, setOpen] = useState(false);
   const [buttonVariant, setButtonVariant] = useState('outlined');
   const handleClose = (e) => {
     if (e.target.value === '삭제') {
       deleteAnswer(answerId);
-      alert('삭제되었습니다');
     }
     setOpen(false);
   };
   const handleClick = () => {
     setOpen(true);
   };
-  //좋아요 클릭시 발동하는 함수
+
   const handleClickVotes = async (answerId, votes) => {
-    await updateVotes(answerId, votes);
+    await updateAnswerVotes(answerId, votes);
+    await getQuestion(params.id, props.sort);
   };
 
   return (
@@ -90,8 +96,6 @@ export default function Answer(props) {
               key={comment.commentId}
               style={{
                 width: '1200px',
-                // borderBottom: '1px solid #DEDEDE',
-
                 padding: '5px',
                 borderLeft: '1px solid #DEDEDE',
                 display: 'flex',

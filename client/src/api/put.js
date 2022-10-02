@@ -8,6 +8,5 @@ export async function putAnswer(data) {
     alert('답변이 수정되었습니다.');
   } catch (err) {
     console.log(err);
-    // alert('수정에 실패했습니다.');
   }
 }
