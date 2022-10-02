@@ -4,14 +4,17 @@ import { answerStore } from '../store/store';
 import { useParams } from 'react-router-dom';
 import AnswerModal from '../components/AnswerModal';
 import styled from 'styled-components';
-import { Box } from '@mui/material';
+import { Box, Select, MenuItem } from '@mui/material';
 const PostPage = () => {
   const params = useParams();
   const [sort, setSort] = useState('votes');
   const { question, getQuestion } = answerStore();
+  const handleChange = (e) => {
+    setSort(e.target.value);
+  };
   useEffect(() => {
     getQuestion(params.id, sort);
-  }, []);
+  }, [sort]);
 
   return (
     <main
@@ -28,7 +31,15 @@ const PostPage = () => {
         <AnswerModal question={question}></AnswerModal>
         <h2>질문 : {question.content}</h2>
       </AnswerHeader>
-
+      <Select
+        style={{ position: 'relative', right: '525px', width: '100px' }}
+        onChange={handleChange}
+        defaultValue="votes"
+      >
+        <MenuItem value="votes">추천순</MenuItem>
+        <MenuItem value="createdAt">최신순</MenuItem>
+        {/* <MenuItem value="answers">댓글순</MenuItem> */}
+      </Select>
       {question?.answers?.data?.length > 0 ? (
         question.answers.data.map((answer) => (
           <Answer key={answer.answerId} answer={answer} sort={sort}></Answer>
