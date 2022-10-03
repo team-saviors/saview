@@ -6,12 +6,13 @@ import Modal from '@mui/material/Modal';
 import { IconButton } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { postAnswer } from '../api/post';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { putAnswer } from '../api/put';
 import { useEffect, useState, useMemo } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
 import { answerStore } from '../store/store';
-const AnswerEditModal = ({ answer }) => {
+const AnswerEditModal = ({ answer, page, sort }) => {
+  const params = useParams();
   const {
     register,
     handleSubmit,
@@ -23,7 +24,7 @@ const AnswerEditModal = ({ answer }) => {
       return answer;
     }, [answer]),
   });
-  const { question } = answerStore();
+  const { question, getQuestion } = answerStore();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -35,8 +36,8 @@ const AnswerEditModal = ({ answer }) => {
   const navigate = useNavigate();
   const onSubmit = async (data) => {
     await putAnswer(data);
-    navigate(`/questions/${question.questionId}`);
-    handleClose();
+    await handleClose();
+    await getQuestion(params.id, page, sort);
   };
   const onError = () => {};
   return (
