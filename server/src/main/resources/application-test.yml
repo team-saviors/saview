@@ -2,7 +2,7 @@ spring:
   config:
     activate:
       on-profile: test
-    import: "aws-parameterstore:"
+    import: 'aws-parameterstore:'
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${mydb.url}
