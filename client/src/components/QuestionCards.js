@@ -5,7 +5,7 @@ import { useEffect, useState, useRef, Suspense } from 'react';
 const CardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
 `;
 const QuestionCards = ({
   tab,

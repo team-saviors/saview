@@ -8,7 +8,7 @@ import {
   getAccessWithRefresh,
   getUsersActivity,
 } from '../../utils/axiosRequest';
-
+import Pagination from '../../components/Pagination';
 import { userStore } from '../../store/store';
 import { getAccessToken, getUserId } from '../../utils/cookies';
 
@@ -28,6 +28,7 @@ const UserPage = () => {
     setTab('answers');
     getUser(getUserId());
   }, []);
+  console.log(data);
   return (
     <>
       <section>
@@ -48,6 +49,13 @@ const UserPage = () => {
           )}
           <AnswerComment></AnswerComment>
         </AnswerCommentWrapper>
+        {data?.data?.myPosts && (
+          <Pagination
+            page={page}
+            setPage={setPage}
+            totalPages={data.data.myPosts.pageInfo.totalPages}
+          ></Pagination>
+        )}
       </section>
     </>
   );

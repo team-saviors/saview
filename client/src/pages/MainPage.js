@@ -6,7 +6,8 @@ import QuestionCards from '../components/QuestionCards';
 import { Select, MenuItem } from '@mui/material';
 import Carousel from '../components/Carousel';
 import Tagbox from '../components/Tab/Tagbox';
-import { loginStore } from '../store/store';
+import { questionStore } from '../store/store';
+import { Pages } from '@mui/icons-material';
 
 const Mainpage = () => {
   const [tab, setTab] = useState(0);
@@ -15,7 +16,7 @@ const Mainpage = () => {
   const [subCategory, setSubCategory] = useState('all');
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState('views');
-
+  const { questions } = questionStore();
   const handleChange = (e) => {
     setSort(e.target.value);
   };
@@ -35,7 +36,7 @@ const Mainpage = () => {
           subCategory={subCategory}
         ></Tagbox>
         <Select
-          style={{ position: 'relative', left: '1070px', width: '100px' }}
+          style={{ position: 'relative', left: '10px', width: '100px' }}
           onChange={handleChange}
           defaultValue="views"
         >
@@ -55,7 +56,11 @@ const Mainpage = () => {
             sort={sort}
           />
         </Main>
-        <Pagination page={page} setPage={setPage}></Pagination>
+        <Pagination
+          page={page}
+          setPage={setPage}
+          totalPages={questions.totalPages}
+        ></Pagination>
       </MainWrapper>
     </>
   );
