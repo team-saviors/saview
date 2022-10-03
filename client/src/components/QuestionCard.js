@@ -45,7 +45,7 @@ const CardItem = styled(Card)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0;
+  margin-right: 40px;
   margin-bottom: 80px;
 `;
 export default QuestionCard;

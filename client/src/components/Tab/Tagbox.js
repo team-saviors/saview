@@ -19,15 +19,12 @@ const Tagbox = ({
   };
 
   const handleClick = async (e) => {
-    const id = e.target.id
-      ? e.target.id
-      : e.target.parentElement.id
-      ? e.target.parentElement.id
-      : e.target.parentElement.parentElement.id
-      ? e.target.parentElement.parentElement.id
-      : e.target.parentElement.parentElement.parentElement.id;
+    const id = e.currentTarget.id;
     setSubCategory(id);
   };
+  const FEStacks = ['JavaScript', 'React', 'TypeScript', 'Vue', 'NodeJS'];
+  const BEStacks = ['Java', 'Spring', 'Express', 'MySQL', 'MongoDB'];
+  const CS = ['운영체제', '자료구조', '알고리즘', '네트워크', '디자인패턴'];
   return (
     <TagboxWrapper>
       <CategoryTabs
@@ -37,122 +34,82 @@ const Tagbox = ({
         setPage={setPage}
       ></CategoryTabs>
       <TagButtons>
-        {tab === 0 || tab === 1 ? (
+        {tab === 0 ? (
           <>
-            <TagButton
-              variant="outlined"
-              startIcon={
-                <AvatarWrapper src={imgUrl('javascript')}></AvatarWrapper>
-              }
-              onClick={handleClick}
-              id="JavaScript"
-            >
-              JavaScript
-            </TagButton>
-            <TagButton
-              variant="outlined"
-              startIcon={<AvatarWrapper src={imgUrl('react')}></AvatarWrapper>}
-              onClick={handleClick}
-              id="React"
-            >
-              React
-            </TagButton>
-            <TagButton
-              variant="outlined"
-              startIcon={
-                <AvatarWrapper src={imgUrl('typescript')}></AvatarWrapper>
-              }
-              onClick={handleClick}
-              id="TypeScript"
-            >
-              TypeScript
-            </TagButton>
-            <TagButton
-              variant="outlined"
-              startIcon={<AvatarWrapper src={imgUrl('vue')}></AvatarWrapper>}
-              onClick={handleClick}
-              id="Vue"
-            >
-              Vue
-            </TagButton>
-            <TagButton
-              variant="outlined"
-              startIcon={<AvatarWrapper src={imgUrl('nodejs')}></AvatarWrapper>}
-              onClick={handleClick}
-              id="NodeJS"
-            >
-              NodeJS
-            </TagButton>
+            {[...FEStacks, ...BEStacks].map((stack) => {
+              return (
+                <TagButton
+                  variant="outlined"
+                  startIcon={
+                    <AvatarWrapper
+                      src={imgUrl(stack.toLowerCase())}
+                    ></AvatarWrapper>
+                  }
+                  onClick={handleClick}
+                  id={stack}
+                  key={stack}
+                >
+                  {stack}
+                </TagButton>
+              );
+            })}
+            {CS.map((stack) => {
+              return (
+                <TagButton onClick={handleClick} id={stack} key={stack}>
+                  {stack}
+                </TagButton>
+              );
+            })}
           </>
-        ) : null}
-        {tab === 0 || tab === 2 ? (
+        ) : tab === 1 ? (
           <>
-            <TagButton
-              variant="outlined"
-              startIcon={<AvatarWrapper src={imgUrl('java')}></AvatarWrapper>}
-              onClick={handleClick}
-              id="Java"
-            >
-              Java
-            </TagButton>
-            <TagButton
-              variant="outlined"
-              startIcon={<AvatarWrapper src={imgUrl('spring')}></AvatarWrapper>}
-              onClick={handleClick}
-              id="Spring"
-            >
-              Spring
-            </TagButton>
-            <TagButton
-              variant="outlined"
-              startIcon={
-                <AvatarWrapper src={imgUrl('express')}></AvatarWrapper>
-              }
-              onClick={handleClick}
-              id="Express"
-            >
-              Express
-            </TagButton>
-            <TagButton
-              variant="outlined"
-              startIcon={<AvatarWrapper src={imgUrl('mysql')}></AvatarWrapper>}
-              onClick={handleClick}
-              id="MySQL"
-            >
-              MySQL
-            </TagButton>
-            <TagButton
-              variant="outlined"
-              startIcon={
-                <AvatarWrapper src={imgUrl('mongodb')}></AvatarWrapper>
-              }
-              onClick={handleClick}
-              id="MongoDB"
-            >
-              MongoDB
-            </TagButton>
+            {FEStacks.map((stack) => {
+              return (
+                <TagButton
+                  variant="outlined"
+                  startIcon={
+                    <AvatarWrapper
+                      src={imgUrl(stack.toLowerCase())}
+                    ></AvatarWrapper>
+                  }
+                  onClick={handleClick}
+                  id={stack}
+                  key={stack}
+                >
+                  {stack}
+                </TagButton>
+              );
+            })}
           </>
-        ) : null}
-        {tab === 0 || tab === 3 ? (
+        ) : tab === 2 ? (
           <>
-            <TagButton onClick={handleClick} id="운영체제">
-              운영체제
-            </TagButton>
-            <TagButton onClick={handleClick} id="자료구조">
-              자료구조
-            </TagButton>
-            <TagButton onClick={handleClick} id="알고리즘">
-              알고리즘
-            </TagButton>
-            <TagButton onClick={handleClick} id="네트워크">
-              네트워크
-            </TagButton>
-            <TagButton onClick={handleClick} id="디자인패턴">
-              디자인패턴
-            </TagButton>
-            <TagButton onClick={handleClick} id="데이터베이스">
-              데이터베이스
-            </TagButton>
+            {BEStacks.map((stack) => {
+              return (
+                <TagButton
+                  variant="outlined"
+                  startIcon={
+                    <AvatarWrapper
+                      src={imgUrl(stack.toLowerCase())}
+                    ></AvatarWrapper>
+                  }
+                  onClick={handleClick}
+                  id={stack}
+                  key={stack}
+                >
+                  {stack}
+                </TagButton>
+              );
+            })}
+          </>
+        ) : tab === 3 ? (
+          <>
+            {CS.map((stack) => {
+              return (
+                <TagButton onClick={handleClick} id={stack} key={stack}>
+                  {stack}
+                </TagButton>
+              );
+            })}
           </>
         ) : null}
       </TagButtons>

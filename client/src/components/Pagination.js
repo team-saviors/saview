@@ -2,8 +2,7 @@ import styled from 'styled-components';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { questionStore } from '../store/store';
-const Pagination = ({ page, setPage }) => {
-  const { questions } = questionStore();
+const Pagination = ({ page, setPage, totalPages }) => {
   return (
     <Nav>
       {page !== 1 && (
@@ -14,13 +13,13 @@ const Pagination = ({ page, setPage }) => {
           onClick={() => setPage((prev) => prev - 1)}
         />
       )}
-      {`총 ${questions.totalPages} 중 `}
+      {`${totalPages} pages 중 `}
       <PageSelect
         name="page"
         value={page}
         onChange={(e) => setPage(parseInt(e.target.value))}
       >
-        {Array(questions.totalPages)
+        {Array(totalPages)
           .fill()
           .map((data, idx) => (
             <option value={idx + 1} key={idx + 1}>
@@ -29,7 +28,7 @@ const Pagination = ({ page, setPage }) => {
           ))}
       </PageSelect>
       페이지
-      {page !== questions.totalPages && (
+      {page !== totalPages && (
         <ArrowForwardIcon
           width="24"
           cursor="pointer"
