@@ -16,7 +16,7 @@ export async function postSignUp(data) {
     const res = await axiosInstance.post('/users', data);
     alert('회원가입이 완료되었습니다!');
   } catch (err) {
-    alert('회원가입이 실패했습니다');
+    alert(err.response.data.message);
   }
 }
 export async function postSignIn(data) {
@@ -27,7 +27,7 @@ export async function postSignIn(data) {
     setUserId(res.data.userId);
     alert('로그인이 성공했습니다');
   } catch (err) {
-    alert(err);
+    alert(err.response.data.message);
   }
 }
 
@@ -36,7 +36,7 @@ export async function postQuestion(data) {
     const res = await axiosInstance.post('/questions', data);
     alert('질문이 등록되었습니다.');
   } catch (err) {
-    console.log(err);
+    alert(err.response.data.message);
   }
 }
 
@@ -73,7 +73,7 @@ export async function postLogout() {
     removeUserId();
     alert('로그아웃 되었습니다');
   } catch (err) {
-    console.log(err);
+    alert(err.response.data.message);
   }
 }
 
@@ -90,7 +90,7 @@ export async function deleteAnswer(answerId) {
     alert('삭제되었습니다');
     location.reload();
   } catch (err) {
-    console.log(err);
+    alert(err.response.data.message);
   }
 }
 
@@ -100,8 +100,8 @@ export async function updateAnswerVotes(answerId, votes) {
       votes: votes + 1,
     });
   } catch (err) {
-    alert('이미 추천을눌렀습니다');
-    console.log(err);
+    alert(err.response.data.message);
+    console.log(err.response);
   }
 }
 
@@ -112,7 +112,7 @@ export async function updateVotes(answerId, votes) {
     });
     location.reload();
   } catch (err) {
-    alert('이미 추천을눌렀습니다');
+    alert(err.response.data.message);
     console.log(err);
   }
 }
@@ -124,7 +124,6 @@ export async function modifyUser(nickname, profile) {
       nickname: nickname,
     });
   } catch (err) {
-    alert(err);
     console.log(err);
   }
 }
