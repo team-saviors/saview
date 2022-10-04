@@ -1,37 +1,42 @@
 import { SignInModal } from './SignInModal';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { loginStore } from '../store/store';
 
 const Header = () => {
   const { isLogin } = loginStore();
 
   return (
-    <NavBar>
-      <LogoBox>
-        <Link to="/">
-          <img
-            className="main_logo"
-            alt="react"
-            src={
-              'https://saview-dev.s3.ap-northeast-2.amazonaws.com/Saview/logo_tranverse.png'
-            }
-          ></img>
-        </Link>
-      </LogoBox>
-      <Loginbox>
-        <Link to="/questionpost">
-          <QuestionPostBtn disableRipple>새 질문 쓰기</QuestionPostBtn>
-        </Link>
-        {isLogin ? (
-          <>
-            <NoticeModal></NoticeModal>
-            <UserDropdown></UserDropdown>
-          </>
-        ) : (
-          <SignInModal></SignInModal>
-        )}
-      </Loginbox>
-    </NavBar>
+    <>
+      <NavBar>
+        <LogoBox>
+          <Link to="/">
+            <img
+              className="main_logo"
+              alt="react"
+              src={
+                'https://saview-dev.s3.ap-northeast-2.amazonaws.com/Saview/logo_tranverse.png'
+              }
+            ></img>
+          </Link>
+        </LogoBox>
+        <Loginbox>
+          <Link to="/questionpost">
+            <QuestionPostBtn disableRipple>새 질문 쓰기</QuestionPostBtn>
+          </Link>
+          {isLogin ? (
+            <>
+              <NoticeModal></NoticeModal>
+              <UserDropdown></UserDropdown>
+            </>
+          ) : (
+            <SignInModal></SignInModal>
+          )}
+        </Loginbox>
+      </NavBar>
+      <div>
+        <Outlet />
+      </div>
+    </>
   );
 };
 
