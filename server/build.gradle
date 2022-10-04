@@ -30,6 +30,9 @@ dependencies {
 //	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
 	implementation group: 'io.awspring.cloud', name: 'spring-cloud-starter-aws-parameter-store-config'
 	implementation 'org.jsoup:jsoup:1.15.3'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+	implementation group: 'org.springframework', name: 'spring-context-support', version: '5.3.18'
 
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
