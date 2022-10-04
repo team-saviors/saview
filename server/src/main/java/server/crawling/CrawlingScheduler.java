@@ -20,9 +20,10 @@ public class CrawlingScheduler {
 
     private final RecruitRepository recruitRepository;
 
-//        @Scheduled(fixedDelay = 1000 * 60 * 60) // 1시간
+//    @Scheduled(fixedDelay = 1000 * 10)
     @Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul")   // 매일 자정
     public void process() {
+        recruitRepository.deleteAll();
         for (String cate : categoryList) {
             String url = "https://www.jobkorea.co.kr/Search/?stext=";
             Connection conn = Jsoup.connect(url + cate);
