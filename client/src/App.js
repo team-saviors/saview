@@ -17,8 +17,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Mainpage />}></Route>
         <Route path="/questions/:id" element={<PostPage />}></Route>
-        {/* <Mainpage></Mainpage>
-        <PostPage></PostPage> */}
         <Route path="/questionpost" element={<QuestionPostPage />}></Route>
         <Route path="/users/:id" element={<UserPage />}></Route>
       </Routes>

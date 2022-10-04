@@ -1,5 +1,5 @@
-import { Box } from '@mui/material';
-import AvatarWrapper from '../../components/AvatarWrapper';
+import { Box, Button } from '@mui/material';
+import UserPageAvatarWrapper from './UserPageAvatarWrapper';
 import styled from 'styled-components';
 import BasicTabs from '../../components/Tab/BasicTabs';
 import { useState, useEffect } from 'react';
@@ -11,12 +11,17 @@ import {
 import Pagination from '../../components/Pagination';
 import { userStore } from '../../store/store';
 import { getAccessToken, getUserId } from '../../utils/cookies';
-
+import ProfileModal from './ProfileModal';
+import { useParams } from 'react-router-dom';
+import AvatarWrapper from '../../components/AvatarWrapper';
 const UserPage = () => {
+  const params = useParams();
   const [tab, setTab] = useState('answers');
   const [data, setData] = useState(null);
   const [page, setPage] = useState(1);
   const { getUser, profile, nickname } = userStore();
+  const [openProfileModal, setOpenProfileModal] = useState(false);
+  const [isHover, setIsHover] = useState(false);
   useEffect(() => {
     const fetch = async () => {
       const data = await getUsersActivity(tab, getUserId(), page, 10);
@@ -28,12 +33,37 @@ const UserPage = () => {
     setTab('answers');
     getUser(getUserId());
   }, []);
-  console.log(data);
+  const handleMouseOver = () => {
+    setIsHover(true);
+  };
+  const handleMouseOut = () => {
+    setIsHover(false);
+  };
+  const handleClick = (e) => {
+    setOpenProfileModal(true);
+  };
+  const handleCloseProfileModal = () => {
+    setOpenProfileModal(false);
+  };
+
   return (
     <>
       <section>
         <ProfileBox>
-          <AvatarWrapper src={profile} size={100} />
+          <div>
+            {params.id === getUserId() ? (
+              <UserPageAvatarWrapper
+                src={profile}
+                size="100px"
+                onMouseOver={() => handleMouseOver()}
+                onMouseOut={() => handleMouseOut()}
+                isHover={isHover}
+                handleClick={handleClick}
+              />
+            ) : (
+              <AvatarWrapper src={profile} size="100px"></AvatarWrapper>
+            )}
+          </div>
           <UserNickname>{nickname}</UserNickname>
         </ProfileBox>
         <TabWrapper>
@@ -57,6 +87,10 @@ const UserPage = () => {
           ></Pagination>
         )}
       </section>
+      <ProfileModal
+        open={openProfileModal}
+        handleClose={handleCloseProfileModal}
+      ></ProfileModal>
     </>
   );
 };
@@ -92,4 +126,5 @@ const AnswerCommentWrapper = styled(Box)`
   width: 1024px;
   margin: 50px auto;
 `;
+
 export default UserPage;

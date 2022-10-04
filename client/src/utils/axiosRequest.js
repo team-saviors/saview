@@ -116,3 +116,15 @@ export async function updateVotes(answerId, votes) {
     console.log(err);
   }
 }
+
+export async function modifyUser(nickname, profile) {
+  try {
+    const res = await axiosInstance.put('/users/modify', {
+      profile: profile,
+      nickname: nickname,
+    });
+  } catch (err) {
+    alert(err);
+    console.log(err);
+  }
+}
