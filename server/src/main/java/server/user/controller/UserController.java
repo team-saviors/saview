@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import server.answer.service.AnswerService;
 import server.comment.service.CommentService;
 import server.user.dto.*;
+import server.user.entity.Badge;
 import server.user.entity.User;
 import server.user.mapper.UserMapper;
 import server.user.service.UserService;
@@ -27,13 +28,15 @@ public class UserController {
     private final UserMapper userMapper;
 
     private final AnswerService answerService;
-
     private final CommentService commentService;
 
     @PostMapping
     public ResponseEntity<Void> join(@Valid @RequestBody UserPostDto userPostDto) {
-        final Long userId = userService.createUser(userMapper.userPostDtoToUser(userPostDto));
-        return ResponseEntity.created(URI.create("/users/" + userId)).build();
+        User user = userService.createUser(userMapper.userPostDtoToUser(userPostDto));
+        Badge badge = userService.createBadge(user);
+        user.setBadge(badge);
+
+        return ResponseEntity.created(URI.create("/users/" + user.getUserId())).build();
     }
 
     @GetMapping("/{user-id}")
