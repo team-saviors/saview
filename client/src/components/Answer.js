@@ -13,17 +13,32 @@ import AlertDialog from './AlertDialog';
 import { useParams } from 'react-router-dom';
 import AnswerEditModal from './AnswerEditModal';
 import styled from 'styled-components';
+import { useForm } from 'react-hook-form';
+import { postComment } from '../api/post';
 
 export default function Answer(props) {
   const params = useParams();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
+  const commentSubmit = async (data) => {
+    await postComment(answerId, data);
+    await getQuestion(params.id, props.page, props.sort);
+    reset();
+  };
+  const commentError = () => {};
   const { comments, content, createdAt, modifiedAt, user, votes, answerId } =
     props.answer;
   const { question, getQuestion } = answerStore();
   const [open, setOpen] = useState(false);
-  const handleClose = (e) => {
+  const handleClose = async (e) => {
     if (e.target.value === '삭제') {
-      deleteAnswer(answerId);
+      await deleteAnswer(answerId);
+      await getQuestion(params.id, props.page, props.sort);
     }
     setOpen(false);
   };
@@ -33,7 +48,7 @@ export default function Answer(props) {
 
   const handleClickVotes = async (answerId, votes) => {
     await updateAnswerVotes(answerId, votes);
-    await getQuestion(params.id, props.sort);
+    await getQuestion(params.id, props.page, props.sort);
   };
 
   return (
@@ -62,7 +77,11 @@ export default function Answer(props) {
         {props.answer.user.userId === Number(getUserId()) ? (
           <>
             <DeletelBtn onClick={handleClick}>삭제 하기</DeletelBtn>
-            <AnswerEditModal answer={props.answer}></AnswerEditModal>
+            <AnswerEditModal
+              sort={props.sort}
+              page={props.page}
+              answer={props.answer}
+            ></AnswerEditModal>
           </>
         ) : null}
       </div>
@@ -130,15 +149,18 @@ export default function Answer(props) {
             marginLeft: '10px',
             width: '100%',
           }}
-          onSubmit={() => {}}
+          onSubmit={handleSubmit(commentSubmit, commentError)}
         >
           <TextField
+            id="comment"
+            name="comment"
             placeholder="댓글을 입력하세요"
             variant="standard"
             style={{
               marginLeft: '10px',
               width: '100%',
             }}
+            {...register('content')}
             size="small"
           ></TextField>
         </form>
