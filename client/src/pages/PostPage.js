@@ -5,49 +5,69 @@ import { useParams } from 'react-router-dom';
 import AnswerModal from '../components/AnswerModal';
 import styled from 'styled-components';
 import { Box, Select, MenuItem } from '@mui/material';
+import Pagination from '../components/Pagination';
 const PostPage = () => {
   const params = useParams();
-  const [sort, setSort] = useState('votes');
+  const [page, setPage] = useState(1);
+  const [sort, setSort] = useState('createdAt');
   const { question, getQuestion } = answerStore();
   const handleChange = (e) => {
     setSort(e.target.value);
   };
   useEffect(() => {
-    getQuestion(params.id, sort);
-  }, [sort]);
-
+    getQuestion(params.id, page, sort);
+  }, [sort, page]);
   return (
-    <main
-      style={{
-        margin: 'auto',
-        maxWidth: '1200px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      <AnswerHeader>
-        <AnswerModal question={question}></AnswerModal>
-        <h2>질문 : {question.content}</h2>
-      </AnswerHeader>
-      <Select
-        style={{ position: 'relative', right: '525px', width: '100px' }}
-        onChange={handleChange}
-        defaultValue="votes"
+    <>
+      <main
+        style={{
+          margin: 'auto',
+          maxWidth: '1200px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
       >
-        <MenuItem value="votes">추천순</MenuItem>
-        <MenuItem value="createdAt">최신순</MenuItem>
-        {/* <MenuItem value="answers">댓글순</MenuItem> */}
-      </Select>
-      {question?.answers?.data?.length > 0 ? (
-        question.answers.data.map((answer) => (
-          <Answer key={answer.answerId} answer={answer} sort={sort}></Answer>
-        ))
-      ) : (
-        <div>답변이 없습니다. 답변을 달아주세요</div>
-      )}
-    </main>
+        <AnswerHeader>
+          <AnswerModal
+            getQuestion={getQuestion}
+            page={page}
+            sort={sort}
+            question={question}
+          ></AnswerModal>
+          <h2>질문 : {question.content}</h2>
+        </AnswerHeader>
+        <Select
+          style={{ position: 'relative', right: '525px', width: '100px' }}
+          onChange={handleChange}
+          defaultValue="createdAt"
+        >
+          <MenuItem value="votes">추천순</MenuItem>
+          <MenuItem value="createdAt">최신순</MenuItem>
+          {/* <MenuItem value="answers">댓글순</MenuItem> */}
+        </Select>
+        {question?.answers?.data?.length > 0 ? (
+          question.answers.data.map((answer) => (
+            <Answer
+              key={answer.answerId}
+              answer={answer}
+              sort={sort}
+              page={page}
+            ></Answer>
+          ))
+        ) : (
+          <div style={{ fontSize: '18px', marginTop: '20px' }}>
+            답변이 없습니다. 답변을 달아주세요
+          </div>
+        )}
+      </main>
+      <Pagination
+        page={page}
+        setPage={setPage}
+        totalPages={question.totalPages}
+      ></Pagination>
+    </>
   );
 };
 

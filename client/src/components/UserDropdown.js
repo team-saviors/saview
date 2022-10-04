@@ -39,9 +39,9 @@ const UserDropdown = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem>
-          <Link to={`/users/${getUserId()}`}>마이페이지</Link>
-        </MenuItem>
+        <Link to={`/users/${getUserId()}`}>
+          <MenuItem onClick={() => handleClose()}>마이페이지</MenuItem>
+        </Link>
         <MenuItem onClick={() => handleClick()}>로그아웃</MenuItem>
       </Menu>
     </>
