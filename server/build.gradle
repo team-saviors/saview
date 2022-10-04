@@ -31,8 +31,8 @@ dependencies {
 	implementation group: 'io.awspring.cloud', name: 'spring-cloud-starter-aws-parameter-store-config'
 	implementation 'org.jsoup:jsoup:1.15.3'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
-
-	implementation group: 'org.springframework', name: 'spring-context-support', version: '5.3.18'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
