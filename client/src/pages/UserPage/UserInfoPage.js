@@ -1,11 +1,9 @@
 import { Box, Button, Tabs, Tab } from '@mui/material';
-import LinkTab from '../../components/Tab/LinkTab';
 import UserPageAvatarWrapper from './UserPageAvatarWrapper';
 import styled from 'styled-components';
 import BasicTabs from '../../components/Tab/BasicTabs';
 import { useState, useEffect } from 'react';
 import AnswerComment from './AnswerComment';
-import ModifyUserPage from './ModifyUserPage';
 import {
   getAccessWithRefresh,
   getUsersActivity,
@@ -14,18 +12,9 @@ import Pagination from '../../components/Pagination';
 import { userStore } from '../../store/store';
 import { getAccessToken, getUserId } from '../../utils/cookies';
 import ProfileModal from './ProfileModal';
-import {
-  useParams,
-  Link,
-  Routes,
-  Route,
-  Outlet,
-  useNavigate,
-} from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 import AvatarWrapper from '../../components/AvatarWrapper';
-import UserInfoPage from './UserInfoPage';
-
-const UserPage = () => {
+const UserInfoPage = () => {
   const params = useParams();
   const [tab, setTab] = useState('answers');
   const [data, setData] = useState(null);
@@ -33,8 +22,7 @@ const UserPage = () => {
   const { getUser, profile, nickname } = userStore();
   const [openProfileModal, setOpenProfileModal] = useState(false);
   const [isHover, setIsHover] = useState(false);
-  const [menu, setMenu] = useState(0);
-  const navigate = useNavigate();
+  const [menu, setMenu] = useState('회원정보');
   useEffect(() => {
     const fetch = async () => {
       const data = await getUsersActivity(tab, getUserId(), page, 10);
@@ -58,73 +46,52 @@ const UserPage = () => {
   const handleCloseProfileModal = () => {
     setOpenProfileModal(false);
   };
-  const handleMenu = (e, newMenu) => {
-    setMenu(newMenu);
+  const handleMenu = (e) => {
+    console.log(e.target.value);
   };
 
   return (
     <>
       <UserPageContent>
-        {/* <NavBar
-          style={{
-            width: '300px',
-            height: '100%',
-            border: '1px solid gray',
-            marginRight: '20px',
-            flex: '0.5 1 150px',
-          }}
-        >
-          <li>
-            <Link to={`/users/${params.id}`}>
-              <ul
-                id="회원정보"
-                style={{ width: '150px', fontSize: '24px', margin: '20px 0' }}
-              >
-                {'회원정보'}
-              </ul>
-            </Link>
-            {getUserId() === params.id ? (
-              <Link to={`/users/${getUserId()}/modify`}>
-                <ul id="내 계정">{'내 계정'}</ul>
-              </Link>
-            ) : null}
-          </li>
-        </NavBar> */}
-        <Box sx={{ width: '150px' }}>
-          <Tabs
-            orientation="vertical"
-            value={menu}
-            onChange={handleMenu}
-            textColor="secondary"
-            indicatorColor="secondary"
-            aria-label="secondary tabs example"
-          >
-            <LinkTab
-              value={0}
-              label="회원 정보"
-              style={{ width: '150px' }}
-              href={`/users/${params.id}`}
-            />
-            <LinkTab
-              value={1}
-              label="내 계정"
-              // href={`/users/${getUserId()}/modify`}
-            />
-          </Tabs>
-        </Box>
-
-        <div
-          style={{
-            width: '1024px',
-            oveflow: 'hidden',
-            display: 'flex',
-            margin: '0',
-            padding: '0',
-          }}
-        >
-          <Outlet></Outlet>
-        </div>
-
+        <section style={{ flex: '0 1 1024px' }}>
+          <ProfileBox>
+            <div>
+              {params.id === getUserId() ? (
+                <UserPageAvatarWrapper
+                  src={profile}
+                  size="100px"
+                  onMouseOver={() => handleMouseOver()}
+                  onMouseOut={() => handleMouseOut()}
+                  isHover={isHover}
+                  handleClick={handleClick}
+                />
+              ) : (
+                <AvatarWrapper src={profile} size="100px"></AvatarWrapper>
+              )}
+            </div>
+            <UserNickname>{nickname}</UserNickname>
+          </ProfileBox>
+          <TabWrapper>
+            <BasicTabs setTab={setTab}></BasicTabs>
+          </TabWrapper>
+          <AnswerCommentWrapper>
+            {data?.data?.myPosts?.data?.length > 0 ? (
+              data.data.myPosts.data.map((mypost) => (
+                <AnswerComment mypost={mypost} key={mypost.createdAt} />
+              ))
+            ) : (
+              <div>작성글이 없습니다</div>
+            )}
+            <AnswerComment></AnswerComment>
+          </AnswerCommentWrapper>
+          {data?.data?.myPosts && (
+            <Pagination
+              page={page}
+              setPage={setPage}
+              totalPages={data.data.myPosts.pageInfo.totalPages}
+            ></Pagination>
+          )}
+        </section>
         <ProfileModal
           open={openProfileModal}
           handleClose={handleCloseProfileModal}
@@ -169,10 +136,10 @@ const UserPageContent = styled(Box)`
   display: flex;
   width: 1024px;
   flex-direction: row;
-  margin: 0 auto;
 `;
 const NavBar = styled(Box)`
   width: 500px;
   height: 300px;
 `;
-export default UserPage;
+
+export default UserInfoPage;

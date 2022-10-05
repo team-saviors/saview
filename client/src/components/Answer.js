@@ -8,7 +8,7 @@ import MessageIcon from '@mui/icons-material/Message';
 import { ISOHandler } from '../utils/timeHandler';
 import { getUserId } from '../utils/cookies';
 import { deleteAnswer, updateAnswerVotes } from '../utils/axiosRequest';
-import { answerStore } from '../store/store';
+import { answerStore, userStore } from '../store/store';
 import AlertDialog from './AlertDialog';
 import { useParams } from 'react-router-dom';
 import AnswerEditModal from './AnswerEditModal';
@@ -34,6 +34,7 @@ export default function Answer(props) {
   const { comments, content, createdAt, modifiedAt, user, votes, answerId } =
     props.answer;
   const { question, getQuestion } = answerStore();
+  const { profile } = userStore();
   const [open, setOpen] = useState(false);
   const handleClose = async (e) => {
     if (e.target.value === '삭제') {
@@ -76,7 +77,7 @@ export default function Answer(props) {
         </span>
         {props.answer.user.userId === Number(getUserId()) ? (
           <>
-            <DeletelBtn onClick={handleClick}>삭제 하기</DeletelBtn>
+            <DeletelBtn onClick={() => handleClick()}>삭제 하기</DeletelBtn>
             <AnswerEditModal
               sort={props.sort}
               page={props.page}
@@ -118,7 +119,10 @@ export default function Answer(props) {
                 alignItems: 'center',
               }}
             >
-              <AvatarWrapper src={user.profile}></AvatarWrapper>
+              <AvatarWrapper
+                src={comment.user.profile}
+                size="40px"
+              ></AvatarWrapper>
               <Typography
                 variant="body2"
                 color="black"

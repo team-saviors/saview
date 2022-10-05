@@ -45,7 +45,6 @@ const PostPage = () => {
         >
           <MenuItem value="votes">추천순</MenuItem>
           <MenuItem value="createdAt">최신순</MenuItem>
-          {/* <MenuItem value="answers">댓글순</MenuItem> */}
         </Select>
         {question?.answers?.data?.length > 0 ? (
           question.answers.data.map((answer) => (

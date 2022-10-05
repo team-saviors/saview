@@ -42,7 +42,6 @@ const Mainpage = () => {
         >
           <MenuItem value="views">조회순</MenuItem>
           <MenuItem value="createdAt">최신순</MenuItem>
-          <MenuItem value="answers">댓글순</MenuItem>
         </Select>
         <Main>
           <QuestionCards
