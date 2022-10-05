@@ -10,6 +10,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import server.exception.BusinessLogicException;
+import server.exception.ExceptionCode;
 import server.jwt.oauth.PrincipalDetails;
 import server.user.dto.TokenResponseDto;
 import server.user.entity.User;
@@ -46,8 +48,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         } catch (IOException e) {
             e.printStackTrace();
+            throw new BusinessLogicException(ExceptionCode.USER_NOT_FOUND);
         }
-        return null;
     }
 
     @Override
