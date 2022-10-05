@@ -40,7 +40,7 @@ const UserPageAvatarWrapper = ({
         <div
           style={{
             position: 'absolute',
-            top: '20  0px',
+            top: '200px',
             color: 'black',
             pointerEvents: 'none',
             width: '80px',
