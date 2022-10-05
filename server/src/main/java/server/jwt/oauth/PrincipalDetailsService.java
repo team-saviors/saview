@@ -5,6 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import server.exception.BusinessLogicException;
+import server.exception.ExceptionCode;
 import server.user.entity.User;
 import server.user.repository.UserRepository;
 
@@ -17,6 +19,9 @@ public class PrincipalDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User userEntity = userRepository.findByEmail(email);
+        if (userEntity == null) {
+            throw new BusinessLogicException(ExceptionCode.USER_NOT_FOUND);
+        }
         return new PrincipalDetails(userEntity);
     }
 }

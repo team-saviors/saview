@@ -13,9 +13,11 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.filter.CorsFilter;
 import server.jwt.filter.JwtAuthenticationFilter;
 import server.jwt.filter.JwtAuthorizationFilter;
+import server.jwt.handler.UserAuthenticationFailureHandler;
 import server.user.repository.RefreshTokenRepository;
 import server.user.repository.UserRepository;
 import server.user.service.UserService;
+
 
 @Configuration
 @EnableWebSecurity
@@ -63,9 +65,13 @@ public class SecurityConfig {
         @Override
         public void configure(HttpSecurity builder) {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
+
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, userService, refreshTokenRepository);
+            jwtAuthenticationFilter.setAuthenticationFailureHandler(new UserAuthenticationFailureHandler());
+
             builder
                     .addFilter(corsFilter)
-                    .addFilter(new JwtAuthenticationFilter(authenticationManager, userService, refreshTokenRepository))
+                    .addFilter(jwtAuthenticationFilter)
                     .addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository));
         }
     }
