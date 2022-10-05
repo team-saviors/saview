@@ -1,5 +1,5 @@
 import { Box, Button, Tabs, Tab } from '@mui/material';
-import LinkTab from '../../components/Tab/LinkTab';
+
 import UserPageAvatarWrapper from './UserPageAvatarWrapper';
 import styled from 'styled-components';
 import BasicTabs from '../../components/Tab/BasicTabs';
@@ -24,6 +24,7 @@ import {
 } from 'react-router-dom';
 import AvatarWrapper from '../../components/AvatarWrapper';
 import UserInfoPage from './UserInfoPage';
+import UserTab from '../../components/Tab/UserTab';
 
 const UserPage = () => {
   const params = useParams();
@@ -65,60 +66,16 @@ const UserPage = () => {
   return (
     <>
       <UserPageContent>
-        {/* <NavBar
-          style={{
-            width: '300px',
-            height: '100%',
-            border: '1px solid gray',
-            marginRight: '20px',
-            flex: '0.5 1 150px',
-          }}
-        >
-          <li>
-            <Link to={`/users/${params.id}`}>
-              <ul
-                id="회원정보"
-                style={{ width: '150px', fontSize: '24px', margin: '20px 0' }}
-              >
-                {'회원정보'}
-              </ul>
-            </Link>
-            {getUserId() === params.id ? (
-              <Link to={`/users/${getUserId()}/modify`}>
-                <ul id="내 계정">{'내 계정'}</ul>
-              </Link>
-            ) : null}
-          </li>
-        </NavBar> */}
         <Box sx={{ width: '150px' }}>
-          <Tabs
-            orientation="vertical"
-            value={menu}
-            onChange={handleMenu}
-            textColor="secondary"
-            indicatorColor="secondary"
-            aria-label="secondary tabs example"
-          >
-            <LinkTab
-              value={0}
-              label="회원 정보"
-              style={{ width: '150px' }}
-              href={`/users/${params.id}`}
-            />
-            <LinkTab
-              value={1}
-              label="내 계정"
-              // href={`/users/${getUserId()}/modify`}
-            />
-          </Tabs>
+          <UserTab setMenu={setMenu}></UserTab>
         </Box>
 
         <div
           style={{
             width: '1024px',
-            oveflow: 'hidden',
+
             display: 'flex',
-            margin: '0',
+            marginLeft: '20px',
             padding: '0',
           }}
         >
