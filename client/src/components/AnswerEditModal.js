@@ -42,7 +42,7 @@ const AnswerEditModal = ({ answer, page, sort }) => {
   const onError = () => {};
   return (
     <AnswerContainer>
-      <EditModalBtn onClick={handleOpen}>수정 하기</EditModalBtn>
+      <EditModalBtn onClick={handleOpen}>수정하기</EditModalBtn>
       <Modal
         open={open}
         onClose={handleClose}
