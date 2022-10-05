@@ -16,7 +16,7 @@ public enum ExceptionCode {
     COMMENT_NOT_FOUND(404, "COMMENT NOT FOUND"),
     INVALID_SORT_PARAMETER(400, "INVALID SORT PARAMETER"),
     DUPLICATE_VOTE(400, "DUPLICATE VOTE"),
-    UNAUTHORIZED_USER(403, "유효하지 않은 유저정보입니다.");
+    UNAUTHORIZED_USER(401, "유효하지 않은 유저정보입니다.");
 
 
     @Getter
