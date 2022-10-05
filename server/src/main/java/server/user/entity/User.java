@@ -48,7 +48,7 @@ public class User extends Auditable {
     @OneToMany(mappedBy = "user")
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
     private Badge badge;
 
     public enum UserStatus {
