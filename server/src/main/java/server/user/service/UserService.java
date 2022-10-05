@@ -106,4 +106,11 @@ public class UserService {
         if (user.isPresent())
             throw new BusinessLogicException(ExceptionCode.DUPLICATE_NICKNAME);
     }
+
+    public void SetTempPassword(String email,
+                               String tempPassword) {
+        User user = findVerifiedUserByEmail(email);
+        user.setPassword(bCryptPasswordEncoder.encode(tempPassword));
+        userRepository.save(user);
+    }
 }
