@@ -18,6 +18,9 @@ public interface UserMapper {
         userResponseDto.setNickname(user.getNickname());
         userResponseDto.setProfile(user.getProfile());
         userResponseDto.setStatus(user.getUserStatus().getStatus());
+        userResponseDto.setScore(user.getBadge().getScore());
+        userResponseDto.setLevel(user.getBadge().getLevel());
+        userResponseDto.setBadgeImg(user.getBadge().getBadgeImg());
 
         return userResponseDto;
     }

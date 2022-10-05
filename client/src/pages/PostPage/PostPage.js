@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import Answer from '../components/Answer';
-import { answerStore } from '../store/store';
+import Answer from './Answer';
+import { answerStore } from '../../store/store';
 import { useParams } from 'react-router-dom';
-import AnswerModal from '../components/AnswerModal';
+import AnswerModal from '../../components/AnswerModal';
 import styled from 'styled-components';
 import { Box, Select, MenuItem } from '@mui/material';
-import Pagination from '../components/Pagination';
+import Pagination from '../../components/Pagination';
 const PostPage = () => {
   const params = useParams();
   const [page, setPage] = useState(1);
@@ -39,7 +39,12 @@ const PostPage = () => {
           <h2>질문 : {question.content}</h2>
         </AnswerHeader>
         <Select
-          style={{ position: 'relative', right: '525px', width: '100px' }}
+          style={{
+            position: 'relative',
+            right: '550px',
+            width: '100px',
+            marginBottom: '20px',
+          }}
           onChange={handleChange}
           defaultValue="createdAt"
         >
@@ -74,7 +79,7 @@ const AnswerHeader = styled(Box)`
   padding: 0;
   width: 100%;
   margin-top: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
