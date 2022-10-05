@@ -23,7 +23,15 @@ const Tagbox = ({
     setSubCategory(id);
   };
   const FEStacks = ['JavaScript', 'React', 'TypeScript', 'Vue', 'NodeJS'];
-  const BEStacks = ['Java', 'Spring', 'Express', 'MySQL', 'MongoDB'];
+  const BEStacks = [
+    'Java',
+    'Spring',
+    'Express',
+    'MySQL',
+    'MongoDB',
+    'Python',
+    'JPA',
+  ];
   const CS = ['운영체제', '자료구조', '알고리즘', '네트워크', '디자인패턴'];
   return (
     <TagboxWrapper>
