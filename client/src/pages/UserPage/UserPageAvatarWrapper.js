@@ -18,8 +18,6 @@ const UserPageAvatarWrapper = ({
             ? {
                 width: size,
                 height: size,
-                marginRight: '10px',
-                marginTop: '15px',
                 cursor: 'pointer',
                 filter: 'brightness(50%)',
                 borderRadius: '100px',
@@ -28,7 +26,6 @@ const UserPageAvatarWrapper = ({
                 width: size,
                 height: size,
                 cursor: 'pointer',
-                marginRight: '10px',
                 filter: 'brightness(100%)',
                 borderRadius: '100px',
               }
@@ -42,11 +39,11 @@ const UserPageAvatarWrapper = ({
       {isHover && (
         <div
           style={{
-            position: 'relative',
-            bottom: `160px`,
-            left: `120px`,
-            color: 'white',
+            position: 'absolute',
+            top: '20  0px',
+            color: 'black',
             pointerEvents: 'none',
+            width: '80px',
           }}
         >
           {'이미지 변경'}

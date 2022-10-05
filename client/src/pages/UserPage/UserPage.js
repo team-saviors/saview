@@ -32,7 +32,6 @@ const UserPage = () => {
   const [data, setData] = useState(null);
   const [page, setPage] = useState(1);
   const { getUser, profile, nickname } = userStore();
-  const [openProfileModal, setOpenProfileModal] = useState(false);
   const [isHover, setIsHover] = useState(false);
   const [menu, setMenu] = useState(0);
   const navigate = useNavigate();
@@ -53,12 +52,6 @@ const UserPage = () => {
   const handleMouseOut = () => {
     setIsHover(false);
   };
-  const handleClick = (e) => {
-    setOpenProfileModal(true);
-  };
-  const handleCloseProfileModal = () => {
-    setOpenProfileModal(false);
-  };
   const handleMenu = (e, newMenu) => {
     setMenu(newMenu);
   };
@@ -73,7 +66,6 @@ const UserPage = () => {
         <div
           style={{
             width: '1024px',
-
             display: 'flex',
             marginLeft: '20px',
             padding: '0',
@@ -81,11 +73,6 @@ const UserPage = () => {
         >
           <Outlet></Outlet>
         </div>
-
-        <ProfileModal
-          open={openProfileModal}
-          handleClose={handleCloseProfileModal}
-        ></ProfileModal>
       </UserPageContent>
     </>
   );

@@ -20,7 +20,7 @@ const UserInfoPage = () => {
   const [data, setData] = useState(null);
   const [page, setPage] = useState(1);
   const { getUser, profile, nickname } = userStore();
-  const [openProfileModal, setOpenProfileModal] = useState(false);
+
   const [isHover, setIsHover] = useState(false);
   const [menu, setMenu] = useState('회원정보');
   useEffect(() => {
@@ -40,12 +40,7 @@ const UserInfoPage = () => {
   const handleMouseOut = () => {
     setIsHover(false);
   };
-  const handleClick = (e) => {
-    setOpenProfileModal(true);
-  };
-  const handleCloseProfileModal = () => {
-    setOpenProfileModal(false);
-  };
+
   const handleMenu = (e) => {
     console.log(e.target.value);
   };
@@ -57,14 +52,7 @@ const UserInfoPage = () => {
           <ProfileBox>
             <div>
               {params.id === getUserId() ? (
-                <UserPageAvatarWrapper
-                  src={profile}
-                  size="100px"
-                  onMouseOver={() => handleMouseOver()}
-                  onMouseOut={() => handleMouseOut()}
-                  isHover={isHover}
-                  handleClick={handleClick}
-                />
+                <UserPageAvatarWrapper src={profile} size="100px" />
               ) : (
                 <AvatarWrapper src={profile} size="100px"></AvatarWrapper>
               )}
@@ -92,10 +80,6 @@ const UserInfoPage = () => {
             ></Pagination>
           )}
         </section>
-        <ProfileModal
-          open={openProfileModal}
-          handleClose={handleCloseProfileModal}
-        ></ProfileModal>
       </UserPageContent>
     </>
   );
