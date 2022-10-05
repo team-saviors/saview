@@ -20,8 +20,8 @@ public class CrawlingScheduler {
 
     private final RecruitRepository recruitRepository;
 
-    @Scheduled(fixedDelay = 1000 * 10)
-//    @Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul")   // 매일 자정
+//    @Scheduled(fixedDelay = 1000 * 10)
+    @Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul")   // 매일 자정
     public void process() throws InterruptedException {
         System.out.println("기존 구직 데이터 자동 갱신 준비중입니다..");
         System.out.println("Preparing to automatically renew existing job search data..\n");
