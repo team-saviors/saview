@@ -33,14 +33,16 @@ export default function UserTab({ setMenu }) {
           >
             회원정보
           </Tab>
-          <Tab
-            component={Link}
-            onClick={handleClick}
-            active={active === '내 계정'}
-            id="내 계정"
-          >
-            내 계정
-          </Tab>
+          {params.id === getUserId() ? (
+            <Tab
+              component={Link}
+              onClick={handleClick}
+              active={active === '내 계정'}
+              id="내 계정"
+            >
+              내 계정
+            </Tab>
+          ) : null}
         </Tabs>
       </Box>
     </Box>

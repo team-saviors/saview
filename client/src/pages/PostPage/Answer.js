@@ -5,19 +5,11 @@ import ThumbUpAlt from '@mui/icons-material/ThumbUpOffAlt';
 import { TextField, Button, CardContent, Typography } from '@mui/material';
 import AvatarWrapper from '../../components/AvatarWrapper';
 import MessageIcon from '@mui/icons-material/Message';
-<<<<<<< HEAD:client/src/components/Answer.js
-import { ISOHandler } from '../utils/timeHandler';
-import { getUserId } from '../utils/cookies';
-import { deleteAnswer, updateAnswerVotes } from '../utils/axiosRequest';
-import { answerStore, userStore } from '../store/store';
-import AlertDialog from './AlertDialog';
-=======
 import { ISOHandler } from '../../utils/timeHandler';
 import { getUserId } from '../../utils/cookies';
 import { deleteAnswer, updateAnswerVotes } from '../../utils/axiosRequest';
 import { answerStore } from '../../store/store';
 import AlertDialog from '../../components/AlertDialog';
->>>>>>> dev:client/src/pages/PostPage/Answer.js
 import { useParams } from 'react-router-dom';
 import AnswerEditModal from '../../components/AnswerEditModal';
 import styled from 'styled-components';
@@ -42,7 +34,7 @@ export default function Answer(props) {
   const commentError = () => {};
 
   const { question, getQuestion } = answerStore();
-  const { profile } = userStore();
+
   const [open, setOpen] = useState(false);
   const [selectedComment, setSelectedComment] = useState(undefined);
   const handleClose = async (e) => {
@@ -98,11 +90,7 @@ export default function Answer(props) {
         </span>
         {props.answer.user.userId === Number(getUserId()) ? (
           <>
-<<<<<<< HEAD:client/src/components/Answer.js
-            <DeletelBtn onClick={() => handleClick()}>삭제 하기</DeletelBtn>
-=======
             <DeletelBtn onClick={handleClick}>삭제하기</DeletelBtn>
->>>>>>> dev:client/src/pages/PostPage/Answer.js
             <AnswerEditModal
               sort={props.sort}
               page={props.page}
@@ -147,23 +135,6 @@ export default function Answer(props) {
                 textAlign: 'center',
               }}
             >
-<<<<<<< HEAD:client/src/components/Answer.js
-              <AvatarWrapper
-                src={comment.user.profile}
-                size="40px"
-              ></AvatarWrapper>
-              <Typography
-                variant="body2"
-                color="black"
-                style={{ maxWidth: '950px' }}
-              >
-                {comment.content}
-              </Typography>
-              <Typography variant="body2" color="gray">
-                &nbsp;&nbsp; {comment.user.nickname} &nbsp;&nbsp;
-                {ISOHandler(comment.createdAt)}
-              </Typography>
-=======
               <CommentWrapper>
                 <CommentUser>
                   <AvatarWrapper src={user.profile}></AvatarWrapper>
@@ -204,7 +175,6 @@ export default function Answer(props) {
                   />
                 ) : null}
               </CommentWrapper>
->>>>>>> dev:client/src/pages/PostPage/Answer.js
             </CardContent>
           ))
         : null}

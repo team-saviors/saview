@@ -15,6 +15,7 @@ function App() {
   }, []);
   return (
     <>
+      <Header></Header>
       <Routes>
         <Route path="/" element={<Mainpage />}></Route>
         <Route path="/questions/:id" element={<PostPage />}></Route>
