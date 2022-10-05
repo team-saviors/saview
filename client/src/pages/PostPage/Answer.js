@@ -64,7 +64,6 @@ export default function Answer(props) {
     await setSelectedComment(Id);
   };
 
-  // const editOpenHandler = () => {};
   return (
     <Container
       style={{
@@ -149,7 +148,7 @@ export default function Answer(props) {
                     &nbsp;&nbsp; {comment.user.nickname} &nbsp;&nbsp;
                     {ISOHandler(comment.createdAt)}
                   </Typography>
-                  {props.answer.user.userId === Number(getUserId()) ? (
+                  {comment.user.userId === Number(getUserId()) ? (
                     <>
                       <DeleteCommentBtn
                         onClick={() => hanleDelComment(comment.commentId)}
