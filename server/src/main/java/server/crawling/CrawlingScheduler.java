@@ -20,11 +20,25 @@ public class CrawlingScheduler {
 
     private final RecruitRepository recruitRepository;
 
-//    @Scheduled(fixedDelay = 1000 * 10)
-    @Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul")   // 매일 자정
-    public void process() {
+    @Scheduled(fixedDelay = 1000 * 10)
+//    @Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul")   // 매일 자정
+    public void process() throws InterruptedException {
+        System.out.println("기존 구직 데이터 자동 갱신 준비중입니다..");
+        System.out.println("Preparing to automatically renew existing job search data..\n");
+        Thread.sleep(2000);
+        System.out.println("데이터베이스 정리중...");
+        System.out.println("Cleaning up database...\n");
+        Thread.sleep(3000);
         recruitRepository.deleteAll();
+        System.out.println("연결 성공!");
+        System.out.println("Successful connection!");
+        System.out.println("카테고리 관련 구직 데이터 검색을 시작합니다..\n");
+        System.out.println("Start searching for category-related job search data");
+        Thread.sleep(2000);
         for (String cate : categoryList) {
+            System.out.println("'" + cate + "'" + " 관련 검색중...");
+            System.out.println("'" + cate + "'" + " Searching for related...\n");
+            Thread.sleep(1000);
             String url = "https://www.jobkorea.co.kr/Search/?stext=";
             Connection conn = Jsoup.connect(url + cate);
 
@@ -35,7 +49,9 @@ public class CrawlingScheduler {
                 throw new RuntimeException(e);
             }
             saveDataList(document, cate);
+            System.out.println("\n검색 및 저장이 완료되었습니다.\n");
         }
+        System.out.println("모든 카테고리 관련 구직 데이터 자동 검색이 완료되었습니다!");
     }
 
     private void saveDataList(Document document, String cate) {
