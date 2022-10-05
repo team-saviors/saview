@@ -4,35 +4,27 @@ import AvatarWrapper from '../AvatarWrapper';
 import CategoryTabs from './CategoryTabs';
 import { useState, useEffect } from 'react';
 import { questionStore } from '../../store/store';
-const Tagbox = ({
-  tab,
-  setTab,
-  setActive,
-  setMainCategory,
-  setSubCategory,
-  page,
-  setPage,
-}) => {
+const FEStacks = ['JavaScript', 'React', 'TypeScript', 'Vue', 'NodeJS'];
+const BEStacks = [
+  'Java',
+  'Spring',
+  'Express',
+  'MySQL',
+  'MongoDB',
+  'Python',
+  'JPA',
+];
+const CS = ['운영체제', '자료구조', '알고리즘', '네트워크', '디자인패턴'];
+
+const Tagbox = ({ tab, setTab, setSubCategory, page, setPage }) => {
   const { getQuestions } = questionStore();
   const imgUrl = (stack) => {
     return `https://saview-dev.s3.ap-northeast-2.amazonaws.com/techStack/${stack}.png`;
   };
 
-  const handleClick = async (e) => {
-    const id = e.currentTarget.id;
-    setSubCategory(id);
+  const handleClick = (stack) => {
+    setSubCategory(stack);
   };
-  const FEStacks = ['JavaScript', 'React', 'TypeScript', 'Vue', 'NodeJS'];
-  const BEStacks = [
-    'Java',
-    'Spring',
-    'Express',
-    'MySQL',
-    'MongoDB',
-    'Python',
-    'JPA',
-  ];
-  const CS = ['운영체제', '자료구조', '알고리즘', '네트워크', '디자인패턴'];
   return (
     <TagboxWrapper>
       <CategoryTabs
@@ -53,8 +45,7 @@ const Tagbox = ({
                       src={imgUrl(stack.toLowerCase())}
                     ></AvatarWrapper>
                   }
-                  onClick={handleClick}
-                  id={stack}
+                  onClick={() => handleClick(stack)}
                   key={stack}
                 >
                   {stack}
@@ -63,7 +54,7 @@ const Tagbox = ({
             })}
             {CS.map((stack) => {
               return (
-                <TagButton onClick={handleClick} id={stack} key={stack}>
+                <TagButton onClick={handleClick} key={stack}>
                   {stack}
                 </TagButton>
               );
@@ -81,7 +72,6 @@ const Tagbox = ({
                     ></AvatarWrapper>
                   }
                   onClick={handleClick}
-                  id={stack}
                   key={stack}
                 >
                   {stack}
@@ -101,7 +91,6 @@ const Tagbox = ({
                     ></AvatarWrapper>
                   }
                   onClick={handleClick}
-                  id={stack}
                   key={stack}
                 >
                   {stack}
@@ -113,7 +102,7 @@ const Tagbox = ({
           <>
             {CS.map((stack) => {
               return (
-                <TagButton onClick={handleClick} id={stack} key={stack}>
+                <TagButton onClick={handleClick} key={stack}>
                   {stack}
                 </TagButton>
               );

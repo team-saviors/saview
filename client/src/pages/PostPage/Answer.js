@@ -47,7 +47,6 @@ export default function Answer(props) {
   const handleClick = () => {
     setOpen(true);
   };
-
   const handleClickVotes = async (answerId, votes) => {
     await updateAnswerVotes(answerId, votes);
     await getQuestion(params.id, props.page, props.sort);

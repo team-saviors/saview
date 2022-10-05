@@ -33,7 +33,7 @@ const UserPage = () => {
   const [page, setPage] = useState(1);
   const { getUser, profile, nickname } = userStore();
   const [isHover, setIsHover] = useState(false);
-  const [menu, setMenu] = useState(0);
+  const [menu, setMenu] = useState('회원정보');
   const navigate = useNavigate();
   useEffect(() => {
     const fetch = async () => {
@@ -60,7 +60,7 @@ const UserPage = () => {
     <>
       <UserPageContent>
         <Box sx={{ width: '150px' }}>
-          <UserTab setMenu={setMenu}></UserTab>
+          <UserTab menu={menu} setMenu={setMenu}></UserTab>
         </Box>
 
         <div

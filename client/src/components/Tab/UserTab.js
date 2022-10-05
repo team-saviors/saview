@@ -3,10 +3,11 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { getUserId } from '../../utils/cookies';
-export default function UserTab({ setMenu }) {
+export default function UserTab({ menu, setMenu }) {
   const navigate = useNavigate();
   const params = useParams();
   const [active, setActive] = useState('회원정보');
+
   const handleClick = (e) => {
     if (e.target.id !== active) {
       setActive(e.target.id);
@@ -26,18 +27,14 @@ export default function UserTab({ setMenu }) {
     >
       <Box>
         <Tabs>
-          <Tab
-            onClick={handleClick}
-            active={active === '회원정보'}
-            id="회원정보"
-          >
+          <Tab onClick={handleClick} active={menu === '회원정보'} id="회원정보">
             회원정보
           </Tab>
           {params.id === getUserId() ? (
             <Tab
               component={Link}
               onClick={handleClick}
-              active={active === '내 계정'}
+              active={menu === '내 계정'}
               id="내 계정"
             >
               내 계정

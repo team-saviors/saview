@@ -20,9 +20,9 @@ function App() {
         <Route path="/" element={<Mainpage />}></Route>
         <Route path="/questions/:id" element={<PostPage />}></Route>
         <Route path="/questionpost" element={<QuestionPostPage />}></Route>
-        <Route path="/users/:id" element={<UserPage />}>
-          <Route path="/users/:id" element={<UserInfoPage />}></Route>
-          <Route path="/users/:id/modify" element={<ModifyUserPage />}></Route>
+        <Route path="/users/:id/" element={<UserPage />}>
+          <Route index element={<UserInfoPage />}></Route>
+          <Route path="modify" element={<ModifyUserPage />}></Route>
         </Route>
       </Routes>
     </>
