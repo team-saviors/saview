@@ -11,7 +11,6 @@ import {
 import Pagination from '../../components/Pagination';
 import { userStore } from '../../store/store';
 import { getAccessToken, getUserId } from '../../utils/cookies';
-import ProfileModal from './ProfileModal';
 import { useParams, NavLink } from 'react-router-dom';
 import AvatarWrapper from '../../components/AvatarWrapper';
 const UserInfoPage = () => {
