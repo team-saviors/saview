@@ -1,10 +1,10 @@
 import Avatar from '@mui/material/Avatar';
-const AvatarWrapper = (props, size = 30) => {
+const AvatarWrapper = ({ src, size }) => {
   return (
     <Avatar
-      src={props.src}
-      sx={{ width: props.size, height: props.size }}
-      style={{ marginRight: '10px' }}
+      src={src}
+      sx={{ width: size, height: size }}
+      style={{ marginRight: '10px', cursor: 'pointer' }}
     ></Avatar>
   );
 };
