@@ -1,26 +1,29 @@
-# 프론트엔드 배포 링크
-http://www.saview.link
+<div align="center">
+<img width="500" src="https://user-images.githubusercontent.com/49425719/194027997-cc2a1883-4255-4371-a51c-0d1485d1a125.png">
 
-### [사용자 요구사항 정의서](https://www.notion.so/a7fc745ca44549bb9b2bfad37859b1b2?v=8a223d0deea34e50bdf9836590647479)
-### [화면 정의서](https://www.figma.com/file/a2C8W3M1Wl6W41HB8ulK1j/saview?node-id=0%3A1)
+다양한 개발자의 면접 질답 공유
+
+</div>
 
 
-# 팀원
-팀원
 
-박인후 | 박진혁  | 김경륜 | 김성연
--- | -- | -- | --
-[Inhoob](https://github.com/Inhoob)  | [pjhyeok](https://github.com/pjhyeok)	  | 	[klkim1913](https://github.com/klkim1913)  | [yeonkkk](https://github.com/yeonkkk)
+## 👏 소개
 
-# Skills
 
-### Front-end
 
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"/> <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=black"/> ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
-  
-### Back-end
+## 🤝 팀원
 
-<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white) <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+| [박인후](https://github.com/Inhoob) | [박진혁](https://github.com/pjhyeok) | [김경륜](https://github.com/klkim1913) | [김성연](https://github.com/yeonkkk) |
+|:----------:|:----------:|:----------:|:----------:|
+|[<img src="https://user-images.githubusercontent.com/49425719/194019917-956d8ed3-7b71-46b8-b187-4a6ee4d5c0d6.png" alt="박인후">](https://github.com/Inhoob)|[<img src="https://user-images.githubusercontent.com/49425719/194020506-52da5061-aa4b-44d0-af48-d939f4b7778f.png" alt="박진혁">](https://github.com/pjhyeok)|[<img src="https://user-images.githubusercontent.com/49425719/194020734-022048c2-6a38-4fee-8190-6668af047202.png" alt="김경륜">](https://github.com/klkim1913)|[<img src="https://user-images.githubusercontent.com/49425719/194020864-565cedc0-be5e-45dd-b2a0-4d6002e10609.png" alt="김성연">](https://github.com/yeonkkk)|
+|    FE    |    FE    |    BE    |    BE    |
 
-## Figma
+
+
+
+## 🛠 기술 스택
+
+![기술스택](https://user-images.githubusercontent.com/102350319/194264373-947e2c59-fed0-43ea-9bb1-16a03165bc31.png)
+
+## ⚙️ 인프라
+
