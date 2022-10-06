@@ -41,7 +41,7 @@ const UserPageAvatarWrapper = ({
           style={{
             position: 'absolute',
             top: '200px',
-            color: 'black',
+            color: 'white',
             pointerEvents: 'none',
             width: '80px',
           }}
