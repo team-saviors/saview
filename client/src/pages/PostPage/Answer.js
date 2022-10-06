@@ -34,6 +34,7 @@ export default function Answer(props) {
   const commentError = () => {};
 
   const { question, getQuestion } = answerStore();
+
   const [open, setOpen] = useState(false);
   const [selectedComment, setSelectedComment] = useState(undefined);
   const handleClose = async (e) => {
@@ -46,7 +47,6 @@ export default function Answer(props) {
   const handleClick = () => {
     setOpen(true);
   };
-
   const handleClickVotes = async (answerId, votes) => {
     await updateAnswerVotes(answerId, votes);
     await getQuestion(params.id, props.page, props.sort);
