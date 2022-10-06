@@ -14,6 +14,7 @@ http://www.saview.link
 
 # Skills
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5ba3b3c0-e5df-4b87-9f10-c1b6cd8973f6/Untitled.png)
+![기술스택](https://user-images.githubusercontent.com/102350319/194264373-947e2c59-fed0-43ea-9bb1-16a03165bc31.png)
+
 
 ## Figma
