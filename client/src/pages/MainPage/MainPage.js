@@ -8,6 +8,7 @@ import Carousel from '../../components/Carousel';
 import Tagbox from '../../components/Tab/Tagbox';
 import { questionStore } from '../../store/store';
 import { Pages } from '@mui/icons-material';
+import SearchForm from '../../components/SearchForm';
 
 const Mainpage = () => {
   const [tab, setTab] = useState(0);
@@ -44,6 +45,7 @@ const Mainpage = () => {
           <MenuItem value="createdAt">최신순</MenuItem>
           <MenuItem value="answers">댓글순</MenuItem>
         </Select>
+        <SearchForm></SearchForm>
         <Main>
           <QuestionCards
             tab={tab}
