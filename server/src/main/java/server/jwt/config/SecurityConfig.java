@@ -47,6 +47,8 @@ public class SecurityConfig {
 //                .antMatchers("/refresh").permitAll()
                 .antMatchers("/**/answers", "/**/comments")
                 .access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+                .antMatchers("/**/votes")
+                .access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .antMatchers(HttpMethod.POST, "/questions")
                 .access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .antMatchers(HttpMethod.PUT, "/questions/*")
