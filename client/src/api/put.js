@@ -2,7 +2,7 @@ import axiosInstance from '../utils/useAxiosPrivate';
 
 export async function putAnswer(data) {
   try {
-    const res = axiosInstance.put(`/answers/${data.answerId}`, {
+    await axiosInstance.put(`/answers/${data.answerId}`, {
       content: data.content,
     });
     alert('답변이 수정되었습니다.');
@@ -12,7 +12,7 @@ export async function putAnswer(data) {
 }
 export async function putComment(data) {
   try {
-    const res = axiosInstance.put(`/comments/${data.commentId}`, {
+    await axiosInstance.put(`/comments/${data.commentId}`, {
       content: data.content,
     });
     alert('댓글이 수정되었습니다.');
