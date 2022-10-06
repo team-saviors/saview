@@ -34,6 +34,7 @@ export default function Answer(props) {
   const commentError = () => {};
 
   const { question, getQuestion } = answerStore();
+
   const [open, setOpen] = useState(false);
   const [selectedComment, setSelectedComment] = useState(undefined);
   const handleClose = async (e) => {
@@ -46,7 +47,6 @@ export default function Answer(props) {
   const handleClick = () => {
     setOpen(true);
   };
-
   const handleClickVotes = async (answerId, votes) => {
     await updateAnswerVotes(answerId, votes);
     await getQuestion(params.id, props.page, props.sort);
@@ -101,14 +101,19 @@ export default function Answer(props) {
       <Paper
         style={{
           padding: '20px',
-          minHeight: '300px',
+          // minHeight: '300px',
           position: 'relative',
           lineHeight: '25px',
+          display: 'flex',
+          flexDirection: 'column',
         }}
         elevation={3}
       >
         <div>{content}</div>
-        <div style={{ position: 'absolute', bottom: '15px' }}>
+        <div
+          style={{ position: 'relative', top: '25px', marginBottom: '20px' }}
+        >
+          {/* <div> */}
           <Button
             variant="outlined"
             onClick={() => handleClickVotes(answerId, votes)}

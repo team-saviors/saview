@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -68,7 +69,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             response.setCharacterEncoding("utf-8");
-            new ObjectMapper().writeValue(response.getOutputStream(), e.getMessage());
+            ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.BAD_REQUEST);
+            new ObjectMapper().writeValue(response.getOutputStream(), errorResponse);
         }
 //        super.doFilterInternal(request, response, chain);
     }

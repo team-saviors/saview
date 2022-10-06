@@ -16,7 +16,7 @@ export async function postSignUp(data) {
     const res = await axiosInstance.post('/users', data);
     alert('회원가입이 완료되었습니다!');
   } catch (err) {
-    alert('회원가입이 실패했습니다');
+    alert(err.response.data.message);
   }
 }
 export async function postSignIn(data) {
@@ -27,7 +27,7 @@ export async function postSignIn(data) {
     setUserId(res.data.userId);
     alert('로그인이 성공했습니다');
   } catch (err) {
-    alert(err);
+    alert(err.response.data.message);
   }
 }
 
@@ -36,7 +36,7 @@ export async function postQuestion(data) {
     const res = await axiosInstance.post('/questions', data);
     alert('질문이 등록되었습니다.');
   } catch (err) {
-    console.log(err);
+    alert(err.response.data.message);
   }
 }
 
@@ -76,7 +76,7 @@ export async function postLogout() {
     removeUserId();
     alert('로그아웃 되었습니다');
   } catch (err) {
-    console.log(err);
+    alert(err.response.data.message);
   }
 }
 
@@ -92,7 +92,7 @@ export async function deleteAnswer(answerId) {
     const res = await axiosInstance.delete(`/answers/${answerId}`);
     alert('삭제되었습니다');
   } catch (err) {
-    console.log(err);
+    alert(err.response.data.message);
   }
 }
 
@@ -102,19 +102,27 @@ export async function updateAnswerVotes(answerId, votes) {
       votes: votes + 1,
     });
   } catch (err) {
-    alert('이미 추천을눌렀습니다');
+    alert(err.response.data.message);
+    console.log(err.response);
+  }
+}
+
+export async function modifyUser(nickname, profile) {
+  try {
+    const res = await axiosInstance.put('/users/modify', {
+      profile: profile,
+      nickname: nickname,
+    });
+  } catch (err) {
     console.log(err);
   }
 }
 
-export async function updateVotes(answerId, votes) {
+export async function modifyPassword(data) {
   try {
-    const res = await axiosInstance.put(`/answers/${answerId}/votes`, {
-      votes: votes + 1,
-    });
-    location.reload();
+    const res = await axiosInstance.put('/users/password', data);
+    alert('비밀번호 변경이 완료되었습니다!');
   } catch (err) {
-    alert('이미 추천을눌렀습니다');
-    console.log(err);
+    alert('기존의 비밀번호를 확인해주세요');
   }
 }
