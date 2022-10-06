@@ -101,14 +101,19 @@ export default function Answer(props) {
       <Paper
         style={{
           padding: '20px',
-          minHeight: '300px',
+          // minHeight: '300px',
           position: 'relative',
           lineHeight: '25px',
+          display: 'flex',
+          flexDirection: 'column',
         }}
         elevation={3}
       >
         <div>{content}</div>
-        <div style={{ position: 'absolute', bottom: '15px' }}>
+        <div
+          style={{ position: 'relative', top: '25px', marginBottom: '20px' }}
+        >
+          {/* <div> */}
           <Button
             variant="outlined"
             onClick={() => handleClickVotes(answerId, votes)}
