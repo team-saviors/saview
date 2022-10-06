@@ -178,9 +178,10 @@ const ModifyUserPage = () => {
           style={{
             borderLeft: '1px solid #e5e7eb',
             width: '400px',
-            height: '600px',
+            height: '450px',
             display: 'flex',
             justifyContent: 'center',
+            alignItems: 'center',
             paddingTop: '20px',
           }}
         >
@@ -211,7 +212,7 @@ const ProfileBox = styled(Box)`
   display: flex;
   flex-direction: row;
   width: 1024px;
-  height: 600px;
+  height: 450px;
   justify-content: space-between;
   border: 1px solid #e5e7eb;
   padding: 0px;

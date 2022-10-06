@@ -13,12 +13,17 @@ import { modifyUser } from '../../utils/axiosRequest';
 import { userStore } from '../../store/store';
 import S3 from 'react-aws-s3';
 import { v4 as uuidv4 } from 'uuid';
+import Slider from '@mui/material/Slider';
+import { getUserId } from '../../utils/cookies';
 window.Buffer = window.Buffer || require('buffer').Buffer;
 const ProfileModal = ({ open, handleClose }) => {
   const [previewImage, setPreviewImage] = useState('');
   const [fileData, setFileData] = useState({});
-  const { nickname } = userStore();
-
+  const { nickname, getUser } = userStore();
+  const [croppedImage, setCroppedImage] = useState('');
+  const avatarEditorRef = useRef(null);
+  const [blob, setBlob] = useState('');
+  const [ImageSize, setImageSize] = useState(20);
   const config = {
     bucketName: 'saview-dev',
     region: 'ap-northeast-2',
@@ -44,17 +49,31 @@ const ProfileModal = ({ open, handleClose }) => {
     }
   }, []);
 
+  const handleCropImage = useCallback(() => {
+    avatarEditorRef.current.getImageScaledToCanvas().toBlob((blob) => {
+      const imageUrl = URL.createObjectURL(blob);
+      setCroppedImage(imageUrl);
+      setBlob(blob);
+    });
+  }, []);
+
   const handleSubmit = async () => {
-    const data = await ReactS3Client.uploadFile(fileData, uuidv4());
-
+    const data = await ReactS3Client.uploadFile(blob, uuidv4());
     await modifyUser(nickname, data.location);
-
     handleClose();
+    setPreviewImage('');
+    setCroppedImage('');
+    setImageSize(20);
+    getUser(getUserId());
+  };
+  const handleChangeSize = (event, newValue) => {
+    setImageSize(newValue);
   };
 
   const closeModal = useCallback(() => {
     handleClose();
     setPreviewImage('');
+    setCroppedImage('');
   }, [handleClose]);
 
   return (
@@ -70,12 +89,37 @@ const ProfileModal = ({ open, handleClose }) => {
             }}
             label="변경할 프로필 이미지 선택"
           />
+          {previewImage && (
+            <div>
+              <span>zoom</span>
+              <Slider
+                defaultValue={ImageSize}
+                value={ImageSize}
+                valueLabelDisplay="auto"
+                onChange={handleChangeSize}
+              />
+            </div>
+          )}
+
           <div style={{ display: 'flex', alignItems: 'center' }}>
             {previewImage && (
+              <AvatarEditor
+                ref={avatarEditorRef}
+                image={previewImage}
+                width={100}
+                height={100}
+                border={20}
+                scale={ImageSize / 20}
+                style={{ display: 'inline' }}
+              />
+            )}
+            {croppedImage && (
               <img
-                src={previewImage}
-                alt={previewImage}
-                style={{ width: '100px', height: '100px' }}
+                alt="cropped"
+                style={{ marginLeft: '50px' }}
+                width={100}
+                height={100}
+                src={croppedImage}
               />
             )}
           </div>
@@ -83,7 +127,8 @@ const ProfileModal = ({ open, handleClose }) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={closeModal}>취소</Button>
-        <Button onClick={handleSubmit}>확인</Button>
+        {previewImage && <Button onClick={handleCropImage}>이미지 Crop</Button>}
+        {croppedImage && <Button onClick={handleSubmit}>확인</Button>}
       </DialogActions>
     </Dialog>
   );

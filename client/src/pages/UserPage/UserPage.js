@@ -13,7 +13,6 @@ import {
 import Pagination from '../../components/Pagination';
 import { userStore } from '../../store/store';
 import { getAccessToken, getUserId } from '../../utils/cookies';
-import ProfileModal from './ProfileModal';
 import {
   useParams,
   Link,
