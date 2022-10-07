@@ -50,7 +50,6 @@ const QuestionCards = ({
               <QuestionCard
                 key={question.questionId}
                 question={question}
-                setSubCategory={setSubCategory}
               ></QuestionCard>
             ))
           : null}
