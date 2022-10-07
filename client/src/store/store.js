@@ -27,6 +27,17 @@ export const questionStore = create((set) => ({
       },
     }));
   },
+  getQuestionsBySearch: async (searchPage, data, sort) => {
+    const res = await axiosInstance.get(
+      `/questions/search?page=${searchPage}&size=9&keyword=${data}&sort=${sort}`
+    );
+    set((state) => ({
+      questions: {
+        data: [...res.data.data],
+        totalPages: res.data.pageInfo.totalPages,
+      },
+    }));
+  },
 }));
 
 export const answerStore = create((set, get) => ({

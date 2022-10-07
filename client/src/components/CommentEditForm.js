@@ -1,7 +1,7 @@
 import { CardContent, TextField } from '@mui/material';
 import MessageIcon from '@mui/icons-material/Message';
 import { useForm } from 'react-hook-form';
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import styled from 'styled-components';
 import { putComment } from '../api/put';
 import { answerStore } from '../store/store';
@@ -26,6 +26,9 @@ const CommentEditForm = ({
       return result;
     }, [result]),
   });
+  useEffect(() => {
+    reset(result);
+  }, [result]);
   const { question, getQuestion } = answerStore();
   const commentEditSubmit = async (data) => {
     await putComment(data);
