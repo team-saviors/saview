@@ -26,6 +26,7 @@ const Mainpage = () => {
     e.preventDefault();
     setSort(e.target.value);
   };
+  console.log(subCategory);
   return (
     <>
       <MainWrapper>

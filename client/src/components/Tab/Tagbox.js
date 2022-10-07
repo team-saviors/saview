@@ -82,7 +82,7 @@ const Tagbox = ({
                       src={imgUrl(stack.toLowerCase())}
                     ></AvatarWrapper>
                   }
-                  onClick={handleClick}
+                  onClick={() => handleClick(stack)}
                   key={stack}
                 >
                   {stack}
@@ -101,7 +101,7 @@ const Tagbox = ({
                       src={imgUrl(stack.toLowerCase())}
                     ></AvatarWrapper>
                   }
-                  onClick={handleClick}
+                  onClick={() => handleClick(stack)}
                   key={stack}
                 >
                   {stack}
@@ -113,7 +113,7 @@ const Tagbox = ({
           <>
             {CS.map((stack) => {
               return (
-                <TagButton onClick={handleClick} key={stack}>
+                <TagButton onClick={() => handleClick(stack)} key={stack}>
                   {stack}
                 </TagButton>
               );
