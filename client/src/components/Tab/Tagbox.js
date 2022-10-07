@@ -16,7 +16,15 @@ const BEStacks = [
 ];
 const CS = ['운영체제', '자료구조', '알고리즘', '네트워크', '디자인패턴'];
 
-const Tagbox = ({ tab, setTab, setSubCategory, page, setPage }) => {
+const Tagbox = ({
+  setData,
+  setOnSearch,
+  tab,
+  setTab,
+  setSubCategory,
+  page,
+  setPage,
+}) => {
   const { getQuestions } = questionStore();
   const imgUrl = (stack) => {
     return `https://saview-dev.s3.ap-northeast-2.amazonaws.com/techStack/${stack}.png`;
@@ -25,9 +33,12 @@ const Tagbox = ({ tab, setTab, setSubCategory, page, setPage }) => {
   const handleClick = (stack) => {
     setSubCategory(stack);
   };
+
   return (
     <TagboxWrapper>
       <CategoryTabs
+        setData={setData}
+        setOnSearch={setOnSearch}
         setTab={setTab}
         getQuestions={getQuestions}
         page={page}
@@ -54,7 +65,7 @@ const Tagbox = ({ tab, setTab, setSubCategory, page, setPage }) => {
             })}
             {CS.map((stack) => {
               return (
-                <TagButton onClick={handleClick} key={stack}>
+                <TagButton onClick={() => handleClick(stack)} key={stack}>
                   {stack}
                 </TagButton>
               );

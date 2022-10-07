@@ -9,6 +9,7 @@ import Tagbox from '../../components/Tab/Tagbox';
 import { questionStore } from '../../store/store';
 import { Pages } from '@mui/icons-material';
 import SearchForm from '../../components/SearchForm';
+import SearchedQuestionCards from './SearchedQuestionCards';
 
 const Mainpage = () => {
   const [tab, setTab] = useState(0);
@@ -17,8 +18,12 @@ const Mainpage = () => {
   const [subCategory, setSubCategory] = useState('all');
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState('views');
+  const [searchPage, setSearchPage] = useState(1);
+  const [data, setData] = useState('');
+  const [onSearch, setOnSearch] = useState(false);
   const { questions } = questionStore();
   const handleChange = (e) => {
+    e.preventDefault();
     setSort(e.target.value);
   };
   return (
@@ -34,6 +39,8 @@ const Mainpage = () => {
           page={page}
           mainCategory={mainCategory}
           subCategory={subCategory}
+          setOnSearch={setOnSearch}
+          setData={setData}
         ></Tagbox>
         <Select
           style={{ position: 'relative', left: '10px', width: '100px' }}
@@ -43,18 +50,31 @@ const Mainpage = () => {
           <MenuItem value="views">조회순</MenuItem>
           <MenuItem value="createdAt">최신순</MenuItem>
         </Select>
-        <SearchForm></SearchForm>
+        <SearchForm
+          sort={sort}
+          searchPage={searchPage}
+          setData={setData}
+          setOnSearch={setOnSearch}
+        ></SearchForm>
         <Main>
-          <QuestionCards
-            tab={tab}
-            page={page}
-            setPage={setPage}
-            mainCategory={mainCategory}
-            subCategory={subCategory}
-            setMainCategory={setMainCategory}
-            setSubCategory={setSubCategory}
-            sort={sort}
-          />
+          {onSearch === false ? (
+            <QuestionCards
+              tab={tab}
+              page={page}
+              setPage={setPage}
+              mainCategory={mainCategory}
+              subCategory={subCategory}
+              setMainCategory={setMainCategory}
+              setSubCategory={setSubCategory}
+              sort={sort}
+            />
+          ) : (
+            <SearchedQuestionCards
+              sort={sort}
+              data={data}
+              searchPage={searchPage}
+            />
+          )}
         </Main>
         <Pagination
           page={page}
