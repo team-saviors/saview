@@ -24,6 +24,9 @@ const AnswerEditModal = ({ answer, page, sort }) => {
       return answer;
     }, [answer]),
   });
+  useEffect(() => {
+    reset(answer);
+  }, [answer]);
   const { question, getQuestion } = answerStore();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -36,7 +39,7 @@ const AnswerEditModal = ({ answer, page, sort }) => {
   const navigate = useNavigate();
   const onSubmit = async (data) => {
     await putAnswer(data);
-    await handleClose();
+    handleClose();
     await getQuestion(params.id, page, sort);
   };
   const onError = () => {};

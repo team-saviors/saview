@@ -50,9 +50,12 @@ export async function getAccessWithRefresh() {
     setAccessToken(res.headers.authorization);
     return res.headers.authorization;
   } catch (err) {
+    console.log(err);
     if (
-      err?.response?.status === 401 &&
-      err?.response?.data?.message === 'REFRESH TOKEN EXPIRED'
+      (err?.response?.status === 401 &&
+        err?.response?.data?.message === 'REFRESH TOKEN EXPIRED') ||
+      (err?.response?.status === 400 &&
+        err?.response?.data?.message === 'INVALID REFRESH TOKEN')
     ) {
       return postLogout();
     }
