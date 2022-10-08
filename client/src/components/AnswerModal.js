@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useForm } from 'react-hook-form';
-import { postAnswer } from '../api/post';
+import { postAnswer } from '../api/Answer';
 import { useNavigate, useParams } from 'react-router-dom';
 import BasicButton from '../components/BasicButton';
 import { Button, IconButton } from '@mui/material';
