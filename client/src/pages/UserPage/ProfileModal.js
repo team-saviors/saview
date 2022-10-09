@@ -7,7 +7,7 @@ import {
   Stack,
   Button,
 } from '@mui/material';
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import { modifyUser } from '../../api/User';
 import { userStore } from '../../store/store';
