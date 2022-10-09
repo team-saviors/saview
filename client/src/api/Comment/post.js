@@ -1,4 +1,4 @@
-import axiosInstance from '../utils/useAxiosPrivate';
+import axiosInstance from '../../utils/axiosInstance';
 
 export async function postComment(answerId, data) {
   try {

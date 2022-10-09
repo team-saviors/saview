@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import AvatarEditor from 'react-avatar-editor';
-import { modifyUser } from '../../utils/axiosRequest';
+import { modifyUser } from '../../api/User';
 import { userStore } from '../../store/store';
 import S3 from 'react-aws-s3';
 import { v4 as uuidv4 } from 'uuid';

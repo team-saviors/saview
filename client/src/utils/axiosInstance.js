@@ -1,5 +1,5 @@
 import { getAccessToken, getRefreshToken } from './cookies';
-import { getAccessWithRefresh } from './axiosRequest';
+import { getAccessWithRefresh } from '../api/User';
 import axios from 'axios';
 
 const axiosInstance = axios.create({
