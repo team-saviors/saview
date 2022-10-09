@@ -41,7 +41,7 @@ const QuestionCards = ({
   useEffect(() => {
     getQuestions(page, mainCategory, subCategory, sort);
   }, [page, mainCategory, subCategory, sort]);
-  console.log(subCategory);
+
   return (
     <>
       <CardWrapper>

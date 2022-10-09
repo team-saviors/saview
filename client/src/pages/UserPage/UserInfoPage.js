@@ -37,10 +37,6 @@ const UserInfoPage = () => {
     setIsHover(false);
   };
 
-  const handleMenu = (e) => {
-    console.log(e.target.value);
-  };
-
   return (
     <>
       <UserPageContent>
