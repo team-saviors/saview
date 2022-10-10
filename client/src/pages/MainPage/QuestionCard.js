@@ -20,7 +20,6 @@ const QuestionCard = (props) => {
           left: '10px',
           top: '10px',
           borderRadius: '20px',
-          fontFamily: 'Jua',
         }}
       >
         {subCategory}
