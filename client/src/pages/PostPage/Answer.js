@@ -7,15 +7,14 @@ import AvatarWrapper from '../../components/AvatarWrapper';
 import MessageIcon from '@mui/icons-material/Message';
 import { ISOHandler } from '../../utils/timeHandler';
 import { getUserId } from '../../utils/cookies';
-import { deleteAnswer, updateAnswerVotes } from '../../utils/axiosRequest';
+import { deleteAnswer, updateAnswerVotes } from '../../api/Answer';
 import { answerStore } from '../../store/store';
 import AlertDialog from '../../components/AlertDialog';
 import { useParams } from 'react-router-dom';
 import AnswerEditModal from '../../components/AnswerEditModal';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { postComment } from '../../api/post';
-import { deleteComment } from '../../api/delete';
+import { postComment, deleteComment } from '../../api/Comment';
 import CommentEditForm from '../../components/CommentEditForm';
 
 export default function Answer(props) {

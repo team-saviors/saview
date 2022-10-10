@@ -6,7 +6,7 @@ import ProfileModal from './ProfileModal';
 import { useState, useEffect } from 'react';
 import UserPageAvatarWrapper from './UserPageAvatarWrapper';
 import CreateIcon from '@mui/icons-material/Create';
-import { modifyPassword, modifyUser } from '../../utils/axiosRequest';
+import { modifyPassword, modifyUser } from '../../api/User';
 import { useForm } from 'react-hook-form';
 const style = {
   border: '1px solid #D9E4EC',

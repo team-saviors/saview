@@ -2,7 +2,7 @@ import { AccountCircle } from '@mui/icons-material';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { postLogout } from '../utils/axiosRequest';
+import { postLogout } from '../api/User';
 import { loginStore } from '../store/store';
 import { getUserId } from '../utils/cookies';
 const UserDropdown = () => {

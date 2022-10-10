@@ -12,7 +12,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import { FcGoogle } from 'react-icons/fc';
 import { GitHub } from '@mui/icons-material';
-import { postSignIn } from '../utils/axiosRequest';
+import { postSignIn } from '../api/User';
 import { loginStore } from '../store/store';
 import { createNextState } from '@reduxjs/toolkit';
 import { getUserId } from '../utils/cookies';

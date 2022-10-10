@@ -4,10 +4,7 @@ import styled from 'styled-components';
 import BasicTabs from '../../components/Tab/BasicTabs';
 import { useState, useEffect } from 'react';
 import AnswerComment from './AnswerComment';
-import {
-  getAccessWithRefresh,
-  getUsersActivity,
-} from '../../utils/axiosRequest';
+import { getAccessWithRefresh, getUsersActivity } from '../../api/User';
 import Pagination from '../../components/Pagination';
 import { userStore } from '../../store/store';
 import { getAccessToken, getUserId } from '../../utils/cookies';
