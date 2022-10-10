@@ -50,7 +50,6 @@ const Tagbox = ({
             {[...FEStacks, ...BEStacks].map((stack) => {
               return (
                 <TagButton
-                  variant="outlined"
                   startIcon={
                     <AvatarWrapper
                       src={imgUrl(stack.toLowerCase())}
@@ -76,7 +75,6 @@ const Tagbox = ({
             {FEStacks.map((stack) => {
               return (
                 <TagButton
-                  variant="outlined"
                   startIcon={
                     <AvatarWrapper
                       src={imgUrl(stack.toLowerCase())}
@@ -95,7 +93,6 @@ const Tagbox = ({
             {BEStacks.map((stack) => {
               return (
                 <TagButton
-                  variant="outlined"
                   startIcon={
                     <AvatarWrapper
                       src={imgUrl(stack.toLowerCase())}
@@ -146,8 +143,6 @@ const TagboxWrapper = styled.section`
 const TagButtons = styled.section`
   width: 1200px;
   margin-top: 20px;
-  /* display: flex; */
-  /* flex-direction: column; */
 `;
 const TagButton = styled(Button)`
   border-radius: 50px;
@@ -159,6 +154,7 @@ const TagButton = styled(Button)`
   font-size: 16px;
   padding: 20px;
   font-family: 'Noto Sans KR', sans-serif;
+  box-shadow: rgb(0 0 0 / 15%) 0px 2px 6px;
 `;
 
 export default Tagbox;
