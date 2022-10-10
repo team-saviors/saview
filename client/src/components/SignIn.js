@@ -14,9 +14,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { GitHub } from '@mui/icons-material';
 import { postSignIn } from '../api/User';
 import { loginStore } from '../store/store';
-import { createNextState } from '@reduxjs/toolkit';
 import { getUserId } from '../utils/cookies';
-import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme();
 const style = {
@@ -27,12 +25,10 @@ const style = {
   margin: '40px',
 };
 export default function SignIn({ onClose }) {
-  const navigate = useNavigate();
-  const { isLogin, loginHandler, setUserId } = loginStore();
+  const { loginHandler, setUserId } = loginStore();
   const {
     register,
     handleSubmit,
-    getValues,
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {

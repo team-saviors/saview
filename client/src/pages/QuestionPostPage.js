@@ -12,9 +12,9 @@ const QuestionPostPage = () => {
     const res = await postQuestion(questions, handleReset);
     if (res?.response?.status === 403) {
       openModal();
-    } else {
-      return;
     }
+    alert('질문 작성이 완료되었습니다');
+    navigate('/');
   };
   return (
     <section>
