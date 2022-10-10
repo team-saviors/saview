@@ -147,11 +147,15 @@ export default function Answer(props) {
                   <Typography
                     variant="body2"
                     color="black"
-                    style={{ maxWidth: '950px' }}
+                    style={{ maxWidth: '950px', fontFamily: 'Jua' }}
                   >
                     {comment.content}
                   </Typography>
-                  <Typography variant="body2" color="gray">
+                  <Typography
+                    variant="body2"
+                    color="gray"
+                    style={{ fontFamily: 'Jua', fontWeight: '100' }}
+                  >
                     &nbsp;&nbsp; {comment.user.nickname} &nbsp;&nbsp;
                     {ISOHandler(comment.createdAt)}
                   </Typography>
@@ -248,8 +252,6 @@ const CommentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  /* align-items: center; */
-  /* justify-content: center; */
 `;
 const CommentUser = styled.div`
   display: flex;

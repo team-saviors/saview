@@ -158,6 +158,7 @@ const TagButton = styled(Button)`
   height: 60px;
   font-size: 16px;
   padding: 20px;
+  font-family: 'Noto Sans KR', sans-serif;
 `;
 
 export default Tagbox;
