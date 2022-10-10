@@ -3,7 +3,7 @@ import MessageIcon from '@mui/icons-material/Message';
 import { useForm } from 'react-hook-form';
 import { useMemo, useEffect } from 'react';
 import styled from 'styled-components';
-import { putComment } from '../api/put';
+import { putComment } from '../api/Comment';
 import { answerStore } from '../store/store';
 import { useParams } from 'react-router-dom';
 const CommentEditForm = ({

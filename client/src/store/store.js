@@ -1,6 +1,6 @@
 import create from 'zustand';
 import { getRefreshToken, getUserId } from '../utils/cookies';
-import axiosInstance from '../utils/useAxiosPrivate';
+import axiosInstance from '../utils/axiosInstance';
 export const countStore = create((set) => ({
   count: 0,
   increase() {

@@ -1,7 +1,7 @@
 import { useStore } from 'zustand';
 import QuestionInfoSelect from '../components/QuestionInfoSelect';
 import { questionRegisterStore } from '../store/store';
-import { postQuestion } from '../utils/axiosRequest';
+import { postQuestion } from '../api/Question';
 
 const QuestionPostPage = () => {
   const navigate = useNavigate();
