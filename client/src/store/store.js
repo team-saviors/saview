@@ -88,6 +88,11 @@ export const questionRegisterStore = create((set) => ({
       questions: { ...state.questions, subCategory: e.target.value },
     }));
   },
+  reset() {
+    set((state) => ({
+      questions: { mainCategory: '', subCategory: '', content: '' },
+    }));
+  },
 }));
 
 export const loginStore = create((set) => ({

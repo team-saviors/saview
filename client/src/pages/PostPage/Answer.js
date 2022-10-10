@@ -55,7 +55,6 @@ export default function Answer(props) {
     if (res?.response?.status === 403) {
       openModal();
     }
-    alert('댓글 작성이 완료되었습니다');
     await getQuestion(params.id, props.page, props.sort);
     reset();
   };
