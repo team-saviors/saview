@@ -26,7 +26,7 @@ const style = {
   flexDirection: 'column',
   margin: '40px',
 };
-export default function SignIn({ handleClose }) {
+export default function SignIn({ onClose }) {
   const navigate = useNavigate();
   const { isLogin, loginHandler, setUserId } = loginStore();
   const {
@@ -42,7 +42,7 @@ export default function SignIn({ handleClose }) {
     }
     setUserId(getUserId());
     loginHandler();
-    handleClose();
+    onClose();
     navigate('/');
   };
   const onError = (error) => {

@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { IconButton } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { postAnswer, putAnswer } from '../api/Answer';
+import { putAnswer } from '../api/Answer';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState, useMemo } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';

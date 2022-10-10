@@ -9,7 +9,7 @@ const QuestionPostPage = () => {
     questionRegisterStore();
   const questionPostHandler = async () => {
     const res = await postQuestion(questions, handleReset);
-    if (res?.response?.status >= 400) {
+    if (res?.response?.status === 403) {
       return;
     }
     navigate('/');
