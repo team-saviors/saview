@@ -1,18 +1,20 @@
 import { useStore } from 'zustand';
 import QuestionInfoSelect from '../components/QuestionInfoSelect';
-import { questionRegisterStore } from '../store/store';
+import { questionRegisterStore, signInModalStore } from '../store/store';
 import { postQuestion } from '../api/Question';
 
 const QuestionPostPage = () => {
   const navigate = useNavigate();
   const { questions, handleContentChange, handleReset } =
     questionRegisterStore();
+  const { openModal } = signInModalStore();
   const questionPostHandler = async () => {
     const res = await postQuestion(questions, handleReset);
     if (res?.response?.status === 403) {
+      openModal();
+    } else {
       return;
     }
-    navigate('/');
   };
   return (
     <section>

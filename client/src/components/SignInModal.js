@@ -32,7 +32,7 @@ function SignInModal() {
     closeModal();
     setOpenSignIn(true);
   };
-  console.log(open);
+
   return (
     <div>
       <Modal open={open} onClose={handleClose}>

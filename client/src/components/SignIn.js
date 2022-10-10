@@ -43,7 +43,6 @@ export default function SignIn({ onClose }) {
     setUserId(getUserId());
     loginHandler();
     onClose();
-    navigate('/');
   };
   const onError = (error) => {
     console.log(error);
