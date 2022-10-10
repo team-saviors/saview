@@ -4,6 +4,6 @@ export async function postQuestion(data) {
     const res = await axiosInstance.post('/questions', data);
     alert('질문이 등록되었습니다.');
   } catch (err) {
-    alert(err.response.data.message);
+    return err;
   }
 }

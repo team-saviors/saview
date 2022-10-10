@@ -37,7 +37,7 @@ export default function SignIn({ handleClose }) {
   } = useForm();
   const onSubmit = async (data) => {
     const res = await postSignIn(data);
-    if (res?.response?.status > 400) {
+    if (res?.response?.status >= 400) {
       return;
     }
     setUserId(getUserId());
