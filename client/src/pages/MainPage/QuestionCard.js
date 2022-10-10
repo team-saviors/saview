@@ -48,5 +48,11 @@ const CardItem = styled(Card)`
   position: relative;
   border-radius: 20px;
   cursor: pointer;
+  padding: 20px;
+  box-shadow: rgb(0 0 0 / 15%) 0px 8px 24px;
+  transition: all 150ms ease-in-out;
+  &:hover {
+    transform: scale(1.02);
+  }
 `;
 export default QuestionCard;

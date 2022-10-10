@@ -56,5 +56,5 @@ const Tab = styled.span`
     color: black;
   }
   font-size: 26px;
-  font-weight: 700;
+  font-weight: 500;
 `;

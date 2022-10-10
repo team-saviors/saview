@@ -86,6 +86,20 @@ const Loginbox = styled(Box)`
 const QuestionPostBtn = styled(Button)`
   font-size: 1.125rem;
   font-weight: 600;
+  font-family: inherit;
+  color: black;
+  &:hover {
+    background-color: transparent;
+    box-shadow: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+`;
+
+const LoginButton = styled(Button)`
+  font-size: 1.125rem;
+  font-weight: 600;
   color: black;
   &:hover {
     background-color: transparent;
