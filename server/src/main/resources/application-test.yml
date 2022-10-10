@@ -18,22 +18,6 @@ spring:
         format_sql: true
         highlight_sql: true
 #        use_sql_comments: true
-  mail:
-    host: smtp.gmail.com # SMTP 서버 호스트
-    port: 587 # SMTP 서버 포트
-    username: ${mail.username} # SMTP 서버 로그인 아이디 (발신자)
-    password: ${mail.password} # SMTP 서버 로그인 패스워드 (앱 비밀번호)
-    properties:
-      mail:
-        smtp:
-          auth: true # 사용자 인증 시도 여부 (기본값 : false)
-          timeout: 5000 # Socket Read Timeout 시간(ms) (기본값 : 무한대)
-          starttls:
-            enable: true # StartTLS 활성화 여부 (기본값 : false)
-logging.level:
-  org.hibernate:
-    SQL: debug
-    type: trace
 
 server:
   port: 443
