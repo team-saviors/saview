@@ -18,7 +18,7 @@ const SearchForm = ({ setOnSearch, setData, searchPage, sort }) => {
     e.preventDefault();
     setKeyword(e.target.value);
   };
-  console.log(keyword);
+
   return (
     <SearchInputBox>
       <Form onSubmit={searchSubmit}>

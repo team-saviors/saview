@@ -10,12 +10,12 @@ const BEStacks = [
   'Spring',
   'Express',
   'MySQL',
-  'MongoDB',
   'Python',
   'JPA',
+  'Database',
 ];
 const CS = ['운영체제', '자료구조', '알고리즘', '네트워크', '디자인패턴'];
-
+const 기타 = ['트러블 슈팅', 'DEVOPS', '테스트', '컨테이너'];
 const Tagbox = ({
   setData,
   setOnSearch,
@@ -63,7 +63,7 @@ const Tagbox = ({
                 </TagButton>
               );
             })}
-            {CS.map((stack) => {
+            {[...CS, ...기타].map((stack) => {
               return (
                 <TagButton onClick={() => handleClick(stack)} key={stack}>
                   {stack}
@@ -112,6 +112,16 @@ const Tagbox = ({
         ) : tab === 3 ? (
           <>
             {CS.map((stack) => {
+              return (
+                <TagButton onClick={() => handleClick(stack)} key={stack}>
+                  {stack}
+                </TagButton>
+              );
+            })}
+          </>
+        ) : tab === 4 ? (
+          <>
+            {기타.map((stack) => {
               return (
                 <TagButton onClick={() => handleClick(stack)} key={stack}>
                   {stack}
