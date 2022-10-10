@@ -27,7 +27,6 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     if (error?.response?.data?.fieldErrors) {
       alert(error?.response?.data?.fieldErrors[0].reason);
-      return;
     }
     if (error?.response?.status === 403) {
       alert('로그인 해주세요.');

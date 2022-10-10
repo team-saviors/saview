@@ -8,7 +8,10 @@ const QuestionPostPage = () => {
   const { questions, handleContentChange, handleReset } =
     questionRegisterStore();
   const questionPostHandler = async () => {
-    await postQuestion(questions, handleReset);
+    const res = await postQuestion(questions, handleReset);
+    if (res?.response?.status >= 400) {
+      return;
+    }
     navigate('/');
   };
   return (
@@ -22,7 +25,7 @@ const QuestionPostPage = () => {
           onChange={handleContentChange}
           value={questions.content}
           fullWidth
-          label="질문 내용을 입력해주세요."
+          label="질문 내용을 입력하기 전 해당 질문이 있는지 검색해보세요"
           id="questionContent"
         />
         <Postbtnbox>
