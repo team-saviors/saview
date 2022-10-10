@@ -9,6 +9,7 @@ import { Button, IconButton } from '@mui/material';
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
+import { signInModalStore } from '../store/store';
 const AnswerModal = ({ getQuestion, question, sort, page }) => {
   const params = useParams();
   const {
@@ -18,7 +19,7 @@ const AnswerModal = ({ getQuestion, question, sort, page }) => {
     reset,
     formState: { errors },
   } = useForm();
-  // const params = useParams();
+  const { openModal } = signInModalStore();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -28,7 +29,11 @@ const AnswerModal = ({ getQuestion, question, sort, page }) => {
     navigate(`/questions/${question.questionId}`);
   };
   const onSubmit = async (data) => {
-    await postAnswer(question.questionId, data);
+    const res = await postAnswer(question.questionId, data);
+    if (res?.response?.status === 403) {
+      openModal();
+    }
+    alert('답변 작성이 완료되었습니다');
     await reset();
     await handleClose();
     await getQuestion(params.id, page, sort);

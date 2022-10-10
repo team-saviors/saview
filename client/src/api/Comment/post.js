@@ -3,9 +3,8 @@ import axiosInstance from '../../utils/axiosInstance';
 export async function postComment(answerId, data) {
   try {
     const res = await axiosInstance.post(`/answers/${answerId}/comments`, data);
-    alert('댓글이 등록되었습니다.');
+    return res;
   } catch (err) {
-    console.log(err);
-    alert(err);
+    return err;
   }
 }

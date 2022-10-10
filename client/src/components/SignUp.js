@@ -21,7 +21,7 @@ const style = {
 };
 const theme = createTheme();
 
-export default function SignUp({ handleClose }) {
+export default function SignUp({ onClose }) {
   const {
     register,
     handleSubmit,
@@ -34,7 +34,7 @@ export default function SignUp({ handleClose }) {
       return;
     }
     alert('회원가입이 완료되었습니다. 다시 로그인 해 주세요');
-    handleClose();
+    onClose();
   };
   const onError = (error) => {
     if (error.nickname) alert(error.nickname.message);
