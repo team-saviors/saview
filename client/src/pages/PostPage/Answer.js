@@ -8,7 +8,7 @@ import MessageIcon from '@mui/icons-material/Message';
 import { ISOHandler } from '../../utils/timeHandler';
 import { getUserId } from '../../utils/cookies';
 import { deleteAnswer, updateAnswerVotes } from '../../api/Answer';
-import { answerStore } from '../../store/store';
+import { answerStore, signInModalStore } from '../../store/store';
 import AlertDialog from '../../components/AlertDialog';
 import { useParams } from 'react-router-dom';
 import AnswerEditModal from '../../components/AnswerEditModal';
@@ -33,7 +33,7 @@ export default function Answer(props) {
   const commentError = () => {};
 
   const { question, getQuestion } = answerStore();
-
+  const { openModal } = signInModalStore();
   const [open, setOpen] = useState(false);
   const [selectedComment, setSelectedComment] = useState(undefined);
   const handleClose = async (e) => {
@@ -51,7 +51,11 @@ export default function Answer(props) {
     await getQuestion(params.id, props.page, props.sort);
   };
   const commentSubmit = async (data) => {
-    await postComment(answerId, data);
+    const res = await postComment(answerId, data);
+    if (res?.response?.status === 403) {
+      openModal();
+    }
+    alert('댓글 작성이 완료되었습니다');
     await getQuestion(params.id, props.page, props.sort);
     reset();
   };

@@ -1,17 +1,19 @@
 import { useStore } from 'zustand';
 import QuestionInfoSelect from '../components/QuestionInfoSelect';
-import { questionRegisterStore } from '../store/store';
+import { questionRegisterStore, signInModalStore } from '../store/store';
 import { postQuestion } from '../api/Question';
 
 const QuestionPostPage = () => {
   const navigate = useNavigate();
   const { questions, handleContentChange, handleReset } =
     questionRegisterStore();
+  const { openModal } = signInModalStore();
   const questionPostHandler = async () => {
     const res = await postQuestion(questions, handleReset);
-    if (res?.response?.status >= 400) {
-      return;
+    if (res?.response?.status === 403) {
+      openModal();
     }
+    alert('질문 작성이 완료되었습니다');
     navigate('/');
   };
   return (

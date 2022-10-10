@@ -121,3 +121,17 @@ export const userStore = create((set) => ({
     }));
   },
 }));
+
+export const signInModalStore = create((set) => ({
+  open: false,
+  openModal() {
+    set((state) => ({
+      open: true,
+    }));
+  },
+  closeModal() {
+    set((state) => ({
+      open: false,
+    }));
+  },
+}));
