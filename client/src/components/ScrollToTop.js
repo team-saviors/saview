@@ -7,7 +7,7 @@ const ScrollToTop = () => {
       <ArrowCircleUpIcon
         sx={{ fontSize: 50 }}
         onClick={handleClick}
-        style={{ position: 'fixed', bottom: '10px', right: '10px' }}
+        style={{ position: 'fixed', bottom: '20px', right: '20px' }}
       ></ArrowCircleUpIcon>
     </>
   );
