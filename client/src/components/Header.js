@@ -100,6 +100,7 @@ const QuestionPostBtn = styled(Button)`
 const LoginButton = styled(Button)`
   font-size: 1.125rem;
   font-weight: 600;
+
   color: black;
   &:hover {
     background-color: transparent;
@@ -109,5 +110,4 @@ const LoginButton = styled(Button)`
     appearance: none;
   }
 `;
-
 export default Header;
