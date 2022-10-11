@@ -5,16 +5,16 @@ import { postQuestion } from '../api/Question';
 
 const QuestionPostPage = () => {
   const navigate = useNavigate();
-  const { questions, handleContentChange, handleReset } =
-    questionRegisterStore();
+  const { questions, handleContentChange, reset } = questionRegisterStore();
   const { openModal } = signInModalStore();
   const questionPostHandler = async () => {
-    const res = await postQuestion(questions, handleReset);
+    const res = await postQuestion(questions);
     if (res?.response?.status === 403) {
       openModal();
     }
     alert('질문 작성이 완료되었습니다');
     navigate('/');
+    reset();
   };
   return (
     <section>
