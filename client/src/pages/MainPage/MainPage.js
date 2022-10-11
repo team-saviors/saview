@@ -90,7 +90,7 @@ export default Mainpage;
 const MainWrapper = styled.main`
   max-width: 1200px;
   width: 100%;
-  min-height: 60rem;
+  min-height: 40rem;
   padding: 10px;
   margin: 0;
   display: flex;
@@ -101,7 +101,7 @@ const MainWrapper = styled.main`
 const Main = styled.main`
   max-width: 1200px;
   width: 100%;
-  min-height: 60rem;
+  min-height: 40rem;
   padding: 10px;
   margin: 0;
   display: flex;
