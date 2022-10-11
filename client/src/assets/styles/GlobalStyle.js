@@ -7,14 +7,18 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
   :root {
-    font-family: -apple-system,"Noto Sans KR",sans-serif;
-    font-weight: 500;
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+    'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR',
+    'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    sans-serif;
+    font-weight: 400;
+    --toastify-toast-width: 400px;
+
   }
   h1, h2, h3, h4, h5, h6 {
     font-size: revert;
-    font-weight: 700;
+    /* font-weight: revert; */
   }
-
   html,
   body {
     height: 100%;

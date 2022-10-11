@@ -1,4 +1,4 @@
-import axiosInstance from '../../utils/axiosInstance';
+import axiosInstance from '../utils/useAxiosPrivate';
 
 export async function postAnswer(quesionId, data) {
   try {
@@ -6,8 +6,9 @@ export async function postAnswer(quesionId, data) {
       `/questions/${quesionId}/answers`,
       data
     );
-    return res;
+    alert('답변이 등록되었습니다.');
   } catch (err) {
-    return err;
+    console.log(err);
+    alert(err);
   }
 }

@@ -17,10 +17,8 @@ import server.exception.ExceptionCode;
 import server.question.entity.Question;
 import server.response.AnswerCommentUserResponseDto;
 import server.response.MultiResponseDto;
-import server.user.entity.Badge;
 import server.user.entity.User;
 import server.user.mapper.UserMapper;
-import server.user.repository.BadgeRepository;
 
 import java.util.List;
 
@@ -33,7 +31,6 @@ public class AnswerService {
     private final AnswerRepository answerRepository;
     private final AnswerMapper answerMapper;
     private final VoteRepository voteRepository;
-    private final BadgeRepository badgeRepository;
 
     public Long createdAnswer(Answer answer) {
         return answerRepository.save(answer).getAnswerId();
@@ -44,6 +41,11 @@ public class AnswerService {
         findAnswer.setContent(answer.getContent());
         answerRepository.save(findAnswer);
     }
+
+//    public void updateVotes(long answerId, int votes) {
+//        Answer answer = answerRepository.findById(answerId).orElseThrow(() -> new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
+//        answerRepository.updateVotes(votes, answerId);
+//    }
 
     public void deleteAnswer(long answerId) {
         Answer findAnswer = findVerifiedAnswer(answerId);
@@ -84,18 +86,5 @@ public class AnswerService {
         } else {
             throw new BusinessLogicException(ExceptionCode.DUPLICATE_VOTE);
         }
-    }
-
-    public void addAnswerScore(Badge badge) {
-        int score = badge.getScore();
-        badgeRepository.updateScore(score + 20, badge.getBadgeId());
-    }
-
-    public void addVotedScore(long answerId) {
-        User votedUser = answerRepository.findById(answerId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND)).getUser();
-
-        Badge badge = votedUser.getBadge();
-        badgeRepository.updateScore(badge.getScore() + 50, badge.getBadgeId());
     }
 }
