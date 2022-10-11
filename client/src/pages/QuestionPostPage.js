@@ -9,11 +9,13 @@ const QuestionPostPage = () => {
   const { openModal } = signInModalStore();
   const questionPostHandler = async () => {
     const res = await postQuestion(questions);
+    if (res?.response?.status === 201) {
+      alert('질문 작성이 완료되었습니다');
+      navigate('/');
+    }
     if (res?.response?.status === 403) {
       openModal();
     }
-    alert('질문 작성이 완료되었습니다');
-    navigate('/');
     reset();
   };
   return (

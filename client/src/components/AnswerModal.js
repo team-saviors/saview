@@ -30,12 +30,14 @@ const AnswerModal = ({ getQuestion, question, sort, page }) => {
   };
   const onSubmit = async (data) => {
     const res = await postAnswer(question.questionId, data);
+    if (res?.response?.status === 201) {
+      alert('답변 작성이 완료되었습니다');
+    }
     if (res?.response?.status === 403) {
       openModal();
     }
-    alert('답변 작성이 완료되었습니다');
-    await reset();
-    await handleClose();
+    reset();
+    handleClose();
     await getQuestion(params.id, page, sort);
   };
   const onError = () => {};
