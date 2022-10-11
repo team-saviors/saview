@@ -8,6 +8,7 @@ import UserPage from './pages/UserPage/UserPage';
 import { loginStore } from './store/store';
 import ModifyUserPage from './pages/UserPage/ModifyUserPage';
 import UserInfoPage from './pages/UserPage/UserInfoPage';
+import ScrollToTop from './components/ScrollToTop';
 function App() {
   const { loginHandler } = loginStore();
   useEffect(() => {
@@ -25,6 +26,7 @@ function App() {
           <Route path="modify" element={<ModifyUserPage />}></Route>
         </Route>
       </Routes>
+      <ScrollToTop></ScrollToTop>
     </>
   );
 }
