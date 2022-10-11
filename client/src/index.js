@@ -6,7 +6,7 @@ import App from './App';
 import GlobalStyle from './assets/styles/GlobalStyle';
 
 import { StyledEngineProvider } from '@mui/styled-engine';
-import ScrollToTop from './components/ScrollToTop';
+import ScrollToTop from './utils/ScrollToTop';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(

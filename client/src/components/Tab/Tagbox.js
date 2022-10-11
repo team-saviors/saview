@@ -1,8 +1,6 @@
-import { Button, Box, Avatar } from '@mui/material';
+import { Button } from '@mui/material';
 import styled from 'styled-components';
-import AvatarWrapper from '../AvatarWrapper';
 import CategoryTabs from './CategoryTabs';
-import { useState, useEffect } from 'react';
 import { questionStore } from '../../store/store';
 const FEStacks = ['JavaScript', 'React', 'TypeScript', 'Vue', 'NodeJS'];
 const BEStacks = [
@@ -40,29 +38,13 @@ const Tagbox = ({
         setData={setData}
         setOnSearch={setOnSearch}
         setTab={setTab}
-        getQuestions={getQuestions}
         page={page}
         setPage={setPage}
       ></CategoryTabs>
       <TagButtons>
         {tab === 0 ? (
           <>
-            {[...FEStacks, ...BEStacks].map((stack) => {
-              return (
-                <TagButton
-                  startIcon={
-                    <AvatarWrapper
-                      src={imgUrl(stack.toLowerCase())}
-                    ></AvatarWrapper>
-                  }
-                  onClick={() => handleClick(stack)}
-                  key={stack}
-                >
-                  {stack}
-                </TagButton>
-              );
-            })}
-            {[...CS, ...기타].map((stack) => {
+            {[...FEStacks, ...BEStacks, ...CS, ...기타].map((stack) => {
               return (
                 <TagButton onClick={() => handleClick(stack)} key={stack}>
                   {stack}
@@ -74,15 +56,7 @@ const Tagbox = ({
           <>
             {FEStacks.map((stack) => {
               return (
-                <TagButton
-                  startIcon={
-                    <AvatarWrapper
-                      src={imgUrl(stack.toLowerCase())}
-                    ></AvatarWrapper>
-                  }
-                  onClick={() => handleClick(stack)}
-                  key={stack}
-                >
+                <TagButton onClick={() => handleClick(stack)} key={stack}>
                   {stack}
                 </TagButton>
               );
@@ -92,15 +66,7 @@ const Tagbox = ({
           <>
             {BEStacks.map((stack) => {
               return (
-                <TagButton
-                  startIcon={
-                    <AvatarWrapper
-                      src={imgUrl(stack.toLowerCase())}
-                    ></AvatarWrapper>
-                  }
-                  onClick={() => handleClick(stack)}
-                  key={stack}
-                >
+                <TagButton onClick={() => handleClick(stack)} key={stack}>
                   {stack}
                 </TagButton>
               );

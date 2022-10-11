@@ -1,12 +1,10 @@
 import Box from '@mui/material/Box';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 export default function CategoryTabs({
   setData,
   setOnSearch,
   setTab,
-  getQuestions,
-  page,
   setPage,
 }) {
   const [active, setActive] = useState(0);
