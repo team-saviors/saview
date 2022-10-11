@@ -23,10 +23,10 @@ const UserDropdown = () => {
   const handleAlertClose = async (e) => {
     if (e.target.value === '로그아웃') {
       await postLogout();
-      setOpen(false);
       loginHandler();
-      navigate('/');
     }
+    setOpen(false);
+    navigate('/');
   };
   return (
     <>
