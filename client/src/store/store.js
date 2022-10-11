@@ -1,6 +1,8 @@
 import create from 'zustand';
 import { getRefreshToken, getUserId } from '../utils/cookies';
 import axiosInstance from '../utils/axiosInstance';
+import { useNavigate } from 'react-router-dom';
+
 export const countStore = create((set) => ({
   count: 0,
   increase() {
@@ -119,11 +121,15 @@ export const userStore = create((set) => ({
   nickname: '',
   getUser: async (userId) => {
     const res = await axiosInstance.get(`/users/${userId}`);
-    set((state) => ({
-      email: res.data.email,
-      profile: res.data.profile,
-      nickname: res.data.nickname,
-    }));
+    try {
+      set((state) => ({
+        email: res.data.email,
+        profile: res.data.profile,
+        nickname: res.data.nickname,
+      }));
+    } catch (err) {
+      alert(err);
+    }
   },
 }));
 
