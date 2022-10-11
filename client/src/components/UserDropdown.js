@@ -5,8 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { postLogout } from '../api/User';
 import { loginStore } from '../store/store';
 import { getUserId } from '../utils/cookies';
+import LogoutAlert from './LogoutAlert';
 const UserDropdown = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [open, setOpen] = useState(false);
   const { loginHandler } = loginStore();
   const navigate = useNavigate();
   const handleMenu = (event) => {
@@ -15,13 +17,20 @@ const UserDropdown = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleClick = async () => {
-    await postLogout();
-    loginHandler();
-    navigate('/');
+  const handleClick = () => {
+    setOpen(true);
+  };
+  const handleAlertClose = async (e) => {
+    if (e.target.value === '로그아웃') {
+      await postLogout();
+      setOpen(false);
+      loginHandler();
+      navigate('/');
+    }
   };
   return (
     <>
+      <LogoutAlert open={open} onClose={handleAlertClose} />
       <IconButton
         size="large"
         aria-label="account of current user"
