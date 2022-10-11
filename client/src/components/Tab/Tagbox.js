@@ -4,23 +4,11 @@ import AvatarWrapper from '../AvatarWrapper';
 import CategoryTabs from './CategoryTabs';
 import { useState, useEffect } from 'react';
 import { questionStore } from '../../store/store';
-const FEStacks = ['JavaScript', 'React', 'TypeScript', 'Vue', 'NodeJS'];
-const BEStacks = [
-  'Java',
-  'Spring',
-  'Express',
-  'MySQL',
-  'Python',
-  'JPA',
-  'Database',
-];
-const CS = ['운영체제', '자료구조', '알고리즘', '네트워크', '디자인패턴'];
-const 기타 = ['트러블 슈팅', 'DEVOPS', '테스트', '컨테이너'];
 const Tagbox = ({
-  setData,
-  setOnSearch,
   tab,
   setTab,
+  setActive,
+  setMainCategory,
   setSubCategory,
   page,
   setPage,
@@ -30,15 +18,16 @@ const Tagbox = ({
     return `https://saview-dev.s3.ap-northeast-2.amazonaws.com/techStack/${stack}.png`;
   };
 
-  const handleClick = (stack) => {
-    setSubCategory(stack);
+  const handleClick = async (e) => {
+    const id = e.currentTarget.id;
+    setSubCategory(id);
   };
-
+  const FEStacks = ['JavaScript', 'React', 'TypeScript', 'Vue', 'NodeJS'];
+  const BEStacks = ['Java', 'Spring', 'Express', 'MySQL', 'MongoDB'];
+  const CS = ['운영체제', '자료구조', '알고리즘', '네트워크', '디자인패턴'];
   return (
     <TagboxWrapper>
       <CategoryTabs
-        setData={setData}
-        setOnSearch={setOnSearch}
         setTab={setTab}
         getQuestions={getQuestions}
         page={page}
@@ -56,16 +45,17 @@ const Tagbox = ({
                       src={imgUrl(stack.toLowerCase())}
                     ></AvatarWrapper>
                   }
-                  onClick={() => handleClick(stack)}
+                  onClick={handleClick}
+                  id={stack}
                   key={stack}
                 >
                   {stack}
                 </TagButton>
               );
             })}
-            {[...CS, ...기타].map((stack) => {
+            {CS.map((stack) => {
               return (
-                <TagButton onClick={() => handleClick(stack)} key={stack}>
+                <TagButton onClick={handleClick} id={stack} key={stack}>
                   {stack}
                 </TagButton>
               );
@@ -82,7 +72,8 @@ const Tagbox = ({
                       src={imgUrl(stack.toLowerCase())}
                     ></AvatarWrapper>
                   }
-                  onClick={() => handleClick(stack)}
+                  onClick={handleClick}
+                  id={stack}
                   key={stack}
                 >
                   {stack}
@@ -101,7 +92,8 @@ const Tagbox = ({
                       src={imgUrl(stack.toLowerCase())}
                     ></AvatarWrapper>
                   }
-                  onClick={() => handleClick(stack)}
+                  onClick={handleClick}
+                  id={stack}
                   key={stack}
                 >
                   {stack}
@@ -113,17 +105,7 @@ const Tagbox = ({
           <>
             {CS.map((stack) => {
               return (
-                <TagButton onClick={() => handleClick(stack)} key={stack}>
-                  {stack}
-                </TagButton>
-              );
-            })}
-          </>
-        ) : tab === 4 ? (
-          <>
-            {기타.map((stack) => {
-              return (
-                <TagButton onClick={() => handleClick(stack)} key={stack}>
+                <TagButton onClick={handleClick} id={stack} key={stack}>
                   {stack}
                 </TagButton>
               );
@@ -158,7 +140,6 @@ const TagButton = styled(Button)`
   height: 60px;
   font-size: 16px;
   padding: 20px;
-  font-family: 'Noto Sans KR', sans-serif;
 `;
 
 export default Tagbox;

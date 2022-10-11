@@ -5,7 +5,6 @@ import Button from '@mui/material/Button';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import styled from 'styled-components';
-import { signInModalStore } from '../store/store';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -24,17 +23,35 @@ const style = {
   pb: 3,
   borderRadius: '20px',
 };
+const LoginButton = styled(Button)`
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: black;
+  &:hover {
+    background-color: transparent;
+    box-shadow: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+`;
 
 function SignInModal() {
-  const [openSignIn, setOpenSignIn] = useState(true);
-  const { open, closeModal } = signInModalStore();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
   const handleClose = () => {
-    closeModal();
+    setOpen(false);
     setOpenSignIn(true);
   };
+  const [openSignIn, setOpenSignIn] = useState(true);
 
   return (
     <div>
+      <LoginButton disableRipple onClick={handleOpen}>
+        로그인
+      </LoginButton>
       <Modal open={open} onClose={handleClose}>
         <Box sx={{ ...style }}>
           <Box>
@@ -43,9 +60,9 @@ function SignInModal() {
           </Box>
 
           {openSignIn > 0 ? (
-            <SignIn onClose={handleClose} />
+            <SignIn handleClose={handleClose} />
           ) : (
-            <SignUp onClose={handleClose} />
+            <SignUp handleClose={handleClose} />
           )}
         </Box>
       </Modal>

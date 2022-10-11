@@ -7,10 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import server.exception.BusinessLogicException;
 import server.exception.ExceptionCode;
-import server.user.entity.Badge;
 import server.user.entity.RefreshToken;
 import server.user.entity.User;
-import server.user.repository.BadgeRepository;
 import server.user.repository.RefreshTokenRepository;
 import server.user.repository.UserRepository;
 
@@ -25,22 +23,14 @@ public class UserService {
     private final UserRepository userRepository;
     private final RefreshTokenRepository refreshTokenRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final BadgeRepository badgeRepository;
 
-    public User createUser(User user) {
+    public Long createUser(User user) {
         verifyExistsEmail(user.getEmail());
         verifyExistsNickname(user.getNickname());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRole("ROLE_USER");
         user.setProfile("https://saview-dev.s3.ap-northeast-2.amazonaws.com/Saview/logo_circle.png");
-
-        return userRepository.save(user);
-    }
-
-    public Badge createBadge(User user) {
-        Badge badge = Badge.builder().score(0).level(1).badgeImg("default img").user(user).build();
-
-        return badgeRepository.save(badge);
+        return userRepository.save(user).getUserId();
     }
 
     public void updatePassword(String email,
@@ -105,12 +95,5 @@ public class UserService {
         Optional<User> user = Optional.ofNullable(userRepository.findByNickname(nickname));
         if (user.isPresent())
             throw new BusinessLogicException(ExceptionCode.DUPLICATE_NICKNAME);
-    }
-
-    public void SetTempPassword(String email,
-                               String tempPassword) {
-        User user = findVerifiedUserByEmail(email);
-        user.setPassword(bCryptPasswordEncoder.encode(tempPassword));
-        userRepository.save(user);
     }
 }

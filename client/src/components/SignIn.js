@@ -12,9 +12,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import { FcGoogle } from 'react-icons/fc';
 import { GitHub } from '@mui/icons-material';
-import { postSignIn } from '../api/User';
+import { postSignIn } from '../utils/axiosRequest';
 import { loginStore } from '../store/store';
+import { createNextState } from '@reduxjs/toolkit';
 import { getUserId } from '../utils/cookies';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme();
 const style = {
@@ -24,21 +26,21 @@ const style = {
   flexDirection: 'column',
   margin: '40px',
 };
-export default function SignIn({ onClose }) {
-  const { loginHandler, setUserId } = loginStore();
+export default function SignIn({ handleClose }) {
+  const navigate = useNavigate();
+  const { isLogin, loginHandler, setUserId } = loginStore();
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    const res = await postSignIn(data);
-    if (res?.response?.status >= 400) {
-      return;
-    }
+    await postSignIn(data);
     setUserId(getUserId());
     loginHandler();
-    onClose();
+    handleClose();
+    navigate('/');
   };
   const onError = (error) => {
     console.log(error);

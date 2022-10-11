@@ -114,9 +114,8 @@ public class QuestionController {
     @GetMapping("/search")
     public ResponseEntity<MultiResponseDto<QuestionsResponseDto>> searchQuestion(@RequestParam(value = "keyword") String keyword,
                                                                                  @Positive @RequestParam int page,
-                                                                                 @Positive @RequestParam int size,
-                                                                                 @RequestParam String sort) {
-        Page<Question> pageQuestions = questionService.search(keyword, page - 1, size, sort);
+                                                                                 @Positive @RequestParam int size) {
+        Page<Question> pageQuestions = questionService.search(keyword, page - 1, size);
         List<Question> questions = pageQuestions.getContent();
         return ResponseEntity.ok(new MultiResponseDto<>(questionMapper.questionsToQuestionsResponseDtos(questions, userMapper), pageQuestions));
     }

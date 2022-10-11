@@ -10,7 +10,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
 import { GitHub } from '@mui/icons-material';
-import { postSignUp } from '../api/User';
+import { postSignUp } from '../utils/axiosRequest';
 
 const style = {
   border: '1px solid #D9E4EC',
@@ -21,22 +21,20 @@ const style = {
 };
 const theme = createTheme();
 
-export default function SignUp({ onClose }) {
+export default function SignUp({ handleClose }) {
   const {
     register,
     handleSubmit,
     getValues,
     formState: { errors },
   } = useForm();
-  const onSubmit = async (data) => {
-    const res = await postSignUp(data);
-    if (res?.response?.status >= 400) {
-      return;
-    }
-    alert('회원가입이 완료되었습니다. 다시 로그인 해 주세요');
-    onClose();
+  const onSubmit = (data) => {
+    postSignUp(data);
+
+    handleClose();
   };
   const onError = (error) => {
+    console.log(error);
     if (error.nickname) alert(error.nickname.message);
     else if (error.email) alert(error.email.message);
     else if (error.password) alert(error.password.message);
@@ -71,8 +69,8 @@ export default function SignUp({ onClose }) {
                   {...register('nickname', {
                     required: '닉네임을 입력하세요',
                     pattern: {
-                      value: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]{1,10}$/,
-                      message: '닉네임은 영문,한글,숫자 및 10글자 미만입니다',
+                      value: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/,
+                      message: '닉네임은 영한숫으로만 만들어집니다',
                     },
                   })}
                 />

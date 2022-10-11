@@ -11,7 +11,6 @@ import server.comment.dto.CommentPostPutDto;
 import server.comment.entity.Comment;
 import server.comment.mapper.CommentMapper;
 import server.comment.service.CommentService;
-import server.user.entity.User;
 import server.user.service.UserService;
 
 import javax.validation.Valid;
@@ -39,9 +38,7 @@ public class CommentController {
 
         Comment comment = commentMapper.commentPostPutDtoToComment(commentPostPutDto);
         comment.setAnswer(answerService.findVerifiedAnswer(answerId));
-        User user = userService.findUser(email);
-        commentService.addCommentScore(user.getBadge());
-        comment.setUser(user);
+        comment.setUser(userService.findUser(email));
 
         final Long commentId = commentService.createdComment(comment);
 

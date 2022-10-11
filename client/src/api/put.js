@@ -1,8 +1,8 @@
-import axiosInstance from '../../utils/axiosInstance';
+import axiosInstance from '../utils/useAxiosPrivate';
 
 export async function putAnswer(data) {
   try {
-    await axiosInstance.put(`/answers/${data.answerId}`, {
+    const res = axiosInstance.put(`/answers/${data.answerId}`, {
       content: data.content,
     });
     alert('답변이 수정되었습니다.');

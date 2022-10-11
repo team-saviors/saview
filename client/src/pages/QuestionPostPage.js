@@ -1,20 +1,15 @@
 import { useStore } from 'zustand';
 import QuestionInfoSelect from '../components/QuestionInfoSelect';
-import { questionRegisterStore, signInModalStore } from '../store/store';
-import { postQuestion } from '../api/Question';
+import { questionRegisterStore } from '../store/store';
+import { postQuestion } from '../utils/axiosRequest';
 
 const QuestionPostPage = () => {
   const navigate = useNavigate();
-  const { questions, handleContentChange, reset } = questionRegisterStore();
-  const { openModal } = signInModalStore();
+  const { questions, handleContentChange, handleReset } =
+    questionRegisterStore();
   const questionPostHandler = async () => {
-    const res = await postQuestion(questions);
-    if (res?.response?.status === 403) {
-      openModal();
-    }
-    alert('질문 작성이 완료되었습니다');
+    await postQuestion(questions, handleReset);
     navigate('/');
-    reset();
   };
   return (
     <section>
@@ -27,7 +22,7 @@ const QuestionPostPage = () => {
           onChange={handleContentChange}
           value={questions.content}
           fullWidth
-          label="질문 내용을 입력하기 전 해당 질문이 있는지 검색해보세요"
+          label="질문 내용을 입력해주세요."
           id="questionContent"
         />
         <Postbtnbox>

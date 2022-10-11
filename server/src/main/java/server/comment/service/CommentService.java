@@ -14,10 +14,8 @@ import server.exception.BusinessLogicException;
 import server.exception.ExceptionCode;
 import server.response.AnswerCommentUserResponseDto;
 import server.response.MultiResponseDto;
-import server.user.entity.Badge;
 import server.user.entity.User;
 import server.user.mapper.UserMapper;
-import server.user.repository.BadgeRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +28,6 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final CommentMapper commentMapper;
-    private final BadgeRepository badgeRepository;
 
 
     public Long createdComment(Comment comment) {
@@ -67,10 +64,5 @@ public class CommentService {
         Page<Comment> pageComments = commentRepository.findAllByUser(user, PageRequest.of(page-1, size, Sort.by("commentId").descending()));
         List<Comment> comments = pageComments.getContent();
         return new MultiResponseDto<>(commentMapper.commentsToAnswerCommentUserResponseDtos(comments), pageComments);
-    }
-
-    public void addCommentScore(Badge badge) {
-        int score = badge.getScore();
-        badgeRepository.updateScore(score + 10, badge.getBadgeId());
     }
 }

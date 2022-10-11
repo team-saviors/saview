@@ -13,11 +13,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.filter.CorsFilter;
 import server.jwt.filter.JwtAuthenticationFilter;
 import server.jwt.filter.JwtAuthorizationFilter;
-import server.jwt.handler.UserAuthenticationFailureHandler;
 import server.user.repository.RefreshTokenRepository;
 import server.user.repository.UserRepository;
 import server.user.service.UserService;
-
 
 @Configuration
 @EnableWebSecurity
@@ -47,8 +45,6 @@ public class SecurityConfig {
 //                .antMatchers("/refresh").permitAll()
                 .antMatchers("/**/answers", "/**/comments")
                 .access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-                .antMatchers("/**/votes")
-                .access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .antMatchers(HttpMethod.POST, "/questions")
                 .access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .antMatchers(HttpMethod.PUT, "/questions/*")
@@ -67,13 +63,9 @@ public class SecurityConfig {
         @Override
         public void configure(HttpSecurity builder) {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
-
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, userService, refreshTokenRepository);
-            jwtAuthenticationFilter.setAuthenticationFailureHandler(new UserAuthenticationFailureHandler());
-
             builder
                     .addFilter(corsFilter)
-                    .addFilter(jwtAuthenticationFilter)
+                    .addFilter(new JwtAuthenticationFilter(authenticationManager, userService, refreshTokenRepository))
                     .addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository));
         }
     }
