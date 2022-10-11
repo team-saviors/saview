@@ -9,7 +9,6 @@ const QuestionPostPage = () => {
   const { openModal } = signInModalStore();
   const questionPostHandler = async () => {
     const res = await postQuestion(questions);
-
     if (res?.response?.status === 403) {
       openModal();
     } else {
