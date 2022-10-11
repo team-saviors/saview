@@ -2,7 +2,7 @@ import { AccountCircle } from '@mui/icons-material';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { postLogout } from '../utils/axiosRequest';
+import { postLogout } from '../api/User';
 import { loginStore } from '../store/store';
 import { getUserId } from '../utils/cookies';
 const UserDropdown = () => {
@@ -39,9 +39,9 @@ const UserDropdown = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem>
-          <Link to={`/users/${getUserId()}`}>마이페이지</Link>
-        </MenuItem>
+        <Link to={`/users/${getUserId()}`}>
+          <MenuItem onClick={() => handleClose()}>마이페이지</MenuItem>
+        </Link>
         <MenuItem onClick={() => handleClick()}>로그아웃</MenuItem>
       </Menu>
     </>

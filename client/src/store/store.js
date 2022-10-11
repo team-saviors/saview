@@ -1,6 +1,6 @@
 import create from 'zustand';
 import { getRefreshToken, getUserId } from '../utils/cookies';
-import axiosInstance from '../utils/useAxiosPrivate';
+import axiosInstance from '../utils/axiosInstance';
 export const countStore = create((set) => ({
   count: 0,
   increase() {
@@ -20,7 +20,17 @@ export const questionStore = create((set) => ({
     const res = await axiosInstance.get(
       `/questions/tags?page=${page}&size=9&mainCategory=${mainCategory}&subCategory=${subCategory}&sort=${sort}`
     );
-
+    set((state) => ({
+      questions: {
+        data: [...res.data.data],
+        totalPages: res.data.pageInfo.totalPages,
+      },
+    }));
+  },
+  getQuestionsBySearch: async (searchPage, data, sort) => {
+    const res = await axiosInstance.get(
+      `/questions/search?page=${searchPage}&size=9&keyword=${data}&sort=${sort}`
+    );
     set((state) => ({
       questions: {
         data: [...res.data.data],
@@ -32,13 +42,18 @@ export const questionStore = create((set) => ({
 
 export const answerStore = create((set, get) => ({
   question: {},
-  getQuestion: async (questionId, sort) => {
+  getQuestion: async (questionId, page, sort) => {
     try {
       const res = await axiosInstance.get(
-        `/questions/${questionId}?page=1&size=10&sort=${sort}`
+        `/questions/${questionId}?page=${page}&size=7&sort=${sort}`
       );
       set((state) => ({
-        question: { ...res.data, views: res.data.views + 1 },
+        question: {
+          // ...state.question,
+          ...res.data,
+          views: res.data.views + 1,
+          totalPages: res.data.answers.pageInfo.totalPages,
+        },
       }));
       const updateViews = await axiosInstance.put(
         `/questions/${questionId}/views`,
@@ -73,6 +88,11 @@ export const questionRegisterStore = create((set) => ({
       questions: { ...state.questions, subCategory: e.target.value },
     }));
   },
+  reset() {
+    set((state) => ({
+      questions: { mainCategory: '', subCategory: '', content: '' },
+    }));
+  },
 }));
 
 export const loginStore = create((set) => ({
@@ -103,6 +123,20 @@ export const userStore = create((set) => ({
       email: res.data.email,
       profile: res.data.profile,
       nickname: res.data.nickname,
+    }));
+  },
+}));
+
+export const signInModalStore = create((set) => ({
+  open: false,
+  openModal() {
+    set((state) => ({
+      open: true,
+    }));
+  },
+  closeModal() {
+    set((state) => ({
+      open: false,
     }));
   },
 }));

@@ -1,37 +1,57 @@
 import { SignInModal } from './SignInModal';
-import { Link } from 'react-router-dom';
-import { loginStore } from '../store/store';
-
+import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { loginStore, signInModalStore } from '../store/store';
+import { useState, useEffect } from 'react';
 const Header = () => {
   const { isLogin } = loginStore();
+  const { openModal } = signInModalStore();
 
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (isLogin) {
+      navigate('/questionpost');
+    } else {
+      openModal();
+      navigate('/questionpost');
+    }
+  };
   return (
-    <NavBar>
-      <LogoBox>
-        <Link to="/">
-          <img
-            className="main_logo"
-            alt="react"
-            src={
-              'https://saview-dev.s3.ap-northeast-2.amazonaws.com/Saview/logo_tranverse.png'
-            }
-          ></img>
-        </Link>
-      </LogoBox>
-      <Loginbox>
-        <Link to="/questionpost">
-          <QuestionPostBtn disableRipple>새 질문 쓰기</QuestionPostBtn>
-        </Link>
-        {isLogin ? (
-          <>
-            <NoticeModal></NoticeModal>
-            <UserDropdown></UserDropdown>
-          </>
-        ) : (
-          <SignInModal></SignInModal>
-        )}
-      </Loginbox>
-    </NavBar>
+    <>
+      <NavBar>
+        <LogoBox>
+          <Link to="/">
+            <img
+              className="main_logo"
+              alt="react"
+              src={
+                'https://saview-dev.s3.ap-northeast-2.amazonaws.com/Saview/logo_tranverse.png'
+              }
+            ></img>
+          </Link>
+        </LogoBox>
+        <Loginbox>
+          <QuestionPostBtn disableRipple onClick={handleClick}>
+            새 질문 쓰기
+          </QuestionPostBtn>
+
+          {isLogin ? (
+            <>
+              <NoticeModal></NoticeModal>
+              <UserDropdown></UserDropdown>
+            </>
+          ) : (
+            <LoginButton disableRipple onClick={() => openModal()}>
+              로그인
+            </LoginButton>
+          )}
+        </Loginbox>
+        <SignInModal></SignInModal>
+      </NavBar>
+      <div>
+        <Outlet />
+      </div>
+    </>
   );
 };
 
@@ -39,7 +59,6 @@ import { Box, Button } from '@mui/material';
 import styled from 'styled-components';
 import NoticeModal from './NoticeModal';
 import UserDropdown from './UserDropdown';
-import { useEffect } from 'react';
 
 const NavBar = styled.header`
   /* width: 100%; */
@@ -61,9 +80,24 @@ const Loginbox = styled(Box)`
   display: flex;
   text-align: center;
   grid-gap: 35px;
+  margin-left: 600px;
 `;
 
 const QuestionPostBtn = styled(Button)`
+  font-size: 1.125rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: black;
+  &:hover {
+    background-color: transparent;
+    box-shadow: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+`;
+
+const LoginButton = styled(Button)`
   font-size: 1.125rem;
   font-weight: 600;
   color: black;
@@ -75,4 +109,5 @@ const QuestionPostBtn = styled(Button)`
     appearance: none;
   }
 `;
+
 export default Header;

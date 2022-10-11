@@ -1,6 +1,6 @@
 import QuestionCard from './QuestionCard';
 import styled from 'styled-components';
-import { questionStore } from '../store/store';
+import { questionStore } from '../../store/store';
 import { useEffect, useState, useRef, Suspense } from 'react';
 const CardWrapper = styled.div`
   display: flex;
@@ -22,14 +22,19 @@ const QuestionCards = ({
   useEffect(() => {
     if (tab === 0) {
       setMainCategory('all');
+      setSubCategory('all');
     } else if (tab === 1) {
       setMainCategory('프론트엔드');
+      setSubCategory('all');
     } else if (tab === 2) {
       setMainCategory('백엔드');
+      setSubCategory('all');
     } else if (tab === 3) {
       setMainCategory('CS');
+      setSubCategory('all');
     } else {
       setMainCategory('기타');
+      setSubCategory('all');
     }
   }, [tab]);
 
@@ -45,7 +50,6 @@ const QuestionCards = ({
               <QuestionCard
                 key={question.questionId}
                 question={question}
-                setSubCategory={setSubCategory}
               ></QuestionCard>
             ))
           : null}

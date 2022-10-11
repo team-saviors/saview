@@ -2,15 +2,16 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useForm } from 'react-hook-form';
-import { postAnswer } from '../api/post';
-import { useNavigate } from 'react-router-dom';
+import { postAnswer } from '../api/Answer';
+import { useNavigate, useParams } from 'react-router-dom';
 import BasicButton from '../components/BasicButton';
 import { Button, IconButton } from '@mui/material';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
-
-const AnswerModal = ({ question }) => {
+import { signInModalStore } from '../store/store';
+const AnswerModal = ({ getQuestion, question, sort, page }) => {
+  const params = useParams();
   const {
     register,
     handleSubmit,
@@ -18,7 +19,8 @@ const AnswerModal = ({ question }) => {
     reset,
     formState: { errors },
   } = useForm();
-
+  const { openModal } = signInModalStore();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -26,12 +28,15 @@ const AnswerModal = ({ question }) => {
     reset();
     navigate(`/questions/${question.questionId}`);
   };
-  const navigate = useNavigate();
   const onSubmit = async (data) => {
-    await postAnswer(question.questionId, data);
-    navigate(`/questions/${question.questionId}`);
-    handleClose();
-    reset();
+    const res = await postAnswer(question.questionId, data);
+    if (res?.response?.status === 403) {
+      openModal();
+    }
+    alert('답변 작성이 완료되었습니다');
+    await reset();
+    await handleClose();
+    await getQuestion(params.id, page, sort);
   };
   const onError = () => {};
   return (

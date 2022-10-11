@@ -75,10 +75,10 @@ public class QuestionService {
         }
     }
 
-    public Page<Question> search(String keyword, int page, int size) {
+    public Page<Question> search(String keyword, int page, int size, String sort) {
 
         Page<Question> questionList = questionRepository.findByContentContaining(keyword,
-                PageRequest.of(page, size, Sort.by("createdAt").descending()));
+                PageRequest.of(page, size, Sort.by(sort).descending()));
 
         return questionList;
     }

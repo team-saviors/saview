@@ -17,6 +17,7 @@ import server.answer.service.AnswerService;
 import server.comment.service.CommentService;
 import server.jwt.oauth.PrincipalDetails;
 import server.question.service.QuestionService;
+import server.user.entity.User;
 import server.user.mapper.UserMapper;
 import server.user.service.UserService;
 
@@ -48,7 +49,9 @@ public class AnswerController {
 
         Answer answer = answerMapper.answerPostPutDtoToAnswer(answerPostPutDto);
         answer.setQuestion(questionService.findVerifiedQuestion(questionId));
-        answer.setUser(userService.findUser(email));
+        User user = userService.findUser(email);
+        answerService.addAnswerScore(user.getBadge());
+        answer.setUser(user);
 
         final Long answerId = answerService.createdAnswer(answer);
 
@@ -69,7 +72,8 @@ public class AnswerController {
     public ResponseEntity<Void> putVotes(@Positive @PathVariable("answer-id") long answerId,
                                          @Valid @RequestBody VotesDto votesDto,
                                          @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        answerService.verifiedVotes(answerId, principalDetails.getUser().getUserId(),votesDto.getVotes());
+        answerService.verifiedVotes(answerId, principalDetails.getUser().getUserId(), votesDto.getVotes());
+        answerService.addVotedScore(answerId);
 
         return ResponseEntity.ok().build();
     }

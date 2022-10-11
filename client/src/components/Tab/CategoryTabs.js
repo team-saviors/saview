@@ -1,7 +1,14 @@
 import Box from '@mui/material/Box';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-export default function CategoryTabs({ setTab, getQuestions, page, setPage }) {
+export default function CategoryTabs({
+  setData,
+  setOnSearch,
+  setTab,
+  getQuestions,
+  page,
+  setPage,
+}) {
   const [active, setActive] = useState(0);
 
   const handleClick = (e) => {
@@ -12,6 +19,8 @@ export default function CategoryTabs({ setTab, getQuestions, page, setPage }) {
     const category = encodeURIComponent(e.target.textContent);
     setTab(index);
     setPage(1);
+    setOnSearch(false);
+    setData('');
   };
 
   return (
@@ -47,5 +56,5 @@ const Tab = styled.span`
     color: black;
   }
   font-size: 26px;
-  font-weight: 700;
+  font-weight: 500;
 `;

@@ -15,7 +15,6 @@ spring:
         format_sql: true
         highlight_sql: true
 #        use_sql_comments: true
-
 logging.level:
   org.hibernate:
     SQL: debug
