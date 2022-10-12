@@ -1,5 +1,5 @@
-import { getAccessToken, getRefreshToken } from './cookies';
-import { getAccessWithRefresh } from '../api/User';
+import { getAccessToken } from './cookies';
+import { getAccessWithRefresh, postLogout } from '../api/User';
 import axios from 'axios';
 
 const axiosInstance = axios.create({
@@ -25,8 +25,12 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    if (error?.response?.data?.fieldErrors) {
-      alert(error?.response?.data?.fieldErrors[0].reason);
+    if (
+      error?.response?.data?.status === 404 &&
+      error?.response?.data?.message === '탈퇴한 유저입니다.'
+    ) {
+      alert('탈퇴한 유저입니다');
+      postLogout();
     }
     if (error?.response?.status === 403) {
       alert('로그인 해주세요.');
