@@ -143,7 +143,7 @@ export default function Answer(props) {
             >
               <CommentWrapper>
                 <CommentUser>
-                  <AvatarWrapper src={user.profile}></AvatarWrapper>
+                  <AvatarWrapper src={comment.user.profile}></AvatarWrapper>
                   <Typography
                     variant="body2"
                     color="black"
