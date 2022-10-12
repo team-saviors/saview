@@ -15,7 +15,11 @@ export default function BasicTabs({ setTab }) {
     <Box sx={{ width: '100%' }}>
       <Box>
         <Tabs>
-          <Tab onClick={handleClick} active={active === 'answers'} id="answers">
+          <Tab
+            onClick={() => handleClick()}
+            active={active === 'answers'}
+            id="answers"
+          >
             내 답변
           </Tab>
           <Tab
