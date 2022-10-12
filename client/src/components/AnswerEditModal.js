@@ -44,7 +44,7 @@ const AnswerEditModal = ({ answer, page, sort }) => {
   const onError = () => {};
   return (
     <AnswerContainer>
-      <EditModalBtn onClick={handleOpen}>수정하기</EditModalBtn>
+      <EditModalBtn onClick={() => handleOpen()}>수정하기</EditModalBtn>
       <Modal
         open={open}
         onClose={handleClose}
@@ -54,7 +54,7 @@ const AnswerEditModal = ({ answer, page, sort }) => {
         <Box sx={style}>
           <ModalHeader>
             <h2>답변 수정</h2>
-            <IconButton onClick={handleClose}>
+            <IconButton onClick={() => handleClose()}>
               <ClearIcon />
             </IconButton>
           </ModalHeader>
@@ -74,7 +74,7 @@ const AnswerEditModal = ({ answer, page, sort }) => {
                   {...register('content')}
                 />
                 <MadalBtns>
-                  <CancelBtn onClick={handleClose}>취소</CancelBtn>
+                  <CancelBtn onClick={() => handleClose()}>취소</CancelBtn>
                   <RegistBtn type="submit">수정</RegistBtn>
                 </MadalBtns>
               </form>

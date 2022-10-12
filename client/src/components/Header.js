@@ -31,7 +31,7 @@ const Header = () => {
           </Link>
         </LogoBox>
         <Loginbox>
-          <QuestionPostBtn disableRipple onClick={handleClick}>
+          <QuestionPostBtn disableRipple onClick={() => handleClick()}>
             새 질문 쓰기
           </QuestionPostBtn>
 

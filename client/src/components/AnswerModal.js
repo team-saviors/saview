@@ -40,7 +40,7 @@ const AnswerModal = ({ getQuestion, question, sort, page }) => {
   const onError = () => {};
   return (
     <AnswerContainer>
-      <AnswerModalBtn onClick={handleOpen}>답변 작성</AnswerModalBtn>
+      <AnswerModalBtn onClick={() => handleOpen()}>답변 작성</AnswerModalBtn>
       <Modal
         open={open}
         onClose={handleClose}
@@ -50,7 +50,7 @@ const AnswerModal = ({ getQuestion, question, sort, page }) => {
         <Box sx={style}>
           <ModalHeader>
             <h2>답변하기</h2>
-            <IconButton onClick={handleClose}>
+            <IconButton onClick={() => handleClose()}>
               <ClearIcon />
             </IconButton>
           </ModalHeader>
@@ -70,7 +70,7 @@ const AnswerModal = ({ getQuestion, question, sort, page }) => {
                   {...register('content')}
                 />
                 <MadalBtns>
-                  <CancelBtn onClick={handleClose}>취소</CancelBtn>
+                  <CancelBtn onClick={() => handleClose()}>취소</CancelBtn>
                   <RegistBtn type="submit">등록</RegistBtn>
                 </MadalBtns>
               </form>

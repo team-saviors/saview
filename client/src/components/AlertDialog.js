@@ -21,10 +21,10 @@ export default function AlertDialog({ open, onClose }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose} value="삭제">
+          <Button onClick={() => onClose()} value="삭제">
             삭제
           </Button>
-          <Button onClick={onClose} value="취소">
+          <Button onClick={() => onClose()} value="취소">
             취소
           </Button>
         </DialogActions>

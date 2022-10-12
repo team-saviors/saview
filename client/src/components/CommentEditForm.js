@@ -72,7 +72,7 @@ const CommentEditForm = ({
           size="small"
         ></TextField>
         <CommentEditbtnBox>
-          <CancelBtn type="button" onClick={handleCancel}>
+          <CancelBtn type="button" onClick={() => handleCancel()}>
             취소
           </CancelBtn>
           <CancelBtn type="submit">수정</CancelBtn>
