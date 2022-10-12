@@ -30,6 +30,7 @@ const Tagbox = ({
 
   const handleClick = (stack) => {
     setSubCategory(stack);
+    setPage(1);
   };
 
   return (
