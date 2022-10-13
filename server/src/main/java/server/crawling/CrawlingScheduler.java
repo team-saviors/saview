@@ -16,11 +16,11 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class CrawlingScheduler {
-    private final List<String> categoryList = List.of("프론트엔드", "백엔드", "JavaScript", "React", "TypeScript", "Vue", "NodeJS", "Java", "Spring", "Express", "MySQL", "MongoDB");
+    private final List<String> categoryList = List.of("프론트엔드", "백엔드", "JavaScript", "React", "TypeScript", "Vue", "NodeJS", "Java", "Spring", "Express", "MySQL", "Python", "JPA");
 
     private final RecruitRepository recruitRepository;
 
-//    @Scheduled(fixedDelay = 1000 * 10)
+    //    @Scheduled(fixedDelay = 1000 * 10)
     @Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul")   // 매일 자정
     public void process() throws InterruptedException {
         System.out.println("기존 구직 데이터 자동 갱신 준비중입니다..");

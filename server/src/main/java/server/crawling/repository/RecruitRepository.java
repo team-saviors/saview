@@ -10,6 +10,6 @@ import java.util.stream.Stream;
 public interface RecruitRepository extends JpaRepository<Recruit, Long> {
     @Query("select r from Recruit r")
     Stream<Recruit> streamAll();
-
     List<Recruit> findAll();
+    List<Recruit> findAllByCategory(String category);
 }
