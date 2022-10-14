@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useState, useRef, useEffect } from 'react';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import useInterval from '../../hooks/useInterval';
 const banner1 =
   'https://saview-dev.s3.ap-northeast-2.amazonaws.com/Saview/banner/banner1.png';
 const banner2 =
@@ -21,7 +22,6 @@ const Carousel = () => {
   const prevSlide = () => {
     if (currentSlide === 0) {
       setCurrentSlide(banners.length - 1);
-      return;
     } else {
       setCurrentSlide(currentSlide - 1);
     }
@@ -29,16 +29,14 @@ const Carousel = () => {
   const transform = () => {
     slideRef.current.style.transition = 'all 0.5s ease-in-out';
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
-    clearInterval();
   };
   useEffect(() => {
     transform();
-    setInterval((time) => {
-      nextSlide();
-      console.log(currentSlide);
-    }, 3000);
+    console.log(currentSlide);
   }, [currentSlide]);
-
+  useInterval(() => {
+    nextSlide();
+  }, 3000);
   return (
     <div
       className="carousel"
