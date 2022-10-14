@@ -32,11 +32,8 @@ const Carousel = () => {
   };
   useEffect(() => {
     transform();
-    console.log(currentSlide);
   }, [currentSlide]);
-  useInterval(() => {
-    nextSlide();
-  }, 3000);
+
   return (
     <div
       className="carousel"
