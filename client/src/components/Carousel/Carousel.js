@@ -17,22 +17,28 @@ const Carousel = () => {
       setCurrentSlide(currentSlide + 1);
     }
   };
-  // Prev 버튼 클릭 시
+
   const prevSlide = () => {
     if (currentSlide === 0) {
-      setCurrentSlide(banners.length - 1); // 마지막 사진으로 넘어갑니다.
+      setCurrentSlide(banners.length - 1);
       return;
     } else {
       setCurrentSlide(currentSlide - 1);
     }
   };
-  useEffect(() => {
+  const transform = () => {
     slideRef.current.style.transition = 'all 0.5s ease-in-out';
-    slideRef.current.style.transform = `translateX(-${currentSlide}00%)`; // 백틱을 사용하여 슬라이드로 이동하는 에니메이션을 만듭니다.
-  }, [currentSlide]);
+    slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
+    clearInterval();
+  };
   useEffect(() => {
-    setInterval(() => nextSlide(), 3000);
-  }, []);
+    transform();
+    setInterval((time) => {
+      nextSlide();
+      console.log(currentSlide);
+    }, 3000);
+  }, [currentSlide]);
+
   return (
     <div
       className="carousel"
