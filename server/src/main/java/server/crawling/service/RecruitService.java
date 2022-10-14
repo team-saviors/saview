@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import server.crawling.dto.RecruitDto;
+import server.crawling.dto.RecruitResponseDto;
 import server.crawling.entity.Recruit;
+import server.crawling.mapper.RecruitMapper;
 import server.crawling.repository.RecruitRepository;
 
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 @Service
 public class RecruitService {
     private final RecruitRepository recruitRepository;
+    private final RecruitMapper recruitMapper;
 
     @Transactional(readOnly = true)
     public List<RecruitDto.Response> streamAll() {
@@ -43,5 +46,12 @@ public class RecruitService {
                 .collect(Collectors.toSet());
 
         recruitRepository.saveAll(newRecruits);
+    }
+
+    @Transactional(readOnly = true)
+    public List<RecruitResponseDto> findAllByCategory(String category) {
+        final List<Recruit> recruits = recruitRepository.findAllByCategory(category);
+
+        return recruitMapper.recruitsToRecruitResponsesDto(recruits);
     }
 }
