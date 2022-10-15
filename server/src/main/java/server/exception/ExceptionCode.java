@@ -17,7 +17,7 @@ public enum ExceptionCode {
     INVALID_SORT_PARAMETER(400, "INVALID SORT PARAMETER"),
     DUPLICATE_VOTE(400, "DUPLICATE VOTE"),
     INVALID_USER(401, "유효하지 않은 유저정보입니다."),
-    FORBIDDEN(403,"권한이 없습니다."),
+    UNAUTHORIZED_USER(403,"권한이 없습니다."),
     UNAUTHENTICATED_USER(403,"로그인이 필요합니다.");
 
 

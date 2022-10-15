@@ -17,7 +17,7 @@ import java.io.IOException;
 public class CustomHttp403ForbiddenEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
-        log.error("entryPoint: {}",authException.getMessage());
+        log.error("Forbidden: {}",authException.getMessage());
         ErrorResponse errorResponse = ErrorResponse.of(ExceptionCode.UNAUTHENTICATED_USER);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("utf-8");
