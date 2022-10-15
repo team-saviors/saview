@@ -6,6 +6,7 @@ export async function deleteUser(nickname, profile) {
     alert('삭제되었습니다');
     return res;
   } catch (err) {
-    console.log(err);
+    alert(err.response.data.message);
+    throw new Error(err.response.data.status);
   }
 }

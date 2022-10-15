@@ -29,13 +29,16 @@ const AnswerModal = ({ getQuestion, question, sort, page }) => {
     navigate(`/questions/${question.questionId}`);
   };
   const onSubmit = async (data) => {
-    const res = await postAnswer(question.questionId, data);
-    if (res?.response?.status === 403) {
-      openModal();
+    try {
+      const res = await postAnswer(question.questionId, data);
+      reset();
+      handleClose();
+      await getQuestion(params.id, page, sort);
+    } catch (err) {
+      if (err.message === '403') {
+        openModal();
+      }
     }
-    reset();
-    handleClose();
-    await getQuestion(params.id, page, sort);
   };
   const onError = () => {};
   return (

@@ -7,5 +7,6 @@ export async function updateAnswerVotes(answerId, votes) {
     });
   } catch (err) {
     alert(err.response.data.message);
+    throw new Error(err.response.data.status);
   }
 }

@@ -14,6 +14,6 @@ export async function postSignIn(data) {
     alert('로그인이 성공했습니다');
   } catch (err) {
     alert(err.response.data.message);
-    throw new Error('Login Error');
+    throw new Error(err.response.data.status);
   }
 }

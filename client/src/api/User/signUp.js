@@ -5,6 +5,6 @@ export async function postSignUp(data) {
     const res = await axiosInstance.post('/users', data);
   } catch (err) {
     alert(err.response.data.message);
-    throw new Error('err');
+    throw new Error(err.response.data.status);
   }
 }

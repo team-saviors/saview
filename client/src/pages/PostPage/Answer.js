@@ -47,16 +47,25 @@ export default function Answer(props) {
     setOpen(true);
   };
   const handleClickVotes = async (answerId, votes) => {
-    await updateAnswerVotes(answerId, votes);
-    await getQuestion(params.id, props.page, props.sort);
+    try {
+      await updateAnswerVotes(answerId, votes);
+      await getQuestion(params.id, props.page, props.sort);
+    } catch (err) {
+      if (err.message === '403') {
+        openModal();
+      }
+    }
   };
   const commentSubmit = async (data) => {
-    const res = await postComment(answerId, data);
-    if (res?.response?.status === 403) {
-      openModal();
+    try {
+      const res = await postComment(answerId, data);
+      await getQuestion(params.id, props.page, props.sort);
+      reset();
+    } catch (err) {
+      if (err.message === '403') {
+        openModal();
+      }
     }
-    await getQuestion(params.id, props.page, props.sort);
-    reset();
   };
   const hanleDelComment = async (commentId) => {
     await deleteComment(commentId);
