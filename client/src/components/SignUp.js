@@ -26,15 +26,17 @@ export default function SignUp({ onClose }) {
     register,
     handleSubmit,
     getValues,
+    reset,
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    const res = await postSignUp(data);
-    if (res?.response?.status >= 400) {
-      return;
+    try {
+      const res = await postSignUp(data);
+      alert('회원가입이 완료되었습니다. 다시 로그인 해 주세요');
+      onClose();
+    } catch (err) {
+      console.log(err);
     }
-    alert('회원가입이 완료되었습니다. 다시 로그인 해 주세요');
-    onClose();
   };
   const onError = (error) => {
     if (error.nickname) alert(error.nickname.message);
