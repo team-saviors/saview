@@ -1,12 +1,13 @@
 package server.user.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
 
 @Getter
+@Builder
 public class PasswordDto {
 
     @NotNull(message = "기존 비밀번호를 작성해야합니다.")
