@@ -7,8 +7,8 @@ export async function postAnswer(quesionId, data) {
       data
     );
     alert('답변 작성이 완료되었습니다');
-    return res;
   } catch (err) {
-    return err;
+    alert(err.response.data.message);
+    throw new Error(err.response.data.status);
   }
 }

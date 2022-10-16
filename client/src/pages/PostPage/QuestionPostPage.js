@@ -1,19 +1,21 @@
 import { useStore } from 'zustand';
-import QuestionInfoSelect from '../components/QuestionInfoSelect';
-import { questionRegisterStore, signInModalStore } from '../store/store';
-import { postQuestion } from '../api/Question';
+import QuestionInfoSelect from '../../components/QuestionInfoSelect';
+import { questionRegisterStore, signInModalStore } from '../../store/store';
+import { postQuestion } from '../../api/Question';
 
 const QuestionPostPage = () => {
   const navigate = useNavigate();
   const { questions, handleContentChange, reset } = questionRegisterStore();
   const { openModal } = signInModalStore();
   const questionPostHandler = async () => {
-    const res = await postQuestion(questions);
-    if (res?.response?.status === 403) {
-      openModal();
-    } else {
+    try {
+      const res = await postQuestion(questions);
       navigate('/');
       reset();
+    } catch (err) {
+      if (err.message === '403') {
+        openModal();
+      }
     }
   };
   return (
@@ -45,7 +47,7 @@ const QuestionPostPage = () => {
 
 import styled from 'styled-components';
 import { Box, TextField } from '@mui/material';
-import BasicButton from '../components/BasicButton';
+import BasicButton from '../../components/BasicButton';
 import { Link, useNavigate } from 'react-router-dom';
 const PostBox = styled(Box)`
   max-width: 1040px;

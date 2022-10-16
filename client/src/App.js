@@ -3,7 +3,7 @@ import PostPage from './pages/PostPage/PostPage';
 import Mainpage from './pages/MainPage/MainPage';
 import Header from './components/Header';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import QuestionPostPage from './pages/QuestionPostPage';
+import QuestionPostPage from './pages/PostPage/QuestionPostPage';
 import UserPage from './pages/UserPage/UserPage';
 import { loginStore } from './store/store';
 import ModifyUserPage from './pages/UserPage/ModifyUserPage';
