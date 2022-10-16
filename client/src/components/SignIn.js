@@ -28,17 +28,21 @@ export default function SignIn({ onClose }) {
   const { loginHandler, setUserId } = loginStore();
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    const res = await postSignIn(data);
-    if (res?.response?.status >= 400) {
-      return;
+    try {
+      const res = await postSignIn(data);
+      setUserId(getUserId());
+      loginHandler();
+      onClose();
+    } catch (err) {
+      reset({
+        password: '',
+      });
     }
-    setUserId(getUserId());
-    loginHandler();
-    onClose();
   };
   const onError = (error) => {
     console.log(error);
