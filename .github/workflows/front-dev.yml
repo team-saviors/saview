@@ -34,10 +34,11 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
-      - name: cd Directory
-        run: cd client
+
       - name: Install Dependencies # node module install
-        run: npm install
+        run: |
+        cd client
+        npm install
         
       - name: Build # project build
         run: npm run build
