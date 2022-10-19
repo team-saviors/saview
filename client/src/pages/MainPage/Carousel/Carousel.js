@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useState, useRef, useEffect } from 'react';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import useInterval from '../../hooks/useInterval';
+import useInterval from '../../../hooks/useInterval';
 const banner1 =
   'https://saview-dev.s3.ap-northeast-2.amazonaws.com/Saview/banner/banner1.png';
 const banner2 =
@@ -42,6 +42,7 @@ const Carousel = () => {
         height: '600px',
         margin: 'auto',
         overflow: 'hidden',
+        position: 'relative',
       }}
     >
       <SliderContainer ref={slideRef}>
@@ -93,8 +94,8 @@ const SliderContainer = styled.div`
 
 const Center = styled.div`
   position: absolute;
-  bottom: 80px;
-  left: 200px;
+  bottom: 15px;
+  left: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;

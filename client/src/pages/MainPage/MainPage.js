@@ -10,7 +10,7 @@ import { questionStore } from '../../store/store';
 import { Pages } from '@mui/icons-material';
 import SearchForm from '../../components/SearchForm';
 import SearchedQuestionCards from './SearchedQuestionCards';
-import Carousel from '../../components/Carousel/Carousel';
+import Carousel from './Carousel/Carousel';
 
 const Mainpage = () => {
   const [tab, setTab] = useState(0);
