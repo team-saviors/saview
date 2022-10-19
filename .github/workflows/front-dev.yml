@@ -41,7 +41,9 @@ jobs:
           npm install
         
       - name: Build # project build
-        run: npm run build
+        run: |
+          cd client
+          npm run build
 
       - name: Deploy 
         env:
