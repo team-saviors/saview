@@ -53,5 +53,5 @@ jobs:
           REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL}}
           AWS_REGION: ${{ secrets.REACT_APP_AWS_REGION }}
         run: |
-          ls -al
-          aws s3 sync ./build s3://saview-dev
+
+          aws s3 sync ./client/build s3://saview-dev
