@@ -37,8 +37,8 @@ jobs:
 
       - name: Install Dependencies # node module install
         run: |
-        cd client
-        npm install
+          cd client
+          npm install
         
       - name: Build # project build
         run: npm run build
