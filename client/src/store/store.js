@@ -129,6 +129,7 @@ export const userStore = create((set) => ({
       }));
     } catch (err) {
       alert(err);
+      throw new Error(err);
     }
   },
 }));
