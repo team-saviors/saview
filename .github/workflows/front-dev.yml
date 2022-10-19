@@ -20,8 +20,6 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    env:
-      working-directory: client
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -36,7 +34,8 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
-            
+      - name: cd Directory
+        run: cd client
       - name: Install Dependencies # node module install
         run: npm install
         
