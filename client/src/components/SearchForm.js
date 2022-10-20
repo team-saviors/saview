@@ -38,12 +38,14 @@ const SearchIcon = styled(Search)`
   /* padding-left: 1rem; */
 `;
 const SearchFormContainer = styled.div``;
-const SearchInputBox = styled.div``;
+const SearchInputBox = styled.div`
+  margin-left: 25px;
+`;
 const SearchInput = styled.input`
   width: 100%;
 `;
 const Form = styled.form`
   display: flex;
-  width: 15rem;
-  height: 2.3rem;
+  width: 38rem;
+  height: 3rem;
 `;

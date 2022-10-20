@@ -45,20 +45,22 @@ const Mainpage = () => {
           setOnSearch={setOnSearch}
           setData={setData}
         ></Tagbox>
-        <Select
-          style={{ position: 'relative', left: '10px', width: '100px' }}
-          onChange={handleChange}
-          defaultValue="views"
-        >
-          <MenuItem value="views">조회순</MenuItem>
-          <MenuItem value="createdAt">최신순</MenuItem>
-        </Select>
-        <SearchForm
-          sort={sort}
-          searchPage={searchPage}
-          setData={setData}
-          setOnSearch={setOnSearch}
-        ></SearchForm>
+        <SelectSearchWrapper>
+          <Select
+            style={{ position: 'relative', left: '10px', width: '100px' }}
+            onChange={handleChange}
+            defaultValue="views"
+          >
+            <MenuItem value="views">조회순</MenuItem>
+            <MenuItem value="createdAt">최신순</MenuItem>
+          </Select>
+          <SearchForm
+            sort={sort}
+            searchPage={searchPage}
+            setData={setData}
+            setOnSearch={setOnSearch}
+          ></SearchForm>
+        </SelectSearchWrapper>
         <Main>
           {onSearch === false ? (
             <QuestionCards
@@ -88,7 +90,12 @@ const Mainpage = () => {
     </>
   );
 };
-export default Mainpage;
+const SelectSearchWrapper = styled.div`
+  display: flex;
+  /* justify-content: flex-start; */
+  align-items: center;
+`;
+
 const MainWrapper = styled.main`
   max-width: 1200px;
   width: 100%;
@@ -110,3 +117,4 @@ const Main = styled.main`
   flex-direction: column;
   margin: 0 auto;
 `;
+export default Mainpage;
