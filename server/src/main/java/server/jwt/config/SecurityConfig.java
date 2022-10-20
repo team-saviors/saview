@@ -13,6 +13,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.filter.CorsFilter;
 import server.jwt.filter.JwtAuthenticationFilter;
 import server.jwt.filter.JwtAuthorizationFilter;
+import server.jwt.handler.CustomAccessDeniedHandler;
+import server.jwt.handler.CustomHttp403ForbiddenEntryPoint;
 import server.jwt.handler.UserAuthenticationFailureHandler;
 import server.user.repository.RefreshTokenRepository;
 import server.user.repository.UserRepository;
@@ -43,8 +45,11 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .apply(new CustomDsl())
                 .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(new CustomHttp403ForbiddenEntryPoint())
+                .accessDeniedHandler(new CustomAccessDeniedHandler())
+                .and()
                 .authorizeRequests()
-//                .antMatchers("/refresh").permitAll()
                 .antMatchers("/**/answers", "/**/comments")
                 .access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .antMatchers("/**/votes")
