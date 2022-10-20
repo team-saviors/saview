@@ -74,6 +74,7 @@ export default function Answer(props) {
   const handleSelectEdit = async (Id) => {
     await setSelectedComment(Id);
   };
+  console.log(content);
 
   return (
     <Container
@@ -112,7 +113,6 @@ export default function Answer(props) {
       <Paper
         style={{
           padding: '20px',
-          // minHeight: '300px',
           position: 'relative',
           lineHeight: '25px',
           display: 'flex',
@@ -120,11 +120,18 @@ export default function Answer(props) {
         }}
         elevation={3}
       >
-        <div>{content}</div>
+        {content.split('\n').map((line) => {
+          return (
+            <>
+              {line}
+              <br></br>
+            </>
+          );
+        })}
+
         <div
           style={{ position: 'relative', top: '25px', marginBottom: '20px' }}
         >
-          {/* <div> */}
           <Button
             variant="outlined"
             onClick={() => handleClickVotes(answerId, votes)}

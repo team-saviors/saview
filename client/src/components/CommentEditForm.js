@@ -63,13 +63,11 @@ const CommentEditForm = ({
           id="comment"
           name="comment"
           placeholder="댓글을 입력하세요"
-          variant="standard"
           style={{
             marginLeft: '10px',
             width: '40%',
           }}
           {...register('content')}
-          size="small"
         ></TextField>
         <CommentEditbtnBox>
           <CancelBtn type="button" onClick={handleCancel}>
