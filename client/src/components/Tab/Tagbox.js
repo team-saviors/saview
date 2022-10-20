@@ -106,6 +106,7 @@ const TagboxWrapper = styled.section`
   margin: 50px auto;
   display: flex;
   flex-direction: column;
+  margin-bottom: 0;
 `;
 const TagButtons = styled.section`
   width: 1200px;
