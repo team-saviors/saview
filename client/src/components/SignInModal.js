@@ -37,10 +37,10 @@ function SignInModal() {
     <div>
       <Modal open={open} onClose={handleClose}>
         <Box sx={{ ...style }}>
-          <Box>
-            <button onClick={() => setOpenSignIn(true)}>로그인</button>
-            <button onClick={() => setOpenSignIn(false)}>회원가입</button>
-          </Box>
+          <TabBox>
+            <LoginTab onClick={() => setOpenSignIn(true)}>로그인</LoginTab>
+            <SignupTab onClick={() => setOpenSignIn(false)}>회원가입</SignupTab>
+          </TabBox>
 
           {openSignIn > 0 ? (
             <SignIn onClose={handleClose} />
@@ -52,5 +52,29 @@ function SignInModal() {
     </div>
   );
 }
+const TabBox = styled(Box)`
+  display: inline-flex;
+`;
+const LoginTab = styled.button`
+  border: 1px solid #4981f8;
+  color: #4981f8;
+  font-size: 15px;
+  padding: 5px;
+  border-right: none;
+  background-color: white;
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+  &:hover {
+    color: white;
+    background-color: #4981f8;
+  }
+`;
+const SignupTab = styled(LoginTab)`
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+  border: 1px solid #4981f8;
+`;
 
 export { SignInModal };
