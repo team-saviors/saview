@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useState, useRef, useEffect } from 'react';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import useInterval from '../../../hooks/useInterval';
+
 const banner1 =
   'https://saview-dev.s3.ap-northeast-2.amazonaws.com/Saview/banner/banner1.png';
 const banner2 =
@@ -46,24 +46,32 @@ const Carousel = () => {
       }}
     >
       <SliderContainer ref={slideRef}>
-        <img
-          src={banner1}
-          alt={banner1}
-          style={{ width: '100%', height: '600px', flexShrink: '0' }}
-        ></img>
-        <img
-          src={banner2}
-          alt={banner2}
-          style={{ width: '100%', height: '600px', flexShrink: '0' }}
-        ></img>
+        {banners.map((banner) => {
+          return (
+            <img
+              src={banner}
+              alt={banner}
+              key={banner}
+              style={{ width: '100%', height: '600px', flexShrink: '0' }}
+            ></img>
+          );
+        })}
       </SliderContainer>
       <Center>
         <ChevronLeftIcon
           onClick={prevSlide}
           style={{ color: 'white', cursor: 'pointer' }}
         ></ChevronLeftIcon>
-        <Indicator active={currentSlide === 0}></Indicator>
-        <Indicator active={currentSlide === 1}></Indicator>
+
+        {banners.map((banner, idx) => {
+          return (
+            <Indicator
+              active={currentSlide === idx}
+              key={idx}
+              onClick={() => setCurrentSlide(idx)}
+            ></Indicator>
+          );
+        })}
         <ChevronRightIcon
           onClick={nextSlide}
           style={{ color: 'white', cursor: 'pointer' }}
