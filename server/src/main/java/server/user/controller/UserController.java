@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import server.answer.service.AnswerService;
 import server.comment.service.CommentService;
+import server.jwt.oauth.PrincipalDetails;
 import server.user.dto.*;
 import server.user.entity.Badge;
 import server.user.entity.User;
@@ -57,8 +58,8 @@ public class UserController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<Void> deleteUser(Authentication authentication) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String email = userDetails.getUsername();
+        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+        String email = principalDetails.getUsername();
 
         userService.deleteUser(email);
 

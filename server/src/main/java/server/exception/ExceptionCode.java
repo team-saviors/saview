@@ -8,7 +8,7 @@ public enum ExceptionCode {
     INVALID_REFRESH_TOKEN(400, "INVALID REFRESH TOKEN"),
     REFRESH_TOKEN_MISSING(400, "REFRESH TOKEN IS MISSING"),
     USER_NOT_FOUND(404, "없는 유저입니다."),
-    QUIT_USER(404, "탈퇴한 유저입니다."),
+    QUIT_USER(401, "탈퇴한 유저입니다."),
     DUPLICATE_EMAIL(400, "중복된 이메일입니다."),
     DUPLICATE_NICKNAME(400, "중복된 닉네임입니다."),
     QUESTION_NOT_FOUND(404, "QUESTION NOT FOUND"),
