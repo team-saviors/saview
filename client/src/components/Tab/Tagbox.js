@@ -23,30 +23,34 @@ const Tagbox = ({
   setSubCategory,
   setPage,
 }) => {
-  const [isClicked, setIsClicked] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
 
-  const handleClick = (stack, idx) => {
-    const boxArray = Array();
+  const handleClick = (stack, idx, stacks) => {
+    const newArr = Array(stacks.length).fill(false);
+    newArr[idx] = true;
+    setIsSelected(newArr);
     setSubCategory(stack);
     setPage(1);
   };
 
   const Boxes = (tab) => {
+    let array = [];
     if (tab === 0) {
-      return [...FEStacks, ...BEStacks, ...CS, ...기타];
+      array = [...FEStacks, ...BEStacks, ...CS, ...기타];
     }
     if (tab === 1) {
-      return FEStacks;
+      array = FEStacks;
     }
     if (tab === 2) {
-      return BEStacks;
+      array = BEStacks;
     }
     if (tab === 3) {
-      return CS;
+      array = CS;
     }
     if (tab === 4) {
-      return 기타;
+      array = 기타;
     }
+    return { tab: tab, array: array };
   };
 
   return (
@@ -58,9 +62,13 @@ const Tagbox = ({
         setPage={setPage}
       ></CategoryTabs>
       <TagButtons>
-        {Boxes(tab).map((stack) => {
+        {Boxes(tab).array.map((stack, idx, stacks) => {
           return (
-            <TagButton onClick={() => handleClick(stack)} key={stack}>
+            <TagButton
+              onClick={() => handleClick(stack, idx, stacks)}
+              isSelected={isSelected[idx]}
+              key={stack}
+            >
               {stack}
             </TagButton>
           );
@@ -94,7 +102,7 @@ const TagButton = styled(Button)`
   padding: 20px;
   font-family: 'Noto Sans KR', sans-serif;
   box-shadow: rgb(0 0 0 / 15%) 0px 2px 6px;
-  /* opacity: ${(props) => (props.isClicked ? 1 : 0.3)}; */
+  background-color: ${(props) => (props.isSelected ? '#B8E8FC' : 'white')};
 `;
 
 export default Tagbox;
