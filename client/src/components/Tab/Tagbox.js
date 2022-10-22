@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import styled from 'styled-components';
 import CategoryTabs from './CategoryTabs';
 import { questionStore } from '../../store/store';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 const FEStacks = ['JavaScript', 'React', 'TypeScript', 'Vue', 'NodeJS'];
 const BEStacks = [
   'Java',
@@ -23,12 +23,9 @@ const Tagbox = ({
   setSubCategory,
   setPage,
 }) => {
-  const [isSelected, setIsSelected] = useState(false);
-
-  const handleClick = (stack, idx, stacks) => {
-    const newArr = Array(stacks.length).fill(false);
-    newArr[idx] = true;
-    setIsSelected(newArr);
+  const [activeTagbox, setActiveTagbox] = useState(null);
+  const handleClick = (stack, idx) => {
+    setActiveTagbox(idx);
     setSubCategory(stack);
     setPage(1);
   };
@@ -60,13 +57,14 @@ const Tagbox = ({
         setOnSearch={setOnSearch}
         setTab={setTab}
         setPage={setPage}
+        setActiveTagbox={setActiveTagbox}
       ></CategoryTabs>
       <TagButtons>
         {Boxes(tab).array.map((stack, idx, stacks) => {
           return (
             <TagButton
               onClick={() => handleClick(stack, idx, stacks)}
-              isSelected={isSelected[idx]}
+              active={activeTagbox === idx ? 1 : 0}
               key={stack}
             >
               {stack}
@@ -102,7 +100,8 @@ const TagButton = styled(Button)`
   padding: 20px;
   font-family: 'Noto Sans KR', sans-serif;
   box-shadow: rgb(0 0 0 / 15%) 0px 2px 6px;
-  background-color: ${(props) => (props.isSelected ? '#B8E8FC' : 'white')};
+  background-color: ${(props) => (props.active ? '#B8E8FC' : 'white')};
+  transition: 0.2s;
 `;
 
 export default Tagbox;
