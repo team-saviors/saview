@@ -2,6 +2,7 @@ import { Button } from '@mui/material';
 import styled from 'styled-components';
 import CategoryTabs from './CategoryTabs';
 import { questionStore } from '../../store/store';
+import { useState } from 'react';
 const FEStacks = ['JavaScript', 'React', 'TypeScript', 'Vue', 'NodeJS'];
 const BEStacks = [
   'Java',
@@ -20,17 +21,32 @@ const Tagbox = ({
   tab,
   setTab,
   setSubCategory,
-  page,
   setPage,
 }) => {
-  const { getQuestions } = questionStore();
-  const imgUrl = (stack) => {
-    return `https://saview-dev.s3.ap-northeast-2.amazonaws.com/techStack/${stack}.png`;
-  };
+  const [isClicked, setIsClicked] = useState(false);
 
-  const handleClick = (stack) => {
+  const handleClick = (stack, idx) => {
+    const boxArray = Array();
     setSubCategory(stack);
     setPage(1);
+  };
+
+  const Boxes = (tab) => {
+    if (tab === 0) {
+      return [...FEStacks, ...BEStacks, ...CS, ...기타];
+    }
+    if (tab === 1) {
+      return FEStacks;
+    }
+    if (tab === 2) {
+      return BEStacks;
+    }
+    if (tab === 3) {
+      return CS;
+    }
+    if (tab === 4) {
+      return 기타;
+    }
   };
 
   return (
@@ -39,61 +55,16 @@ const Tagbox = ({
         setData={setData}
         setOnSearch={setOnSearch}
         setTab={setTab}
-        page={page}
         setPage={setPage}
       ></CategoryTabs>
       <TagButtons>
-        {tab === 0 ? (
-          <>
-            {[...FEStacks, ...BEStacks, ...CS, ...기타].map((stack) => {
-              return (
-                <TagButton onClick={() => handleClick(stack)} key={stack}>
-                  {stack}
-                </TagButton>
-              );
-            })}
-          </>
-        ) : tab === 1 ? (
-          <>
-            {FEStacks.map((stack) => {
-              return (
-                <TagButton onClick={() => handleClick(stack)} key={stack}>
-                  {stack}
-                </TagButton>
-              );
-            })}
-          </>
-        ) : tab === 2 ? (
-          <>
-            {BEStacks.map((stack) => {
-              return (
-                <TagButton onClick={() => handleClick(stack)} key={stack}>
-                  {stack}
-                </TagButton>
-              );
-            })}
-          </>
-        ) : tab === 3 ? (
-          <>
-            {CS.map((stack) => {
-              return (
-                <TagButton onClick={() => handleClick(stack)} key={stack}>
-                  {stack}
-                </TagButton>
-              );
-            })}
-          </>
-        ) : tab === 4 ? (
-          <>
-            {기타.map((stack) => {
-              return (
-                <TagButton onClick={() => handleClick(stack)} key={stack}>
-                  {stack}
-                </TagButton>
-              );
-            })}
-          </>
-        ) : null}
+        {Boxes(tab).map((stack) => {
+          return (
+            <TagButton onClick={() => handleClick(stack)} key={stack}>
+              {stack}
+            </TagButton>
+          );
+        })}
       </TagButtons>
     </TagboxWrapper>
   );
@@ -123,6 +94,7 @@ const TagButton = styled(Button)`
   padding: 20px;
   font-family: 'Noto Sans KR', sans-serif;
   box-shadow: rgb(0 0 0 / 15%) 0px 2px 6px;
+  /* opacity: ${(props) => (props.isClicked ? 1 : 0.3)}; */
 `;
 
 export default Tagbox;
