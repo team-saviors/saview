@@ -2,6 +2,7 @@ import { Button } from '@mui/material';
 import styled from 'styled-components';
 import CategoryTabs from './CategoryTabs';
 import { questionStore } from '../../store/store';
+import { useState, useEffect } from 'react';
 const FEStacks = ['JavaScript', 'React', 'TypeScript', 'Vue', 'NodeJS'];
 const BEStacks = [
   'Java',
@@ -20,17 +21,33 @@ const Tagbox = ({
   tab,
   setTab,
   setSubCategory,
-  page,
   setPage,
 }) => {
-  const { getQuestions } = questionStore();
-  const imgUrl = (stack) => {
-    return `https://saview-dev.s3.ap-northeast-2.amazonaws.com/techStack/${stack}.png`;
-  };
-
-  const handleClick = (stack) => {
+  const [activeTagbox, setActiveTagbox] = useState(null);
+  const handleClick = (stack, idx) => {
+    setActiveTagbox(idx);
     setSubCategory(stack);
     setPage(1);
+  };
+
+  const Boxes = (tab) => {
+    let array = [];
+    if (tab === 0) {
+      array = [...FEStacks, ...BEStacks, ...CS, ...기타];
+    }
+    if (tab === 1) {
+      array = FEStacks;
+    }
+    if (tab === 2) {
+      array = BEStacks;
+    }
+    if (tab === 3) {
+      array = CS;
+    }
+    if (tab === 4) {
+      array = 기타;
+    }
+    return { tab: tab, array: array };
   };
 
   return (
@@ -39,61 +56,21 @@ const Tagbox = ({
         setData={setData}
         setOnSearch={setOnSearch}
         setTab={setTab}
-        page={page}
         setPage={setPage}
+        setActiveTagbox={setActiveTagbox}
       ></CategoryTabs>
       <TagButtons>
-        {tab === 0 ? (
-          <>
-            {[...FEStacks, ...BEStacks, ...CS, ...기타].map((stack) => {
-              return (
-                <TagButton onClick={() => handleClick(stack)} key={stack}>
-                  {stack}
-                </TagButton>
-              );
-            })}
-          </>
-        ) : tab === 1 ? (
-          <>
-            {FEStacks.map((stack) => {
-              return (
-                <TagButton onClick={() => handleClick(stack)} key={stack}>
-                  {stack}
-                </TagButton>
-              );
-            })}
-          </>
-        ) : tab === 2 ? (
-          <>
-            {BEStacks.map((stack) => {
-              return (
-                <TagButton onClick={() => handleClick(stack)} key={stack}>
-                  {stack}
-                </TagButton>
-              );
-            })}
-          </>
-        ) : tab === 3 ? (
-          <>
-            {CS.map((stack) => {
-              return (
-                <TagButton onClick={() => handleClick(stack)} key={stack}>
-                  {stack}
-                </TagButton>
-              );
-            })}
-          </>
-        ) : tab === 4 ? (
-          <>
-            {기타.map((stack) => {
-              return (
-                <TagButton onClick={() => handleClick(stack)} key={stack}>
-                  {stack}
-                </TagButton>
-              );
-            })}
-          </>
-        ) : null}
+        {Boxes(tab).array.map((stack, idx, stacks) => {
+          return (
+            <TagButton
+              onClick={() => handleClick(stack, idx, stacks)}
+              active={activeTagbox === idx ? 1 : 0}
+              key={stack}
+            >
+              {stack}
+            </TagButton>
+          );
+        })}
       </TagButtons>
     </TagboxWrapper>
   );
@@ -123,6 +100,8 @@ const TagButton = styled(Button)`
   padding: 20px;
   font-family: 'Noto Sans KR', sans-serif;
   box-shadow: rgb(0 0 0 / 15%) 0px 2px 6px;
+  background-color: ${(props) => (props.active ? '#B8E8FC' : 'white')};
+  transition: 0.2s;
 `;
 
 export default Tagbox;
