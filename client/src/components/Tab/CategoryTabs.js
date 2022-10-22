@@ -38,21 +38,6 @@ export default function CategoryTabs({
               {tab}
             </Tab>
           ))}
-          {/* <Tab onClick={handleClick} active={active === 0} id={0}>
-            전체
-          </Tab>
-          <Tab onClick={handleClick} active={active === 1} id={1}>
-            프론트엔드
-          </Tab>
-          <Tab onClick={handleClick} active={active === 2} id={2}>
-            백엔드
-          </Tab>
-          <Tab onClick={handleClick} active={active === 3} id={3}>
-            CS
-        </Tab>
-          /* <Tab onClick={handleClick} active={active === 4} id={4}>
-            기타
-        </Tab> */}
         </TabsWrapper>
       </Box>
     </Box>
