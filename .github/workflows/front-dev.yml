@@ -53,5 +53,8 @@ jobs:
           REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL}}
           AWS_REGION: ${{ secrets.REACT_APP_AWS_REGION }}
         run: |
-
+         echo "REACT_APP_API_URL=$REACT_APP_API_URL" >> .env.production
+          echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> .env.production
+          echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> .env.production
+          echo "AWS_REGION=$AWS_REGION" >> .env.production
           aws s3 sync ./client/build s3://saview-dev
