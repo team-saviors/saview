@@ -74,7 +74,6 @@ export default function Answer(props) {
   const handleSelectEdit = async (Id) => {
     await setSelectedComment(Id);
   };
-  console.log(content);
 
   return (
     <Container

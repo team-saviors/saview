@@ -6,10 +6,9 @@ name: dev
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "dev" ]
+    branches: ["dev"]
   pull_request:
-    branches: [ "dev" ]
-
+    branches: ["dev"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -25,8 +24,8 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v3
-        
-      - name: Cache node modules  # node modules 캐싱
+
+      - name: Cache node modules # node modules 캐싱
         uses: actions/cache@v1
         with:
           path: node_modules
@@ -39,19 +38,18 @@ jobs:
         run: |
           cd client
           npm install
-        
+
       - name: Build # project build
         run: |
           cd client
           npm run build
-          
 
-      - name: Deploy 
+      - name: Deploy
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.REACT_APP_AWS_ACCESS_KEY_ID}}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.REACT_APP_AWS_SECRET_ACCESS_KEY }}
-          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL}}
-          AWS_REGION: ${{ secrets.REACT_APP_AWS_REGION }}
+          echo "AWS_ACCESS_KEY_ID: ${{ secrets.REACT_APP_AWS_ACCESS_KEY_ID }}">>.env
+          echo "AWS_SECRET_ACCESS_KEY: ${{ secrets.REACT_APP_AWS_SECRET_ACCESS_KEY }}">>.env
+          echo "REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}">>.env
+          echo "AWS_REGION: ${{ secrets.REACT_APP_AWS_REGION }}">>.env
         run: |
-
+ 
           aws s3 sync ./client/build s3://saview-dev
