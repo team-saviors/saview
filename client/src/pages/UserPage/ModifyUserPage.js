@@ -56,7 +56,6 @@ const ModifyUserPage = () => {
     await location.reload();
   };
   const onError = (error) => {
-    console.log(error);
     if (error.curPassword) alert(error.curPassword.message);
     else if (error.newPassword) alert(error.newPassword.message);
     else {
