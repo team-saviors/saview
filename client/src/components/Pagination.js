@@ -1,9 +1,7 @@
-import styled from 'styled-components';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { questionStore } from '../store/store';
-import ScrollToTop from '../utils/ScrollToTop';
 import { useEffect } from 'react';
+import styled from 'styled-components';
 const Pagination = ({ page, setPage, totalPages }) => {
   useEffect(() => {
     window.scrollTo(0, 0);

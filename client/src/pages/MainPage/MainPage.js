@@ -1,17 +1,15 @@
-import { useState, useEffect } from 'react';
+import { MenuItem, Select } from '@mui/material';
+import { useState } from 'react';
 import styled from 'styled-components';
-import EmployAnnouncement from './EmployAnnouncement';
 import Pagination from '../../components/Pagination';
+import EmployAnnouncement from './EmployAnnouncement';
 import QuestionCards from './QuestionCards';
-import { Select, MenuItem } from '@mui/material';
 
+import SearchForm from '../../components/SearchForm';
 import Tagbox from '../../components/Tab/Tagbox';
 import { questionStore } from '../../store/store';
-import { Pages } from '@mui/icons-material';
-import SearchForm from '../../components/SearchForm';
-import SearchedQuestionCards from './SearchedQuestionCards';
 import Carousel from './Carousel/Carousel';
-import { getEmployAnnouncement } from '../../api/Employ/get';
+import SearchedQuestionCards from './SearchedQuestionCards';
 
 const Mainpage = () => {
   const [tab, setTab] = useState(0);
@@ -21,7 +19,6 @@ const Mainpage = () => {
   const [sort, setSort] = useState('views');
   const [data, setData] = useState('');
   const [onSearch, setOnSearch] = useState(false);
-
   const { questions } = questionStore();
   const handleChange = (e) => {
     e.preventDefault();
@@ -37,7 +34,6 @@ const Mainpage = () => {
           tab={tab}
           setTab={setTab}
           setSubCategory={setSubCategory}
-          page={page}
           setOnSearch={setOnSearch}
           setData={setData}
         ></Tagbox>

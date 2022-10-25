@@ -1,8 +1,7 @@
 import { Button } from '@mui/material';
+import { useState } from 'react';
 import styled from 'styled-components';
 import CategoryTabs from './CategoryTabs';
-import { questionStore } from '../../store/store';
-import { useState, useEffect } from 'react';
 const FEStacks = ['JavaScript', 'React', 'TypeScript', 'Vue', 'NodeJS'];
 const BEStacks = [
   'Java',
@@ -60,10 +59,10 @@ const Tagbox = ({
         setActiveTagbox={setActiveTagbox}
       ></CategoryTabs>
       <TagButtons>
-        {Boxes(tab).array.map((stack, idx, stacks) => {
+        {Boxes(tab).array.map((stack, idx) => {
           return (
             <TagButton
-              onClick={() => handleClick(stack, idx, stacks)}
+              onClick={() => handleClick(stack, idx)}
               active={activeTagbox === idx ? 1 : 0}
               key={stack}
             >

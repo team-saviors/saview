@@ -1,7 +1,7 @@
-import QuestionCard from './QuestionCard';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { questionStore } from '../../store/store';
-import { useEffect, useState, useRef, Suspense } from 'react';
+import QuestionCard from './QuestionCard';
 const CardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
