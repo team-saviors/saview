@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-
+import EmployAnnouncement from './EmployAnnouncement';
 import Pagination from '../../components/Pagination';
 import QuestionCards from './QuestionCards';
 import { Select, MenuItem } from '@mui/material';
@@ -11,6 +11,7 @@ import { Pages } from '@mui/icons-material';
 import SearchForm from '../../components/SearchForm';
 import SearchedQuestionCards from './SearchedQuestionCards';
 import Carousel from './Carousel/Carousel';
+import { getEmployAnnouncement } from '../../api/Employ/get';
 
 const Mainpage = () => {
   const [tab, setTab] = useState(0);
@@ -22,6 +23,7 @@ const Mainpage = () => {
   const [searchPage, setSearchPage] = useState(1);
   const [data, setData] = useState('');
   const [onSearch, setOnSearch] = useState(false);
+
   const { questions } = questionStore();
   const handleChange = (e) => {
     e.preventDefault();
@@ -37,7 +39,6 @@ const Mainpage = () => {
           tab={tab}
           setTab={setTab}
           setActive={setActive}
-          setMainCategory={setMainCategory}
           setSubCategory={setSubCategory}
           page={page}
           mainCategory={mainCategory}
@@ -45,6 +46,7 @@ const Mainpage = () => {
           setOnSearch={setOnSearch}
           setData={setData}
         ></Tagbox>
+        <EmployAnnouncement mainCategory={mainCategory}></EmployAnnouncement>
         <SelectSearchWrapper>
           <Select
             style={{ position: 'relative', left: '10px', width: '100px' }}
@@ -94,6 +96,7 @@ const SelectSearchWrapper = styled.div`
   display: flex;
   /* justify-content: flex-start; */
   align-items: center;
+  margin-top: 25px;
 `;
 
 const MainWrapper = styled.main`

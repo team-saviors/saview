@@ -102,7 +102,7 @@ const Tagbox = ({
 const TagboxWrapper = styled.section`
   max-width: 1200px;
   width: 100%;
-  height: 230px;
+  min-height: 130px;
   margin: 50px auto;
   display: flex;
   flex-direction: column;
