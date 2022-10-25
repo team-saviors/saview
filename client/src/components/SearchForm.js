@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { questionStore } from '../store/store';
 
-const SearchForm = ({ setOnSearch, setData, searchPage, sort }) => {
+const SearchForm = ({ setOnSearch, setData, page, sort }) => {
   const { questions, getQuestionsBySearch } = questionStore();
   const [keyword, setKeyword] = useState('');
   const searchSubmit = async (e) => {
@@ -35,9 +35,7 @@ const SearchIcon = styled(Search)`
   color: #9e9e9e;
   width: 25px;
   height: 25px;
-  /* padding-left: 1rem; */
 `;
-const SearchFormContainer = styled.div``;
 const SearchInputBox = styled.div`
   margin-left: 25px;
 `;

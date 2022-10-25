@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { questionStore } from '../../store/store';
 import QuestionCard from './QuestionCard';
 
-const SearchedQuestionCards = ({ searchPage, data, sort }) => {
+const SearchedQuestionCards = ({ page, data, sort }) => {
   const { questions, getQuestionsBySearch } = questionStore();
 
   useEffect(() => {
-    getQuestionsBySearch(searchPage, data, sort);
-  }, [searchPage, data, sort]);
+    getQuestionsBySearch(page, data, sort);
+  }, [page, data, sort]);
 
   return (
     <>

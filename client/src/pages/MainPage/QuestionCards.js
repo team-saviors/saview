@@ -10,7 +10,6 @@ const CardWrapper = styled.div`
 const QuestionCards = ({
   tab,
   page,
-  setPage,
   mainCategory,
   subCategory,
   setMainCategory,

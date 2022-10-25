@@ -15,12 +15,10 @@ import { getEmployAnnouncement } from '../../api/Employ/get';
 
 const Mainpage = () => {
   const [tab, setTab] = useState(0);
-  const [active, setActive] = useState(0);
   const [mainCategory, setMainCategory] = useState('all');
   const [subCategory, setSubCategory] = useState('all');
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState('views');
-  const [searchPage, setSearchPage] = useState(1);
   const [data, setData] = useState('');
   const [onSearch, setOnSearch] = useState(false);
 
@@ -38,11 +36,8 @@ const Mainpage = () => {
           setPage={setPage}
           tab={tab}
           setTab={setTab}
-          setActive={setActive}
           setSubCategory={setSubCategory}
           page={page}
-          mainCategory={mainCategory}
-          subCategory={subCategory}
           setOnSearch={setOnSearch}
           setData={setData}
         ></Tagbox>
@@ -58,7 +53,7 @@ const Mainpage = () => {
           </Select>
           <SearchForm
             sort={sort}
-            searchPage={searchPage}
+            page={page}
             setData={setData}
             setOnSearch={setOnSearch}
           ></SearchForm>
@@ -68,7 +63,6 @@ const Mainpage = () => {
             <QuestionCards
               tab={tab}
               page={page}
-              setPage={setPage}
               mainCategory={mainCategory}
               subCategory={subCategory}
               setMainCategory={setMainCategory}
@@ -76,11 +70,7 @@ const Mainpage = () => {
               sort={sort}
             />
           ) : (
-            <SearchedQuestionCards
-              sort={sort}
-              data={data}
-              searchPage={searchPage}
-            />
+            <SearchedQuestionCards sort={sort} data={data} page={page} />
           )}
         </Main>
         <Pagination
