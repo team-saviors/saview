@@ -37,7 +37,10 @@ const Mainpage = () => {
           setOnSearch={setOnSearch}
           setData={setData}
         ></Tagbox>
-        <EmployAnnouncement mainCategory={mainCategory}></EmployAnnouncement>
+        <EmployAnnouncement
+          mainCategory={mainCategory}
+          subCategory={subCategory}
+        ></EmployAnnouncement>
         <SelectSearchWrapper>
           <Select
             style={{ position: 'relative', left: '10px', width: '100px' }}

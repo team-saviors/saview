@@ -1,12 +1,12 @@
-import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import { getEmployAnnouncement } from '../../api/Employ/get';
-import { borderLeft } from '@mui/system';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-const EmployAnnouncement = ({ mainCategory }) => {
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { getEmployAnnouncement } from '../../api/Employ/get';
+const EmployAnnouncement = ({ mainCategory, subCategory }) => {
   const [employAnnouncement, setEmployAnnouncement] = useState(null);
   const [current, setCurrent] = useState(0);
+  const [searchWord, setSearchWord] = useState(null);
   const next = () => {
     if (current >= 18) {
       setCurrent(0);
@@ -28,6 +28,12 @@ const EmployAnnouncement = ({ mainCategory }) => {
       setEmployAnnouncement(res.data);
     })();
   }, [mainCategory]);
+  useEffect(() => {
+    (async function () {
+      const res = await getEmployAnnouncement(subCategory);
+      setEmployAnnouncement(res.data);
+    })();
+  }, [subCategory]);
   console.log(employAnnouncement);
   return (
     <>
