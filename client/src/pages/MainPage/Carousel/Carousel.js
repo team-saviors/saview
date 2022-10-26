@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { useState, useRef, useEffect } from 'react';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 
 const banner1 =
   'https://saview-dev.s3.ap-northeast-2.amazonaws.com/Saview/banner/banner1.png';
@@ -39,7 +39,7 @@ const Carousel = () => {
       className="carousel"
       style={{
         width: '100%',
-        height: '600px',
+        height: '400px',
         margin: 'auto',
         overflow: 'hidden',
         position: 'relative',
@@ -52,7 +52,7 @@ const Carousel = () => {
               src={banner}
               alt={banner}
               key={banner}
-              style={{ width: '100%', height: '600px', flexShrink: '0' }}
+              style={{ width: '100%', height: '400px', flexShrink: '0' }}
             ></img>
           );
         })}

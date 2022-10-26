@@ -57,13 +57,13 @@ const EmployAnnouncement = ({ mainCategory, subCategory }) => {
               </div>
               <div style={{ marginTop: '10px' }}>
                 <Box>학력</Box>
-                <span>{employAnnouncement[current].education}</span>
+                <Span>{employAnnouncement[current].education}</Span>
                 <Box>기한</Box>
-                <span>{employAnnouncement[current].date}</span>
+                <Span>{employAnnouncement[current].date}</Span>
                 <Box>위치</Box>
-                <span>{employAnnouncement[current].location}</span>
+                <Span>{employAnnouncement[current].location}</Span>
                 <Box>경력</Box>
-                <span>{employAnnouncement[current].experience}</span>
+                <Span>{employAnnouncement[current].experience}</Span>
               </div>
             </span>
             <span style={{ width: '47.5%' }}>
@@ -81,13 +81,13 @@ const EmployAnnouncement = ({ mainCategory, subCategory }) => {
                 }}
               >
                 <Box>학력</Box>
-                <span>{employAnnouncement[current + 1].education}</span>
+                <Span>{employAnnouncement[current + 1].education}</Span>
                 <Box>기한</Box>
-                <span>{employAnnouncement[current + 1].date}</span>
+                <Span>{employAnnouncement[current + 1].date}</Span>
                 <Box>위치</Box>
-                <span>{employAnnouncement[current + 1].location}</span>
+                <Span>{employAnnouncement[current + 1].location}</Span>
                 <Box>경력</Box>
-                <span>{employAnnouncement[current + 1].experience}</span>
+                <Span>{employAnnouncement[current + 1].experience}</Span>
               </div>
             </span>
             <div>
@@ -125,7 +125,11 @@ const Box = styled.span`
   text-overflow: ellipsis;
   white-space: nowrap;
   padding: 4px;
-  margin: 0 5px 0 0;
+  margin: 0 3px 0 0;
+  background-color: #c5ccee;
+`;
+const Span = styled.span`
+  margin-right: 3px;
 `;
 export default EmployAnnouncement;
 
