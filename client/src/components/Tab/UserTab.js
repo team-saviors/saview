@@ -1,11 +1,11 @@
 import Box from '@mui/material/Box';
 import { useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import { getUserId } from '../../utils/cookies';
-import AlertDialog from '../AlertDialog';
 import { deleteUser, postLogout } from '../../api/User';
 import { loginStore } from '../../store/store';
+import { getUserId } from '../../utils/cookies';
+import AlertDialog from '../AlertDialog';
 export default function UserTab({ menu, setMenu }) {
   const { loginHandler } = loginStore();
   const navigate = useNavigate();
