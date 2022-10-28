@@ -1,25 +1,22 @@
-import { useState, useEffect } from 'react';
+import { MenuItem, Select } from '@mui/material';
+import { useState } from 'react';
 import styled from 'styled-components';
-
 import Pagination from '../../components/Pagination';
+import EmployAnnouncement from './EmployAnnouncement';
 import QuestionCards from './QuestionCards';
-import { Select, MenuItem } from '@mui/material';
 
+import SearchForm from '../../components/SearchForm';
 import Tagbox from '../../components/Tab/Tagbox';
 import { questionStore } from '../../store/store';
-import { Pages } from '@mui/icons-material';
-import SearchForm from '../../components/SearchForm';
-import SearchedQuestionCards from './SearchedQuestionCards';
 import Carousel from './Carousel/Carousel';
+import SearchedQuestionCards from './SearchedQuestionCards';
 
 const Mainpage = () => {
   const [tab, setTab] = useState(0);
-  const [active, setActive] = useState(0);
   const [mainCategory, setMainCategory] = useState('all');
   const [subCategory, setSubCategory] = useState('all');
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState('views');
-  const [searchPage, setSearchPage] = useState(1);
   const [data, setData] = useState('');
   const [onSearch, setOnSearch] = useState(false);
   const { questions } = questionStore();
@@ -36,15 +33,14 @@ const Mainpage = () => {
           setPage={setPage}
           tab={tab}
           setTab={setTab}
-          setActive={setActive}
-          setMainCategory={setMainCategory}
           setSubCategory={setSubCategory}
-          page={page}
-          mainCategory={mainCategory}
-          subCategory={subCategory}
           setOnSearch={setOnSearch}
           setData={setData}
         ></Tagbox>
+        <EmployAnnouncement
+          mainCategory={mainCategory}
+          subCategory={subCategory}
+        ></EmployAnnouncement>
         <SelectSearchWrapper>
           <Select
             style={{ position: 'relative', left: '10px', width: '100px' }}
@@ -56,7 +52,7 @@ const Mainpage = () => {
           </Select>
           <SearchForm
             sort={sort}
-            searchPage={searchPage}
+            page={page}
             setData={setData}
             setOnSearch={setOnSearch}
           ></SearchForm>
@@ -66,7 +62,6 @@ const Mainpage = () => {
             <QuestionCards
               tab={tab}
               page={page}
-              setPage={setPage}
               mainCategory={mainCategory}
               subCategory={subCategory}
               setMainCategory={setMainCategory}
@@ -74,11 +69,7 @@ const Mainpage = () => {
               sort={sort}
             />
           ) : (
-            <SearchedQuestionCards
-              sort={sort}
-              data={data}
-              searchPage={searchPage}
-            />
+            <SearchedQuestionCards sort={sort} data={data} page={page} />
           )}
         </Main>
         <Pagination
@@ -94,6 +85,7 @@ const SelectSearchWrapper = styled.div`
   display: flex;
   /* justify-content: flex-start; */
   align-items: center;
+  margin-top: 25px;
 `;
 
 const MainWrapper = styled.main`
