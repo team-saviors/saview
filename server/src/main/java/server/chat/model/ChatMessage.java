@@ -23,4 +23,6 @@ public class ChatMessage {
     private String sender;
     //내용
     private String message;
+
+    private String createdAt;
 }

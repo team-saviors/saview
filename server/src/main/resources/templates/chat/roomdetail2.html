@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <title>스터디 채팅방</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="/css/ui.css">
+</head>
+<body>
+<section class="msger" id="app" v-cloak>
+    <header class="msger-header">
+        <div class="msger-header-title">
+            <i class="fas fa-comment-alt"></i> {{room.roomName}}
+        </div>
+        <div class="msger-header-options">
+            <span><i class="fas fa-cog"></i></span>
+        </div>
+    </header>
+
+    <main class="msger-chat">
+<!--        <div v-if="isOther">-->
+            <div class="msg left-msg" v-for="message in messages">
+                <div
+                        class="msg-img"
+                        style="background-image: url(https://imgur.com/Rmmp2A5.png)"
+                ></div>
+
+                <div class="msg-bubble">
+                    <div class="msg-info">
+                        <div class="msg-info-name">{{message.sender}}</div>
+                        <div class="msg-info-time">{{message.createdAt}}</div>
+                    </div>
+
+                    <div class="msg-text">
+                        {{message.message}}
+                    </div>
+                </div>
+            </div>
+<!--        </div>-->
+<!--        <div v-else>-->
+<!--            <div class="msg right-msg" v-for="message in messages">-->
+<!--                <div-->
+<!--                        class="msg-img"-->
+<!--                        style="background-image: url(https://imgur.com/Rmmp2A5.png)"-->
+<!--                ></div>-->
+
+<!--                <div class="msg-bubble">-->
+<!--                    <div class="msg-info">-->
+<!--                        <div class="msg-info-name">{{message.sender}}</div>-->
+<!--                        <div class="msg-info-time">{{message.createdAt}}</div>-->
+<!--                    </div>-->
+
+<!--                    <div class="msg-text">-->
+<!--                        {{message.message}}-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </main>
+
+    <form onsubmit="return false" class="msger-inputarea">
+        <input type="text" class="msger-input" placeholder="Enter your message..." v-model="message"
+               v-on:keypress.enter="sendMessage">
+        <button type="button" class="msger-send-btn" @click="sendMessage">Send</button>
+    </form>
+</section>
+<script src="/webjars/vue/2.5.16/dist/vue.min.js"></script>
+<script src="/webjars/axios/0.17.1/dist/axios.min.js"></script>
+<script src="/webjars/sockjs-client/1.1.2/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/2.3.3-1/stomp.min.js"></script>
+<script>
+    //alert(document.title);
+    // websocket & stomp initialize
+    var sock = new SockJS("/ws/chat");
+    var ws = Stomp.over(sock);
+    var reconnect = 0;
+    // vue.js
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            roomId: '',
+            room: {},
+            sender: '',
+            message: '',
+            messages: [],
+            isOther: true
+        },
+        created() {
+            this.roomId = localStorage.getItem('wschat.roomId');
+            this.sender = localStorage.getItem('wschat.sender');
+            this.findRoom();
+        },
+        methods: {
+            findRoom: function () {
+                axios.get('/chat/room/' + this.roomId).then(response => {
+                    this.room = response.data;
+                });
+            },
+            sendMessage: function () {
+                ws.send("/app/chat/message", {}, JSON.stringify({
+                    type: 'TALK',
+                    roomId: this.roomId,
+                    sender: this.sender,
+                    message: this.message
+                }));
+                this.message = '';
+            },
+            recvMessage: function (recv) {
+                this.messages.unshift({
+                    "type": recv.type,
+                    "sender": recv.type == 'ENTER' ? '[알림]' : recv.sender,
+                    "message": recv.message,
+                    "createdAt": recv.createdAt
+                });
+                this.isOther = this.sender != recv.sender;
+            }
+        }
+    });
+
+    function connect() {
+        // pub/sub event
+        ws.connect({}, function (frame) {
+            ws.subscribe("/topic/chat/room/" + vm.$data.roomId, function (message) {
+                var recv = JSON.parse(message.body);
+                vm.recvMessage(recv);
+            });
+            ws.send("/app/chat/message", {}, JSON.stringify({
+                type: 'ENTER',
+                roomId: vm.$data.roomId,
+                sender: vm.$data.sender
+            }));
+        }, function (error) {
+            if (reconnect++ <= 5) {
+                setTimeout(function () {
+                    console.log("connection reconnect");
+                    sock = new SockJS("/ws/chat");
+                    ws = Stomp.over(sock);
+                    connect();
+                }, 10 * 1000);
+            }
+        });
+    }
+
+    connect();
+</script>
+</body>
+</html>
