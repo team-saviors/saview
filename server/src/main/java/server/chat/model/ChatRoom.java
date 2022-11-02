@@ -22,7 +22,7 @@ public class ChatRoom {
         ChatRoom room = new ChatRoom();
         room.roomId = UUID.randomUUID().toString();
         room.roomName = name;
-        room.createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
+        room.createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         return room;
     }
 }
