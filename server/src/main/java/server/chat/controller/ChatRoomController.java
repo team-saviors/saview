@@ -18,7 +18,7 @@ public class ChatRoomController {
     // 채팅 리스트 화면
     @GetMapping("/room")
     public String rooms(Model model) {
-        return "chat/room";
+        return "chat/room2";
     }
 
     // 모든 채팅방 목록 반환
