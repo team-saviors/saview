@@ -3,7 +3,8 @@
 <head>
     <title>스터디 채팅방</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="/css/roomdetail2.css">
 </head>
 <body>
@@ -18,8 +19,8 @@
     </header>
 
     <main class="msger-chat">
-<!--        <div v-if="isOther">-->
-            <div class="msg left-msg" v-for="message in messages">
+        <div v-for="message in messages">
+            <div class="msg left-msg" v-if="!message.isSame">
                 <div
                         class="msg-img"
                         style="background-image: url(https://imgur.com/Rmmp2A5.png)"
@@ -36,26 +37,24 @@
                     </div>
                 </div>
             </div>
-<!--        </div>-->
-<!--        <div v-else>-->
-<!--            <div class="msg right-msg" v-for="message in messages">-->
-<!--                <div-->
-<!--                        class="msg-img"-->
-<!--                        style="background-image: url(https://imgur.com/Rmmp2A5.png)"-->
-<!--                ></div>-->
+            <div class="msg right-msg" v-else>
+                <div
+                        class="msg-img"
+                        style="background-image: url(https://imgur.com/Rmmp2A5.png)"
+                ></div>
 
-<!--                <div class="msg-bubble">-->
-<!--                    <div class="msg-info">-->
-<!--                        <div class="msg-info-name">{{message.sender}}</div>-->
-<!--                        <div class="msg-info-time">{{message.createdAt}}</div>-->
-<!--                    </div>-->
+                <div class="msg-bubble">
+                    <div class="msg-info">
+                        <div class="msg-info-name">{{message.sender}}</div>
+                        <div class="msg-info-time">{{message.createdAt}}</div>
+                    </div>
 
-<!--                    <div class="msg-text">-->
-<!--                        {{message.message}}-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+                    <div class="msg-text">
+                        {{message.message}}
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <form onsubmit="return false" class="msger-inputarea">
@@ -82,8 +81,7 @@
             room: {},
             sender: '',
             message: '',
-            messages: [],
-            isOther: true
+            messages: []
         },
         created() {
             this.roomId = localStorage.getItem('wschat.roomId');
@@ -106,13 +104,13 @@
                 this.message = '';
             },
             recvMessage: function (recv) {
-                this.messages.unshift({
+                this.messages.push({
                     "type": recv.type,
                     "sender": recv.type == 'ENTER' ? '[알림]' : recv.sender,
                     "message": recv.message,
-                    "createdAt": recv.createdAt
+                    "createdAt": recv.createdAt,
+                    "isSame": this.sender == recv.sender
                 });
-                this.isOther = this.sender != recv.sender;
             }
         }
     });

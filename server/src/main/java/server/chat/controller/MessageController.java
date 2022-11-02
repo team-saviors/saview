@@ -14,14 +14,15 @@ import java.time.format.DateTimeFormatter;
 public class MessageController {
 
     private final SimpMessageSendingOperations sendingOperations;
+
     // 실질적 경로: /app/chat/message
     @MessageMapping("/chat/message")
     public void enter(ChatMessage message) {
         if (ChatMessage.MessageType.ENTER.equals(message.getType())) {
-            message.setMessage(message.getSender()+"님이 입장하였습니다.");
+            message.setMessage(message.getSender() + "님이 입장하였습니다.");
         }
         // /topic/chat/room/roomId 를 구독하는 클라이언트에게 메세지 전송
         message.setCreatedAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
-        sendingOperations.convertAndSend("/topic/chat/room/"+message.getRoomId(), message);
+        sendingOperations.convertAndSend("/topic/chat/room/" + message.getRoomId(), message);
     }
 }
