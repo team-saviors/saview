@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import server.chat.model.ChatRoom;
+import server.repository.ChatRoomRepository;
 
 import javax.annotation.PostConstruct;
 import java.util.*;
@@ -14,11 +15,16 @@ import java.util.*;
 public class ChatService {
 
     private Map<String, ChatRoom> chatRooms;
+    private final ChatRoomRepository chatRoomRepository;
 
     @PostConstruct
-    //의존관게 주입완료되면 실행되는 코드
+    //의존관계 주입완료되면 실행되는 코드
     private void init() {
         chatRooms = new LinkedHashMap<>();
+        List<ChatRoom> chatRoomList = chatRoomRepository.findAll();
+        for (ChatRoom c: chatRoomList) {
+            chatRooms.put(c.getRoomId(), c);
+        }
     }
 
     //채팅방 불러오기
@@ -38,6 +44,7 @@ public class ChatService {
     //채팅방 생성
     public ChatRoom createRoom(String name) {
         ChatRoom chatRoom = ChatRoom.create(name);
+        chatRoomRepository.save(chatRoom);
         chatRooms.put(chatRoom.getRoomId(), chatRoom);
         return chatRoom;
     }
