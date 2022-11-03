@@ -61,6 +61,7 @@
         <input type="text" class="msger-input" placeholder="Enter your message..." v-model="message"
                v-on:keypress.enter="sendMessage">
         <button type="button" class="msger-send-btn" @click="sendMessage">Send</button>
+        <button type="button" class="exit-chat" onclick="location.href='/chat/room'">Exit</button>
     </form>
 </section>
 <script src="/webjars/vue/2.5.16/dist/vue.min.js"></script>
