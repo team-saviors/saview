@@ -6,6 +6,7 @@ import { getEmployAnnouncement } from '../../api/Employ/get';
 const EmployAnnouncement = ({ mainCategory, subCategory }) => {
   const [employAnnouncement, setEmployAnnouncement] = useState(null);
   const [current, setCurrent] = useState(0);
+
   const next = () => {
     if (current >= 18) {
       setCurrent(0);
