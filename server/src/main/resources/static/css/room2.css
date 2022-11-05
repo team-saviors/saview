@@ -1,0 +1,46 @@
+body {
+    background: #eee;
+}
+
+.icons i {
+    color: #b5b3b3;
+    border: 1px solid #b5b3b3;
+    padding: 6px;
+    margin-left: 4px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.activity-done {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.list-group li {
+    margin-bottom: 12px;
+}
+
+.list-group-item {
+}
+
+.list li {
+    list-style: none;
+    padding: 10px;
+    border: 1px solid #e3dada;
+    margin-top: 12px;
+    border-radius: 5px;
+    background: #fff;
+}
+
+.checkicon {
+    color: green;
+    font-size: 19px;
+}
+
+.date-time {
+    font-size: 12px;
+}
+
+.profile-image img {
+    margin-left: 3px;
+}
