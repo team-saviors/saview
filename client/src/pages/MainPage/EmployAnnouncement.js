@@ -6,7 +6,7 @@ import { getEmployAnnouncement } from '../../api/Employ/get';
 const EmployAnnouncement = ({ mainCategory, subCategory }) => {
   const [employAnnouncement, setEmployAnnouncement] = useState(null);
   const [current, setCurrent] = useState(0);
-  const [searchWord, setSearchWord] = useState(null);
+
   const next = () => {
     if (current >= 18) {
       setCurrent(0);
@@ -34,7 +34,7 @@ const EmployAnnouncement = ({ mainCategory, subCategory }) => {
       setEmployAnnouncement(res.data);
     })();
   }, [subCategory]);
-  console.log(employAnnouncement);
+
   return (
     <>
       {employAnnouncement?.length ? (

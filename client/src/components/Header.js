@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react';
 const Header = () => {
   const { isLogin } = loginStore();
   const { openModal } = signInModalStore();
-
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -37,7 +36,16 @@ const Header = () => {
 
           {isLogin ? (
             <>
-              <NoticeModal></NoticeModal>
+              <Button
+                style={{
+                  color: 'black',
+                  fontSize: '18px',
+                }}
+              >
+                <a href={`${process.env.REACT_APP_API_URL}/chat/room`}>
+                  스터디채팅
+                </a>
+              </Button>
               <UserDropdown></UserDropdown>
             </>
           ) : (
@@ -57,7 +65,6 @@ const Header = () => {
 
 import { Box, Button } from '@mui/material';
 import styled from 'styled-components';
-import NoticeModal from './NoticeModal';
 import UserDropdown from './UserDropdown';
 
 const NavBar = styled.header`
