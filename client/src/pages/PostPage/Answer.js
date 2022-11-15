@@ -162,7 +162,8 @@ export default function Answer(props) {
                   <Typography
                     variant="body2"
                     color="black"
-                    style={{ maxWidth: '950px', fontFamily: 'Jua' }}
+                    style={{ maxWidth: '750px', fontFamily: 'Jua' }}
+                    align="left"
                   >
                     {comment.content}
                   </Typography>
