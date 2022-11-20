@@ -1,16 +1,16 @@
-import Button from '../components/BasicButton';
-import styled from 'styled-components';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { IconButton } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { putAnswer } from '../api/Answer';
+import { postAnswer } from '../../../api/Answer';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState, useMemo } from 'react';
+import BasicButton from '../../../components/BasicButton';
+import { Button, IconButton } from '@mui/material';
+import styled from 'styled-components';
+import { useState, useEffect } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
-import { answerStore } from '../store/store';
-const AnswerEditModal = ({ answer, page, sort }) => {
+import { signInModalStore } from '../../../store/store';
+const AnswerModal = ({ getQuestion, question, sort, page }) => {
   const params = useParams();
   const {
     register,
@@ -18,15 +18,9 @@ const AnswerEditModal = ({ answer, page, sort }) => {
     getValues,
     reset,
     formState: { errors },
-  } = useForm({
-    defaultValues: useMemo(() => {
-      return answer;
-    }, [answer]),
-  });
-  useEffect(() => {
-    reset(answer);
-  }, [answer]);
-  const { question, getQuestion } = answerStore();
+  } = useForm();
+  const { openModal } = signInModalStore();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -34,17 +28,22 @@ const AnswerEditModal = ({ answer, page, sort }) => {
     reset();
     navigate(`/questions/${question.questionId}`);
   };
-
-  const navigate = useNavigate();
   const onSubmit = async (data) => {
-    await putAnswer(data);
-    handleClose();
-    await getQuestion(params.id, page, sort);
+    try {
+      const res = await postAnswer(question.questionId, data);
+      reset();
+      handleClose();
+      await getQuestion(params.id, page, sort);
+    } catch (err) {
+      if (err.message === '403') {
+        openModal();
+      }
+    }
   };
   const onError = () => {};
   return (
     <AnswerContainer>
-      <EditModalBtn onClick={handleOpen}>수정하기</EditModalBtn>
+      <AnswerModalBtn onClick={handleOpen}>답변 작성</AnswerModalBtn>
       <Modal
         open={open}
         onClose={handleClose}
@@ -53,7 +52,7 @@ const AnswerEditModal = ({ answer, page, sort }) => {
       >
         <Box sx={style}>
           <ModalHeader>
-            <h2>답변 수정</h2>
+            <h2>답변하기</h2>
             <IconButton onClick={handleClose}>
               <ClearIcon />
             </IconButton>
@@ -75,7 +74,7 @@ const AnswerEditModal = ({ answer, page, sort }) => {
                 />
                 <MadalBtns>
                   <CancelBtn onClick={handleClose}>취소</CancelBtn>
-                  <RegistBtn type="submit">수정</RegistBtn>
+                  <RegistBtn type="submit">등록</RegistBtn>
                 </MadalBtns>
               </form>
             </AnswerContent>
@@ -87,16 +86,16 @@ const AnswerEditModal = ({ answer, page, sort }) => {
 };
 
 const AnswerContainer = styled(Box)``;
-const EditModalBtn = styled.button`
+const AnswerModalBtn = styled.button`
   font-size: 17px;
   font-weight: 500;
   padding: 0.4375rem 0.8125rem;
-  color: #263747;
+  color: white;
   border-radius: 3px;
   border: 1px solid #00000000;
-  background-color: #e9ecf3;
+  background-color: #506b9b;
   &:hover {
-    background-color: #d7e2eb;
+    background-color: #3d5a92;
   }
 `;
 const ModalHeader = styled(Box)`
@@ -157,8 +156,8 @@ const MadalBtns = styled(Box)`
     padding: 0.4375rem 0.8125rem;
   }
 `;
-const CancelBtn = styled(Button)``;
-const RegistBtn = styled(Button)``;
+const CancelBtn = styled(BasicButton)``;
+const RegistBtn = styled(BasicButton)``;
 const style = {
   position: 'absolute',
   top: '50%',
@@ -179,4 +178,4 @@ const style = {
   padding: '0',
 };
 
-export default AnswerEditModal;
+export default AnswerModal;

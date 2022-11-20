@@ -2,8 +2,16 @@ import { Button } from '@mui/material';
 import { useState } from 'react';
 import styled from 'styled-components';
 import CategoryTabs from './CategoryTabs';
-const FEStacks = ['JavaScript', 'React', 'TypeScript', 'Vue', 'NodeJS'];
-const BEStacks = [
+export const FEStacks = [
+  'HTML',
+  'CSS',
+  'JavaScript',
+  'React',
+  'TypeScript',
+  'Vue',
+  'NodeJS',
+];
+export const BEStacks = [
   'Java',
   'Spring',
   'Express',
@@ -12,8 +20,14 @@ const BEStacks = [
   'JPA',
   'Database',
 ];
-const CS = ['운영체제', '자료구조', '알고리즘', '네트워크', '디자인패턴'];
-const 기타 = ['트러블 슈팅', 'DEVOPS', '테스트', '컨테이너'];
+export const CS = [
+  '운영체제',
+  '자료구조',
+  '알고리즘',
+  '네트워크',
+  '디자인패턴',
+];
+export const 기타 = ['트러블 슈팅', 'DEVOPS', '테스트', '컨테이너'];
 const Tagbox = ({
   setData,
   setOnSearch,

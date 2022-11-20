@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import { questionStore } from '../../store/store';
+import { questionStore } from '../../../store/store';
 import QuestionCard from './QuestionCard';
 const CardWrapper = styled.div`
   display: flex;

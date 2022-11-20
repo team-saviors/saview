@@ -2,10 +2,10 @@ import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
-import SignIn from './SignIn';
-import SignUp from './SignUp';
+import SignIn from '../SignIn';
+import SignUp from '../SignUp';
 import styled from 'styled-components';
-import { signInModalStore } from '../store/store';
+import { signInModalStore } from '../../../store/store';
 const style = {
   position: 'absolute',
   top: '50%',

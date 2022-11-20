@@ -1,9 +1,9 @@
 import { Box, Button, Tabs, Tab } from '@mui/material';
-import UserPageAvatarWrapper from './UserPageAvatarWrapper';
+import UserPageAvatarWrapper from './Components/UserPageAvatarWrapper';
 import styled from 'styled-components';
-import BasicTabs from '../../components/Tab/BasicTabs';
+import BasicTabs from './Components/BasicTabs';
 import { useState, useEffect } from 'react';
-import AnswerComment from './AnswerComment';
+import AnswerComment from './Components/AnswerComment';
 import ModifyUserPage from './ModifyUserPage';
 import { getAccessWithRefresh, getUsersActivity } from '../../api/User';
 import Pagination from '../../components/Pagination';
@@ -19,7 +19,7 @@ import {
 } from 'react-router-dom';
 import AvatarWrapper from '../../components/AvatarWrapper';
 import UserInfoPage from './UserInfoPage';
-import UserTab from '../../components/Tab/UserTab';
+import UserTab from './Components/UserTab';
 
 const UserPage = () => {
   const params = useParams();
