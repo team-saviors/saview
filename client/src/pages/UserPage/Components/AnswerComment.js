@@ -1,9 +1,6 @@
-import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-
-import { loginStore } from '../../store/store';
-import { ISOHandler } from '../../utils/timeHandler';
+import { ISOHandler } from '../../../utils/timeHandler';
 export const AnswerComment = ({ mypost }) => {
   return (
     <>

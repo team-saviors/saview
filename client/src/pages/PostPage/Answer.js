@@ -11,11 +11,11 @@ import { deleteAnswer, updateAnswerVotes } from '../../api/Answer';
 import { answerStore, signInModalStore } from '../../store/store';
 import AlertDialog from '../../components/AlertDialog';
 import { useParams } from 'react-router-dom';
-import AnswerEditModal from '../../components/AnswerEditModal';
+import AnswerEditModal from './Components/AnswerEditModal';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { postComment, deleteComment } from '../../api/Comment';
-import CommentEditForm from '../../components/CommentEditForm';
+import CommentEditForm from './Components/CommentEditForm';
 
 export default function Answer(props) {
   const { comments, content, createdAt, modifiedAt, user, votes, answerId } =

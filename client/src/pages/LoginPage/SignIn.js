@@ -12,9 +12,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import { FcGoogle } from 'react-icons/fc';
 import { GitHub } from '@mui/icons-material';
-import { postSignIn } from '../api/User';
-import { loginStore } from '../store/store';
-import { getUserId } from '../utils/cookies';
+import { postSignIn } from '../../api/User';
+import { loginStore } from '../../store/store';
+import { getUserId } from '../../utils/cookies';
 
 const theme = createTheme();
 const style = {

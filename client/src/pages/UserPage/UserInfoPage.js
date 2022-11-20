@@ -1,14 +1,14 @@
-import { Box, Button, Tabs, Tab } from '@mui/material';
-import UserPageAvatarWrapper from './UserPageAvatarWrapper';
+import { Box } from '@mui/material';
+import UserPageAvatarWrapper from './Components/UserPageAvatarWrapper';
 import styled from 'styled-components';
-import BasicTabs from '../../components/Tab/BasicTabs';
+import BasicTabs from './Components/BasicTabs';
 import { useState, useEffect } from 'react';
-import AnswerComment from './AnswerComment';
-import { getAccessWithRefresh, getUsersActivity } from '../../api/User';
+import AnswerComment from './Components/AnswerComment';
+import { getUsersActivity } from '../../api/User';
 import Pagination from '../../components/Pagination';
 import { userStore } from '../../store/store';
-import { getAccessToken, getUserId } from '../../utils/cookies';
-import { useParams, NavLink } from 'react-router-dom';
+import { getUserId } from '../../utils/cookies';
+import { useParams } from 'react-router-dom';
 import AvatarWrapper from '../../components/AvatarWrapper';
 const UserInfoPage = () => {
   const params = useParams();
@@ -17,8 +17,6 @@ const UserInfoPage = () => {
   const [page, setPage] = useState(1);
   const { getUser, profile, nickname } = userStore();
 
-  const [isHover, setIsHover] = useState(false);
-  const [menu, setMenu] = useState('회원정보');
   useEffect(() => {
     const fetch = async () => {
       const data = await getUsersActivity(tab, getUserId(), page, 10);
@@ -30,12 +28,6 @@ const UserInfoPage = () => {
     setTab('answers');
     getUser(getUserId());
   }, []);
-  const handleMouseOver = () => {
-    setIsHover(true);
-  };
-  const handleMouseOut = () => {
-    setIsHover(false);
-  };
 
   return (
     <>

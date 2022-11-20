@@ -2,14 +2,13 @@ import { MenuItem, Select } from '@mui/material';
 import { useState } from 'react';
 import styled from 'styled-components';
 import Pagination from '../../components/Pagination';
-import EmployAnnouncement from './EmployAnnouncement';
-import QuestionCards from './QuestionCards';
-
+import EmployAnnouncement from './Components/EmployAnnouncement';
+import QuestionCards from './Components/QuestionCards';
 import SearchForm from '../../components/SearchForm';
-import Tagbox from '../../components/Tab/Tagbox';
+import Tagbox from './Components/Tagbox';
 import { questionStore } from '../../store/store';
-import Carousel from './Carousel/Carousel';
-import SearchedQuestionCards from './SearchedQuestionCards';
+import Carousel from './Components/Carousel';
+import SearchedQuestionCards from './Components/SearchedQuestionCards';
 
 const Mainpage = () => {
   const [tab, setTab] = useState(0);

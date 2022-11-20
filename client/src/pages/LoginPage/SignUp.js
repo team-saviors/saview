@@ -10,7 +10,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
 import { GitHub } from '@mui/icons-material';
-import { postSignUp } from '../api/User';
+import { postSignUp } from '../../api/User';
 
 const style = {
   border: '1px solid #D9E4EC',

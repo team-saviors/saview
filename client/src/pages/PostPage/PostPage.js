@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Answer from './Answer';
 import { answerStore } from '../../store/store';
 import { useParams } from 'react-router-dom';
-import AnswerModal from '../../components/AnswerModal';
+import AnswerModal from './Components/AnswerModal';
 import styled from 'styled-components';
 import { Box, Select, MenuItem } from '@mui/material';
 import Pagination from '../../components/Pagination';

@@ -9,12 +9,12 @@ import {
 } from '@mui/material';
 import { useState, useRef, useCallback } from 'react';
 import AvatarEditor from 'react-avatar-editor';
-import { modifyUser } from '../../api/User';
-import { userStore } from '../../store/store';
 import S3 from 'react-aws-s3';
 import { v4 as uuidv4 } from 'uuid';
 import Slider from '@mui/material/Slider';
-import { getUserId } from '../../utils/cookies';
+import { modifyUser } from '../../../api/User';
+import { userStore } from '../../../store/store';
+import { getUserId } from '../../../utils/cookies';
 window.Buffer = window.Buffer || require('buffer').Buffer;
 const ProfileModal = ({ open, handleClose }) => {
   const [previewImage, setPreviewImage] = useState('');

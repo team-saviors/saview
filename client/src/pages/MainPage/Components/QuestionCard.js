@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import Card from '@mui/material/Card';
-import { Box, Button } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import { ISOHandler, timeConverter } from '../../utils/timeHandler';
+import { timeConverter } from '../../../utils/timeHandler';
 
 const QuestionCard = (props) => {
   const { questionId, content, views, answerNum, subCategory } = props.question;

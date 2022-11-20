@@ -1,26 +1,31 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import { useForm } from 'react-hook-form';
-import { postAnswer } from '../api/Answer';
-import { useNavigate, useParams } from 'react-router-dom';
-import BasicButton from '../components/BasicButton';
-import { Button, IconButton } from '@mui/material';
+// import Button from '../components/BasicButton';
+import Button from '../../../components/BasicButton';
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import { IconButton } from '@mui/material';
+import { useForm } from 'react-hook-form';
+import { putAnswer } from '../../../api/Answer';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState, useMemo } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
-import { signInModalStore } from '../store/store';
-const AnswerModal = ({ getQuestion, question, sort, page }) => {
+import { answerStore } from '../../../store/store';
+const AnswerEditModal = ({ answer, page, sort }) => {
   const params = useParams();
   const {
     register,
     handleSubmit,
-    getValues,
     reset,
     formState: { errors },
-  } = useForm();
-  const { openModal } = signInModalStore();
-  const navigate = useNavigate();
+  } = useForm({
+    defaultValues: useMemo(() => {
+      return answer;
+    }, [answer]),
+  });
+  useEffect(() => {
+    reset(answer);
+  }, [answer]);
+  const { question, getQuestion } = answerStore();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -28,22 +33,17 @@ const AnswerModal = ({ getQuestion, question, sort, page }) => {
     reset();
     navigate(`/questions/${question.questionId}`);
   };
+
+  const navigate = useNavigate();
   const onSubmit = async (data) => {
-    try {
-      const res = await postAnswer(question.questionId, data);
-      reset();
-      handleClose();
-      await getQuestion(params.id, page, sort);
-    } catch (err) {
-      if (err.message === '403') {
-        openModal();
-      }
-    }
+    await putAnswer(data);
+    handleClose();
+    await getQuestion(params.id, page, sort);
   };
   const onError = () => {};
   return (
     <AnswerContainer>
-      <AnswerModalBtn onClick={handleOpen}>답변 작성</AnswerModalBtn>
+      <EditModalBtn onClick={handleOpen}>수정하기</EditModalBtn>
       <Modal
         open={open}
         onClose={handleClose}
@@ -52,7 +52,7 @@ const AnswerModal = ({ getQuestion, question, sort, page }) => {
       >
         <Box sx={style}>
           <ModalHeader>
-            <h2>답변하기</h2>
+            <h2>답변 수정</h2>
             <IconButton onClick={handleClose}>
               <ClearIcon />
             </IconButton>
@@ -74,7 +74,7 @@ const AnswerModal = ({ getQuestion, question, sort, page }) => {
                 />
                 <MadalBtns>
                   <CancelBtn onClick={handleClose}>취소</CancelBtn>
-                  <RegistBtn type="submit">등록</RegistBtn>
+                  <RegistBtn type="submit">수정</RegistBtn>
                 </MadalBtns>
               </form>
             </AnswerContent>
@@ -86,16 +86,16 @@ const AnswerModal = ({ getQuestion, question, sort, page }) => {
 };
 
 const AnswerContainer = styled(Box)``;
-const AnswerModalBtn = styled.button`
+const EditModalBtn = styled.button`
   font-size: 17px;
   font-weight: 500;
   padding: 0.4375rem 0.8125rem;
-  color: white;
+  color: #263747;
   border-radius: 3px;
   border: 1px solid #00000000;
-  background-color: #506b9b;
+  background-color: #e9ecf3;
   &:hover {
-    background-color: #3d5a92;
+    background-color: #d7e2eb;
   }
 `;
 const ModalHeader = styled(Box)`
@@ -156,8 +156,8 @@ const MadalBtns = styled(Box)`
     padding: 0.4375rem 0.8125rem;
   }
 `;
-const CancelBtn = styled(BasicButton)``;
-const RegistBtn = styled(BasicButton)``;
+const CancelBtn = styled(Button)``;
+const RegistBtn = styled(Button)``;
 const style = {
   position: 'absolute',
   top: '50%',
@@ -178,4 +178,4 @@ const style = {
   padding: '0',
 };
 
-export default AnswerModal;
+export default AnswerEditModal;
