@@ -1,27 +1,17 @@
-import { questionRegisterStore } from '../store/store';
+import TextField from '@mui/material/TextField';
+import { questionRegisterStore } from '../../../store/store';
+import { BEStacks, CS, FEStacks, 기타 } from '../../MainPage/Components/Tagbox';
 const QuestionInfoSelect = () => {
   const { questions, handleMainChange, handleSubChange } =
     questionRegisterStore();
   const categoryData = [
     {
       label: '대분류',
-      item: ['프론트엔드', '백엔드', 'CS'],
+      item: ['프론트엔드', '백엔드', 'CS', '기타'],
     },
     {
       label: '소분류',
-      item: [
-        ['JavaScript', 'React', 'TypeScript', 'Vue', 'NodeJS', '기타'],
-        ['Java', 'Spring', 'MySQL', 'Express', 'MongoDB', '기타'],
-        [
-          '운영체제',
-          '자료구조',
-          '알고리즘',
-          '네트워크',
-          '디자인패턴',
-          '데이터베이스',
-          '기타',
-        ],
-      ],
+      item: [FEStacks, BEStacks, CS, 기타],
     },
   ];
 
@@ -45,6 +35,8 @@ const QuestionInfoSelect = () => {
             {data}
           </MenuItem>
         ));
+      case '기타':
+        return <input></input>;
     }
   };
   return (
@@ -67,26 +59,38 @@ const QuestionInfoSelect = () => {
       </FormControl>
 
       <FormControl fullWidth>
-        <InputLabel id="sub-select-label">{categoryData[1].label}</InputLabel>
-        <Select
-          labelId="sub-select-label"
-          id="sub-select"
-          value={questions.subCategory}
-          label={categoryData[1].label}
-          onChange={handleSubChange}
-        >
-          {subChange()}
-        </Select>
+        {questions.mainCategory === '기타' ? (
+          <TextField
+            label="소분류"
+            value={questions.subCategory}
+            onChange={handleSubChange}
+          ></TextField>
+        ) : (
+          <>
+            <InputLabel id="sub-select-label">
+              {categoryData[1].label}
+            </InputLabel>
+            <Select
+              labelId="sub-select-label"
+              id="sub-select"
+              value={questions.subCategory}
+              label={categoryData[1].label}
+              onChange={handleSubChange}
+            >
+              {subChange()}
+            </Select>
+          </>
+        )}
       </FormControl>
     </InputWrapper>
   );
 };
 
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { Box } from '@mui/material';
 import styled from 'styled-components';
 
 const InputWrapper = styled(Box)`

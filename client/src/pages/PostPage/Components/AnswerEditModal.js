@@ -1,14 +1,14 @@
-// import Button from '../components/BasicButton';
-import Button from '../../../components/BasicButton';
-import styled from 'styled-components';
+import ClearIcon from '@mui/icons-material/Clear';
+import { IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import { IconButton } from '@mui/material';
+import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { putAnswer } from '../../../api/Answer';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState, useMemo } from 'react';
-import ClearIcon from '@mui/icons-material/Clear';
+import styled from 'styled-components';
+import { putAnswer } from '../../../api/Answer';
+import Button from '../../../components/BasicButton';
+
 import { answerStore } from '../../../store/store';
 const AnswerEditModal = ({ answer, page, sort }) => {
   const params = useParams();

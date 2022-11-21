@@ -1,7 +1,6 @@
-import { SignInModal } from '../pages/LoginPage/Components/SignInModal';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { SignInModal } from '../pages/LoginPage/Components/SignInModal';
 import { loginStore, signInModalStore } from '../store/store';
-import { useState, useEffect } from 'react';
 const Header = () => {
   const { isLogin } = loginStore();
   const { openModal } = signInModalStore();

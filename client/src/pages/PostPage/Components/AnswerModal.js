@@ -1,15 +1,15 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import { useForm } from 'react-hook-form';
-import { postAnswer } from '../../../api/Answer';
-import { useNavigate, useParams } from 'react-router-dom';
-import BasicButton from '../../../components/BasicButton';
-import { Button, IconButton } from '@mui/material';
-import styled from 'styled-components';
-import { useState, useEffect } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
+import { IconButton } from '@mui/material';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import { postAnswer } from '../../../api/Answer';
+import BasicButton from '../../../components/BasicButton';
 import { signInModalStore } from '../../../store/store';
+
 const AnswerModal = ({ getQuestion, question, sort, page }) => {
   const params = useParams();
   const {
