@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { signInModalStore } from '../../../store/store';
 import SignIn from '../SignIn';
 import SignUp from '../SignUp';
+
 const style = {
   position: 'absolute',
   top: '50%',

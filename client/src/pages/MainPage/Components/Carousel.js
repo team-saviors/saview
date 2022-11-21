@@ -7,6 +7,7 @@ const banner1 =
   'https://saview-dev.s3.ap-northeast-2.amazonaws.com/Saview/banner/banner1.webp';
 const banner2 =
   'https://saview-dev.s3.ap-northeast-2.amazonaws.com/Saview/banner/banner2.webp';
+
 const banners = [banner1, banner2];
 const Carousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);

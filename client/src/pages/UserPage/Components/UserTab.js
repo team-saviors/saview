@@ -6,6 +6,7 @@ import { deleteUser, postLogout } from '../../../api/User';
 import AlertDialog from '../../../components/AlertDialog';
 import { loginStore } from '../../../store/store';
 import { getUserId } from '../../../utils/cookies';
+
 export default function UserTab({ menu, setMenu }) {
   const { loginHandler } = loginStore();
   const navigate = useNavigate();

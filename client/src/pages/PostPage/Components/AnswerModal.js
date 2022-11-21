@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import { postAnswer } from '../../../api/Answer';
 import BasicButton from '../../../components/BasicButton';
 import { signInModalStore } from '../../../store/store';
+
 const AnswerModal = ({ getQuestion, question, sort, page }) => {
   const params = useParams();
   const {

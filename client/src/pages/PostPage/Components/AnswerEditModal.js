@@ -1,4 +1,3 @@
-// import Button from '../components/BasicButton';
 import ClearIcon from '@mui/icons-material/Clear';
 import { IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -9,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { putAnswer } from '../../../api/Answer';
 import Button from '../../../components/BasicButton';
+
 import { answerStore } from '../../../store/store';
 const AnswerEditModal = ({ answer, page, sort }) => {
   const params = useParams();
