@@ -5,6 +5,6 @@ export async function deleteComment(commentId) {
     const res = await axiosInstance.delete(`/comments/${commentId}`);
     alert('댓글이 삭제되었습니다');
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }

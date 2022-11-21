@@ -47,10 +47,10 @@ const TabsWrapper = styled.div``;
 const Tab = styled.span`
   margin-right: 20px;
   cursor: pointer;
-  color: ${(props) => (props.active ? 'skyblue' : 'gray')};
+  color: ${(props) => (props.active ? '#3C5A92' : 'gray')};
   &:hover {
     color: black;
   }
   font-size: 26px;
-  font-weight: 500;
+  font-weight: 800;
 `;

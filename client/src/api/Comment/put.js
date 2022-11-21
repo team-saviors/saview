@@ -6,6 +6,6 @@ export async function putComment(data) {
     });
     alert('댓글이 수정되었습니다.');
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }

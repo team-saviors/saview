@@ -24,7 +24,11 @@ const SearchForm = ({ setOnSearch, setData, page, sort }) => {
         <IconButton type="submit" aria-label="search" size="small">
           <SearchIcon></SearchIcon>
         </IconButton>
-        <SearchInput type="text" onChange={handleChange}></SearchInput>
+        <SearchInput
+          type="text"
+          onChange={handleChange}
+          aria-label="Search"
+        ></SearchInput>
       </Form>
     </SearchInputBox>
   );

@@ -18,10 +18,10 @@ const Header = () => {
     <>
       <NavBar>
         <LogoBox>
-          <Link to="/">
+          <Link to="/" title="메인페이지">
             <img
               className="main_logo"
-              alt="react"
+              alt="saview logo"
               src={
                 'https://saview-dev.s3.ap-northeast-2.amazonaws.com/Saview/logo_tranverse.png'
               }

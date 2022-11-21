@@ -63,7 +63,7 @@ export const answerStore = create((set, get) => ({
         }
       );
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   },
 }));

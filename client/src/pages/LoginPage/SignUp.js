@@ -1,15 +1,14 @@
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { GitHub } from '@mui/icons-material';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import CssBaseline from '@mui/material/CssBaseline';
+import Grid from '@mui/material/Grid';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
 import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
-import { GitHub } from '@mui/icons-material';
 import { postSignUp } from '../../api/User';
 
 const style = {
@@ -35,7 +34,7 @@ export default function SignUp({ onClose }) {
       alert('회원가입이 완료되었습니다. 다시 로그인 해 주세요');
       onClose();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
   const onError = (error) => {
@@ -70,6 +69,7 @@ export default function SignUp({ onClose }) {
                   required
                   fullWidth
                   label="닉네임"
+                  id="닉네임"
                   {...register('nickname', {
                     required: '닉네임을 입력하세요',
                     pattern: {
@@ -84,6 +84,7 @@ export default function SignUp({ onClose }) {
                   required
                   fullWidth
                   label="이메일"
+                  id="이메일"
                   placeholder="이메일을 입력해주세요"
                   {...register('email', {
                     required: '이메일을 입력하세요',
@@ -100,7 +101,8 @@ export default function SignUp({ onClose }) {
                   fullWidth
                   type="password"
                   label="비밀번호"
-                  name="비번"
+                  id="비밀번호"
+                  name="비밀번호"
                   placeholder="영문자,숫자,특수문자 포함 8글자이상"
                   {...register('password', {
                     pattern: {
@@ -117,6 +119,7 @@ export default function SignUp({ onClose }) {
                   required
                   fullWidth
                   label="비밀번호 확인"
+                  id="비밀번호 확인"
                   type="password"
                   placeholder="비밀번호를 확인해주세요"
                   {...register('passwordcheck', {

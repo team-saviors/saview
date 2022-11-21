@@ -7,6 +7,6 @@ export async function putAnswer(data) {
     });
     alert('답변이 수정되었습니다.');
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }

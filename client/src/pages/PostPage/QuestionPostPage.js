@@ -32,7 +32,7 @@ const QuestionPostPage = () => {
           id="questionContent"
         />
         <Postbtnbox>
-          <Link to="/">
+          <Link to="/" title="메인페이지로 돌아가기">
             <CancelBtn>취소</CancelBtn>
           </Link>
           <PostBtn type="submit" onClick={questionPostHandler}>

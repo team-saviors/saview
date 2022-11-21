@@ -54,6 +54,7 @@ export default function UserTab({ menu, setMenu }) {
                 onClick={handleClick}
                 active={menu === '내 계정'}
                 id="내 계정"
+                title="내 정보 수정"
               >
                 내 계정
               </Tab>

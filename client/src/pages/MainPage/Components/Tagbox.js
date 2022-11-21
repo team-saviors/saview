@@ -72,7 +72,7 @@ const Tagbox = ({
         setPage={setPage}
         setActiveTagbox={setActiveTagbox}
       ></CategoryTabs>
-      <TagButtons>
+      <TagButtons role="tabpanel">
         {Boxes(tab).array.map((stack, idx) => {
           return (
             <TagButton
