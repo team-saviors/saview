@@ -1,6 +1,6 @@
-import { getAccessToken } from './cookies';
-import { getAccessWithRefresh, postLogout } from '../api/User';
 import axios from 'axios';
+import { getAccessWithRefresh } from '../api/User';
+import { getAccessToken } from './cookies';
 
 const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,

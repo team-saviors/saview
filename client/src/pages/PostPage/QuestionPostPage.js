@@ -1,6 +1,6 @@
-import QuestionInfoSelect from '../../components/QuestionInfoSelect';
-import { questionRegisterStore, signInModalStore } from '../../store/store';
 import { postQuestion } from '../../api/Question';
+import { questionRegisterStore, signInModalStore } from '../../store/store';
+import QuestionInfoSelect from './Components/QuestionInfoSelect';
 
 const QuestionPostPage = () => {
   const navigate = useNavigate();
@@ -44,10 +44,10 @@ const QuestionPostPage = () => {
   );
 };
 
-import styled from 'styled-components';
 import { Box, TextField } from '@mui/material';
-import BasicButton from '../../components/BasicButton';
 import { Link, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import BasicButton from '../../components/BasicButton';
 const PostBox = styled(Box)`
   max-width: 1040px;
   display: flex;

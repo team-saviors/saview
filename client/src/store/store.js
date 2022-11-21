@@ -1,7 +1,6 @@
 import create from 'zustand';
-import { getRefreshToken, getUserId } from '../utils/cookies';
 import axiosInstance from '../utils/axiosInstance';
-import { useNavigate } from 'react-router-dom';
+import { getRefreshToken, getUserId } from '../utils/cookies';
 
 export const countStore = create((set) => ({
   count: 0,

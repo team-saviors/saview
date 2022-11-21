@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { deleteUser, postLogout } from '../../../api/User';
+import AlertDialog from '../../../components/AlertDialog';
 import { loginStore } from '../../../store/store';
 import { getUserId } from '../../../utils/cookies';
-import AlertDialog from '../../../components/AlertDialog';
 export default function UserTab({ menu, setMenu }) {
   const { loginHandler } = loginStore();
   const navigate = useNavigate();

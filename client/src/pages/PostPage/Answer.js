@@ -1,20 +1,20 @@
-import Paper from '@mui/material/Paper';
-import { useEffect, useState } from 'react';
-import Container from '@mui/system/Container';
-import ThumbUpAlt from '@mui/icons-material/ThumbUpOffAlt';
-import { TextField, Button, CardContent, Typography } from '@mui/material';
-import AvatarWrapper from '../../components/AvatarWrapper';
 import MessageIcon from '@mui/icons-material/Message';
-import { ISOHandler } from '../../utils/timeHandler';
-import { getUserId } from '../../utils/cookies';
-import { deleteAnswer, updateAnswerVotes } from '../../api/Answer';
-import { answerStore, signInModalStore } from '../../store/store';
-import AlertDialog from '../../components/AlertDialog';
-import { useParams } from 'react-router-dom';
-import AnswerEditModal from './Components/AnswerEditModal';
-import styled from 'styled-components';
+import ThumbUpAlt from '@mui/icons-material/ThumbUpOffAlt';
+import { Button, CardContent, TextField, Typography } from '@mui/material';
+import Paper from '@mui/material/Paper';
+import Container from '@mui/system/Container';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { postComment, deleteComment } from '../../api/Comment';
+import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import { deleteAnswer, updateAnswerVotes } from '../../api/Answer';
+import { deleteComment, postComment } from '../../api/Comment';
+import AlertDialog from '../../components/AlertDialog';
+import AvatarWrapper from '../../components/AvatarWrapper';
+import { answerStore, signInModalStore } from '../../store/store';
+import { getUserId } from '../../utils/cookies';
+import { ISOHandler } from '../../utils/timeHandler';
+import AnswerEditModal from './Components/AnswerEditModal';
 import CommentEditForm from './Components/CommentEditForm';
 
 export default function Answer(props) {

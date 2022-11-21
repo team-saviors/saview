@@ -1,4 +1,3 @@
-import { CookieTwoTone } from '@mui/icons-material';
 import { Cookies } from 'react-cookie';
 const cookies = new Cookies();
 
