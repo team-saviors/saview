@@ -1,24 +1,10 @@
-import { Box, Button, Tabs, Tab } from '@mui/material';
-import UserPageAvatarWrapper from './Components/UserPageAvatarWrapper';
+import { Box } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import BasicTabs from './Components/BasicTabs';
-import { useState, useEffect } from 'react';
-import AnswerComment from './Components/AnswerComment';
-import ModifyUserPage from './ModifyUserPage';
-import { getAccessWithRefresh, getUsersActivity } from '../../api/User';
-import Pagination from '../../components/Pagination';
+import { getUsersActivity } from '../../api/User';
 import { userStore } from '../../store/store';
-import { getAccessToken, getUserId } from '../../utils/cookies';
-import {
-  useParams,
-  Link,
-  Routes,
-  Route,
-  Outlet,
-  useNavigate,
-} from 'react-router-dom';
-import AvatarWrapper from '../../components/AvatarWrapper';
-import UserInfoPage from './UserInfoPage';
+import { getUserId } from '../../utils/cookies';
 import UserTab from './Components/UserTab';
 
 const UserPage = () => {

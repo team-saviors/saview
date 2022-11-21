@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Card from '@mui/material/Card';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { timeConverter } from '../../../utils/timeHandler';
 
 const QuestionCard = (props) => {

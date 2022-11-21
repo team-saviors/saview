@@ -7,7 +7,7 @@ export async function modifyUser(nickname, profile) {
       nickname: nickname,
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 

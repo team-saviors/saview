@@ -51,7 +51,7 @@ const Carousel = () => {
           return (
             <img
               src={banner}
-              alt={banner}
+              alt="개발자를 위한 기술면접 커뮤니티 saview 캐러셀"
               key={banner}
               style={{ width: '100%', height: '400px', flexShrink: '0' }}
             ></img>

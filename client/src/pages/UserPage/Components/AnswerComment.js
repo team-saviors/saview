@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import { ISOHandler } from '../../../utils/timeHandler';
 export const AnswerComment = ({ mypost }) => {
   return (
@@ -10,7 +10,10 @@ export const AnswerComment = ({ mypost }) => {
             <InfoWrapper>
               <div>
                 <span>{mypost.subCategory}</span>
-                <Link to={`/questions/${mypost.questionId}`}>
+                <Link
+                  to={`/questions/${mypost.questionId}`}
+                  title={mypost.questionContent}
+                >
                   <span style={{ marginLeft: '30px' }}>
                     문제:{mypost.questionContent}
                   </span>

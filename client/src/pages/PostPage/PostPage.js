@@ -1,11 +1,11 @@
+import { Box, MenuItem, Select } from '@mui/material';
 import { useEffect, useState } from 'react';
-import Answer from './Answer';
-import { answerStore } from '../../store/store';
 import { useParams } from 'react-router-dom';
-import AnswerModal from './Components/AnswerModal';
 import styled from 'styled-components';
-import { Box, Select, MenuItem } from '@mui/material';
 import Pagination from '../../components/Pagination';
+import { answerStore } from '../../store/store';
+import Answer from './Answer';
+import AnswerModal from './Components/AnswerModal';
 const PostPage = () => {
   const params = useParams();
   const [page, setPage] = useState(1);
@@ -17,6 +17,10 @@ const PostPage = () => {
   useEffect(() => {
     getQuestion(params.id, page, sort);
   }, [sort, page]);
+  useEffect(() => {
+    document.title = question.content;
+  }, [question.content]);
+
   return (
     <>
       <main
