@@ -2,20 +2,20 @@ import { MenuItem, Select } from '@mui/material';
 import { useState } from 'react';
 import styled from 'styled-components';
 import Pagination from '../../components/Pagination';
-import EmployAnnouncement from './Components/EmployAnnouncement';
-import QuestionCards from './Components/QuestionCards';
 import SearchForm from '../../components/SearchForm';
-import Tagbox from './Components/Tagbox';
 import { questionStore } from '../../store/store';
 import Carousel from './Components/Carousel';
+import EmployAnnouncement from './Components/EmployAnnouncement';
+import QuestionCards from './Components/QuestionCards';
 import SearchedQuestionCards from './Components/SearchedQuestionCards';
+import Tagbox from './Components/Tagbox';
 
 const Mainpage = () => {
   const [tab, setTab] = useState(0);
   const [mainCategory, setMainCategory] = useState('all');
   const [subCategory, setSubCategory] = useState('all');
   const [page, setPage] = useState(1);
-  const [sort, setSort] = useState('views');
+  const [sort, setSort] = useState('createdAt');
   const [data, setData] = useState('');
   const [onSearch, setOnSearch] = useState(false);
   const { questions } = questionStore();
@@ -44,7 +44,7 @@ const Mainpage = () => {
           <Select
             style={{ position: 'relative', left: '10px', width: '100px' }}
             onChange={handleChange}
-            defaultValue="views"
+            defaultValue="createdAt"
           >
             <MenuItem value="views">조회순</MenuItem>
             <MenuItem value="createdAt">최신순</MenuItem>
