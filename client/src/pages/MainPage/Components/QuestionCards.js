@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import { questionStore } from '../../../store/store';
 import QuestionCard from './QuestionCard';
 const CardWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 `;
 const QuestionCards = ({
   tab,
