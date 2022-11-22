@@ -3,8 +3,11 @@ import styled from 'styled-components';
 import { questionStore } from '../../../store/store';
 import QuestionCard from './QuestionCard';
 const CardWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin-bottom: 2rem;
+  justify-content: flex-start;
 `;
 const QuestionCards = ({
   tab,
@@ -46,6 +49,7 @@ const QuestionCards = ({
         {questions.data
           ? questions.data.map((question) => (
               <QuestionCard
+                class="questionCard"
                 key={question.questionId}
                 question={question}
               ></QuestionCard>
