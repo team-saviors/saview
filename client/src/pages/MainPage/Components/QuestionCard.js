@@ -1,6 +1,6 @@
-import styled from 'styled-components';
 import Card from '@mui/material/Card';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import { timeConverter } from '../../../utils/timeHandler';
 
 const QuestionCard = (props) => {
@@ -33,7 +33,7 @@ const CardItem = styled(Card)`
   flex-direction: column;
   width: 340px;
   height: 190px;
-  margin: 20px auto 0px 0px;
+  margin: 20px 45px 20px 0px;
   gap: 11px;
   position: relative;
   border-radius: 10px;

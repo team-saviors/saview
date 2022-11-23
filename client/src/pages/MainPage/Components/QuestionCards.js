@@ -5,6 +5,8 @@ import QuestionCard from './QuestionCard';
 const CardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
+  margin-bottom: 2rem;
   justify-content: flex-start;
 `;
 const QuestionCards = ({
@@ -47,6 +49,7 @@ const QuestionCards = ({
         {questions.data
           ? questions.data.map((question) => (
               <QuestionCard
+                class="questionCard"
                 key={question.questionId}
                 question={question}
               ></QuestionCard>

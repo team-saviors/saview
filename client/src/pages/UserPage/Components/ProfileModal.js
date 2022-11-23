@@ -1,21 +1,21 @@
 import {
+  Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   Input,
   Stack,
-  Button,
 } from '@mui/material';
-import { useState, useRef, useCallback } from 'react';
+import Slider from '@mui/material/Slider';
+import { useCallback, useRef, useState } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import S3 from 'react-aws-s3';
 import { v4 as uuidv4 } from 'uuid';
-import Slider from '@mui/material/Slider';
 import { modifyUser } from '../../../api/User';
 import { userStore } from '../../../store/store';
 import { getUserId } from '../../../utils/cookies';
-window.Buffer = window.Buffer || require('buffer').Buffer;
+
 const ProfileModal = ({ open, handleClose }) => {
   const [previewImage, setPreviewImage] = useState('');
   const [fileData, setFileData] = useState({});
