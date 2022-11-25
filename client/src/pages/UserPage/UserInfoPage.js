@@ -1,15 +1,15 @@
 import { Box } from '@mui/material';
-import UserPageAvatarWrapper from './Components/UserPageAvatarWrapper';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import BasicTabs from './Components/BasicTabs';
-import { useState, useEffect } from 'react';
-import AnswerComment from './Components/AnswerComment';
 import { getUsersActivity } from '../../api/User';
+import AvatarWrapper from '../../components/AvatarWrapper';
 import Pagination from '../../components/Pagination';
 import { userStore } from '../../store/store';
 import { getUserId } from '../../utils/cookies';
-import { useParams } from 'react-router-dom';
-import AvatarWrapper from '../../components/AvatarWrapper';
+import AnswerComment from './Components/AnswerComment';
+import BasicTabs from './Components/BasicTabs';
+import UserPageAvatarWrapper from './Components/UserPageAvatarWrapper';
 const UserInfoPage = () => {
   const params = useParams();
   const [tab, setTab] = useState('answers');
@@ -23,7 +23,7 @@ const UserInfoPage = () => {
       setData(data);
     };
     fetch();
-  }, [tab]);
+  }, [tab, page]);
   useEffect(() => {
     setTab('answers');
     getUser(getUserId());
