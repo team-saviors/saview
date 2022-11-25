@@ -19,7 +19,7 @@ export async function postLogout() {
     removeRefreshToken();
     removeUserId();
     alert('로그아웃 되었습니다');
-  } catch (err) {
+  } catch (err: any) {
     alert(err.response.data.message);
     throw new Error(err.response.data.status);
   }

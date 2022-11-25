@@ -1,16 +1,8 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Input,
-  Stack,
-} from '@mui/material';
+import { DialogActions, DialogContent } from '@mui/material';
 import Slider from '@mui/material/Slider';
 import { useCallback, useRef, useState } from 'react';
 import AvatarEditor from 'react-avatar-editor';
-import S3 from 'react-aws-s3';
+import S3 from 'react-aws-s3-typescript';
 import { v4 as uuidv4 } from 'uuid';
 import { modifyUser } from '../../../api/User';
 import { userStore } from '../../../store/store';

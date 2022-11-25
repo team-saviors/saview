@@ -1,10 +1,7 @@
 import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { signInModalStore } from '../../../store/store';
-import SignIn from '../SignIn';
-import SignUp from '../SignUp';
 
 const style = {
   position: 'absolute',

@@ -1,25 +1,27 @@
 import create from 'zustand';
 import axiosInstance from '../utils/axiosInstance';
 import { getRefreshToken, getUserId } from '../utils/cookies';
+interface Question {
+  page: number;
+  mainCategory: string;
+  subCategory: string;
+  sort: string;
+}
+interface QuestionStore{
+  questions:{data:any,totalPages:string},
+  getQuestions:(question:Question)=>void,
+  getQuestionsBySearch:,
 
-export const countStore = create((set) => ({
-  count: 0,
-  increase() {
-    set((state) => ({ count: state.count + 1 }));
-  },
-  decrease() {
-    set((state) => ({ count: state.count - 1 }));
-  },
-}));
+}
 
 export const questionStore = create((set) => ({
   questions: {
     data: [],
     totalPages: '',
   },
-  getQuestions: async (page, mainCategory, subCategory, sort) => {
+  getQuestions: async (question: Question) => {
     const res = await axiosInstance.get(
-      `/questions/tags?page=${page}&size=9&mainCategory=${mainCategory}&subCategory=${subCategory}&sort=${sort}`
+      `/questions/tags?page=${question.page}&size=9&mainCategory=${question.mainCategory}&subCategory=${question.subCategory}&sort=${question.sort}`
     );
     set((state) => ({
       questions: {

@@ -1,17 +1,10 @@
-import { GitHub } from '@mui/icons-material';
-import FacebookIcon from '@mui/icons-material/Facebook';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
-import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { useForm } from 'react-hook-form';
-import { FcGoogle } from 'react-icons/fc';
 import { postSignIn } from '../../api/User';
 import { loginStore } from '../../store/store';
 import { getUserId } from '../../utils/cookies';

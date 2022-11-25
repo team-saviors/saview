@@ -1,15 +1,18 @@
-import axiosInstance from '../../utils/axiosInstance';
 import {
   getRefreshToken,
   removeAccessToken,
   setAccessToken,
 } from '../../utils/cookies';
 import { postLogout } from './logout';
-
+import axios from 'axios';
 export async function getAccessWithRefresh() {
   try {
-    const instance = axiosInstance.create({
-      headers: { Refresh: `${getRefreshToken()}` },
+    const instance = axios.create({
+      baseURL: process.env.REACT_APP_API_URL,
+      headers: {
+        'Content-Type': 'application/json',
+        Refresh: `${getRefreshToken()}`,
+      },
     });
     const res = await instance.get('/refresh');
     await removeAccessToken();

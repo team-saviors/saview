@@ -6,8 +6,8 @@ import ScrollToTop from './utils/ScrollToTop';
 const PostPage = lazy(() => import('./pages/PostPage/PostPage'));
 const MainPage = lazy(() => import('./pages/MainPage/MainPage'));
 const Header = lazy(() => import('./components/Header'));
-const QuestionPostPage = lazy(() =>
-  import('./pages/PostPage/QuestionPostPage')
+const QuestionPostPage = lazy(
+  () => import('./pages/PostPage/QuestionPostPage')
 );
 const UserPage = lazy(() => import('./pages/UserPage/UserPage'));
 const ModifyUserPage = lazy(() => import('./pages/UserPage/ModifyUserPage'));

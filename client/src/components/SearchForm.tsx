@@ -2,10 +2,8 @@ import { Search } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { questionStore } from '../store/store';
 
 const SearchForm = ({ setOnSearch, setData, page, sort }) => {
-  const { questions, getQuestionsBySearch } = questionStore();
   const [keyword, setKeyword] = useState('');
   const searchSubmit = async (e) => {
     e.preventDefault();
