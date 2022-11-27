@@ -3,7 +3,7 @@ import { IconButton } from '@mui/material';
 import { useState } from 'react';
 import styled from 'styled-components';
 
-const SearchForm = ({ setOnSearch, setData, page, sort }) => {
+const SearchForm = ({ setOnSearch, setData }) => {
   const [keyword, setKeyword] = useState('');
   const searchSubmit = async (e) => {
     e.preventDefault();

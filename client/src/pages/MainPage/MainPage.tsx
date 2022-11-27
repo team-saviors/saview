@@ -1,15 +1,15 @@
-import { MenuItem, Select } from '@mui/material';
-import { useState } from 'react';
+import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import Pagination from '../../components/Pagination';
 import SearchForm from '../../components/SearchForm';
-import { questionStore } from '../../store/store';
+import { useQuestionStore } from '../../store/store';
 import Carousel from './Components/Carousel';
 import EmployAnnouncement from './Components/EmployAnnouncement';
 import QuestionCards from './Components/QuestionCards';
 import SearchedQuestionCards from './Components/SearchedQuestionCards';
 import Tagbox from './Components/Tagbox';
-
+import React from 'react';
 const Mainpage = () => {
   const [tab, setTab] = useState(0);
   const [mainCategory, setMainCategory] = useState('all');
@@ -18,10 +18,11 @@ const Mainpage = () => {
   const [sort, setSort] = useState('createdAt');
   const [data, setData] = useState('');
   const [onSearch, setOnSearch] = useState(false);
-  const { questions } = questionStore();
-  const handleChange = (e) => {
+  const { questions } = useQuestionStore();
+  const handleChange = (e: SelectChangeEvent) => {
     e.preventDefault();
-    setSort(e.target.value);
+    const target = e.target as HTMLSelectElement;
+    setSort(target.value);
   };
 
   return (
@@ -49,12 +50,7 @@ const Mainpage = () => {
             <MenuItem value="views">조회순</MenuItem>
             <MenuItem value="createdAt">최신순</MenuItem>
           </Select>
-          <SearchForm
-            sort={sort}
-            page={page}
-            setData={setData}
-            setOnSearch={setOnSearch}
-          ></SearchForm>
+          <SearchForm setData={setData} setOnSearch={setOnSearch}></SearchForm>
         </SelectSearchWrapper>
         <Main>
           {onSearch === false ? (

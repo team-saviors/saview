@@ -1,25 +1,14 @@
 import create from 'zustand';
 import axiosInstance from '../utils/axiosInstance';
 import { getRefreshToken, getUserId } from '../utils/cookies';
-interface Question {
-  page: number;
-  mainCategory: string;
-  subCategory: string;
-  sort: string;
-}
-interface QuestionStore{
-  questions:{data:any,totalPages:string},
-  getQuestions:(question:Question)=>void,
-  getQuestionsBySearch:,
+import { QuestionStore, Searching, AnswerStore } from '../types';
 
-}
-
-export const questionStore = create((set) => ({
+export const questionStore = create<QuestionStore>((set) => ({
   questions: {
     data: [],
     totalPages: '',
   },
-  getQuestions: async (question: Question) => {
+  getQuestions: async (question) => {
     const res = await axiosInstance.get(
       `/questions/tags?page=${question.page}&size=9&mainCategory=${question.mainCategory}&subCategory=${question.subCategory}&sort=${question.sort}`
     );
@@ -30,9 +19,9 @@ export const questionStore = create((set) => ({
       },
     }));
   },
-  getQuestionsBySearch: async (searchPage, data, sort) => {
+  getQuestionsBySearch: async (obj: Searching) => {
     const res = await axiosInstance.get(
-      `/questions/search?page=${searchPage}&size=9&keyword=${data}&sort=${sort}`
+      `/questions/search?page=${obj.searchPage}&size=9&keyword=${obj.data}&sort=${obj.sort}`
     );
     set((state) => ({
       questions: {
@@ -43,7 +32,7 @@ export const questionStore = create((set) => ({
   },
 }));
 
-export const answerStore = create((set, get) => ({
+export const answerStore = create<AnswerStore>((set, get) => ({
   question: {},
   getQuestion: async (questionId, page, sort) => {
     try {
@@ -61,7 +50,7 @@ export const answerStore = create((set, get) => ({
       const updateViews = await axiosInstance.put(
         `/questions/${questionId}/views`,
         {
-          views: get().question.views,
+          views: get()?.question?.views,
         }
       );
     } catch (err) {

@@ -1,3 +1,4 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 module.exports = {
   mode: 'development',
@@ -12,8 +13,15 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
         exclude: /node_modules/,
+        use: {
+          loader: 'ts-loader',
+          options: {
+            compilerOptions: {
+              noEmit: false, // this option will solve the issue
+            },
+          },
+        },
       },
     ],
   },
@@ -25,4 +33,5 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
+  plugins: [new HtmlWebpackPlugin()],
 };

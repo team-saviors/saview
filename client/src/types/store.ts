@@ -1,22 +1,19 @@
-import { UserInfos } from './user';
+export interface Question {
+  page: number;
+  mainCategory: string;
+  subCategory: string;
+  sort: string;
+}
 
-export interface Store {
-  storeId: string;
-  createdAt: string;
-  updatedAt: string;
-  storeStatus: string;
-  category: string;
-  longitude: number;
-  latitude: number;
-  storeName: string;
-  addressName: string;
-  body: string;
-  phone: string;
-  homepage: string;
-  storeImages: { storeImage: string }[];
-  user: UserInfos;
-  reviews: { data: Review[]; pageInfo: PageInfo };
-  heartUserId: number[];
+export interface Searching {
+  searchPage: number;
+  data: string;
+  sort: string;
+}
+export interface QuestionStore {
+  questions: { data: any; totalPages: string };
+  getQuestions: (question: Question) => void;
+  getQuestionsBySearch: (obj: Searching) => void;
 }
 
 export interface Review {
@@ -24,7 +21,6 @@ export interface Review {
   createdAt: string;
   updatedAt: string;
   reviewStatus: string;
-  user: UserInfos;
   storeId: string;
   body: string;
   score: number;
@@ -35,4 +31,9 @@ export interface PageInfo {
   size: number;
   totalElements: number;
   totalPages: number;
+}
+
+export interface AnswerStore {
+  question: {};
+  getQuestion: (questionId: number, page: number, sort: string) => void;
 }
