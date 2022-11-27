@@ -1,7 +1,15 @@
 import create from 'zustand';
 import axiosInstance from '../utils/axiosInstance';
 import { getRefreshToken, getUserId } from '../utils/cookies';
-import { QuestionStore, Searching, AnswerStore } from '../types';
+import {
+  QuestionStore,
+  Searching,
+  AnswerStore,
+  QuestionRegisterStore,
+  LoginStore,
+  SignInModalStore,
+  UserStore,
+} from '../types';
 
 export const questionStore = create<QuestionStore>((set) => ({
   questions: {
@@ -31,9 +39,44 @@ export const questionStore = create<QuestionStore>((set) => ({
     }));
   },
 }));
-
+interface Question {
+  answers: {
+    data: [
+      {
+        answerId: number;
+        content: string;
+        createdAt: string;
+        modifiedAt: string;
+        user: {
+          userId: number;
+          nickname: string;
+          profile: string;
+          status: string;
+        };
+      }
+    ];
+    pageInfo: {
+      page: number;
+      size: number;
+      totalElements: number;
+      totalPages: number;
+    };
+    content: string;
+    mainCategory: string;
+    questionId: number;
+    subCategory: string;
+    totalPages: number;
+  };
+  user: {
+    userId: number;
+    nickname: string;
+    profile: string;
+    status: string;
+  };
+  views: number;
+}
 export const answerStore = create<AnswerStore>((set, get) => ({
-  question: {},
+  question: <Question>{},
   getQuestion: async (questionId, page, sort) => {
     try {
       const res = await axiosInstance.get(
@@ -59,7 +102,7 @@ export const answerStore = create<AnswerStore>((set, get) => ({
   },
 }));
 
-export const questionRegisterStore = create((set) => ({
+export const questionRegisterStore = create<QuestionRegisterStore>((set) => ({
   questions: { mainCategory: '', subCategory: '', content: '' },
   handleContentChange(e) {
     set((state) => ({
@@ -87,7 +130,7 @@ export const questionRegisterStore = create((set) => ({
   },
 }));
 
-export const loginStore = create((set) => ({
+export const loginStore = create<LoginStore>((set) => ({
   isLogin: false,
   userId: 0,
   loginHandler() {
@@ -105,7 +148,7 @@ export const loginStore = create((set) => ({
     }));
   },
 }));
-export const userStore = create((set) => ({
+export const userStore = create<UserStore>((set) => ({
   email: '',
   profile: '',
   nickname: '',
@@ -124,7 +167,7 @@ export const userStore = create((set) => ({
   },
 }));
 
-export const signInModalStore = create((set) => ({
+export const signInModalStore = create<SignInModalStore>((set) => ({
   open: false,
   openModal() {
     set((state) => ({

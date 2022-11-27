@@ -2,7 +2,7 @@ import { Cookies } from 'react-cookie';
 const cookies = new Cookies();
 
 const cookieOption = {
-  sameSite: 'none',
+  // sameSite: 'none',
   secure: true,
   path: '/',
 };
