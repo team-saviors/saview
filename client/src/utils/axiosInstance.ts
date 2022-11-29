@@ -3,8 +3,7 @@ import { getAccessWithRefresh } from '../api/User';
 import { getAccessToken } from './cookies';
 
 const axiosInstance = axios.create({
-  // baseURL: process.env.REACT_APP_API_URL,
-  baseURL: 'https://saview.kro.kr',
+  baseURL: process.env.REACT_APP_API_URL,
   headers: {
     'Content-Type': 'application/json',
   },

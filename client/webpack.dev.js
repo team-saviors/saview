@@ -1,6 +1,9 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-module.exports = {
+const webpack = require('webpack'); // only add this if you don't have yet
+require('dotenv').config({ path: './.env.development' });
+
+module.exports = (env) => ({
   mode: 'development',
   entry: './src/index.tsx',
   devtool: 'inline-source-map',
@@ -33,5 +36,10 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
-  plugins: [new HtmlWebpackPlugin({ title: 'Development' })],
-};
+  plugins: [
+    new HtmlWebpackPlugin({ title: 'Development' }),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env),
+    }),
+  ],
+});

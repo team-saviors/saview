@@ -4,8 +4,8 @@
   "description": "",
   "private": true,
   "scripts": {
-    "serve": "webpack-dev-server --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js"
+    "serve": "NODE_ENV=development webpack-dev-server --config webpack.dev.js",
+    "build": "NODE_ENV=production webpack --config webpack.prod.js"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +23,7 @@
     "@types/react-dom": "^18.0.9",
     "@types/uuid": "^8.3.4",
     "axios": "^0.27.2",
+    "dotenv": "^16.0.3",
     "react": "^18.2.0",
     "react-avatar-editor": "^13.0.0",
     "react-aws-s3": "^1.5.0",
