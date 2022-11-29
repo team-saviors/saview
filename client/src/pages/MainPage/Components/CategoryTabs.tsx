@@ -29,12 +29,7 @@ export default function CategoryTabs({
       <Box>
         <TabsWrapper>
           {Tabs.map((tab, idx) => (
-            <Tab
-              onClick={handleClick}
-              active={activeCategoryTabs === idx}
-              id={idx}
-              key={idx}
-            >
+            <Tab onClick={handleClick} key={idx}>
               {tab}
             </Tab>
           ))}
@@ -47,7 +42,6 @@ const TabsWrapper = styled.div``;
 const Tab = styled.span`
   margin-right: 20px;
   cursor: pointer;
-  color: ${(props) => (props.active ? '#3C5A92' : 'gray')};
   &:hover {
     color: black;
   }

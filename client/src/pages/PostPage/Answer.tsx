@@ -37,7 +37,7 @@ export default function Answer(props) {
   const handleClose = async (e) => {
     if (e.target.value === '삭제') {
       await deleteAnswer(answerId);
-      await getQuestion(params.id, props.page, props.sort);
+      await getQuestion(Number(params.id), props.page, props.sort);
     }
     setOpen(false);
   };
@@ -47,7 +47,7 @@ export default function Answer(props) {
   const handleClickVotes = async (answerId, votes) => {
     try {
       await updateAnswerVotes(answerId, votes);
-      await getQuestion(params.id, props.page, props.sort);
+      await getQuestion(Number(params.id), props.page, props.sort);
     } catch (err) {
       if (err.message === '403') {
         openModal();
@@ -57,7 +57,7 @@ export default function Answer(props) {
   const commentSubmit = async (data) => {
     try {
       const res = await postComment(answerId, data);
-      await getQuestion(params.id, props.page, props.sort);
+      await getQuestion(Number(params.id), props.page, props.sort);
       reset();
     } catch (err) {
       if (err.message === '403') {
@@ -67,7 +67,7 @@ export default function Answer(props) {
   };
   const hanleDelComment = async (commentId) => {
     await deleteComment(commentId);
-    await getQuestion(params.id, props.page, props.sort);
+    await getQuestion(Number(params.id), props.page, props.sort);
   };
   const handleSelectEdit = async (Id) => {
     await setSelectedComment(Id);
@@ -91,7 +91,7 @@ export default function Answer(props) {
           marginBottom: '10px',
         }}
       >
-        <AvatarWrapper src={user.profile}></AvatarWrapper>
+        <AvatarWrapper src={user.profile} size={40}></AvatarWrapper>
         <span style={{ fontSize: '20px' }}>{user.nickname}</span>
         <span style={{ margin: '0 20px 0 20px', fontSize: '20px' }}>
           {ISOHandler(createdAt)}
@@ -156,7 +156,10 @@ export default function Answer(props) {
             >
               <CommentWrapper>
                 <CommentUser>
-                  <AvatarWrapper src={comment.user.profile}></AvatarWrapper>
+                  <AvatarWrapper
+                    src={comment.user.profile}
+                    size={40}
+                  ></AvatarWrapper>
                   <Typography
                     variant="body2"
                     color="black"

@@ -23,7 +23,7 @@ const Pagination = ({ page, setPage, totalPages }) => {
         onChange={(e) => setPage(parseInt(e.target.value))}
       >
         {Array(totalPages)
-          .fill()
+          .fill(0)
           .map((data, idx) => (
             <option value={idx + 1} key={idx + 1}>
               {idx + 1}

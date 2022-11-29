@@ -68,7 +68,7 @@ const AnswerModal = ({ getQuestion, question, sort, page }) => {
                   id="content"
                   required
                   name="content"
-                  rows="10"
+                  rows={10}
                   placeholder="질문과 관련된 답변을 구체적으로 작성해 주세요. 타인에 비방이나 욕설, 광고 등 주제와 관련없는 내용은 삭제될 수 있습니다."
                   {...register('content')}
                 />

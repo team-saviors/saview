@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button';
 import DialogActions from '@mui/material/DialogActions';
-
+import { Dialog, DialogTitle } from '@mui/material';
 export default function LogoutAlert({ open, onClose }) {
   return (
     <div>

@@ -1,4 +1,12 @@
-import { DialogActions, DialogContent } from '@mui/material';
+import {
+  DialogActions,
+  DialogContent,
+  Dialog,
+  DialogTitle,
+  Stack,
+  Input,
+  Button,
+} from '@mui/material';
 import Slider from '@mui/material/Slider';
 import { useCallback, useRef, useState } from 'react';
 import AvatarEditor from 'react-avatar-editor';
@@ -9,12 +17,12 @@ import { userStore } from '../../../store/store';
 import { getUserId } from '../../../utils/cookies';
 
 const ProfileModal = ({ open, handleClose }) => {
-  const [previewImage, setPreviewImage] = useState('');
+  const [previewImage, setPreviewImage] = useState<string>('');
   const [fileData, setFileData] = useState({});
   const { nickname, getUser } = userStore();
   const [croppedImage, setCroppedImage] = useState('');
   const avatarEditorRef = useRef(null);
-  const [blob, setBlob] = useState('');
+  const [blob, setBlob] = useState<File>();
   const [ImageSize, setImageSize] = useState(20);
   const config = {
     bucketName: 'saview-dev',
@@ -32,7 +40,9 @@ const ProfileModal = ({ open, handleClose }) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.addEventListener('load', () => {
-      setPreviewImage(reader.result);
+      if (typeof reader.result === 'string') {
+        setPreviewImage(reader.result);
+      }
     });
 
     if (file.size >= 1 * 1024 * 1024) {
@@ -72,14 +82,13 @@ const ProfileModal = ({ open, handleClose }) => {
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>새 프로필 이미지</DialogTitle>
       <DialogContent>
-        <Stack direcion="column" spacing={3}>
+        <Stack direction="column" spacing={3}>
           <Input
             type="file"
             onChange={handleChange}
             inputProps={{
               accept: 'image/jpeg, image/jpg, image/png, image/svg',
             }}
-            label="변경할 프로필 이미지 선택"
           />
           {previewImage && (
             <div>
@@ -92,7 +101,6 @@ const ProfileModal = ({ open, handleClose }) => {
               />
             </div>
           )}
-
           <div style={{ display: 'flex', alignItems: 'center' }}>
             {previewImage && (
               <AvatarEditor

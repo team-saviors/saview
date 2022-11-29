@@ -44,25 +44,15 @@ export default function UserTab({ menu, setMenu }) {
     >
       <Box>
         <Tabs>
-          <Tab onClick={handleClick} active={menu === '회원정보'} id="회원정보">
+          <Tab onClick={handleClick} id="회원정보">
             회원정보
           </Tab>
           {params.id === getUserId() ? (
             <>
-              <Tab
-                component={Link}
-                onClick={handleClick}
-                active={menu === '내 계정'}
-                id="내 계정"
-                title="내 정보 수정"
-              >
+              <Tab onClick={handleClick} id="내 계정" title="내 정보 수정">
                 내 계정
               </Tab>
-              <Tab
-                onClick={(e) => handleClick(e)}
-                active={menu === '회원탈퇴'}
-                id="회원탈퇴"
-              >
+              <Tab onClick={(e) => handleClick(e)} id="회원탈퇴">
                 회원탈퇴
               </Tab>
             </>
@@ -84,7 +74,6 @@ const Tab = styled.span`
   margin-right: 20px;
   margin-top: 20px;
   cursor: pointer;
-  color: ${(props) => (props.active ? 'skyblue' : 'gray')};
   &:hover {
     color: black;
   }

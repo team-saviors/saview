@@ -2,7 +2,9 @@ import Box from '@mui/material/Box';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { signInModalStore } from '../../../store/store';
-
+import { Modal } from '@mui/material';
+import SignIn from '../SignIn';
+import SignUp from '../SignUp';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -39,7 +41,7 @@ function SignInModal() {
             <SignupTab onClick={() => setOpenSignIn(false)}>회원가입</SignupTab>
           </TabBox>
 
-          {openSignIn > 0 ? (
+          {openSignIn ? (
             <SignIn onClose={handleClose} />
           ) : (
             <SignUp onClose={handleClose} />

@@ -33,7 +33,7 @@ const CommentEditForm = ({
   const commentEditSubmit = async (data) => {
     await putComment(data);
     await setSelectedComment(undefined);
-    await getQuestion(params.id, page, sort);
+    await getQuestion(Number(params.id), page, sort);
   };
   const commentError = () => {};
   const handleCancel = async () => {

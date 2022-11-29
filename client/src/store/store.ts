@@ -40,6 +40,7 @@ export const questionStore = create<QuestionStore>((set) => ({
   },
 }));
 interface Question {
+  questionId: number;
   answers: {
     data: [
       {
@@ -74,6 +75,8 @@ interface Question {
     status: string;
   };
   views: number;
+  totalPages: number;
+  content: string;
 }
 export const answerStore = create<AnswerStore>((set, get) => ({
   question: <Question>{},

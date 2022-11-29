@@ -15,7 +15,7 @@ const PostPage = () => {
     setSort(e.target.value);
   };
   useEffect(() => {
-    getQuestion(params.id, page, sort);
+    getQuestion(Number(params.id), page, sort);
   }, [sort, page]);
   useEffect(() => {
     document.title = question.content;

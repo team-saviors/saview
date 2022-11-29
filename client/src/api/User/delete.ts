@@ -1,6 +1,6 @@
 import axiosInstance from '../../utils/axiosInstance';
 
-export async function deleteUser(nickname, profile) {
+export async function deleteUser() {
   try {
     const res = await axiosInstance.delete('/users/delete');
     alert('삭제되었습니다');

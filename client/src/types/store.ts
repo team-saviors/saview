@@ -35,6 +35,8 @@ export interface PageInfo {
 
 export interface AnswerStore {
   question: {
+    questionId: number;
+    content: string;
     answers: {
       data: [
         {
@@ -69,6 +71,7 @@ export interface AnswerStore {
       status: string;
     };
     views: number;
+    totalPages: number;
   };
   getQuestion: (questionId: number, page: number, sort: string) => void;
 }

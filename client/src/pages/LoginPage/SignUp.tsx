@@ -148,13 +148,13 @@ export default function SignUp({ onClose }) {
                 justifyContent: 'center',
               }}
             >
-              <Box style={style}>
+              <Box sx={style}>
                 <FcGoogle size="50"></FcGoogle>
               </Box>
-              <Box style={style}>
+              <Box sx={style}>
                 <GitHub style={{ width: '50px', height: '50px' }} />
               </Box>
-              <Box style={{ ...style }}>
+              <Box sx={style}>
                 <FacebookIcon
                   style={{
                     width: '50px',

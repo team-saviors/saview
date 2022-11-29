@@ -10,6 +10,7 @@ import { getUserId } from '../../utils/cookies';
 import AnswerComment from './Components/AnswerComment';
 import BasicTabs from './Components/BasicTabs';
 import UserPageAvatarWrapper from './Components/UserPageAvatarWrapper';
+
 const UserInfoPage = () => {
   const params = useParams();
   const [tab, setTab] = useState('answers');
@@ -54,7 +55,6 @@ const UserInfoPage = () => {
             ) : (
               <div>작성글이 없습니다</div>
             )}
-            <AnswerComment></AnswerComment>
           </AnswerCommentWrapper>
           {data?.data?.myPosts && (
             <Pagination

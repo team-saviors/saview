@@ -15,14 +15,10 @@ export default function BasicTabs({ setTab }) {
     <Box sx={{ width: '100%' }}>
       <Box>
         <Tabs>
-          <Tab onClick={handleClick} active={active === 'answers'} id="answers">
+          <Tab onClick={handleClick} id="answers">
             내 답변
           </Tab>
-          <Tab
-            onClick={handleClick}
-            active={active === 'comments'}
-            id="comments"
-          >
+          <Tab onClick={handleClick} id="comments">
             내댓글
           </Tab>
         </Tabs>
@@ -34,7 +30,6 @@ const Tabs = styled.div``;
 const Tab = styled.span`
   margin-right: 20px;
   cursor: pointer;
-  color: ${(props) => (props.active ? 'skyblue' : 'gray')};
   &:hover {
     color: black;
   }

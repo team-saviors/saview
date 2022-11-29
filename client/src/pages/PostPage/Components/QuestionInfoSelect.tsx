@@ -18,19 +18,19 @@ const QuestionInfoSelect = () => {
   const subChange = () => {
     switch (questions.mainCategory) {
       case '프론트엔드':
-        return categoryData[1].item[0].map((data, idx) => (
+        return FEStacks.map((data, idx) => (
           <MenuItem value={data} key={idx}>
             {data}
           </MenuItem>
         ));
       case '백엔드':
-        return categoryData[1].item[1].map((data, idx) => (
+        return BEStacks.map((data, idx) => (
           <MenuItem value={data} key={idx}>
             {data}
           </MenuItem>
         ));
       case 'CS':
-        return categoryData[1].item[2].map((data, idx) => (
+        return CS.map((data, idx) => (
           <MenuItem value={data} key={idx}>
             {data}
           </MenuItem>

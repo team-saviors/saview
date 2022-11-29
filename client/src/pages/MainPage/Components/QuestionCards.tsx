@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import { useQuestionStore } from '../../../store/store';
+import { questionStore } from '../../../store/store';
 import QuestionCard from './QuestionCard';
 const CardWrapper = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ const QuestionCards = ({
   setSubCategory,
   sort,
 }) => {
-  const { questions, getQuestions } = useQuestionStore();
+  const { questions, getQuestions } = questionStore();
 
   useEffect(() => {
     if (tab === 0) {
@@ -40,7 +40,13 @@ const QuestionCards = ({
   }, [tab]);
 
   useEffect(() => {
-    getQuestions(page, mainCategory, subCategory, sort);
+    const question = {
+      page: page,
+      mainCategory: mainCategory,
+      subCategory: subCategory,
+      sort: sort,
+    };
+    getQuestions(question);
   }, [page, mainCategory, subCategory, sort]);
 
   return (

@@ -1,3 +1,5 @@
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
@@ -65,7 +67,6 @@ const Carousel = () => {
         {banners.map((banner, idx) => {
           return (
             <Indicator
-              active={currentSlide === idx}
               key={idx}
               onClick={() => setCurrentSlide(idx)}
             ></Indicator>
@@ -84,7 +85,6 @@ export default Carousel;
 const Indicator = styled.div`
   border-radius: 50%;
   background: #fff;
-  opacity: ${(props) => (props.active ? 1 : 0.5)};
   position: relative;
   top: 0;
   cursor: pointer;

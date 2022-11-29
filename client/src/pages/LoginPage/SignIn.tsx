@@ -1,14 +1,22 @@
-import Box from '@mui/material/Box';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Grid from '@mui/material/Grid';
-import { createTheme } from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
+import FacebookIcon from '@mui/icons-material/Facebook';
 import { useForm } from 'react-hook-form';
 import { postSignIn } from '../../api/User';
 import { loginStore } from '../../store/store';
 import { getUserId } from '../../utils/cookies';
-
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { FcGoogle } from 'react-icons/fc';
+import { GitHub } from '@mui/icons-material';
+import {
+  Box,
+  Button,
+  Checkbox,
+  Container,
+  CssBaseline,
+  Link,
+  Grid,
+  FormControlLabel,
+  TextField,
+} from '@mui/material';
 const theme = createTheme();
 const style = {
   border: '1px solid #D9E4EC',
@@ -109,13 +117,13 @@ export default function SignIn({ onClose }) {
                 justifyContent: 'center',
               }}
             >
-              <Box style={style}>
+              <Box sx={style}>
                 <FcGoogle size="50"></FcGoogle>
               </Box>
-              <Box style={style}>
+              <Box sx={style}>
                 <GitHub style={{ width: '50px', height: '50px' }} />
               </Box>
-              <Box style={{ ...style }}>
+              <Box sx={style}>
                 <FacebookIcon
                   style={{
                     width: '50px',

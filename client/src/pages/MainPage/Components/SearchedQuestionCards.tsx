@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import { useQuestionStore } from '../../../store/store';
+import { questionStore } from '../../../store/store';
 import QuestionCard from './QuestionCard';
 
 const SearchedQuestionCards = ({ page, data, sort }) => {
-  const { questions, getQuestionsBySearch } = useQuestionStore();
+  const { questions, getQuestionsBySearch } = questionStore();
 
   useEffect(() => {
-    getQuestionsBySearch(page, data, sort);
+    const obj = { searchPage: page, data: data, sort: sort };
+    getQuestionsBySearch(obj);
   }, [page, data, sort]);
 
   return (

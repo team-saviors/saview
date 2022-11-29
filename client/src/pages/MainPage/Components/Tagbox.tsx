@@ -75,11 +75,7 @@ const Tagbox = ({
       <TagButtons role="tabpanel">
         {Boxes(tab).array.map((stack, idx) => {
           return (
-            <TagButton
-              onClick={() => handleClick(stack, idx)}
-              active={activeTagbox === idx ? 1 : 0}
-              key={stack}
-            >
+            <TagButton onClick={() => handleClick(stack, idx)} key={stack}>
               {stack}
             </TagButton>
           );
@@ -113,7 +109,7 @@ const TagButton = styled(Button)`
   padding: 20px;
   font-family: 'Noto Sans KR', sans-serif;
   box-shadow: rgb(0 0 0 / 15%) 0px 2px 6px;
-  background-color: ${(props) => (props.active ? '#B8E8FC' : 'white')};
+
   transition: 0.2s;
 `;
 

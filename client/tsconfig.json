@@ -14,7 +14,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true, //json파일도 import 가능
     "isolatedModules": true, //소스코드를 반드시 작성해야됨
-    // "noEmit": true, //js파일 안만듬
+    "noEmit": false, //js파일 안만듬
     "jsx": "react-jsx",
     // "incremental": true,
     "outDir": "./dist",

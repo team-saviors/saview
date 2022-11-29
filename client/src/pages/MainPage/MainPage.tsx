@@ -3,13 +3,12 @@ import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import Pagination from '../../components/Pagination';
 import SearchForm from '../../components/SearchForm';
-import { useQuestionStore } from '../../store/store';
-import Carousel from './Components/Carousel';
+import { questionStore } from '../../store/store';
 import EmployAnnouncement from './Components/EmployAnnouncement';
 import QuestionCards from './Components/QuestionCards';
 import SearchedQuestionCards from './Components/SearchedQuestionCards';
 import Tagbox from './Components/Tagbox';
-import React from 'react';
+import Carousel from './Components/Carousel';
 const Mainpage = () => {
   const [tab, setTab] = useState(0);
   const [mainCategory, setMainCategory] = useState('all');
@@ -18,7 +17,7 @@ const Mainpage = () => {
   const [sort, setSort] = useState('createdAt');
   const [data, setData] = useState('');
   const [onSearch, setOnSearch] = useState(false);
-  const { questions } = useQuestionStore();
+  const { questions } = questionStore();
   const handleChange = (e: SelectChangeEvent) => {
     e.preventDefault();
     const target = e.target as HTMLSelectElement;
