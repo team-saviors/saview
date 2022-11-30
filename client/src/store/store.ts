@@ -165,7 +165,7 @@ export const userStore = create<UserStore>((set) => ({
       }));
     } catch (err) {
       alert(err);
-      throw new Error(err);
+      console.error(err);
     }
   },
 }));

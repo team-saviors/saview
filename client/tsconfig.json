@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true, // js를 ts에서 import 가능
     "checkJs": true, // 일반 js 파일에서도 에러체크 여부
@@ -10,16 +10,13 @@
     // "strict": true,
     "forceConsistentCasingInFileNames": true, // 같은 파일의 참조를 일관되게 하지 않을경우 에러
     "noFallthroughCasesInSwitch": true,
-    "module": "CommonJS",
+    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true, //json파일도 import 가능
     "isolatedModules": true, //소스코드를 반드시 작성해야됨
-    "noEmit": false, //js파일 안만듬
-    "jsx": "react-jsx",
+    "noEmit": true, //js파일 안만듬
+    "jsx": "react-jsx"
     // "incremental": true,
-    "outDir": "./dist",
-    "sourceMap": true
   },
-  "include": ["./src/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["src"]
 }

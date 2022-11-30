@@ -5,7 +5,9 @@ import App from './App';
 import GlobalStyle from './assets/styles/GlobalStyle';
 import { StyledEngineProvider } from '@mui/styled-engine';
 import ScrollToTop from './utils/ScrollToTop';
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
 
 root.render(
   <BrowserRouter>

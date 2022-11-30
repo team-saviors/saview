@@ -21,6 +21,6 @@ export async function postLogout() {
     alert('로그아웃 되었습니다');
   } catch (err: any) {
     alert(err.response.data.message);
-    throw new Error(err.response.data.status);
+    console.error(err);
   }
 }

@@ -1,4 +1,4 @@
-const convertIdxToTimeKey = (idx) => {
+const convertIdxToTimeKey = (idx: number) => {
   switch (idx) {
     case 0:
       return '년';
@@ -15,12 +15,14 @@ const convertIdxToTimeKey = (idx) => {
   }
 };
 
-export const ISOHandler = (ISO) => {
+export const ISOHandler = (ISO: string) => {
   return ISO.split('T').join(' ').substr(0, 19);
 };
 
-export const timeConverter = (dateTime) => {
-  const timePicker = (timeArray) => {
+export const timeConverter = (dateTime: {
+  split: (arg0: string) => [any, any];
+}) => {
+  const timePicker = (timeArray: string | any[]) => {
     for (let i = 0; i < timeArray.length - 1; i++) {
       if (timeArray[i] > 0) {
         return { value: timeArray[i], key: convertIdxToTimeKey(i) };
@@ -31,8 +33,8 @@ export const timeConverter = (dateTime) => {
   };
   const [date, time] = dateTime.split('T');
 
-  const [year, month, day] = date.split('-').map((e) => Number(e));
-  const [hour, minute, second] = time.split(':').map((e) => Number(e));
+  const [year, month, day] = date.split('-').map((e: any) => Number(e));
+  const [hour, minute, second] = time.split(':').map((e: any) => Number(e));
 
   const createdAt = new Date(year, month - 1, day, hour, minute, second || 0);
 
